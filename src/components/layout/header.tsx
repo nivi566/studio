@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -10,6 +11,7 @@ import { Logo } from '@/components/icons/logo';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
+  { href: '/', label: 'Inicio' },
   { href: '/#services', label: 'Servicios' },
   { href: '/#how-it-works', label: 'Cómo funciona' },
   { href: '/#ai-optimizer', label: 'Optimizador IA' },
@@ -19,11 +21,18 @@ const navLinks = [
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const pathname = usePathname();
 
   const isAnchorLink = (href: string) => href.startsWith('/#');
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (isAnchorLink(href)) {
+      // If we are not on the home page, we need to navigate there first
+      if (pathname !== '/') {
+        // The browser will handle the navigation and then the scroll
+        return;
+      }
+
       e.preventDefault();
       const targetId = href.substring(2);
       const targetElement = document.getElementById(targetId);
