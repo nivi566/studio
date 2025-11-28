@@ -14,13 +14,10 @@ export function Logo({ className }: { className?: string }) {
         strokeLinejoin="round"
         className="h-7 w-7 text-primary"
       >
-        <path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11" />
-        <path d="M14 9h7l-2 5h-5Z" />
-        <path d="M10 6H8" />
-        <path d="M12 6h-1" />
-        <path d="m19 14 2.5 2.5-2.5 2.5" />
-        <path d="M14 19h-1" />
-        <path d="M10 19H8" />
+        <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v2" />
+        <path d="M21 14v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6" />
+        <path d="m3.3 9 8.7 5 8.7-5" />
+        <path d="M12 22V14" />
       </svg>
       <span className="text-xl font-bold tracking-tight">SwiftSend</span>
     </Link>
