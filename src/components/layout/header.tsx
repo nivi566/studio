@@ -10,14 +10,30 @@ import { Logo } from '@/components/icons/logo';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { href: '#services', label: 'Servicios' },
-  { href: '#how-it-works', label: 'Cómo funciona' },
-  { href: '#ai-optimizer', label: 'Optimizador IA' },
-  { href: '#testimonials', label: 'Testimonios' },
+  { href: '/#services', label: 'Servicios' },
+  { href: '/#how-it-works', label: 'Cómo funciona' },
+  { href: '/#ai-optimizer', label: 'Optimizador IA' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/#testimonials', label: 'Testimonios' },
 ];
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const isAnchorLink = (href: string) => href.startsWith('/#');
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (isAnchorLink(href)) {
+      e.preventDefault();
+      const targetId = href.substring(2);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    setIsMenuOpen(false);
+  };
+
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -31,6 +47,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
+              onClick={(e) => handleClick(e, link.href)}
               className="font-medium text-foreground/60 transition-colors hover:text-foreground/80"
             >
               {link.label}
@@ -67,7 +84,7 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       className="text-lg font-medium text-foreground"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={(e) => handleClick(e, link.href)}
                     >
                       {link.label}
                     </Link>
