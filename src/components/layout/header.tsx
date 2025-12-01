@@ -65,10 +65,12 @@ export function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2">
-          <Button variant="ghost" className="hidden sm:inline-flex">
-            Iniciar Sesión
+          <Button variant="ghost" className="hidden sm:inline-flex" asChild>
+            <Link href="/login">Iniciar Sesión</Link>
           </Button>
-          <Button>Registrarse</Button>
+          <Button asChild>
+            <Link href="/register">Registrarse</Link>
+          </Button>
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
