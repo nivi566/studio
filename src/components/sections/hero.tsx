@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
@@ -7,6 +11,30 @@ import { Label } from '@/components/ui/label';
 
 export function Hero() {
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-truck');
+  const router = useRouter();
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
+  const [weight, setWeight] = useState('');
+  const [dimensions, setDimensions] = useState('');
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    // Store data in sessionStorage to pass to the other component
+    sessionStorage.setItem('heroFormData', JSON.stringify({
+      origin,
+      destination,
+      packageWeight: weight,
+      packageDimensions: dimensions
+    }));
+
+    // Navigate to the optimizer section
+    const optimizerElement = document.getElementById('ai-optimizer');
+    if (optimizerElement) {
+        optimizerElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
 
   return (
     <section className="relative h-[80vh] min-h-[600px] w-full flex items-center justify-center text-white">
@@ -40,23 +68,23 @@ export function Hero() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={handleSubmit}>
                 <div className="space-y-2">
-                  <Label htmlFor="origin">Origen</Label>
-                  <Input id="origin" placeholder="Código postal o ciudad" />
+                  <Label htmlFor="origin-hero">Origen</Label>
+                  <Input id="origin-hero" placeholder="Código postal o ciudad" value={origin} onChange={(e) => setOrigin(e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="destination">Destino</Label>
-                  <Input id="destination" placeholder="Código postal o ciudad" />
+                  <Label htmlFor="destination-hero">Destino</Label>
+                  <Input id="destination-hero" placeholder="Código postal o ciudad" value={destination} onChange={(e) => setDestination(e.target.value)} />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="weight">Peso (kg)</Label>
-                    <Input id="weight" type="number" placeholder="Ej: 5" />
+                    <Label htmlFor="weight-hero">Peso (kg)</Label>
+                    <Input id="weight-hero" type="number" placeholder="Ej: 5" value={weight} onChange={(e) => setWeight(e.target.value)} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="dimensions">Dimensiones (cm)</Label>
-                    <Input id="dimensions" placeholder="Ej: 30x20x10" />
+                    <Label htmlFor="dimensions-hero">Dimensiones (cm)</Label>
+                    <Input id="dimensions-hero" placeholder="Ej: 30x20x10" value={dimensions} onChange={(e) => setDimensions(e.target.value)} />
                   </div>
                 </div>
                 <Button type="submit" className="w-full" size="lg" style={{backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))'}}>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RouteOptimizationFormSchema, type RouteOptimizationFormValues } from '@/lib/types';
@@ -33,6 +33,26 @@ export function RouteOptimizer() {
       trafficIncidents: 'Ninguno',
     },
   });
+
+  useEffect(() => {
+    try {
+      const savedData = sessionStorage.getItem('heroFormData');
+      if (savedData) {
+        const { origin, destination, packageWeight, packageDimensions } = JSON.parse(savedData);
+        form.setValue('origin', origin || '');
+        form.setValue('destination', destination || '');
+        if (packageWeight) {
+          form.setValue('packageWeight', Number(packageWeight));
+        }
+        form.setValue('packageDimensions', packageDimensions || '');
+
+        // Clean up the stored data
+        sessionStorage.removeItem('heroFormData');
+      }
+    } catch (error) {
+      console.error("Could not parse hero form data from sessionStorage", error);
+    }
+  }, [form]);
 
   async function onSubmit(values: RouteOptimizationFormValues) {
     setIsLoading(true);
