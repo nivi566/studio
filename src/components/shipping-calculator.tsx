@@ -38,6 +38,15 @@ const dimensionsSchema = z.object({
 
 type FormValues = z.infer<typeof weightSchema> | z.infer<typeof dimensionsSchema>;
 
+const defaultFormValues = {
+  origin: '',
+  destination: '',
+  weight: undefined,
+  length: undefined,
+  width: undefined,
+  height: undefined,
+};
+
 export function ShippingCalculator() {
   const [calculationType, setCalculationType] = useState('weight');
   const [shippingCost, setShippingCost] = useState<number | null>(null);
@@ -46,10 +55,7 @@ export function ShippingCalculator() {
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      origin: '',
-      destination: '',
-    },
+    defaultValues: defaultFormValues,
   });
 
   const onSubmit = (values: FormValues) => {
@@ -58,7 +64,7 @@ export function ShippingCalculator() {
 
     if ('weight' in values && values.weight) {
       // Cálculo por peso volumétrico
-      const volumetricWeight = (values.length ?? 10 * (values.width ?? 10) * (values.height ?? 10)) / 5000;
+      const volumetricWeight = ((values.length ?? 10) * (values.width ?? 10) * (values.height ?? 10)) / 5000;
       const chargeableWeight = Math.max(values.weight, volumetricWeight);
       cost += chargeableWeight * 0.8;
     } else if ('length' in values && values.length && values.width && values.height) {
@@ -75,7 +81,7 @@ export function ShippingCalculator() {
   
   const handleTabChange = (value: string) => {
     setCalculationType(value);
-    form.reset();
+    form.reset(defaultFormValues);
     setShippingCost(null);
   }
 
@@ -136,7 +142,7 @@ export function ShippingCalculator() {
                     <FormItem>
                       <FormLabel>Peso (kg)</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="Ej: 5.5" {...field} />
+                        <Input type="number" placeholder="Ej: 5.5" {...field} value={field.value ?? ''} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -152,7 +158,7 @@ export function ShippingCalculator() {
                       <FormItem>
                         <FormLabel>Largo (cm)</FormLabel>
                         <FormControl>
-                          <Input type="number" placeholder="cm" {...field} />
+                          <Input type="number" placeholder="cm" {...field} value={field.value ?? ''} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -165,7 +171,7 @@ export function ShippingCalculator() {
                       <FormItem>
                         <FormLabel>Ancho (cm)</FormLabel>
                         <FormControl>
-                          <Input type="number" placeholder="cm" {...field} />
+                          <Input type="number" placeholder="cm" {...field} value={field.value ?? ''} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -178,7 +184,7 @@ export function ShippingCalculator() {
                       <FormItem>
                         <FormLabel>Alto (cm)</FormLabel>
                         <FormControl>
-                          <Input type="number" placeholder="cm" {...field} />
+                          <Input type="number" placeholder="cm" {...field} value={field.value ?? ''} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
