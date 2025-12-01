@@ -1,5 +1,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck } from 'lucide-react';
+import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose
+} from "@/components/ui/dialog"
+import { Button } from '@/components/ui/button';
 
 const services = [
   {
@@ -11,11 +21,6 @@ const services = [
     icon: DollarSign,
     title: 'Envíos Económicos',
     description: 'La opción más rentable para tus envíos no urgentes, con la misma seguridad y fiabilidad.',
-  },
-  {
-    icon: Warehouse,
-    title: 'Logística Integral',
-    description: 'Soluciones completas de almacenaje, preparación de pedidos (picking) y distribución para tu e-commerce.',
   },
   {
     icon: Smartphone,
@@ -33,6 +38,12 @@ const services = [
     description: 'Todos nuestros envíos incluyen un seguro básico y la garantía de entrega en perfectas condiciones.',
   },
 ];
+
+const integralLogisticsService = {
+  icon: Warehouse,
+  title: 'Logística Integral',
+  description: 'Soluciones completas de almacenaje, preparación de pedidos (picking) y distribución para tu e-commerce.',
+};
 
 export function Services() {
   return (
@@ -61,6 +72,53 @@ export function Services() {
               </CardContent>
             </Card>
           ))}
+          <Dialog>
+            <DialogTrigger asChild>
+               <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                <CardHeader className="items-center">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <integralLogisticsService.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle className="mt-4">{integralLogisticsService.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{integralLogisticsService.description}</p>
+                </CardContent>
+              </Card>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <Warehouse className="h-6 w-6 text-primary" />
+                  Logística Integral para E-commerce
+                </DialogTitle>
+                <DialogDescription>
+                  Una solución completa para que puedas centrarte en vender, mientras nosotros nos encargamos del resto.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-4 space-y-4 text-sm text-muted-foreground">
+                <p>Nuestra solución de logística integral está diseñada para e-commerce y empresas que buscan externalizar sus operaciones de almacenaje, preparación y envío.</p>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-3">
+                    <Package className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Almacenaje flexible:</span> Guarda tu stock en nuestros almacenes seguros y optimizados.</div>
+                  </li>
+                   <li className="flex items-start gap-3">
+                    <ShoppingCart className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Picking y Packing:</span> Preparamos tus pedidos con precisión y los empaquetamos profesionalmente para proteger tus productos.</div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Ship className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Distribución nacional e internacional:</span> Nos encargamos de la entrega final a tus clientes con nuestras tarifas competitivas.</div>
+                  </li>
+                </ul>
+                <p>Integramos nuestra plataforma con tu tienda online para automatizar todo el proceso. ¡Ideal para escalar tu negocio sin preocuparte por la logística!</p>
+              </div>
+               <DialogClose asChild>
+                <Button type="button" variant="secondary">Cerrar</Button>
+              </DialogClose>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </section>
