@@ -13,7 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { DatePicker } from '@/components/ui/date-picker';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Loader2, AlertCircle, Route, Clock, Droplets, Car, BarChart, Sparkles, MapPin, Gauge } from 'lucide-react';
+import { Loader2, AlertCircle, Route, Clock, Droplets, Gauge, Sparkles, MapPin, BarChart } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
 
@@ -39,12 +39,10 @@ export function RouteOptimizer() {
       const savedData = sessionStorage.getItem('heroFormData');
       if (savedData) {
         const { origin, destination, packageWeight, packageDimensions } = JSON.parse(savedData);
-        form.setValue('origin', origin || '');
-        form.setValue('destination', destination || '');
-        if (packageWeight) {
-          form.setValue('packageWeight', Number(packageWeight));
-        }
-        form.setValue('packageDimensions', packageDimensions || '');
+        if (origin) form.setValue('origin', origin);
+        if (destination) form.setValue('destination', destination);
+        if (packageWeight) form.setValue('packageWeight', Number(packageWeight));
+        if (packageDimensions) form.setValue('packageDimensions', packageDimensions);
 
         // Clean up the stored data
         sessionStorage.removeItem('heroFormData');
