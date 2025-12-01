@@ -1,6 +1,6 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane, PiggyBank } from 'lucide-react';
+import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane, PiggyBank, MapPin } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -19,16 +19,17 @@ const services = [
     description: 'Entregas en tiempo récord para cuando no puedes esperar. Cobertura nacional garantizada.',
   },
   {
-    icon: Smartphone,
-    title: 'Seguimiento en Tiempo Real',
-    description: 'Controla la ubicación de tu paquete en cada momento, desde la recogida hasta la entrega final.',
-  },
-  {
     icon: ShieldCheck,
     title: 'Entregas Garantizadas',
     description: 'Todos nuestros envíos incluyen un seguro básico y la garantía de entrega en perfectas condiciones.',
   },
 ];
+
+const realTimeTrackingService = {
+  icon: Smartphone,
+  title: 'Seguimiento en Tiempo Real',
+  description: 'Controla la ubicación de tu paquete en cada momento, desde la recogida hasta la entrega final.',
+};
 
 const economicShipmentsService = {
   icon: DollarSign,
@@ -76,6 +77,53 @@ export function Services() {
               </CardContent>
             </Card>
           ))}
+           <Dialog>
+            <DialogTrigger asChild>
+               <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                <CardHeader className="items-center">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <realTimeTrackingService.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle className="mt-4">{realTimeTrackingService.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{realTimeTrackingService.description}</p>
+                </CardContent>
+              </Card>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <Smartphone className="h-6 w-6 text-primary" />
+                  Seguimiento en Tiempo Real
+                </DialogTitle>
+                <DialogDescription>
+                  Ten el control total sobre tu envío con nuestra tecnología de seguimiento avanzada.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-4 space-y-4 text-sm text-muted-foreground">
+                <p>Nuestra plataforma de seguimiento te ofrece tranquilidad al permitirte ver la ubicación exacta de tu paquete en cada etapa del viaje, desde cualquier dispositivo.</p>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-3">
+                    <MapPin className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Visualización en Mapa:</span> Observa el progreso de tu envío en un mapa interactivo y en tiempo real.</div>
+                  </li>
+                   <li className="flex items-start gap-3">
+                    <Package className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Actualizaciones de Estado:</span> Recibe notificaciones automáticas en cada punto clave: recogida, en tránsito, en reparto y entregado.</div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Globe className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Estimación de Entrega:</span> Accede a una ventana de tiempo de entrega estimada que se actualiza dinámicamente según las condiciones del tráfico y la ruta.</div>
+                  </li>
+                </ul>
+                <p>El seguimiento en tiempo real está incluido en todos nuestros servicios sin coste adicional.</p>
+              </div>
+               <DialogClose asChild>
+                <Button type="button" variant="secondary">Cerrar</Button>
+              </DialogClose>
+            </DialogContent>
+          </Dialog>
           <Dialog>
             <DialogTrigger asChild>
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
