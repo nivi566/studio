@@ -13,11 +13,10 @@ import { cn } from '@/lib/utils';
 const navLinks = [
   { href: '/', label: 'Inicio' },
   { href: '/#services', label: 'Servicios' },
-  { href: '/#how-it-works', label: 'Cómo funciona' },
+  { href: '/quienes-somos', label: 'Quiénes somos' },
   { href: '/puntos-de-recogida', label: 'Puntos de Recogida' },
   { href: '/blog', label: 'Blog' },
   { href: '/contacto', label: 'Contacto' },
-  { href: '/#testimonials', label: 'Testimonios' },
 ];
 
 export function Header() {

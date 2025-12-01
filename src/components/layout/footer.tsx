@@ -19,7 +19,7 @@ const footerLinks = {
     { label: 'Transporte Internacional', href: '#' },
   ],
   'Compañía': [
-    { label: 'Sobre nosotros', href: '#' },
+    { label: 'Quiénes somos', href: '/quienes-somos' },
     { label: 'Sedes', href: '#' },
     { label: 'Puntos de Recogida', href: '/puntos-de-recogida' },
     { label: 'Contacto', href: '/contacto' },

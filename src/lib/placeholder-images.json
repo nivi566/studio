@@ -51,8 +51,20 @@
     {
       "id": "blog-post-4",
       "description": "Electric delivery van for sustainable logistics blog post.",
-      "imageUrl": "https://images.unsplash.com/photo-1732193933897-97dd86c549a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxlbGVjdHJpYyUyMHZhbnxlbnwwfHx8fDE3NjQzNDM5MDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-173219333897-97dd86c549a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxlbGVjdHJpYyUyMHZhbnxlbnwwfHx8fDE3NjQzNDM5MDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "electric van"
+    },
+    {
+      "id": "about-us-hero",
+      "description": "A diverse team collaborating in a modern office.",
+      "imageUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtZWV0aW5nJTIwY29sbGFib3JhdGlvbnxlbnwwfHx8fDE3NjQyNTU2NzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "team collaboration"
+    },
+    {
+      "id": "about-us-values",
+      "description": "Close-up of a smiling logistics worker.",
+      "imageUrl": "https://images.unsplash.com/photo-1549575822-2193c7f9c8d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNXx8d2FyZWhvdXNlJTIwd29ya2VyfGVufDB8fHx8MTc2NDM0MzkzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "warehouse worker"
     }
   ]
 }
