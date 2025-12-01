@@ -4,7 +4,6 @@ import { Hero } from '@/components/sections/hero';
 import { Services } from '@/components/sections/services';
 import { HowItWorks } from '@/components/sections/how-it-works';
 import { Testimonials } from '@/components/sections/testimonials';
-import { RouteOptimizer } from '@/components/sections/route-optimizer';
 import { Blog } from '@/components/sections/blog';
 
 export default function Home() {
@@ -15,7 +14,6 @@ export default function Home() {
         <Hero />
         <Services />
         <HowItWorks />
-        <RouteOptimizer />
         <Blog />
         <Testimonials />
       </main>

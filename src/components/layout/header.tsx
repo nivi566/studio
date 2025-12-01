@@ -14,7 +14,6 @@ const navLinks = [
   { href: '/', label: 'Inicio' },
   { href: '/#services', label: 'Servicios' },
   { href: '/#how-it-works', label: 'Cómo funciona' },
-  { href: '/#ai-optimizer', label: 'Optimizador IA' },
   { href: '/blog', label: 'Blog' },
   { href: '/#testimonials', label: 'Testimonios' },
 ];
