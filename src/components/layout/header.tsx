@@ -16,6 +16,7 @@ const navLinks = [
   { href: '/#how-it-works', label: 'Cómo funciona' },
   { href: '/puntos-de-recogida', label: 'Puntos de Recogida' },
   { href: '/blog', label: 'Blog' },
+  { href: '/contacto', label: 'Contacto' },
   { href: '/#testimonials', label: 'Testimonios' },
 ];
 
