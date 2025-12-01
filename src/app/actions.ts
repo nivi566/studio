@@ -10,14 +10,20 @@ export async function getOptimizedRoute(input: RouteOptimizationInput): Promise<
   try {
     // Basic server-side validation can be added here if needed
     if (!input.origin || !input.destination) {
-      throw new Error("Origin and destination are required.");
+      return { data: null, error: "El origen y el destino son obligatorios." };
+    }
+    if (!input.packageWeight || input.packageWeight <= 0) {
+      return { data: null, error: "El peso del paquete debe ser un número positivo."};
+    }
+     if (!input.packageDimensions) {
+      return { data: null, error: "Las dimensiones del paquete son obligatorias."};
     }
     
     const result = await optimizeRouteAndGenerateETA(input);
     return { data: result, error: null };
   } catch (e) {
-    const error = e instanceof Error ? e.message : 'An unknown error occurred while optimizing the route.';
-    console.error("Route Optimization Error:", error);
+    console.error("Route Optimization Error:", e);
+    const error = e instanceof Error ? e.message : 'Ha ocurrido un error desconocido al optimizar la ruta.';
     return { data: null, error };
   }
 }

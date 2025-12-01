@@ -28,7 +28,7 @@ const RouteOptimizationOutputSchema = z.object({
   travelDistance: z.number().describe('The total travel distance in kilometers.'),
   estimatedFuelConsumption: z.number().describe('The estimated fuel consumption in liters.'),
   potentialDelays: z.string().optional().describe('Any potential delays and their estimated impact on the ETA.'),
-  routeEfficiencyScore: z.number().describe('A score between 0 and 1 representing the route efficiency, considering time, distance, and fuel consumption.'),
+  routeEfficiencyScore: z.number().min(0).max(1).describe('A score between 0 and 1 representing the route efficiency, considering time, distance, and fuel consumption.'),
 });
 export type RouteOptimizationOutput = z.infer<typeof RouteOptimizationOutputSchema>;
 
@@ -47,13 +47,15 @@ const prompt = ai.definePrompt({
   Package Weight: {{{packageWeight}}} kg
   Package Dimensions: {{{packageDimensions}}}
   Departure Time: {{{departureTime}}}
-  Weather Conditions: {{{weatherConditions}}}
-  Traffic Incidents: {{{trafficIncidents}}}
+  {{#if weatherConditions}}Weather Conditions: {{{weatherConditions}}}{{/if}}
+  {{#if trafficIncidents}}Traffic Incidents: {{{trafficIncidents}}}{{/if}}
 
   Consider factors such as distance, traffic, weather conditions, and potential delays to provide an accurate ETA. Also, estimate fuel consumption and provide a route efficiency score.
 
   Ensure that the optimized route is clearly described, and the estimated arrival time is formatted consistently. Clearly state the distance, fuel consumption, any potential delays, and the route efficiency score.
   
+  The route efficiency score must be a number between 0 and 1.
+
   Optimize the route to minimize delivery time and fuel consumption, ensuring the package arrives safely and on time.
   `, 
 });
