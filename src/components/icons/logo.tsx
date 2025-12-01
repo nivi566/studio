@@ -19,7 +19,7 @@ export function Logo({ className }: { className?: string }) {
         <path d="m3.3 9 8.7 5 8.7-5" />
         <path d="M12 22V14" />
       </svg>
-      <span className="text-xl font-bold tracking-tight">SwiftSend</span>
+      <span className="text-xl font-bold tracking-tight group-hover:text-background">SwiftSend</span>
     </Link>
   );
 }
