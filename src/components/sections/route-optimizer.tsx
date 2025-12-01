@@ -29,6 +29,7 @@ export function RouteOptimizer() {
       destination: '',
       packageWeight: 1,
       packageDimensions: '',
+      departureTime: new Date(),
       weatherConditions: 'Despejado',
       trafficIncidents: 'Ninguno',
     },
