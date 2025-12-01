@@ -18,12 +18,13 @@ const services = [
     title: 'Envíos Urgentes 24h',
     description: 'Entregas en tiempo récord para cuando no puedes esperar. Cobertura nacional garantizada.',
   },
-  {
-    icon: ShieldCheck,
-    title: 'Entregas Garantizadas',
-    description: 'Todos nuestros envíos incluyen un seguro básico y la garantía de entrega en perfectas condiciones.',
-  },
 ];
+
+const guaranteedDeliveriesService = {
+  icon: ShieldCheck,
+  title: 'Entregas Garantizadas',
+  description: 'Todos nuestros envíos incluyen un seguro básico y la garantía de entrega en perfectas condiciones.',
+};
 
 const realTimeTrackingService = {
   icon: Smartphone,
@@ -77,6 +78,53 @@ export function Services() {
               </CardContent>
             </Card>
           ))}
+           <Dialog>
+            <DialogTrigger asChild>
+               <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                <CardHeader className="items-center">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <guaranteedDeliveriesService.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle className="mt-4">{guaranteedDeliveriesService.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{guaranteedDeliveriesService.description}</p>
+                </CardContent>
+              </Card>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <ShieldCheck className="h-6 w-6 text-primary" />
+                  Entregas Garantizadas
+                </DialogTitle>
+                <DialogDescription>
+                  Tu tranquilidad es nuestra prioridad. Por eso, cada envío está protegido.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-4 space-y-4 text-sm text-muted-foreground">
+                <p>Entendemos la importancia de que tus paquetes lleguen en perfecto estado. Por ello, todos nuestros servicios incluyen garantías para proteger tu envío.</p>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-3">
+                    <Package className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Seguro Básico Incluido:</span> Cada envío cuenta con una cobertura básica contra pérdida o daño.</div>
+                  </li>
+                   <li className="flex items-start gap-3">
+                    <ShieldCheck className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Seguro Adicional:</span> Para artículos de alto valor, ofrecemos opciones de seguro ampliado para una protección total.</div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <MapPin className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Garantía de Entrega:</span> Nos comprometemos a cumplir los plazos de entrega estipulados para el servicio que elijas.</div>
+                  </li>
+                </ul>
+                <p>Envía con la confianza de que tu paquete está en las mejores manos y protegido ante cualquier imprevisto.</p>
+              </div>
+               <DialogClose asChild>
+                <Button type="button" variant="secondary">Cerrar</Button>
+              </DialogClose>
+            </DialogContent>
+          </Dialog>
            <Dialog>
             <DialogTrigger asChild>
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
