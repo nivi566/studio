@@ -1,5 +1,6 @@
+"use client";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart } from 'lucide-react';
+import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -28,11 +29,6 @@ const services = [
     description: 'Controla la ubicación de tu paquete en cada momento, desde la recogida hasta la entrega final.',
   },
   {
-    icon: Globe,
-    title: 'Transporte Internacional',
-    description: 'Conectamos tu negocio con el mundo a través de nuestra extensa red de transporte multimodal.',
-  },
-  {
     icon: ShieldCheck,
     title: 'Entregas Garantizadas',
     description: 'Todos nuestros envíos incluyen un seguro básico y la garantía de entrega en perfectas condiciones.',
@@ -44,6 +40,13 @@ const integralLogisticsService = {
   title: 'Logística Integral',
   description: 'Soluciones completas de almacenaje, preparación de pedidos (picking) y distribución para tu e-commerce.',
 };
+
+const internationalTransportService = {
+  icon: Globe,
+  title: 'Transporte Internacional',
+  description: 'Conectamos tu negocio con el mundo a través de nuestra extensa red de transporte multimodal.',
+};
+
 
 export function Services() {
   return (
@@ -113,6 +116,53 @@ export function Services() {
                   </li>
                 </ul>
                 <p>Integramos nuestra plataforma con tu tienda online para automatizar todo el proceso. ¡Ideal para escalar tu negocio sin preocuparte por la logística!</p>
+              </div>
+               <DialogClose asChild>
+                <Button type="button" variant="secondary">Cerrar</Button>
+              </DialogClose>
+            </DialogContent>
+          </Dialog>
+           <Dialog>
+            <DialogTrigger asChild>
+               <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                <CardHeader className="items-center">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <internationalTransportService.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle className="mt-4">{internationalTransportService.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{internationalTransportService.description}</p>
+                </CardContent>
+              </Card>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <Globe className="h-6 w-6 text-primary" />
+                  Transporte Internacional
+                </DialogTitle>
+                <DialogDescription>
+                  Llevamos tus envíos a cualquier rincón del mundo con la máxima eficiencia y seguridad.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-4 space-y-4 text-sm text-muted-foreground">
+                <p>Nuestra red global nos permite ofrecer soluciones de transporte internacional adaptadas a tus necesidades, combinando diferentes medios para optimizar tiempo y coste.</p>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-3">
+                    <Plane className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Transporte Aéreo:</span> La opción más rápida para envíos urgentes a cualquier destino internacional.</div>
+                  </li>
+                   <li className="flex items-start gap-3">
+                    <Ship className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Transporte Marítimo:</span> Ideal para grandes volúmenes y cargas no urgentes, ofreciendo la solución más económica.</div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Package className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Gestión Aduanera:</span> Nos encargamos de todos los trámites y documentación necesarios para un despacho de aduanas sin complicaciones.</div>
+                  </li>
+                </ul>
+                <p>Con nuestro seguimiento avanzado, siempre sabrás dónde está tu envío, desde la recogida hasta la entrega final en el país de destino.</p>
               </div>
                <DialogClose asChild>
                 <Button type="button" variant="secondary">Cerrar</Button>
