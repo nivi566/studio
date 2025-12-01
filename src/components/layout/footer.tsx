@@ -21,6 +21,7 @@ const footerLinks = {
   'Compañía': [
     { label: 'Sobre nosotros', href: '#' },
     { label: 'Sedes', href: '#' },
+    { label: 'Puntos de Recogida', href: '/puntos-de-recogida' },
     { label: 'Trabaja con nosotros', href: '#' },
     { label: 'Prensa', href: '#' },
   ],
