@@ -25,11 +25,11 @@ export function RouteOptimizer() {
   const form = useForm<RouteOptimizationFormValues>({
     resolver: zodResolver(RouteOptimizationFormSchema),
     defaultValues: {
+      departureTime: new Date(),
       origin: '',
       destination: '',
       packageWeight: 1,
       packageDimensions: '',
-      departureTime: new Date(),
       weatherConditions: 'Despejado',
       trafficIncidents: 'Ninguno',
     },
@@ -40,10 +40,17 @@ export function RouteOptimizer() {
       const savedData = sessionStorage.getItem('heroFormData');
       if (savedData) {
         const { origin, destination, packageWeight, packageDimensions } = JSON.parse(savedData);
-        if (origin) form.setValue('origin', origin);
-        if (destination) form.setValue('destination', destination);
-        if (packageWeight) form.setValue('packageWeight', Number(packageWeight));
-        if (packageDimensions) form.setValue('packageDimensions', packageDimensions);
+        
+        // Use reset to update all form values at once
+        form.reset({
+            origin: origin || '',
+            destination: destination || '',
+            packageWeight: packageWeight ? Number(packageWeight) : 1,
+            packageDimensions: packageDimensions || '',
+            departureTime: form.getValues('departureTime') || new Date(), // Keep existing date or set new one
+            weatherConditions: 'Despejado',
+            trafficIncidents: 'Ninguno'
+        });
 
         // Clean up the stored data
         sessionStorage.removeItem('heroFormData');
@@ -51,7 +58,9 @@ export function RouteOptimizer() {
     } catch (error) {
       console.error("Could not parse hero form data from sessionStorage", error);
     }
-  }, [form]);
+  // The dependency array is intentionally empty to only run this once on mount.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function onSubmit(values: RouteOptimizationFormValues) {
     setIsLoading(true);
