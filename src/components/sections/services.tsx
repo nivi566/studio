@@ -1,6 +1,6 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane, PiggyBank, MapPin } from 'lucide-react';
+import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane, PiggyBank, MapPin, Clock, Rocket } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -12,13 +12,11 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button';
 
-const services = [
-  {
-    icon: Zap,
-    title: 'Envíos Urgentes 24h',
-    description: 'Entregas en tiempo récord para cuando no puedes esperar. Cobertura nacional garantizada.',
-  },
-];
+const urgentShipmentsService = {
+  icon: Zap,
+  title: 'Envíos Urgentes 24h',
+  description: 'Entregas en tiempo récord para cuando no puedes esperar. Cobertura nacional garantizada.',
+};
 
 const guaranteedDeliveriesService = {
   icon: ShieldCheck,
@@ -65,19 +63,53 @@ export function Services() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
-              <CardHeader className="items-center">
-                <div className="bg-primary/10 p-3 rounded-full">
-                  <service.icon className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle className="mt-4">{service.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{service.description}</p>
-              </CardContent>
-            </Card>
-          ))}
+          <Dialog>
+            <DialogTrigger asChild>
+               <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                <CardHeader className="items-center">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <urgentShipmentsService.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle className="mt-4">{urgentShipmentsService.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{urgentShipmentsService.description}</p>
+                </CardContent>
+              </Card>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <Zap className="h-6 w-6 text-primary" />
+                  Envíos Urgentes 24h
+                </DialogTitle>
+                <DialogDescription>
+                  La solución más rápida para tus envíos más importantes.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-4 space-y-4 text-sm text-muted-foreground">
+                <p>Cuando el tiempo apremia, nuestro servicio de Envíos Urgentes 24h es tu mejor aliado. Garantizamos la entrega de tu paquete en cualquier punto de la península en un plazo máximo de 24 horas laborables.</p>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-3">
+                    <Rocket className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Máxima Prioridad:</span> Tu envío es tratado con la máxima urgencia en todos nuestros procesos logísticos.</div>
+                  </li>
+                   <li className="flex items-start gap-3">
+                    <Clock className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Entrega al Día Siguiente:</span> Recogemos tu paquete y lo entregamos a lo largo del siguiente día laborable.</div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <MapPin className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Seguimiento Detallado:</span> Incluye nuestro seguimiento en tiempo real para que no pierdas de vista tu envío ni un segundo.</div>
+                  </li>
+                </ul>
+                <p>Perfecto para documentos importantes, regalos de última hora o cualquier situación que requiera velocidad y fiabilidad.</p>
+              </div>
+               <DialogClose asChild>
+                <Button type="button" variant="secondary">Cerrar</Button>
+              </DialogClose>
+            </DialogContent>
+          </Dialog>
            <Dialog>
             <DialogTrigger asChild>
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
@@ -318,3 +350,5 @@ export function Services() {
     </section>
   );
 }
+
+    
