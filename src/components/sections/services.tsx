@@ -1,6 +1,6 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane } from 'lucide-react';
+import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane, PiggyBank } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -19,11 +19,6 @@ const services = [
     description: 'Entregas en tiempo récord para cuando no puedes esperar. Cobertura nacional garantizada.',
   },
   {
-    icon: DollarSign,
-    title: 'Envíos Económicos',
-    description: 'La opción más rentable para tus envíos no urgentes, con la misma seguridad y fiabilidad.',
-  },
-  {
     icon: Smartphone,
     title: 'Seguimiento en Tiempo Real',
     description: 'Controla la ubicación de tu paquete en cada momento, desde la recogida hasta la entrega final.',
@@ -34,6 +29,12 @@ const services = [
     description: 'Todos nuestros envíos incluyen un seguro básico y la garantía de entrega en perfectas condiciones.',
   },
 ];
+
+const economicShipmentsService = {
+  icon: DollarSign,
+  title: 'Envíos Económicos',
+  description: 'La opción más rentable para tus envíos no urgentes, con la misma seguridad y fiabilidad.',
+};
 
 const integralLogisticsService = {
   icon: Warehouse,
@@ -75,6 +76,53 @@ export function Services() {
               </CardContent>
             </Card>
           ))}
+          <Dialog>
+            <DialogTrigger asChild>
+               <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                <CardHeader className="items-center">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <economicShipmentsService.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle className="mt-4">{economicShipmentsService.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{economicShipmentsService.description}</p>
+                </CardContent>
+              </Card>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <DollarSign className="h-6 w-6 text-primary" />
+                  Envíos Económicos
+                </DialogTitle>
+                <DialogDescription>
+                  La opción perfecta para enviar sin prisas y al mejor precio, sin renunciar a la calidad y seguridad.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-4 space-y-4 text-sm text-muted-foreground">
+                <p>Nuestro servicio de envíos económicos está pensado para paquetes que no requieren una entrega inmediata, permitiéndote ahorrar significativamente en los costes de transporte.</p>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-3">
+                    <PiggyBank className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Precios competitivos:</span> Ofrecemos algunas de las tarifas más bajas del mercado para envíos estándar.</div>
+                  </li>
+                   <li className="flex items-start gap-3">
+                    <Package className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Fiabilidad garantizada:</span> Aunque sea económico, tu paquete es tratado con el máximo cuidado y cuenta con seguimiento.</div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Globe className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Amplia cobertura:</span> Disponible para una gran cantidad de destinos nacionales e internacionales.</div>
+                  </li>
+                </ul>
+                <p>Ideal para envíos personales, regalos o ventas de e-commerce donde el cliente prefiere un menor coste a una mayor velocidad.</p>
+              </div>
+               <DialogClose asChild>
+                <Button type="button" variant="secondary">Cerrar</Button>
+              </DialogClose>
+            </DialogContent>
+          </Dialog>
           <Dialog>
             <DialogTrigger asChild>
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
