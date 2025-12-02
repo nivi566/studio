@@ -1,57 +1,16 @@
 
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Phone, Mail, MapPin } from 'lucide-react';
-import { useToast } from "@/hooks/use-toast"
-
-const contactFormSchema = z.object({
-  name: z.string().min(2, { message: 'El nombre es requerido.' }),
-  email: z.string().email({ message: 'Por favor, introduce un email válido.' }),
-  subject: z.string().min(5, { message: 'El asunto debe tener al menos 5 caracteres.' }),
-  message: z.string().min(10, { message: 'El mensaje debe tener al menos 10 caracteres.' }),
-});
-
-type ContactFormValues = z.infer<typeof contactFormSchema>;
+import { Label } from '@/components/ui/label';
 
 export default function ContactPage() {
-    const { toast } = useToast()
-
-    const form = useForm<ContactFormValues>({
-        resolver: zodResolver(contactFormSchema),
-        defaultValues: {
-            name: '',
-            email: '',
-            subject: '',
-            message: '',
-        },
-    });
-
-    function onSubmit(data: ContactFormValues) {
-        console.log(data);
-        toast({
-          title: "¡Mensaje enviado!",
-          description: "Gracias por contactarnos. Te responderemos lo antes posible.",
-        })
-        form.reset();
-    }
-
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
@@ -86,7 +45,7 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <h3 className="font-semibold text-lg text-foreground">Email</h3>
-                                <p className="text-muted-foreground">info@swiftsend.com</p>
+                                <p className="text-muted-foreground">info@intrack.com</p>
                             </div>
                         </div>
                          <div className="flex items-start gap-4">
@@ -106,63 +65,25 @@ export default function ContactPage() {
                             <CardTitle className="text-2xl">Envíanos un mensaje</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <Form {...form}>
-                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                                    <FormField
-                                        control={form.control}
-                                        name="name"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Nombre</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="Tu nombre" {...field} />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="email"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Email</FormLabel>
-                                                <FormControl>
-                                                    <Input type="email" placeholder="tu@email.com" {...field} />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="subject"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Asunto</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="Asunto del mensaje" {...field} />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="message"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Mensaje</FormLabel>
-                                                <FormControl>
-                                                    <Textarea placeholder="Escribe tu mensaje aquí..." className="min-h-[120px]" {...field} />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <Button type="submit" className="w-full">Enviar Mensaje</Button>
-                                </form>
-                            </Form>
+                            <form action="https://formspree.io/f/xrbnkanl" method="POST" className="space-y-6">
+                                <div className="space-y-2">
+                                    <Label htmlFor="name">Nombre</Label>
+                                    <Input id="name" name="name" placeholder="Tu nombre" required />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="email">Email</Label>
+                                    <Input id="email" name="email" type="email" placeholder="tu@email.com" required />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="subject">Asunto</Label>
+                                    <Input id="subject" name="subject" placeholder="Asunto del mensaje" required />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="message">Mensaje</Label>
+                                    <Textarea id="message" name="message" placeholder="Escribe tu mensaje aquí..." className="min-h-[120px]" required />
+                                </div>
+                                <Button type="submit" className="w-full">Enviar Mensaje</Button>
+                            </form>
                         </CardContent>
                     </Card>
                 </div>

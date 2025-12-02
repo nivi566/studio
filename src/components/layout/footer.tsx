@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { Facebook, Twitter, Linkedin, Youtube } from 'lucide-react';
 import { Logo } from '@/components/icons/logo';
@@ -74,8 +75,8 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="font-semibold text-background">Suscríbete a nuestro boletín</h3>
             <p className="text-sm text-background/80">Recibe las últimas noticias y ofertas especiales directamente en tu bandeja de entrada.</p>
-            <form className="flex gap-2">
-              <Input type="email" placeholder="Tu email" className="bg-background/10 text-background border-background/20 placeholder:text-background/50" />
+            <form action="https://formspree.io/f/xrbnkanl" method="POST" className="flex gap-2">
+              <Input type="email" name="email" placeholder="Tu email" className="bg-background/10 text-background border-background/20 placeholder:text-background/50" required />
               <Button type="submit" variant="default">Suscribirse</Button>
             </form>
           </div>
