@@ -54,7 +54,7 @@ export default function AboutUsPage() {
                             Conectando tu mundo, un envío a la vez
                         </h1>
                         <p className="mt-4 max-w-3xl mx-auto text-lg sm:text-xl text-neutral-200">
-                            En SwiftSend, somos más que una empresa de logística. Somos un equipo apasionado por la innovación, la eficiencia y, sobre todo, por las personas.
+                            En InTrack, somos más que una empresa de logística. Somos un equipo apasionado por la innovación, la eficiencia y, sobre todo, por las personas.
                         </p>
                     </div>
                 </section>
@@ -68,7 +68,7 @@ export default function AboutUsPage() {
                                     Nuestra Historia
                                 </h2>
                                 <p className="mt-4 text-lg text-muted-foreground">
-                                    SwiftSend nació de una idea simple: hacer que la logística fuera más inteligente, rápida y accesible para todos. Fundada en 2020, en medio de un mundo en rápida transformación, vimos la necesidad de un socio logístico que no solo transportara paquetes, sino que también construyera puentes y facilitara oportunidades.
+                                    InTrack nació de una idea simple: hacer que la logística fuera más inteligente, rápida y accesible para todos. Fundada en 2020, en medio de un mundo en rápida transformación, vimos la necesidad de un socio logístico que no solo transportara paquetes, sino que también construyera puentes y facilitara oportunidades.
                                 </p>
                                 <p className="mt-4 text-muted-foreground">
                                     Comenzamos con una pequeña flota y un gran sueño. Hoy, gracias a nuestra apuesta por la tecnología de vanguardia y un equipo humano excepcional, hemos crecido hasta convertirnos en un referente en el sector, ofreciendo soluciones de envío nacionales e internacionales a miles de empresas y particulares.

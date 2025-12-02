@@ -82,7 +82,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-background/10 pt-8 text-center text-sm text-background/60">
-          <p>&copy; {new Date().getFullYear()} SwiftSend. Todos los derechos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} InTrack. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

@@ -9,7 +9,7 @@ const testimonials = [
     id: 1,
     name: 'Ana García',
     role: 'CEO, TechSolutions',
-    quote: 'La eficiencia y fiabilidad de SwiftSend han sido clave para la logística de nuestro e-commerce. ¡El seguimiento en tiempo real es fantástico!',
+    quote: 'La eficiencia y fiabilidad de InTrack han sido clave para la logística de nuestro e-commerce. ¡El seguimiento en tiempo real es fantástico!',
     avatarId: 'avatar1',
     rating: 5,
   },

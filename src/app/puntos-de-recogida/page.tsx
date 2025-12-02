@@ -71,7 +71,7 @@ export default function PickupPointsPage() {
                 Nuestros Puntos de Recogida
               </h1>
               <p className="mt-4 text-lg text-muted-foreground">
-                Encuentra tu punto SwiftSend más cercano. Recoge tus paquetes con comodidad en cualquiera de nuestras sedes en las capitales de provincia.
+                Encuentra tu punto InTrack más cercano. Recoge tus paquetes con comodidad en cualquiera de nuestras sedes en las capitales de provincia.
               </p>
             </div>
 

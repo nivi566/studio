@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'SwiftSend | Envíos rápidos, seguros y al mejor precio',
+  title: 'InTrack | Envíos rápidos, seguros y al mejor precio',
   description: 'Soluciones de paquetería nacional e internacional para empresas y particulares.',
 };
 

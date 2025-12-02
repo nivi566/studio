@@ -17,7 +17,7 @@ export default function BlogPage() {
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-                Blog de SwiftSend
+                Blog de InTrack
               </h1>
               <p className="mt-4 text-lg text-muted-foreground">
                 Noticias, novedades y curiosidades del sector de la logística y la paquetería.
