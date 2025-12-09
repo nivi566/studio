@@ -11,7 +11,7 @@ import { AlertCircle, Loader2, CheckCircle, Package, Truck, Warehouse } from 'lu
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { cn } from '@/lib/utils';
 
-type ShipmentStatus = 'Processant' | 'En magatzem' | 'Preparat per a l\'enviament' | 'En trànsit' | 'Lliurat';
+type ShipmentStatus = 'Procesando' | 'En almacén' | 'Preparado para envío' | 'En tránsito' | 'Entregado';
 
 type ShipmentData = {
   tracking_code: string;
@@ -23,18 +23,18 @@ type ShipmentData = {
 };
 
 const timelineSteps: { status: ShipmentStatus; icon: React.ElementType; label: string }[] = [
-  { status: 'Processant', icon: Warehouse, label: 'Processant' },
-  { status: 'Preparat per a l\'enviament', icon: Package, label: 'Preparat' },
-  { status: 'En trànsit', icon: Truck, label: 'En trànsit' },
-  { status: 'Lliurat', icon: CheckCircle, label: 'Lliurat' },
+  { status: 'Procesando', icon: Warehouse, label: 'Procesando' },
+  { status: 'Preparado para envío', icon: Package, label: 'Preparado' },
+  { status: 'En tránsito', icon: Truck, label: 'En tránsito' },
+  { status: 'Entregado', icon: CheckCircle, label: 'Entregado' },
 ];
 
 const statusColorMap: Record<ShipmentStatus, string> = {
-  'Processant': 'bg-yellow-500',
-  'Preparat per a l\'enviament': 'bg-orange-500',
-  'En trànsit': 'bg-blue-500',
-  'Lliurat': 'bg-green-500',
-  'En magatzem': 'bg-yellow-500', // Asumiendo que 'En magatzem' usa el mismo color que 'Processant'
+  'Procesando': 'bg-yellow-500',
+  'En almacén': 'bg-yellow-500', 
+  'Preparado para envío': 'bg-orange-500',
+  'En tránsito': 'bg-blue-500',
+  'Entregado': 'bg-green-500',
 };
 
 
@@ -59,16 +59,16 @@ export default function TrackingPage() {
       if (data.length > 0) {
         setShipment(data[0]);
       } else {
-        setError('Codi no trobat. Si us plau, verifica el codi i torna a intentar-ho.');
+        setError('Código no encontrado. Por favor, verifica el código y vuelve a intentarlo.');
       }
     } catch (err) {
-      setError('Hi ha hagut un problema en connectar amb el servidor. Intenta-ho de nou més tard.');
+      setError('Ha habido un problema al conectar con el servidor. Inténtalo de nuevo más tarde.');
     } finally {
       setIsLoading(false);
     }
   };
   
-  const currentStatusIndex = shipment ? timelineSteps.findIndex(step => step.status === shipment.status) : -1;
+  const currentStatusIndex = shipment ? timelineSteps.findIndex(step => step.status === shipment.status || (shipment.status === 'En almacén' && step.status === 'Procesando') ) : -1;
 
 
   return (
@@ -79,10 +79,10 @@ export default function TrackingPage() {
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-                Localitza el teu enviament
+                Localiza tu envío
               </h1>
               <p className="mt-4 text-lg text-muted-foreground">
-                Introdueix el teu codi de seguiment per veure l'estat actual del teu paquet.
+                Introduce tu código de seguimiento para ver el estado actual de tu paquete.
               </p>
             </div>
 
@@ -93,17 +93,17 @@ export default function TrackingPage() {
                     type="text"
                     value={trackingCode}
                     onChange={(e) => setTrackingCode(e.target.value)}
-                    placeholder="Escriu el codi de seguiment"
+                    placeholder="Escribe el código de seguimiento"
                     className="flex-grow text-base"
-                    aria-label="Codi de seguiment"
+                    aria-label="Código de seguimiento"
                   />
                   <Button type="submit" disabled={isLoading} className="sm:w-auto w-full">
                     {isLoading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Cercant...
+                        Buscando...
                       </>
-                    ) : 'Cercar'}
+                    ) : 'Buscar'}
                   </Button>
                 </form>
               </CardContent>
@@ -121,8 +121,8 @@ export default function TrackingPage() {
             {shipment && (
               <Card className="max-w-3xl mx-auto mt-12 shadow-lg">
                 <CardHeader>
-                  <CardTitle className="text-2xl">Resultats del teu enviament</CardTitle>
-                  <p className="text-muted-foreground">Codi: <span className="font-mono text-primary">{shipment.tracking_code}</span></p>
+                  <CardTitle className="text-2xl">Resultados de tu envío</CardTitle>
+                  <p className="text-muted-foreground">Código: <span className="font-mono text-primary">{shipment.tracking_code}</span></p>
                 </CardHeader>
                 <CardContent className="space-y-8">
                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
@@ -131,21 +131,21 @@ export default function TrackingPage() {
                           <p className="text-lg font-semibold text-foreground">{shipment.origen}</p>
                       </div>
                       <div>
-                          <p className="font-medium text-muted-foreground">Destí</p>
+                          <p className="font-medium text-muted-foreground">Destino</p>
                           <p className="text-lg font-semibold text-foreground">{shipment.destination}</p>
                       </div>
                       <div>
-                          <p className="font-medium text-muted-foreground">Data prevista (ETA)</p>
+                          <p className="font-medium text-muted-foreground">Fecha prevista (ETA)</p>
                           <p className="text-lg font-semibold text-foreground">{shipment.eta}</p>
                       </div>
                       <div>
-                          <p className="font-medium text-muted-foreground">Ubicació actual</p>
+                          <p className="font-medium text-muted-foreground">Ubicación actual</p>
                           <p className="text-lg font-semibold text-foreground">{shipment.location}</p>
                       </div>
                   </div>
 
                   <div>
-                     <p className="font-medium text-muted-foreground mb-4">Estat de l'enviament</p>
+                     <p className="font-medium text-muted-foreground mb-4">Estado del envío</p>
                      <div className="flex items-center">
                         {timelineSteps.map((step, index) => {
                             const isActive = currentStatusIndex >= index;
@@ -163,7 +163,7 @@ export default function TrackingPage() {
                                             <step.icon className={cn("w-5 h-5", isActive ? 'text-white' : 'text-muted-foreground')} />
                                         </div>
                                         <p className={cn(
-                                            "mt-2 text-xs font-semibold",
+                                            "mt-2 text-xs font-semibold text-center",
                                             isActive ? 'text-foreground' : 'text-muted-foreground'
                                         )}>{step.label}</p>
                                     </div>
