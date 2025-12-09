@@ -6,8 +6,10 @@ import { Footer } from '@/components/layout/footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { AlertCircle, Loader2 } from 'lucide-react';
+import { AlertCircle, Loader2, PackageCheck, Truck, Warehouse } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Progress } from '@/components/ui/progress';
+import { cn } from '@/lib/utils';
 
 type ShipmentData = {
   tracking_code: string;
@@ -15,8 +17,16 @@ type ShipmentData = {
   destination: string;
   eta: string;
   location: string;
-  status: string;
+  status: 'En magatzem' | 'En trànsit' | 'Lliurat';
 };
+
+const statusConfig = {
+  'En magatzem': { progress: 10, color: 'bg-blue-500', icon: Warehouse },
+  'En trànsit': { progress: 50, color: 'bg-blue-500', icon: Truck },
+  'Lliurat': { progress: 100, color: 'bg-green-500', icon: PackageCheck },
+};
+
+const timelineSteps: (keyof typeof statusConfig)[] = ['En magatzem', 'En trànsit', 'Lliurat'];
 
 export default function TrackingPage() {
   const [trackingCode, setTrackingCode] = useState('');
@@ -36,7 +46,7 @@ export default function TrackingPage() {
       const response = await fetch(`https://sheetdb.io/api/v1/r7rclmv3hog7m/search?tracking_code=${trackingCode}`);
       const data: ShipmentData[] = await response.json();
 
-      if (data.length > 0) {
+      if (data.length > 0 && Object.keys(statusConfig).includes(data[0].status)) {
         setShipment(data[0]);
       } else {
         setError('Codi no trobat. Si us plau, verifica el codi i torna a intentar-ho.');
@@ -47,6 +57,8 @@ export default function TrackingPage() {
       setIsLoading(false);
     }
   };
+  
+  const currentStatusIndex = shipment ? timelineSteps.indexOf(shipment.status) : -1;
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -101,29 +113,47 @@ export default function TrackingPage() {
                   <CardTitle className="text-2xl">Resultats del teu enviament</CardTitle>
                   <p className="text-muted-foreground">Codi: <span className="font-mono text-primary">{shipment.tracking_code}</span></p>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <CardContent className="space-y-8">
+                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
                       <div>
-                          <p className="text-sm font-medium text-muted-foreground">Origen</p>
+                          <p className="font-medium text-muted-foreground">Origen</p>
                           <p className="text-lg font-semibold text-foreground">{shipment.origen}</p>
                       </div>
                       <div>
-                          <p className="text-sm font-medium text-muted-foreground">Destí</p>
+                          <p className="font-medium text-muted-foreground">Destí</p>
                           <p className="text-lg font-semibold text-foreground">{shipment.destination}</p>
                       </div>
                       <div>
-                          <p className="text-sm font-medium text-muted-foreground">Data prevista (ETA)</p>
+                          <p className="font-medium text-muted-foreground">Data prevista (ETA)</p>
                           <p className="text-lg font-semibold text-foreground">{shipment.eta}</p>
                       </div>
                       <div>
-                          <p className="text-sm font-medium text-muted-foreground">Ubicació actual</p>
+                          <p className="font-medium text-muted-foreground">Ubicació actual</p>
                           <p className="text-lg font-semibold text-foreground">{shipment.location}</p>
                       </div>
-                       <div>
-                          <p className="text-sm font-medium text-muted-foreground">Estat</p>
-                          <p className="text-lg font-bold text-primary">{shipment.status}</p>
-                      </div>
                   </div>
+                  
+                  <div className="space-y-4">
+                    <p className="font-medium text-muted-foreground">Estat de l'enviament</p>
+                    <div>
+                        <Progress value={statusConfig[shipment.status].progress} className="h-2 [&>div]:bg-primary" />
+                         <div className="mt-4 grid grid-cols-3 gap-4 text-center text-xs">
+                          {timelineSteps.map((step, index) => {
+                             const Icon = statusConfig[step].icon;
+                             const isCompleted = currentStatusIndex >= index;
+                            return (
+                              <div key={step} className={cn("flex flex-col items-center gap-1", isCompleted ? 'text-primary' : 'text-muted-foreground')}>
+                                <div className={cn("w-8 h-8 rounded-full flex items-center justify-center", isCompleted ? 'bg-primary text-primary-foreground' : 'bg-muted')}>
+                                    <Icon className="w-5 h-5" />
+                                </div>
+                                <span>{step}</span>
+                              </div>
+                            )
+                          })}
+                        </div>
+                    </div>
+                  </div>
+
                 </CardContent>
               </Card>
             )}
