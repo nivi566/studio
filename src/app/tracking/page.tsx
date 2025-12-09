@@ -14,10 +14,10 @@ type ShippingStatus = 'En magatzem' | 'En trànsit' | 'Lliurat';
 
 type ShipmentData = {
   tracking_code: string;
-  origin: string;
+  origen: string;
   destination: string;
   eta: string;
-  current_location: string;
+  location: string;
   status: ShippingStatus;
 };
 
@@ -131,7 +131,7 @@ export default function TrackingPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
                       <div>
                           <p className="text-sm font-medium text-muted-foreground">Origen</p>
-                          <p className="text-lg font-semibold text-foreground">{shipment.origin}</p>
+                          <p className="text-lg font-semibold text-foreground">{shipment.origen}</p>
                       </div>
                       <div>
                           <p className="text-sm font-medium text-muted-foreground">Destí</p>
@@ -161,7 +161,7 @@ export default function TrackingPage() {
                       </div>
                       <div>
                           <h4 className="font-semibold text-foreground">Ubicació actual</h4>
-                          <p className="text-muted-foreground">{shipment.current_location}</p>
+                          <p className="text-muted-foreground">{shipment.location}</p>
                       </div>
                        <div className="ml-auto text-right">
                           <h4 className="font-semibold text-foreground">Estat</h4>
