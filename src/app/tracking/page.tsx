@@ -22,12 +22,21 @@ type ShipmentData = {
   status: ShipmentStatus;
 };
 
-const timelineSteps: { status: ShipmentStatus; icon: React.ElementType; color: string; label: string }[] = [
-  { status: 'Processant', icon: Warehouse, color: 'bg-yellow-500', label: 'Processant' },
-  { status: 'Preparat per a l\'enviament', icon: Package, color: 'bg-orange-500', label: 'Preparat' },
-  { status: 'En trànsit', icon: Truck, color: 'bg-blue-500', label: 'En trànsit' },
-  { status: 'Lliurat', icon: CheckCircle, color: 'bg-green-500', label: 'Lliurat' },
+const timelineSteps: { status: ShipmentStatus; icon: React.ElementType; label: string }[] = [
+  { status: 'Processant', icon: Warehouse, label: 'Processant' },
+  { status: 'Preparat per a l\'enviament', icon: Package, label: 'Preparat' },
+  { status: 'En trànsit', icon: Truck, label: 'En trànsit' },
+  { status: 'Lliurat', icon: CheckCircle, label: 'Lliurat' },
 ];
+
+const statusColorMap: Record<ShipmentStatus, string> = {
+  'Processant': 'bg-yellow-500',
+  'Preparat per a l\'enviament': 'bg-orange-500',
+  'En trànsit': 'bg-blue-500',
+  'Lliurat': 'bg-green-500',
+  'En magatzem': 'bg-yellow-500', // Asumiendo que 'En magatzem' usa el mismo color que 'Processant'
+};
+
 
 export default function TrackingPage() {
   const [trackingCode, setTrackingCode] = useState('');
@@ -141,13 +150,14 @@ export default function TrackingPage() {
                         {timelineSteps.map((step, index) => {
                             const isActive = currentStatusIndex >= index;
                             const isCurrent = currentStatusIndex === index;
+                            const colorClass = statusColorMap[step.status] || 'bg-muted';
                             
                             return (
                                 <React.Fragment key={step.status}>
                                     <div className="flex flex-col items-center">
                                         <div className={cn(
                                             "w-10 h-10 rounded-full flex items-center justify-center border-4 transition-all duration-300",
-                                            isActive ? `border-transparent ${step.color}` : 'bg-muted border-muted-foreground/30',
+                                            isActive ? `border-transparent ${colorClass}` : 'bg-muted border-muted-foreground/30',
                                             isCurrent ? 'scale-110' : ''
                                         )}>
                                             <step.icon className={cn("w-5 h-5", isActive ? 'text-white' : 'text-muted-foreground')} />
@@ -161,7 +171,7 @@ export default function TrackingPage() {
                                     {index < timelineSteps.length - 1 && (
                                          <div className={cn(
                                             "flex-1 h-1 mx-2 transition-colors duration-300",
-                                            currentStatusIndex > index ? step.color : 'bg-muted'
+                                            currentStatusIndex > index ? colorClass : 'bg-muted'
                                          )}></div>
                                     )}
                                 </React.Fragment>
