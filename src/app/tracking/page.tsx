@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -6,8 +7,11 @@ import { Footer } from '@/components/layout/footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { AlertCircle, Loader2 } from 'lucide-react';
+import { AlertCircle, Loader2, CheckCircle, Package, Truck, Warehouse } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { cn } from '@/lib/utils';
+
+type ShipmentStatus = 'Processant' | 'En magatzem' | 'Preparat per a l\'enviament' | 'En trànsit' | 'Lliurat';
 
 type ShipmentData = {
   tracking_code: string;
@@ -15,8 +19,15 @@ type ShipmentData = {
   destination: string;
   eta: string;
   location: string;
-  status: 'En magatzem' | 'En trànsit' | 'Lliurat';
+  status: ShipmentStatus;
 };
+
+const timelineSteps: { status: ShipmentStatus; icon: React.ElementType; color: string; label: string }[] = [
+  { status: 'Processant', icon: Warehouse, color: 'bg-yellow-500', label: 'Processant' },
+  { status: 'Preparat per a l\'enviament', icon: Package, color: 'bg-orange-500', label: 'Preparat' },
+  { status: 'En trànsit', icon: Truck, color: 'bg-blue-500', label: 'En trànsit' },
+  { status: 'Lliurat', icon: CheckCircle, color: 'bg-green-500', label: 'Lliurat' },
+];
 
 export default function TrackingPage() {
   const [trackingCode, setTrackingCode] = useState('');
@@ -47,6 +58,9 @@ export default function TrackingPage() {
       setIsLoading(false);
     }
   };
+  
+  const currentStatusIndex = shipment ? timelineSteps.findIndex(step => step.status === shipment.status) : -1;
+
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -101,7 +115,7 @@ export default function TrackingPage() {
                   <CardTitle className="text-2xl">Resultats del teu enviament</CardTitle>
                   <p className="text-muted-foreground">Codi: <span className="font-mono text-primary">{shipment.tracking_code}</span></p>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-8">
                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
                       <div>
                           <p className="font-medium text-muted-foreground">Origen</p>
@@ -119,11 +133,43 @@ export default function TrackingPage() {
                           <p className="font-medium text-muted-foreground">Ubicació actual</p>
                           <p className="text-lg font-semibold text-foreground">{shipment.location}</p>
                       </div>
-                       <div>
-                          <p className="font-medium text-muted-foreground">Estat</p>
-                          <p className="text-lg font-semibold text-foreground">{shipment.status}</p>
-                      </div>
                   </div>
+
+                  <div>
+                     <p className="font-medium text-muted-foreground mb-4">Estat de l'enviament</p>
+                     <div className="flex items-center">
+                        {timelineSteps.map((step, index) => {
+                            const isActive = currentStatusIndex >= index;
+                            const isCurrent = currentStatusIndex === index;
+                            
+                            return (
+                                <React.Fragment key={step.status}>
+                                    <div className="flex flex-col items-center">
+                                        <div className={cn(
+                                            "w-10 h-10 rounded-full flex items-center justify-center border-4 transition-all duration-300",
+                                            isActive ? `border-transparent ${step.color}` : 'bg-muted border-muted-foreground/30',
+                                            isCurrent ? 'scale-110' : ''
+                                        )}>
+                                            <step.icon className={cn("w-5 h-5", isActive ? 'text-white' : 'text-muted-foreground')} />
+                                        </div>
+                                        <p className={cn(
+                                            "mt-2 text-xs font-semibold",
+                                            isActive ? 'text-foreground' : 'text-muted-foreground'
+                                        )}>{step.label}</p>
+                                    </div>
+
+                                    {index < timelineSteps.length - 1 && (
+                                         <div className={cn(
+                                            "flex-1 h-1 mx-2 transition-colors duration-300",
+                                            currentStatusIndex > index ? step.color : 'bg-muted'
+                                         )}></div>
+                                    )}
+                                </React.Fragment>
+                            );
+                        })}
+                     </div>
+                  </div>
+
                 </CardContent>
               </Card>
             )}
