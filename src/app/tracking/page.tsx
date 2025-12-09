@@ -6,11 +6,8 @@ import { Footer } from '@/components/layout/footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { AlertCircle, Loader2, MapPin, Package, Ship, Warehouse } from 'lucide-react';
+import { AlertCircle, Loader2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-
-type ShippingStatus = 'En magatzem' | 'En trànsit' | 'Lliurat';
 
 type ShipmentData = {
   tracking_code: string;
@@ -18,28 +15,7 @@ type ShipmentData = {
   destination: string;
   eta: string;
   location: string;
-  status: ShippingStatus;
-};
-
-const statusConfig = {
-  'En magatzem': {
-    progress: 10,
-    color: 'bg-yellow-500',
-    icon: Warehouse,
-    label: 'En Magatzem'
-  },
-  'En trànsit': {
-    progress: 50,
-    color: 'bg-blue-500',
-    icon: Ship,
-    label: 'En Trànsit'
-  },
-  'Lliurat': {
-    progress: 100,
-    color: 'bg-green-500',
-    icon: Package,
-    label: 'Lliurat'
-  },
+  status: string;
 };
 
 export default function TrackingPage() {
@@ -71,8 +47,6 @@ export default function TrackingPage() {
       setIsLoading(false);
     }
   };
-  
-  const currentStatusConfig = shipment ? statusConfig[shipment.status] : null;
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -121,14 +95,14 @@ export default function TrackingPage() {
               </Alert>
             )}
 
-            {shipment && currentStatusConfig && (
+            {shipment && (
               <Card className="max-w-3xl mx-auto mt-12 shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-2xl">Resultats del teu enviament</CardTitle>
                   <p className="text-muted-foreground">Codi: <span className="font-mono text-primary">{shipment.tracking_code}</span></p>
                 </CardHeader>
-                <CardContent className="space-y-8">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                <CardContent className="space-y-6">
+                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div>
                           <p className="text-sm font-medium text-muted-foreground">Origen</p>
                           <p className="text-lg font-semibold text-foreground">{shipment.origen}</p>
@@ -141,31 +115,13 @@ export default function TrackingPage() {
                           <p className="text-sm font-medium text-muted-foreground">Data prevista (ETA)</p>
                           <p className="text-lg font-semibold text-foreground">{shipment.eta}</p>
                       </div>
-                  </div>
-
-                  <div>
-                     <h3 className="text-lg font-semibold text-foreground mb-4">Estat de l'enviament</h3>
-                     <div className="relative pt-8">
-                         <Progress value={currentStatusConfig.progress} className={`h-2 ${currentStatusConfig.color}`} />
-                         <div className="absolute top-0 w-full flex justify-between text-xs text-muted-foreground">
-                            <span className={shipment.status === 'En magatzem' || shipment.status === 'En trànsit' || shipment.status === 'Lliurat' ? 'text-primary font-semibold' : ''}>En Magatzem</span>
-                            <span className={shipment.status === 'En trànsit' || shipment.status === 'Lliurat' ? 'text-primary font-semibold' : ''}>En Trànsit</span>
-                            <span className={shipment.status === 'Lliurat' ? 'text-primary font-semibold' : ''}>Lliurat</span>
-                         </div>
-                     </div>
-                  </div>
-
-                  <div className="flex items-center gap-4 p-4 bg-secondary rounded-lg">
-                      <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
-                          <MapPin className="h-6 w-6 text-primary" />
-                      </div>
                       <div>
-                          <h4 className="font-semibold text-foreground">Ubicació actual</h4>
-                          <p className="text-muted-foreground">{shipment.location}</p>
+                          <p className="text-sm font-medium text-muted-foreground">Ubicació actual</p>
+                          <p className="text-lg font-semibold text-foreground">{shipment.location}</p>
                       </div>
-                       <div className="ml-auto text-right">
-                          <h4 className="font-semibold text-foreground">Estat</h4>
-                          <p className="font-bold text-primary">{currentStatusConfig.label}</p>
+                       <div>
+                          <p className="text-sm font-medium text-muted-foreground">Estat</p>
+                          <p className="text-lg font-bold text-primary">{shipment.status}</p>
                       </div>
                   </div>
                 </CardContent>
