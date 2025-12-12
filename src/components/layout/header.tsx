@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 
 const navLinks = [
   { href: '/', label: 'Inicio' },
+  { href: '/#services', label: 'Servicios' },
   { href: '/tracking', label: 'Seguir mi pedido' },
   { href: '/quienes-somos', label: 'Quiénes somos' },
   { href: '/puntos-de-recogida', label: 'Puntos de Recogida' },
