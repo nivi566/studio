@@ -7,4 +7,5 @@ export type BlogPost = {
   category: string;
   imageId: string;
   content: string;
+  localImage?: string;
 };

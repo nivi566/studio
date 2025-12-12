@@ -26,15 +26,18 @@ export default function BlogPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts.map((post) => {
-                const postImage = PlaceHolderImages.find(img => img.id === post.imageId);
+                const postImage = post.localImage ? null : PlaceHolderImages.find(img => img.id === post.imageId);
+                const imageUrl = post.localImage || postImage?.imageUrl;
+                const imageHint = post.localImage ? 'sustainability logistics' : postImage?.imageHint;
+                
                 return (
                   <Card key={post.slug} className="flex flex-col overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    {postImage && (
+                    {imageUrl && (
                       <Link href={`/blog/${post.slug}`} className="block">
                         <Image
-                          src={postImage.imageUrl}
+                          src={imageUrl}
                           alt={post.title}
-                          data-ai-hint={postImage.imageHint}
+                          data-ai-hint={imageHint}
                           width={600}
                           height={400}
                           className="w-full h-48 object-cover"

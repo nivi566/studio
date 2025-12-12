@@ -29,6 +29,7 @@ export const blogPosts: BlogPost[] = [
     author: 'Ana López',
     category: 'Sostenibilidad',
     imageId: 'blog-post-4',
+    localImage: '/sostenibilidad.png',
     content: `
       <p>La sostenibilidad se ha convertido en una prioridad para la industria logística. La presión de los consumidores, las regulaciones y la propia conciencia corporativa están impulsando a las empresas a adoptar prácticas más ecológicas. El objetivo es claro: reducir la huella de carbono y minimizar el impacto ambiental sin sacrificar la eficiencia.</p>
       <p>Desde la optimización de rutas para reducir el consumo de combustible hasta la adopción de flotas de vehículos eléctricos, las estrategias son variadas y efectivas.</p>

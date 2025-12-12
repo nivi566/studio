@@ -20,7 +20,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const postImage = PlaceHolderImages.find(img => img.id === post.imageId);
+  const postImage = post.localImage ? null : PlaceHolderImages.find(img => img.id === post.imageId);
+  const imageUrl = post.localImage || postImage?.imageUrl;
+  const imageHint = post.localImage ? 'sustainability logistics' : postImage?.imageHint;
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -46,12 +48,12 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
           </header>
           
-          {postImage && (
+          {imageUrl && (
             <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden mb-12 shadow-lg">
               <Image
-                src={postImage.imageUrl}
+                src={imageUrl}
                 alt={post.title}
-                data-ai-hint={postImage.imageHint}
+                data-ai-hint={imageHint}
                 fill
                 className="object-cover"
               />
