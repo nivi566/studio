@@ -25,8 +25,8 @@ import { Loader2, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const loginFormSchema = z.object({
-  email: z.string().email({ message: 'Por favor, introduce un email válido.' }),
-  password: z.string().min(1, { message: 'La contraseña es requerida.' }),
+  username: z.string().min(1, { message: 'El camp usuari és requerit.' }),
+  password: z.string().min(1, { message: 'La contrasenya és requerida.' }),
 });
 
 type LoginFormValues = z.infer<typeof loginFormSchema>;
@@ -40,7 +40,7 @@ export default function LoginPage() {
     const form = useForm<LoginFormValues>({
         resolver: zodResolver(loginFormSchema),
         defaultValues: {
-            email: '',
+            username: '',
             password: '',
         },
     });
@@ -49,7 +49,7 @@ export default function LoginPage() {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetch(`https://sheetdb.io/api/v1/qzvz5dqiomxdq/search?email=${encodeURIComponent(data.email)}`);
+            const response = await fetch(`https://sheetdb.io/api/v1/qzvz5dqiomxdq/search?usuario=${encodeURIComponent(data.username)}`);
             if (!response.ok) {
                 throw new Error('No se pudo conectar con el servicio de autenticación.');
             }
@@ -94,12 +94,12 @@ export default function LoginPage() {
                           )}
                           <FormField
                               control={form.control}
-                              name="email"
+                              name="username"
                               render={({ field }) => (
                                   <FormItem>
                                       <FormLabel>Usuario</FormLabel>
                                       <FormControl>
-                                          <Input type="email" placeholder="Usuario" {...field} />
+                                          <Input placeholder="Usuario" {...field} />
                                       </FormControl>
                                       <FormMessage />
                                   </FormItem>
