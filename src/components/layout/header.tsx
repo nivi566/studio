@@ -99,9 +99,11 @@ export function Header() {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">{user.username}</p>
-                    <p className="text-xs leading-none text-muted-foreground flex items-center gap-1">
-                      <Building className="w-3 h-3" /> {user.empresa}
-                    </p>
+                    {user.empresa && (
+                       <p className="text-xs leading-none text-muted-foreground flex items-center gap-1">
+                         <Building className="w-3 h-3" /> {user.empresa}
+                       </p>
+                    )}
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
@@ -112,7 +114,7 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button variant="ghost" className="hidden sm:inline-flex" asChild>
+            <Button variant="ghost" asChild>
               <Link href="/login">Iniciar Sesión</Link>
             </Button>
           )}

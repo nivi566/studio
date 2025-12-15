@@ -26,7 +26,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useAuth } from '@/context/AuthContext';
 
 const loginFormSchema = z.object({
-  username: z.string().min(1, { message: 'El camp usuari és requerit.' }),
+  usuario: z.string().min(1, { message: 'El camp usuari és requerit.' }),
   password: z.string().min(1, { message: 'La contrasenya és requerida.' }),
 });
 
@@ -42,7 +42,7 @@ export default function LoginPage() {
     const form = useForm<LoginFormValues>({
         resolver: zodResolver(loginFormSchema),
         defaultValues: {
-            username: '',
+            usuario: '',
             password: '',
         },
     });
@@ -51,7 +51,7 @@ export default function LoginPage() {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetch(`https://sheetdb.io/api/v1/qzvz5dqiomxdq/search?sheet=usuaris&usuario=${encodeURIComponent(data.username)}`);
+            const response = await fetch(`https://sheetdb.io/api/v1/qzvz5dqiomxdq/search?sheet=usuaris&usuario=${encodeURIComponent(data.usuario)}`);
             if (!response.ok) {
                 throw new Error('No se pudo conectar con el servicio de autenticación.');
             }
@@ -97,7 +97,7 @@ export default function LoginPage() {
                           )}
                           <FormField
                               control={form.control}
-                              name="username"
+                              name="usuario"
                               render={({ field }) => (
                                   <FormItem>
                                       <FormLabel>Usuario</FormLabel>
