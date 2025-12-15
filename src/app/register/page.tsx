@@ -55,12 +55,6 @@ export default function RegisterPage() {
           <Card className="w-full max-w-md mx-4">
               <CardHeader className="text-center">
                   <CardTitle className="text-2xl">Crear una cuenta</CardTitle>
-                   <CardDescription>
-                    ¿Ya tienes una cuenta?{' '}
-                    <Link href="/login" className="text-primary hover:underline">
-                        Inicia sesión aquí
-                    </Link>
-                  </CardDescription>
               </CardHeader>
               <CardContent>
                   <Form {...form}>
@@ -105,6 +99,12 @@ export default function RegisterPage() {
                               )}
                           />
                           <Button type="submit" className="w-full">Crear Cuenta</Button>
+                           <CardDescription className="text-center">
+                            ¿Ya tienes una cuenta?{' '}
+                            <Link href="/login" className="text-primary hover:underline">
+                                Inicia sesión aquí
+                            </Link>
+                          </CardDescription>
                       </form>
                   </Form>
               </CardContent>
