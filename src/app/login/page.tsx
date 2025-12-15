@@ -52,7 +52,7 @@ export default function LoginPage() {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetch(`https://sheetdb.io/api/v1/qzvz5dqiomxdq/search?sheet=usuaris&usuario=${encodeURIComponent(data.usuario)}`);
+            const response = await fetch(`https://sheetdb.io/api/v1/qzvz5dqiomxdq/search?sheets=usuaris&usuario=${encodeURIComponent(data.usuario)}`);
             if (!response.ok) {
                 throw new Error('No se pudo conectar con el servicio de autenticación.');
             }
