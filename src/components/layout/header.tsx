@@ -69,9 +69,6 @@ export function Header() {
           <Button variant="ghost" className="hidden sm:inline-flex" asChild>
             <Link href="/login">Iniciar Sesión</Link>
           </Button>
-          <Button asChild>
-            <Link href="/register">Registrarse</Link>
-          </Button>
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
