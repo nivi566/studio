@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Menu, X, User, LogOut, Building } from 'lucide-react';
+import { Menu, X, User, LogOut, Building, LayoutDashboard } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -82,6 +82,15 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+          {user && (
+             <Link
+              href="/dashboard"
+              onClick={(e) => handleClick(e, "/dashboard")}
+              className="font-medium text-foreground/60 transition-colors hover:text-foreground/80"
+            >
+              Dashboard
+            </Link>
+          )}
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2">
@@ -107,6 +116,10 @@ export function Header() {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                 <DropdownMenuItem onClick={() => router.push('/dashboard')} className="cursor-pointer">
+                  <LayoutDashboard className="mr-2 h-4 w-4" />
+                  <span>Dashboard</span>
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Tancar Sessió</span>
@@ -148,6 +161,15 @@ export function Header() {
                       {link.label}
                     </Link>
                   ))}
+                   {user && (
+                    <Link
+                      href="/dashboard"
+                      className="text-lg font-medium text-foreground"
+                      onClick={(e) => handleClick(e, "/dashboard")}
+                    >
+                      Dashboard
+                    </Link>
+                  )}
                 </nav>
                  <div className="mt-auto border-t pt-4">
                   {user ? (
