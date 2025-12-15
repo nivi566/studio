@@ -45,9 +45,10 @@ export default function DashboardPage() {
                  <p className="text-xl text-muted-foreground">
                     Benvingut de nou, <span className="font-bold text-primary">{user.username}</span>!
                  </p>
-                 <div>
+                 <div className='space-y-2'>
                     <h3 className="font-semibold text-lg text-foreground">Dades de l'empresa</h3>
                     <p className="text-muted-foreground">Empresa: {user.empresa}</p>
+                    <p className="text-muted-foreground">Rol: <span className="px-2 py-1 text-xs font-medium text-secondary-foreground bg-secondary rounded-full">{user.rol}</span></p>
                  </div>
 
                 <Button onClick={handleLogout} variant="destructive">

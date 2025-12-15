@@ -58,14 +58,14 @@ export default function LoginPage() {
             const users: any[] = await response.json();
 
             if (users.length > 0 && users[0].password === data.password) {
-                const user = { username: users[0].usuario, empresa: users[0].empresa };
+                const user = { username: users[0].usuario, empresa: users[0].empresa, rol: users[0].rol };
                 login(user);
                 toast({
                   title: "¡Sessió iniciada!",
                   description: `Benvingut de nou, ${user.username}.`,
                 });
                 form.reset();
-                router.push('/');
+                router.push('/dashboard');
             } else {
                 setError('Usuario o contraseña incorrectos.');
             }
