@@ -99,7 +99,7 @@ export default function RegisterPage() {
                               )}
                           />
                           <Button type="submit" className="w-full">Crear Cuenta</Button>
-                           <CardDescription className="text-center">
+                           <CardDescription className="text-center pt-4">
                             ¿Ya tienes una cuenta?{' '}
                             <Link href="/login" className="text-primary hover:underline">
                                 Inicia sesión aquí

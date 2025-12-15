@@ -127,9 +127,11 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button variant="ghost" asChild>
-              <Link href="/login">Iniciar Sesión</Link>
-            </Button>
+            <>
+              <Button variant="ghost" asChild>
+                <Link href="/login">Iniciar Sesión</Link>
+              </Button>
+            </>
           )}
 
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -178,9 +180,11 @@ export function Header() {
                       Tancar Sessió
                     </Button>
                   ) : (
-                    <Button variant="default" className="w-full" asChild>
-                      <Link href="/login" onClick={() => setIsMenuOpen(false)}>Iniciar Sesión</Link>
-                    </Button>
+                    <div className="grid grid-cols-1 gap-4">
+                      <Button variant="default" className="w-full" asChild>
+                        <Link href="/login" onClick={() => setIsMenuOpen(false)}>Iniciar Sesión</Link>
+                      </Button>
+                    </div>
                   )}
                 </div>
               </div>
