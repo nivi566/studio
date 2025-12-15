@@ -23,6 +23,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useAuth } from '@/context/AuthContext';
 
 const loginFormSchema = z.object({
   username: z.string().min(1, { message: 'El camp usuari és requerit.' }),
@@ -34,6 +35,7 @@ type LoginFormValues = z.infer<typeof loginFormSchema>;
 export default function LoginPage() {
     const { toast } = useToast();
     const router = useRouter();
+    const { login } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -56,12 +58,12 @@ export default function LoginPage() {
             const users: any[] = await response.json();
 
             if (users.length > 0 && users[0].password === data.password) {
+                login({ username: users[0].usuario });
                 toast({
-                  title: "¡Sesión iniciada!",
-                  description: "Bienvenido de nuevo.",
+                  title: "¡Sessió iniciada!",
+                  description: `Benvingut de nou, ${users[0].usuario}.`,
                 });
                 form.reset();
-                // Opcional: redirigir al usuario a una página de perfil o al inicio
                 router.push('/');
             } else {
                 setError('Usuario o contraseña incorrectos.');

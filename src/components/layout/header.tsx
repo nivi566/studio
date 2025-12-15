@@ -2,13 +2,23 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { Menu, X, User, LogOut } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Logo } from '@/components/icons/logo';
-import { cn } from '@/lib/utils';
+import { useAuth } from '@/context/AuthContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Skeleton } from '@/components/ui/skeleton';
+
 
 const navLinks = [
   { href: '/', label: 'Inicio' },
@@ -23,14 +33,21 @@ const navLinks = [
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, logout, isLoading } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+  };
 
   const isAnchorLink = (href: string) => href.startsWith('/#');
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (isAnchorLink(href)) {
-      // If we are not on the home page, we need to navigate there first
       if (pathname !== '/') {
-        // The browser will handle the navigation and then the scroll
+        router.push(href);
+        setIsMenuOpen(false);
         return;
       }
 
@@ -40,6 +57,8 @@ export function Header() {
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: 'smooth' });
       }
+    } else {
+        router.push(href);
     }
     setIsMenuOpen(false);
   };
@@ -66,9 +85,38 @@ export function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2">
-          <Button variant="ghost" className="hidden sm:inline-flex" asChild>
-            <Link href="/login">Iniciar Sesión</Link>
-          </Button>
+          {isLoading ? (
+            <Skeleton className="h-8 w-24" />
+          ) : user ? (
+             <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-8 w-auto justify-start gap-2">
+                    <User className="h-5 w-5" />
+                    <span className='hidden sm:inline'>{user.username}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">{user.username}</p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      Cliente de InTrack
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Tancar Sessió</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button variant="ghost" className="hidden sm:inline-flex" asChild>
+              <Link href="/login">Iniciar Sesión</Link>
+            </Button>
+          )}
+
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -87,7 +135,7 @@ export function Header() {
                     </Button>
                   </SheetTrigger>
                 </div>
-                <nav className="mt-8 flex flex-col gap-6">
+                <nav className="mt-8 flex flex-1 flex-col gap-6">
                   {navLinks.map((link) => (
                     <Link
                       key={link.href}
@@ -99,6 +147,18 @@ export function Header() {
                     </Link>
                   ))}
                 </nav>
+                 <div className="mt-auto border-t pt-4">
+                  {user ? (
+                    <Button variant="outline" className="w-full" onClick={handleLogout}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Tancar Sessió
+                    </Button>
+                  ) : (
+                    <Button variant="default" className="w-full" asChild>
+                      <Link href="/login" onClick={() => setIsMenuOpen(false)}>Iniciar Sesión</Link>
+                    </Button>
+                  )}
+                </div>
               </div>
             </SheetContent>
           </Sheet>
