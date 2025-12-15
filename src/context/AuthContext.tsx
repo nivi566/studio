@@ -2,9 +2,14 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
+interface User {
+  username: string;
+  empresa: string;
+}
+
 interface AuthContextType {
-  user: { username: string } | null;
-  login: (userData: { username: string }) => void;
+  user: User | null;
+  login: (userData: User) => void;
   logout: () => void;
   isLoading: boolean;
 }
@@ -12,7 +17,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<{ username: string } | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -28,7 +33,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  const login = (userData: { username: string }) => {
+  const login = (userData: User) => {
     localStorage.setItem('user', JSON.stringify(userData));
     setUser(userData);
   };

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Menu, X, User, LogOut } from 'lucide-react';
+import { Menu, X, User, LogOut, Building } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -99,8 +99,8 @@ export function Header() {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">{user.username}</p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      Cliente de InTrack
+                    <p className="text-xs leading-none text-muted-foreground flex items-center gap-1">
+                      <Building className="w-3 h-3" /> {user.empresa}
                     </p>
                   </div>
                 </DropdownMenuLabel>

@@ -51,17 +51,18 @@ export default function LoginPage() {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetch(`https://sheetdb.io/api/v1/qzvz5dqiomxdq/search?usuario=${encodeURIComponent(data.username)}`);
+            const response = await fetch(`https://sheetdb.io/api/v1/qzvz5dqiomxdq/search?sheet=usuaris&usuario=${encodeURIComponent(data.username)}`);
             if (!response.ok) {
                 throw new Error('No se pudo conectar con el servicio de autenticación.');
             }
             const users: any[] = await response.json();
 
             if (users.length > 0 && users[0].password === data.password) {
-                login({ username: users[0].usuario });
+                const user = { username: users[0].usuario, empresa: users[0].empresa };
+                login(user);
                 toast({
                   title: "¡Sessió iniciada!",
-                  description: `Benvingut de nou, ${users[0].usuario}.`,
+                  description: `Benvingut de nou, ${user.username}.`,
                 });
                 form.reset();
                 router.push('/');
@@ -131,7 +132,7 @@ export default function LoginPage() {
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                     Iniciando...
                                 </>
-                            ) : 'Iniciar Sesión'}
+                            ) : 'Entrar'}
                           </Button>
                       </form>
                   </Form>
