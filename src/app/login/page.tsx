@@ -53,12 +53,6 @@ export default function LoginPage() {
           <Card className="w-full max-w-md mx-4">
               <CardHeader className="text-center">
                   <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
-                  <CardDescription>
-                    ¿No tienes una cuenta?{' '}
-                    <Link href="/register" className="text-primary hover:underline">
-                        Regístrate aquí
-                    </Link>
-                  </CardDescription>
               </CardHeader>
               <CardContent>
                   <Form {...form}>
