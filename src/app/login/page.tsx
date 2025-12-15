@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -62,7 +63,7 @@ export default function LoginPage() {
                               name="email"
                               render={({ field }) => (
                                   <FormItem>
-                                      <FormLabel>Email</FormLabel>
+                                      <FormLabel>Usuario</FormLabel>
                                       <FormControl>
                                           <Input type="email" placeholder="tu@email.com" {...field} />
                                       </FormControl>
