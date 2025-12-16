@@ -45,12 +45,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const login = async (userData: User) => {
-    return new Promise<void>((resolve) => {
-      localStorage.setItem('user', JSON.stringify(userData));
-      setUser(userData);
-      router.push('/dashboard');
-      resolve();
-    });
+    localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
+    router.push('/dashboard');
   };
 
   const logout = () => {
