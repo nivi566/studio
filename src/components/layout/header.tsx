@@ -1,12 +1,23 @@
+
 'use client';
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogIn, LogOut, User, LayoutDashboard } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Logo } from '@/components/icons/logo';
 
 const navLinks = [
@@ -23,32 +34,33 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const { user, logout, isLoading } = useAuth();
 
   const isAnchorLink = (href: string) => href.startsWith('/#');
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (isAnchorLink(href)) {
       if (pathname !== '/') {
         router.push(href);
-        setIsMenuOpen(false);
-        return;
-      }
-
-      e.preventDefault();
-      const targetId = href.substring(2);
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        e.preventDefault();
+        const targetId = href.substring(2);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     } else {
         router.push(href);
     }
     setIsMenuOpen(false);
   };
+  
+  const allNavLinks = user ? [...navLinks, { href: '/dashboard', label: 'Dashboard' }] : navLinks;
 
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-transparent backdrop-blur supports-[backdrop-filter]:bg-transparent/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <div className="mr-4 flex">
           <Logo />
@@ -59,7 +71,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              onClick={(e) => handleClick(e, link.href)}
+              onClick={(e) => handleNavClick(e, link.href)}
               className="font-medium text-foreground/60 transition-colors hover:text-foreground/80"
             >
               {link.label}
@@ -68,6 +80,49 @@ export function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2">
+          {!isLoading && (
+            user ? (
+               <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                    <Avatar className="h-8 w-8">
+                       <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">{user.username}</p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {user.empresa}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/dashboard">
+                        <LayoutDashboard className="mr-2 h-4 w-4" />
+                        <span>Dashboard</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={logout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Cerrar Sesión</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+               <Button asChild variant="ghost" className="hidden md:flex">
+                <Link href="/login">
+                  <LogIn className="mr-2 h-4 w-4" />
+                  Iniciar Sesión
+                </Link>
+              </Button>
+            )
+          )}
+          
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -87,17 +142,30 @@ export function Header() {
                   </SheetTrigger>
                 </div>
                 <nav className="mt-8 flex flex-1 flex-col gap-6">
-                  {navLinks.map((link) => (
+                  {allNavLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       className="text-lg font-medium text-foreground"
-                      onClick={(e) => handleClick(e, link.href)}
+                      onClick={(e) => handleNavClick(e, link.href)}
                     >
                       {link.label}
                     </Link>
                   ))}
                 </nav>
+                 <div className="mt-auto border-t pt-6">
+                    {user ? (
+                        <Button onClick={logout} className="w-full">
+                           <LogOut className="mr-2 h-4 w-4" /> Cerrar Sesión
+                        </Button>
+                    ) : (
+                         <Button asChild className="w-full">
+                            <Link href="/login">
+                                <LogIn className="mr-2 h-4 w-4" /> Iniciar Sesión
+                            </Link>
+                        </Button>
+                    )}
+                </div>
               </div>
             </SheetContent>
           </Sheet>
