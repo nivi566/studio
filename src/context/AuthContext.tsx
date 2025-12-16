@@ -26,16 +26,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    try {
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
+    // Aquesta funció s'executarà només al client
+    const initializeAuth = () => {
+      try {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        }
+      } catch (error) {
+        console.error("Failed to parse user from localStorage", error);
+        localStorage.removeItem('user');
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error("Failed to parse user from localStorage", error);
-      localStorage.removeItem('user');
-    }
-    setIsLoading(false);
+    };
+    
+    initializeAuth();
   }, []);
 
   const login = (userData: User) => {
