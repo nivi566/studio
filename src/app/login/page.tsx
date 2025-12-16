@@ -30,7 +30,7 @@ export default function LoginPage() {
 
     try {
       // Obtenim TOTS els usuaris i validem localment. És més robust.
-      const response = await fetch('https://sheetdb.io/api/v1/a9fzi767g7vhz?sheet=usuaris');
+      const response = await fetch('https://sheetdb.io/api/v1/a9fzi767g7vhz');
       if (!response.ok) {
         throw new Error('Error al conectar con el servidor.');
       }
