@@ -47,7 +47,7 @@ export default function DashboardPage() {
                     <CardTitle>Detalles de tu Perfil</CardTitle>
                     <CardDescription>Esta es la información asociada a tu cuenta.</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 pt-6">
                     <div className="flex items-center gap-4">
                         <User className="h-5 w-5 text-muted-foreground" />
                         <p><span className="font-semibold">Usuario:</span> {user.usuario}</p>

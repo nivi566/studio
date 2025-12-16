@@ -14,17 +14,17 @@ export default function LoginPage() {
   const [usuario, setUsuario] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsSubmitting(true);
     setError(null);
 
     if (!usuario || !contrasena) {
       setError('Por favor, introduce el usuario y la contraseña.');
-      setIsLoading(false);
+      setIsSubmitting(false);
       return;
     }
 
@@ -50,7 +50,7 @@ export default function LoginPage() {
       console.error(err);
       setError('Ha ocurrido un error inesperado. Inténtalo de nuevo más tarde.');
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -75,7 +75,7 @@ export default function LoginPage() {
                 value={usuario}
                 onChange={(e) => setUsuario(e.target.value)}
                 required
-                disabled={isLoading}
+                disabled={isSubmitting}
               />
             </div>
             <div className="space-y-2">
@@ -87,7 +87,7 @@ export default function LoginPage() {
                 value={contrasena}
                 onChange={(e) => setContrasena(e.target.value)}
                 required
-                disabled={isLoading}
+                disabled={isSubmitting}
               />
             </div>
             
@@ -100,8 +100,8 @@ export default function LoginPage() {
               </Alert>
             )}
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? (
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Verificando...
