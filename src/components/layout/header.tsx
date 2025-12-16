@@ -26,6 +26,7 @@ const navLinks = [
   { href: '/tracking', label: 'Seguir mi pedido' },
   { href: '/quienes-somos', label: 'Quiénes somos' },
   { href: '/puntos-de-recogida', label: 'Puntos de Recogida' },
+  { href: '/assistent', label: 'Assistent' },
   { href: '/blog', label: 'Blog' },
   { href: '/contacto', label: 'Contacto' },
 ];
