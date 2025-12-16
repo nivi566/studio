@@ -40,7 +40,7 @@ export default function DashboardPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-              Benvingut a la teva zona privada, {user.username}
+              Benvingut a la teva zona privada, {user.usuario}
             </h1>
             
             <Card className="mt-12 text-left">
@@ -51,7 +51,7 @@ export default function DashboardPage() {
                 <CardContent className="space-y-4">
                     <div className="flex items-center gap-4">
                         <User className="h-5 w-5 text-muted-foreground" />
-                        <p><span className="font-semibold">Nom d'usuari:</span> {user.username}</p>
+                        <p><span className="font-semibold">Nom d'usuari:</span> {user.usuario}</p>
                     </div>
                      <div className="flex items-center gap-4">
                         <Building className="h-5 w-5 text-muted-foreground" />

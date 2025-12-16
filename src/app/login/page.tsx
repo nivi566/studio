@@ -42,10 +42,11 @@ export default function LoginPage() {
         // Correct credentials
         const user = data[0];
         login({
-          username: user.usuario,
+          usuario: user.usuario,
           empresa: user.empresa,
           rol: user.rol,
         });
+        // La redirecció es gestiona dins de la funció login
       } else {
         // Incorrect credentials
         setError('Dades incorrectes');
