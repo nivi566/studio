@@ -2,7 +2,6 @@ import type {Metadata} from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
-import { AuthProvider } from '@/context/AuthContext';
 
 export const metadata: Metadata = {
   title: 'InTrack | Envíos rápidos, seguros y al mejor precio',
@@ -14,9 +13,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'sw
 function AppBody({ children }: { children: React.ReactNode }) {
   return (
     <body className="font-body antialiased">
-      <AuthProvider>
-        {children}
-      </AuthProvider>
+      {children}
       <Toaster />
     </body>
   );
