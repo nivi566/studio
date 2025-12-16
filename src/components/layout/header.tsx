@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -56,7 +55,7 @@ export function Header() {
     setIsMenuOpen(false);
   };
   
-  const allNavLinks = user ? [...navLinks, { href: '/dashboard', label: 'Dashboard' }] : navLinks;
+  const allNavLinks = navLinks;
 
 
   return (
@@ -155,9 +154,20 @@ export function Header() {
                 </nav>
                  <div className="mt-auto border-t pt-6">
                     {user ? (
-                        <Button onClick={logout} className="w-full">
-                           <LogOut className="mr-2 h-4 w-4" /> Cerrar Sesión
-                        </Button>
+                        <div className="space-y-4">
+                           <div className="text-center">
+                                <p className="font-semibold">{user.nombre}</p>
+                                <p className="text-sm text-muted-foreground">{user.empresa}</p>
+                           </div>
+                           <Button asChild className="w-full" variant="outline">
+                             <Link href="/dashboard">
+                               <LayoutDashboard className="mr-2 h-4 w-4" /> Ir al Dashboard
+                             </Link>
+                           </Button>
+                           <Button onClick={logout} className="w-full" variant="destructive">
+                             <LogOut className="mr-2 h-4 w-4" /> Cerrar Sesión
+                           </Button>
+                        </div>
                     ) : (
                          <Button asChild className="w-full">
                             <Link href="/login">
