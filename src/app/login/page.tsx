@@ -30,17 +30,17 @@ export default function LoginPage() {
     }
 
     try {
-      const response = await fetch(`https://sheetdb.io/api/v1/nkfnyayqlypxg/search?usuario=${encodeURIComponent(usuario)}`);
+      const response = await fetch(`https://sheetdb.io/api/v1/nkfnyayqlypxg/search?sheet=usuaris&login=${encodeURIComponent(usuario)}`);
       if (!response.ok) {
         throw new Error('Error al conectar con el servidor.');
       }
       const data: any[] = await response.json();
 
-      if (data.length > 0 && data[0].contrasena === contrasena) {
+      if (data.length > 0 && data[0].password === contrasena) {
         // Correct credentials
         const userPayload = {
-          usuario: data[0].usuario,
-          nombre: data[0].nombre,
+          usuario: data[0].login,
+          nombre: data[0].nom,
           empresa: data[0].empresa,
           rol: data[0].rol,
         };
