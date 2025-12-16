@@ -13,7 +13,7 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  login: (userData: User) => void;
+  login: (userData: User) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
 }
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // Aquesta funció s'executarà només al client
+    // This function will only run on the client
     const initializeAuth = () => {
       try {
         const storedUser = localStorage.getItem('user');
@@ -44,10 +44,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     initializeAuth();
   }, []);
 
-  const login = (userData: User) => {
-    localStorage.setItem('user', JSON.stringify(userData));
-    setUser(userData);
-    router.push('/dashboard');
+  const login = async (userData: User) => {
+    return new Promise<void>((resolve) => {
+      localStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData);
+      router.push('/dashboard');
+      resolve();
+    });
   };
 
   const logout = () => {
