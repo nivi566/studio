@@ -36,7 +36,7 @@ export default function LoginPage() {
       }
       const data: any[] = await response.json();
 
-      if (data.length > 0 && data[0].contraseña === contrasena) {
+      if (data.length > 0 && data[0].contrasena === contrasena) {
         // Correct credentials
         const userPayload = {
           usuario: data[0].usuario,
