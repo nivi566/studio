@@ -29,23 +29,22 @@ export default function LoginPage() {
     }
 
     try {
-      // Obtenim TOTS els usuaris i validem localment. És més robust.
-      const response = await fetch('https://sheetdb.io/api/v1/a9fzi767g7vhz');
+      const response = await fetch(
+        `https://sheetdb.io/api/v1/a9fzi767g7vhz/search?sheet=usuaris&login=${encodeURIComponent(usuario)}`
+      );
+      
       if (!response.ok) {
         throw new Error('Error al conectar con el servidor.');
       }
-      const allUsers: any[] = await response.json();
       
-      const foundUser = allUsers.find(
-        (user) => user.usuario === usuario && user.contraseña === contrasena
-      );
+      const data: any[] = await response.json();
 
-      if (foundUser) {
+      if (data.length > 0 && data[0].password === contrasena) {
         const userPayload = {
-          usuario: foundUser.usuario,
-          nombre: foundUser.nombre,
-          empresa: foundUser.empresa,
-          rol: foundUser.rol,
+          usuario: data[0].login,
+          nombre: data[0].nom,
+          empresa: data[0].empresa,
+          rol: data[0].rol,
         };
         await login(userPayload);
       } else {
