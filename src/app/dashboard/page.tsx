@@ -25,9 +25,10 @@ export default function DashboardPage() {
   if (isLoading || !user) {
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-background">
-            <div className="space-y-4">
-                <Skeleton className="h-12 w-64" />
-                <Skeleton className="h-8 w-80" />
+            <div className="space-y-4 text-center">
+                <Skeleton className="h-12 w-64 mx-auto" />
+                <Skeleton className="h-8 w-80 mx-auto" />
+                <p className="text-muted-foreground mt-4">Verificando sesión...</p>
             </div>
         </div>
     );
@@ -40,7 +41,7 @@ export default function DashboardPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-              Benvingut a la teva zona privada, {user.usuario}
+              Benvingut a la teva zona privada, {user.Usuario}
             </h1>
             
             <Card className="mt-12 text-left">
@@ -51,15 +52,15 @@ export default function DashboardPage() {
                 <CardContent className="space-y-4">
                     <div className="flex items-center gap-4">
                         <User className="h-5 w-5 text-muted-foreground" />
-                        <p><span className="font-semibold">Nom d'usuari:</span> {user.usuario}</p>
+                        <p><span className="font-semibold">Nom d'usuari:</span> {user.Usuario}</p>
                     </div>
                      <div className="flex items-center gap-4">
                         <Building className="h-5 w-5 text-muted-foreground" />
-                        <p><span className="font-semibold">Empresa:</span> {user.empresa}</p>
+                        <p><span className="font-semibold">Empresa:</span> {user.Empresa}</p>
                     </div>
                      <div className="flex items-center gap-4">
                         <Shield className="h-5 w-5 text-muted-foreground" />
-                        <p><span className="font-semibold">Rol:</span> {user.rol}</p>
+                        <p><span className="font-semibold">Rol:</span> {user.Rol}</p>
                     </div>
                 </CardContent>
             </Card>

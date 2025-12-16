@@ -40,12 +40,12 @@ export default function LoginPage() {
 
       if (data.length > 0 && data[0].password === password) {
         // Correct credentials
-        const user = data[0];
-        login({
-          usuario: user.usuario,
-          empresa: user.empresa,
-          rol: user.rol,
-        });
+        const userPayload = {
+          Usuario: data[0].usuario,
+          Empresa: data[0].empresa,
+          Rol: data[0].rol,
+        };
+        login(userPayload);
         // La redirecció es gestiona dins de la funció login
       } else {
         // Incorrect credentials

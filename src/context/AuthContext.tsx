@@ -5,9 +5,9 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useRouter } from 'next/navigation';
 
 interface User {
-  usuario: string;
-  empresa: string;
-  rol: string;
+  Usuario: string;
+  Empresa: string;
+  Rol: string;
 }
 
 interface AuthContextType {
