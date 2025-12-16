@@ -2,12 +2,23 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut, LayoutDashboard } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Logo } from '@/components/icons/logo';
+import { useAuth } from '@/context/AuthContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+
 
 const navLinks = [
   { href: '/', label: 'Inicio' },
@@ -23,6 +34,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const { user, logout, isLoading } = useAuth();
 
   const isAnchorLink = (href: string) => href.startsWith('/#');
 
@@ -46,6 +58,9 @@ export function Header() {
   
   const allNavLinks = navLinks;
 
+  const getInitials = (name: string = '') => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
@@ -68,6 +83,44 @@ export function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2">
+          {!isLoading && (
+            user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                    <Avatar className="h-8 w-8">
+                       <AvatarFallback>{getInitials(user.nom)}</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">{user.nom}</p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {user.empresa}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => router.push('/dashboard')}>
+                    <LayoutDashboard className="mr-2 h-4 w-4" />
+                    <span>Dashboard</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={logout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Salir</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+               <Button asChild>
+                <Link href="/login">Iniciar Sesión</Link>
+              </Button>
+            )
+          )}
+          
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
