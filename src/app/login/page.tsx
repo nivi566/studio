@@ -33,7 +33,7 @@ export default function LoginPage() {
 
     try {
       const response = await fetch(
-        `https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=usuaris&usuari=${encodeURIComponent(usuario)}&password=${encodeURIComponent(password)}`
+        `https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=usuari&usuari=${encodeURIComponent(usuario)}&password=${encodeURIComponent(password)}`
       );
 
       if (!response.ok) {
