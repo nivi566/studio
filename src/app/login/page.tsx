@@ -14,7 +14,7 @@ import { Logo } from '@/components/icons/logo';
 
 export default function LoginPage() {
   const [usuario, setUsuario] = useState('');
-  const [password, setPassword] = useState('');
+  const [contrasena, setContrasena] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
@@ -25,7 +25,7 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(null);
 
-    if (!usuario || !password) {
+    if (!usuario || !contrasena) {
       setError('Por favor, introduce el usuario y la contraseña.');
       setIsLoading(false);
       return;
@@ -38,12 +38,13 @@ export default function LoginPage() {
       }
       const data: any[] = await response.json();
 
-      if (data.length > 0 && data[0].password === password) {
+      if (data.length > 0 && data[0].contraseña === contrasena) {
         // Correct credentials
         const userPayload = {
-          Usuario: data[0].usuario,
-          Empresa: data[0].empresa,
-          Rol: data[0].rol,
+          usuario: data[0].usuario,
+          nombre: data[0].nombre,
+          empresa: data[0].empresa,
+          rol: data[0].rol,
         };
         login(userPayload);
         // La redirecció es gestiona dins de la funció login
@@ -89,8 +90,8 @@ export default function LoginPage() {
                 id="password"
                 type="password"
                 placeholder="Tu contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={contrasena}
+                onChange={(e) => setContrasena(e.target.value)}
                 required
                 disabled={isLoading}
               />
