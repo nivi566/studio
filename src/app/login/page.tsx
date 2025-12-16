@@ -30,7 +30,7 @@ export default function LoginPage() {
     }
 
     try {
-      const response = await fetch(`https://sheetdb.io/api/v1/rulf0bsqvwusw/search?usuario=${encodeURIComponent(usuario)}`);
+      const response = await fetch(`https://sheetdb.io/api/v1/nkfnyayqlypxg/search?usuario=${encodeURIComponent(usuario)}`);
       if (!response.ok) {
         throw new Error('Error al conectar con el servidor.');
       }
@@ -45,7 +45,6 @@ export default function LoginPage() {
           rol: data[0].rol,
         };
         await login(userPayload);
-        // The redirection is now handled inside the login function
       } else {
         // Incorrect credentials
         setError('Dades incorrectes');
