@@ -32,7 +32,7 @@ export default function LoginPage() {
     }
 
     try {
-      const response = await fetch(`https://sheetdb.io/api/v1/qzvz5dqiomxdq/search?sheet=usuaris&usuario=${encodeURIComponent(usuario)}`);
+      const response = await fetch(`https://sheetdb.io/api/v1/rulf0bsqvwusw/search?sheet=usuaris&usuario=${encodeURIComponent(usuario)}`);
       if (!response.ok) {
         throw new Error('Error al conectar con el servidor.');
       }
