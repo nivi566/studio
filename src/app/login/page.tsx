@@ -29,8 +29,9 @@ export default function LoginPage() {
     }
 
     try {
+      // Direct search by user login, this is more efficient
       const response = await fetch(
-        `https://sheetdb.io/api/v1/a9fzi767g7vhz/search?sheet=usuaris&login=${encodeURIComponent(usuario)}`
+        `https://sheetdb.io/api/v1/a9fzi767g7vhz/search?login=${encodeURIComponent(usuario)}&sheet=usuaris`
       );
       
       if (!response.ok) {
@@ -39,6 +40,7 @@ export default function LoginPage() {
       
       const data: any[] = await response.json();
 
+      // Check if user exists and password matches
       if (data.length > 0 && data[0].password === contrasena) {
         const userPayload = {
           usuario: data[0].login,
