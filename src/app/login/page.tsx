@@ -52,7 +52,7 @@ export default function LoginPage() {
         };
         await login(userPayload);
       } else {
-        setError('Dades incorrectes');
+        setError('Datos incorrectos');
       }
     } catch (err) {
       setError('Ha ocurrido un error inesperado. Inténtalo de nuevo.');
@@ -68,30 +68,30 @@ export default function LoginPage() {
         <main className="flex-1 flex items-center justify-center py-12">
             <Card className="w-full max-w-sm">
                 <CardHeader>
-                    <CardTitle className="text-2xl">Iniciar Sessió</CardTitle>
+                    <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
                     <CardDescription>
-                        Accedeix a la teva àrea privada.
+                        Accede a tu área privada.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="usuario">Usuari</Label>
+                            <Label htmlFor="usuario">Usuario</Label>
                             <Input
                                 id="usuario"
                                 type="text"
-                                placeholder="El teu usuari"
+                                placeholder="Tu usuario"
                                 value={usuari}
                                 onChange={(e) => setUsuari(e.target.value)}
                                 required
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="password">Contrasenya</Label>
+                            <Label htmlFor="password">Contraseña</Label>
                             <Input
                                 id="password"
                                 type="password"
-                                placeholder="La teva contrasenya"
+                                placeholder="Tu contraseña"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
@@ -109,7 +109,7 @@ export default function LoginPage() {
                             {isLoading ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    Entrant...
+                                    Entrando...
                                 </>
                             ) : (
                                 'Entrar'
