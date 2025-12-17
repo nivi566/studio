@@ -106,18 +106,18 @@ export function Header() {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => router.push('/dashboard')}>
                     <LayoutDashboard className="mr-2 h-4 w-4" />
-                    <span>Dashboard</span>
+                    <span>El meu perfil</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={logout}>
                     <LogOut className="mr-2 h-4 w-4" />
-                    <span>Salir</span>
+                    <span>Sortir</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
                <Button asChild>
-                <Link href="/login">Iniciar Sesión</Link>
+                <Link href="/login">Iniciar Sessió</Link>
               </Button>
             )
           )}

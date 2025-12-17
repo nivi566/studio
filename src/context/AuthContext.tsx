@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useRouter } from 'next/navigation';
 
 interface User {
+  usuari: string;
   nom: string;
   empresa: string;
   rol: string;

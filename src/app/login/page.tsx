@@ -13,7 +13,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 
 export default function LoginPage() {
-  const [usuario, setUsuario] = useState('');
+  const [usuari, setUsuari] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,7 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(null);
 
-    if (!usuario || !password) {
+    if (!usuari || !password) {
       setError('El usuario y la contraseña son obligatorios.');
       setIsLoading(false);
       return;
@@ -33,7 +33,7 @@ export default function LoginPage() {
 
     try {
       const response = await fetch(
-        `https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=usuari&usuari=${encodeURIComponent(usuario)}&password=${encodeURIComponent(password)}`
+        `https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=usuari&usuari=${encodeURIComponent(usuari)}&password=${encodeURIComponent(password)}`
       );
 
       if (!response.ok) {
@@ -45,6 +45,7 @@ export default function LoginPage() {
       if (data.length > 0) {
         // La API de SheetDB devuelve un array. Si hay resultados, la credencial es correcta.
         const userPayload = {
+          usuari: data[0].usuari,
           nom: data[0].nom,
           empresa: data[0].empresa,
           rol: data[0].rol,
@@ -67,30 +68,30 @@ export default function LoginPage() {
         <main className="flex-1 flex items-center justify-center py-12">
             <Card className="w-full max-w-sm">
                 <CardHeader>
-                    <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
+                    <CardTitle className="text-2xl">Iniciar Sessió</CardTitle>
                     <CardDescription>
-                        Accede a tu área privada.
+                        Accedeix a la teva àrea privada.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="usuario">Usuario</Label>
+                            <Label htmlFor="usuario">Usuari</Label>
                             <Input
                                 id="usuario"
                                 type="text"
-                                placeholder="Tu usuario"
-                                value={usuario}
-                                onChange={(e) => setUsuario(e.target.value)}
+                                placeholder="El teu usuari"
+                                value={usuari}
+                                onChange={(e) => setUsuari(e.target.value)}
                                 required
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="password">Contraseña</Label>
+                            <Label htmlFor="password">Contrasenya</Label>
                             <Input
                                 id="password"
                                 type="password"
-                                placeholder="Tu contraseña"
+                                placeholder="La teva contrasenya"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
@@ -108,7 +109,7 @@ export default function LoginPage() {
                             {isLoading ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    Entrando...
+                                    Entrant...
                                 </>
                             ) : (
                                 'Entrar'
