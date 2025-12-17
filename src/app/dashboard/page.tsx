@@ -26,21 +26,21 @@ const mockOrders = [
         id: "INT72384",
         date: "15/07/2024",
         destination: "Barcelona",
-        status: "Entregat",
+        status: "Entregado",
         trackingUrl: "/tracking"
     },
     {
         id: "INT94831",
         date: "18/07/2024",
-        destination: "València",
-        status: "En trànsit",
+        destination: "Valencia",
+        status: "En tránsito",
         trackingUrl: "/tracking"
     },
      {
         id: "INT28374",
         date: "20/07/2024",
         destination: "Madrid",
-        status: "Processant",
+        status: "Procesando",
         trackingUrl: "/tracking"
     }
 ]
@@ -84,13 +84,13 @@ export default function DashboardPage() {
       <main className="flex-1 py-12 sm:py-16">
         <div className="container mx-auto px-4">
             <div className="mb-8">
-                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">El meu perfil</h1>
-                <p className="mt-2 text-lg text-muted-foreground">Gestiona la teva informació personal i les teves comandes.</p>
+                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">Mi perfil</h1>
+                <p className="mt-2 text-lg text-muted-foreground">Gestiona tu información personal y tus pedidos.</p>
             </div>
           
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
-                {/* Columna Esquerra: Perfil i Accions */}
+                {/* Columna Izquierda: Perfil y Acciones */}
                 <div className="lg:col-span-1 space-y-8">
                     <Card>
                         <CardHeader className="flex flex-row items-center gap-4">
@@ -99,13 +99,13 @@ export default function DashboardPage() {
                             </Avatar>
                             <div>
                                 <CardTitle className="text-2xl">{user.nom}</CardTitle>
-                                <CardDescription>{user.rol} a {user.empresa}</CardDescription>
+                                <CardDescription>{user.rol} en {user.empresa}</CardDescription>
                             </div>
                         </CardHeader>
                         <CardContent className="space-y-4 text-sm">
                             <Separator />
                             <div className="flex justify-between">
-                                <span className="text-muted-foreground">Nom d'usuari:</span>
+                                <span className="text-muted-foreground">Nombre de usuario:</span>
                                 <span className="font-medium text-foreground">{user.usuari}</span>
                             </div>
                              <div className="flex justify-between">
@@ -121,40 +121,40 @@ export default function DashboardPage() {
 
                     <Card>
                         <CardHeader>
-                            <CardTitle>Accions ràpides</CardTitle>
+                            <CardTitle>Acciones rápidas</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <Button className="w-full justify-start" variant="outline">
                                 <FileEdit className="mr-2" /> Editar perfil
                             </Button>
                             <Button className="w-full justify-start" variant="outline">
-                                <KeyRound className="mr-2" /> Canviar contrasenya
+                                <KeyRound className="mr-2" /> Cambiar contraseña
                             </Button>
                              <Button onClick={logout} className="w-full" variant="destructive">
-                                Sortir de la sessió
+                                Cerrar sesión
                             </Button>
                         </CardContent>
                     </Card>
                 </div>
 
-                {/* Columna Dreta: Comandes */}
+                {/* Columna Derecha: Pedidos */}
                 <div className="lg:col-span-2">
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
-                                <Package /> Les meves comandes
+                                <Package /> Mis pedidos
                             </CardTitle>
-                            <CardDescription>Aquí pots veure un historial de les teves comandes recents.</CardDescription>
+                            <CardDescription>Aquí puedes ver un historial de tus pedidos recientes.</CardDescription>
                         </CardHeader>
                         <CardContent>
                              <Table>
                                 <TableHeader>
                                     <TableRow>
-                                    <TableHead>Nº Comanda</TableHead>
-                                    <TableHead>Data</TableHead>
-                                    <TableHead>Destinació</TableHead>
-                                    <TableHead>Estat</TableHead>
-                                    <TableHead className="text-right">Accions</TableHead>
+                                    <TableHead>Nº Pedido</TableHead>
+                                    <TableHead>Fecha</TableHead>
+                                    <TableHead>Destino</TableHead>
+                                    <TableHead>Estado</TableHead>
+                                    <TableHead className="text-right">Acciones</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -164,8 +164,8 @@ export default function DashboardPage() {
                                             <TableCell>{order.date}</TableCell>
                                             <TableCell>{order.destination}</TableCell>
                                             <TableCell>
-                                                 <Badge variant={order.status === 'Entregat' ? 'default' : order.status === 'En trànsit' ? 'secondary' : 'destructive'}
-                                                  className={order.status === 'Entregat' ? 'bg-green-600' : ''}>
+                                                 <Badge variant={order.status === 'Entregado' ? 'default' : order.status === 'En tránsito' ? 'secondary' : 'destructive'}
+                                                  className={order.status === 'Entregado' ? 'bg-green-600' : ''}>
                                                     {order.status}
                                                 </Badge>
                                             </TableCell>
@@ -180,7 +180,7 @@ export default function DashboardPage() {
                             </Table>
                         </CardContent>
                         <CardFooter className="justify-end">
-                            <Button variant="ghost">Veure totes les comandes</Button>
+                            <Button variant="ghost">Ver todos los pedidos</Button>
                         </CardFooter>
                     </Card>
                 </div>

@@ -106,12 +106,12 @@ export function Header() {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => router.push('/dashboard')}>
                     <LayoutDashboard className="mr-2 h-4 w-4" />
-                    <span>El meu perfil</span>
+                    <span>Mi perfil</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={logout}>
                     <LogOut className="mr-2 h-4 w-4" />
-                    <span>Sortir</span>
+                    <span>Salir</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
