@@ -10,7 +10,12 @@ export const metadata: Metadata = {
   description: 'Soluciones de paquetería nacional e internacional para empresas y particulares.',
 };
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const inter = Inter({ 
+  subsets: ['latin'], 
+  variable: '--font-inter', 
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800'] 
+});
 
 function AppBody({ children }: { children: React.ReactNode }) {
   return (

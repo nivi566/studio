@@ -77,7 +77,7 @@ export function Header() {
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="font-medium text-orange-400 transition-colors hover:text-orange-500"
+              className="font-medium text-foreground transition-colors hover:text-accent"
             >
               {link.label}
             </Link>
@@ -117,7 +117,7 @@ export function Header() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-               <Button asChild style={{backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))'}}>
+               <Button asChild>
                 <Link href="/login">Iniciar Sesión</Link>
               </Button>
             )
@@ -146,7 +146,7 @@ export function Header() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      className="text-lg font-medium text-orange-400"
+                      className="text-lg font-medium"
                       onClick={(e) => handleNavClick(e, link.href)}
                     >
                       {link.label}
