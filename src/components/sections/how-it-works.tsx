@@ -43,13 +43,13 @@ export function HowItWorks() {
                 <div className="hidden lg:block absolute top-1/2 left-1/2 w-full h-0.5 border-t-2 border-dashed border-border -translate-y-1/2 z-0" />
               )}
               <div className="relative z-10">
-                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-background border-4 border-header shadow-lg">
-                  <div className="flex items-center justify-center h-16 w-16 rounded-full bg-header text-white">
+                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-background border-4 border-[#0B3C5D] shadow-lg">
+                  <div className="flex items-center justify-center h-16 w-16 rounded-full bg-[#0B3C5D] text-white">
                     <span className="text-2xl font-bold">{index + 1}</span>
                   </div>
                 </div>
                 <div className="mt-6">
-                  <step.icon className="h-10 w-10 text-header mx-auto mb-4" />
+                  <step.icon className="h-10 w-10 text-[#0B3C5D] mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
                   <p className="mt-2 text-muted-foreground">{step.description}</p>
                 </div>
