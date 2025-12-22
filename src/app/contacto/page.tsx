@@ -36,7 +36,7 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <h3 className="font-semibold text-lg text-foreground">Nuestra Oficina</h3>
-                                <p className="text-muted-foreground">Calle de la Logística, 123<br />28080, Madrid, España</p>
+                                <p className="text-muted-foreground">Calle Resina, 41<br />28021, Madrid, España</p>
                             </div>
                         </div>
                          <div className="flex items-start gap-4">
@@ -45,7 +45,7 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <h3 className="font-semibold text-lg text-foreground">Email</h3>
-                                <p className="text-muted-foreground">info@intrack.com</p>
+                                <p className="text-muted-foreground">info@intrack-logistics.es</p>
                             </div>
                         </div>
                          <div className="flex items-start gap-4">
