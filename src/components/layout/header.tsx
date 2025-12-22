@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -27,7 +26,6 @@ const navLinks = [
   { href: '/tracking', label: 'Seguir mi pedido' },
   { href: '/quienes-somos', label: 'Quiénes somos' },
   { href: '/puntos-de-recogida', label: 'Puntos de Recogida' },
-  { href: '/assistent', label: 'Asistente' },
   { href: '/blog', label: 'Blog' },
   { href: '/contacto', label: 'Contacto' },
 ];
