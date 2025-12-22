@@ -194,7 +194,7 @@ export function ShippingCalculator() {
               </TabsContent>
             </Tabs>
 
-            <Button type="submit" className="w-full" size="lg">
+            <Button type="submit" className="w-full bg-[#0B3C5D] hover:bg-[#0B3C5D]/90 text-white" size="lg">
               Calcular envío
             </Button>
           </form>
