@@ -9,7 +9,7 @@
     {
       "id": "avatar1",
       "description": "Avatar for a customer testimonial.",
-      "imageUrl": "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwZXJzb24lMjBmYWNlfGVufDB8fHx8MTc2NDI5ODQ0Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwZXJzb24lMjBmYWNlfGVufDB8fHx8MTc2NDI5ODQ0Mnww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "person face"
     },
     {
@@ -68,99 +68,105 @@
     },
     {
       "id": "pickup-aragon",
-      "imageUrl": "https://images.unsplash.com/photo-1636620324294-024931cfed34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhcmFnb24lMjBsYW5kc2NhcGV8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1636620324294-024931cfed34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhcmFnb24lMjBsYW5kc2NhcGV8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "aragon landscape",
       "description": "Landscape of Aragon"
     },
     {
       "id": "pickup-asturias",
-      "imageUrl": "https://images.unsplash.com/photo-1510095899291-c7a07876e0ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhc3R1cmlhcyUyMGxhbmRzY2FwZXxlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1510095899291-c7a07876e0ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhc3R1cmlhcyUyMGxhbmRzY2FwZXxlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "asturias landscape",
       "description": "Landscape of Asturias"
     },
     {
       "id": "pickup-baleares",
-      "imageUrl": "https://images.unsplash.com/photo-1706611370439-34c71cfa540b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxiYWxlYXJlcyUyMGJlYWNofGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1706611370439-34c71cfa540b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxiYWxlYXJlcyUyMGJlYWNofGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "baleares beach",
       "description": "Beach in Illes Balears"
     },
     {
       "id": "pickup-canarias",
-      "imageUrl": "https://images.unsplash.com/photo-1642600246246-b4a4d0a73ab3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjYW5hcmlhcyUyMHZvbGNhbm98ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1642600246246-b4a4d0a73ab3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjYW5hcmlhcyUyMHZvbGNhbm98ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "canarias volcano",
       "description": "Volcanic landscape in Canarias"
     },
     {
       "id": "pickup-cantabria",
-      "imageUrl": "https://images.unsplash.com/photo-1662379827384-7503cc5712af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjYW50YWJyaWElMjBjb2FzdHxlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1662379827384-7503cc5712af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjYW50YWJyaWElMjBjb2FzdHxlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "cantabria coast",
       "description": "Coast of Cantabria"
     },
     {
       "id": "pickup-castilla-la-mancha",
-      "imageUrl": "https://images.unsplash.com/photo-1661929777732-d0f05c29133a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYW5jaGElMjB3aW5kbWlsbHN8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1661929777732-d0f05c29133a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYW5jaGElMjB3aW5kbWlsbHN8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "mancha windmills",
       "description": "Windmills of Castilla-La Mancha"
     },
     {
       "id": "pickup-castilla-y-leon",
-      "imageUrl": "https://images.unsplash.com/photo-1635343930052-494f42d3c459?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsZW9uJTIwY2F0aGVkcmFsfGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1635343930052-494f42d3c459?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsZW9uJTIwY2F0aGVkcmFsfGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "leon cathedral",
       "description": "Cathedral of Castilla y León"
     },
     {
       "id": "pickup-cataluna",
-      "imageUrl": "https://images.unsplash.com/photo-1650048155851-a297381af794?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxiYXJjZWxvbmElMjBhcmNoaXRlY3R1cmV8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1650048155851-a297381af794?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxiYXJjZWxvbmElMjBhcmNoaXRlY3R1cmV8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "barcelona architecture",
       "description": "Architecture of Cataluña"
     },
     {
       "id": "pickup-valencia",
-      "imageUrl": "https://images.unsplash.com/photo-1686953378091-47e24b1f624d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx2YWxlbmNpYSUyMGNpdHl8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1686953378091-47e24b1f624d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx2YWxlbmNpYSUyMGNpdHl8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "valencia city",
       "description": "City of Arts and Sciences in Valencia"
     },
     {
       "id": "pickup-extremadura",
-      "imageUrl": "https://images.unsplash.com/photo-1611579802953-f9e1138bd84b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxleHRyZW1hZHVyYSUyMG5hdHVyZXxlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1611579802953-f9e1138bd84b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxleHRyZW1hZHVyYSUyMG5hdHVyZXxlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "extremadura nature",
       "description": "Nature in Extremadura"
     },
     {
       "id": "pickup-galicia",
-      "imageUrl": "https://images.unsplash.com/photo-1656925313520-b721f9bb1661?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnYWxpY2lhJTIwY29hc3R8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1656925313520-b721f9bb1661?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnYWxpY2lhJTIwY29hc3R8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "galicia coast",
       "description": "Coast of Galicia"
     },
     {
       "id": "pickup-madrid",
-      "imageUrl": "https://images.unsplash.com/photo-1643297500757-42ea4918546d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtYWRyaWQlMjBjaXR5fGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1643297500757-42ea4918546d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtYWRyaWQlMjBjaXR5fGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "madrid city",
       "description": "Skyline of Madrid"
     },
     {
       "id": "pickup-murcia",
-      "imageUrl": "https://images.unsplash.com/photo-1701748131168-05f3a37422ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXJjaWElMjBvcmNoYXJkfGVufDB8fHx8MTc2NjQxNDk0MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1701748131168-05f3a37422ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXJjaWElMjBvcmNoYXJkfGVufDB8fHx8MTc2NjQxNDk0MHww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "murcia orchard",
       "description": "Orchard in Murcia"
     },
     {
       "id": "pickup-navarra",
-      "imageUrl": "https://images.unsplash.com/photo-1650368697735-7e0ee047155e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxuYXZhcnJhJTIwZm9yZXN0fGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1650368697735-7e0ee047155e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxuYXZhcnJhJTIwZm9yZXN0fGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "navarra forest",
       "description": "Forest of Navarra"
     },
     {
       "id": "pickup-pais-vasco",
-      "imageUrl": "https://images.unsplash.com/photo-1725026598198-0479f0dbf074?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxiYXNxdWUlMjBjb2FzdHxlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1725026598198-0479f0dbf074?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxiYXNxdWUlMjBjb2FzdHxlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "basque coast",
       "description": "Coast of País Vasco"
     },
     {
       "id": "pickup-rioja",
-      "imageUrl": "https://images.unsplash.com/photo-1721831394872-949dea2b5c04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyaW9qYSUyMHZpbmV5YXJkfGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1721831394872-949dea2b5c04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyaW9qYSUyMHZpbmV5YXJkfGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "rioja vineyard",
       "description": "Vineyard in La Rioja"
+    },
+    {
+      "id": "press-release-expansion",
+      "description": "Map showing expansion to Portugal and France.",
+      "imageUrl": "https://images.unsplash.com/photo-1588607327673-83b8f3791d6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxldXJvcGUlMjBtYXB8ZW58MHx8fHwxNzY2NDE1MDYxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "europe map"
     }
   ]
 }

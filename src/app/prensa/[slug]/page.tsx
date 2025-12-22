@@ -1,6 +1,8 @@
 
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import { pressReleases } from '@/lib/press-releases';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Calendar } from 'lucide-react';
@@ -18,6 +20,8 @@ export default function PressReleasePage({ params }: PressReleasePageProps) {
   if (!release) {
     notFound();
   }
+
+  const releaseImage = PlaceHolderImages.find(img => img.id === release.imageId);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -38,6 +42,18 @@ export default function PressReleasePage({ params }: PressReleasePageProps) {
               </div>
             </div>
           </header>
+
+          {releaseImage && (
+            <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden mb-12 shadow-lg">
+              <Image
+                src={releaseImage.imageUrl}
+                alt={release.title}
+                data-ai-hint={releaseImage.imageHint}
+                fill
+                className="object-cover"
+              />
+            </div>
+          )}
           
           <div 
             className="prose prose-lg dark:prose-invert max-w-none mx-auto text-foreground/90
