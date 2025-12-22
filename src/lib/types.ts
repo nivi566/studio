@@ -1,3 +1,4 @@
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -8,4 +9,12 @@ export type BlogPost = {
   imageId: string;
   content: string;
   localImage?: string;
+};
+
+export type PressRelease = {
+  slug: string;
+  date: string;
+  title: string;
+  description: string;
+  fullContent: string;
 };
