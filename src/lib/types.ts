@@ -18,4 +18,5 @@ export type PressRelease = {
   description: string;
   fullContent: string;
   imageId?: string;
+  localImage?: string;
 };

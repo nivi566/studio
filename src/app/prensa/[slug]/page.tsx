@@ -21,7 +21,9 @@ export default function PressReleasePage({ params }: PressReleasePageProps) {
     notFound();
   }
 
-  const releaseImage = PlaceHolderImages.find(img => img.id === release.imageId);
+  const releaseImage = release.localImage ? null : PlaceHolderImages.find(img => img.id === release.imageId);
+  const imageUrl = release.localImage || releaseImage?.imageUrl;
+  const imageHint = release.localImage ? 'sustainability logistics' : releaseImage?.imageHint;
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -43,12 +45,12 @@ export default function PressReleasePage({ params }: PressReleasePageProps) {
             </div>
           </header>
 
-          {releaseImage && (
+          {imageUrl && (
             <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden mb-12 shadow-lg">
               <Image
-                src={releaseImage.imageUrl}
+                src={imageUrl}
                 alt={release.title}
-                data-ai-hint={releaseImage.imageHint}
+                data-ai-hint={imageHint}
                 fill
                 className="object-cover"
               />
