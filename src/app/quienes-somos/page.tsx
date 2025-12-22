@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
@@ -68,10 +69,13 @@ export default function AboutUsPage() {
                                     Nuestra Historia
                                 </h2>
                                 <p className="mt-4 text-lg text-muted-foreground">
-                                    InTrack nació de una idea simple: hacer que la logística fuera más inteligente, rápida y accesible para todos. Fundada en 2020, en medio de un mundo en rápida transformación, vimos la necesidad de un socio logístico que no solo transportara paquetes, sino que también construyera puentes y facilitara oportunidades.
+                                   InTrack nació de una idea simple: hacer que la logística fuera más inteligente, rápida y accesible para todos. Fundada en 2020, en medio de un mundo en rápida transformación, vimos la necesidad de un socio logístico que no solo transportara paquetes, sino que también construyera puentes y facilitara oportunidades.
                                 </p>
                                 <p className="mt-4 text-muted-foreground">
-                                    Comenzamos con una pequeña flota y un gran sueño. Hoy, gracias a nuestra apuesta por la tecnología de vanguardia y un equipo humano excepcional, hemos crecido hasta convertirnos en un referente en el sector, ofreciendo soluciones de envío nacionales e internacionales a miles de empresas y particulares.
+                                   Hoy ofrecemos soluciones innovadoras: nuestros clientes pueden recoger sus paquetes en taquillas y locales InTrack con un simple código QR, sin preocuparse por horarios ni ausencias en casa. Además, también pueden realizar devoluciones de manera fácil y rápida.
+                                </p>
+                                 <p className="mt-4 text-muted-foreground">
+                                   Gracias a nuestra apuesta por la tecnología de vanguardia y un equipo humano excepcional, nos hemos convertido en un referente en el sector, ofreciendo soluciones de envío nacionales e internacionales a miles de empresas y particulares.
                                 </p>
                             </div>
                             {valuesImage && (
