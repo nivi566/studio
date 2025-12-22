@@ -88,12 +88,12 @@ export function ShippingCalculator() {
   return (
     <Card className="w-full max-w-lg mx-auto shadow-2xl">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-2xl">
+        <CardTitle className="flex items-center gap-2 text-2xl text-card-foreground">
           <Calculator className="h-7 w-7" />
           Calcula tu envío al instante
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="text-card-foreground">
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
