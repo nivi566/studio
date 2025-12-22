@@ -27,7 +27,7 @@ export function Hero() {
             Envíos rápidos, seguros y al mejor precio
           </h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto md:mx-0 drop-shadow-md">
-            Soluciones de paquetería nacional e internacional para empresas y particulares.
+            Tu paquete, a tu ritmo.
           </p>
         </div>
         <div className="w-full">
