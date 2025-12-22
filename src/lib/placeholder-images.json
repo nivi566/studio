@@ -15,7 +15,7 @@
     {
       "id": "avatar2",
       "description": "Avatar for a customer testimonial.",
-      "imageUrl": "https://images.unsplash.com/photo-1710974481447-fb001ad9ad5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjBmYWNlfGVufDB8fHx8MTc2NDI5ODQ0Mnww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1710974481447-fb001ad9ad5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjBmYWNlfGVufDB8fHx8MTc2NDI5ODQ0Mnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "person face"
     },
     {
@@ -62,7 +62,7 @@
     },
     {
       "id": "pickup-andalucia",
-      "imageUrl": "https://images.unsplash.com/photo-1728055891614-f1a0511388c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YW5kYWx1Y2lhJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1728055891614-f1a0511388c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YW5kYWx1Y2lhJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "andalucia landscape",
       "description": "Landscape of Andalucia"
     },
@@ -165,8 +165,14 @@
     {
       "id": "press-release-expansion",
       "description": "Map showing expansion to Portugal and France.",
-      "imageUrl": "https://images.unsplash.com/photo-1588607327673-83b8f3791d6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxldXJvcGUlMjBtYXB8ZW58MHx8fHwxNzY2NDE1MDYxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1588607327673-83b8f3791d6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxldXJvcGUlMjBtYXB8ZW58MHx8fHwxNzY2NDE1MDYxfDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "europe map"
+    },
+    {
+      "id": "sustainable-packaging",
+      "description": "A cardboard box with eco-friendly filler.",
+      "imageUrl": "https://images.unsplash.com/photo-1621451537084-482c73c03a6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzdXN0YWluYWJsZSUyMHBhY2thZ2luZ3xlbnwwfHx8fDE3NjY0MTgzMjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sustainable packaging"
     }
   ]
 }
