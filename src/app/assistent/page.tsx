@@ -37,7 +37,7 @@ export default function AssistantPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch('/api/mistral', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export default function AssistantPage() {
           <CardHeader>
             <CardTitle className="text-2xl flex items-center gap-2">
               <Bot />
-              Asistente Virtual InTrack
+              Asistente Virtual
             </CardTitle>
           </CardHeader>
           <CardContent className="flex-1 flex flex-col gap-4 overflow-hidden">
