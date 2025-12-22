@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -69,7 +70,7 @@ export default function AssistantPage() {
           <CardHeader>
             <CardTitle className="text-2xl flex items-center gap-2">
               <Bot />
-              Asistente Virtual
+              Assistent Virtual
             </CardTitle>
           </CardHeader>
           <CardContent className="flex-1 flex flex-col gap-4 overflow-hidden">

@@ -1,3 +1,4 @@
+
 import {NextRequest, NextResponse} from 'next/server';
 import MistralClient from '@mistralai/mistralai';
 
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest) {
       ],
     });
 
-    if (chatResponse.choices.length > 0) {
+    if (chatResponse.choices.length > 0 && chatResponse.choices[0].message.content) {
       return NextResponse.json({ reply: chatResponse.choices[0].message.content });
     } else {
       return NextResponse.json({ reply: "Ho sento, no he pogut processar la teva sol·licitud en aquest moment." });
