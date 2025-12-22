@@ -5,11 +5,11 @@ import React, { useState } from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { MapPin, Search, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -168,29 +168,31 @@ export default function PickupPointsPage() {
     setIsLoading(true);
     setError(null);
 
-    try {
-      const response = await fetch('/api/filtrar-puntos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          query: searchQuery,
-          points: allPickupPoints
-        }),
-      });
+    // This is a local-only search for demonstration purposes.
+    // In a real application, this would be an API call.
+    setTimeout(() => {
+        const lowerCaseQuery = searchQuery.toLowerCase();
+        const results = allPickupPoints.map(communityGroup => {
+            const filtered = communityGroup.points.filter(point => 
+                point.city.toLowerCase().includes(lowerCaseQuery) || 
+                communityGroup.community.toLowerCase().includes(lowerCaseQuery)
+            );
+            return { ...communityGroup, points: filtered };
+        }).filter(communityGroup => communityGroup.points.length > 0);
 
-      if (!response.ok) {
-        throw new Error('Error en la resposta del servidor.');
-      }
-
-      const data = await response.json();
-      setFilteredPoints(data.filteredPoints);
-
-    } catch (err: any) {
-      setError('No s\'ha pogut realitzar la cerca. Prova-ho de nou.');
-    } finally {
-      setIsLoading(false);
-    }
+        setFilteredPoints(results);
+        if (results.length === 0) {
+            setError("No s'han trobat resultats per a la teva cerca.");
+        }
+        setIsLoading(false);
+    }, 500);
   };
+  
+  const clearSearch = () => {
+    setSearchQuery('');
+    setFilteredPoints(allPickupPoints);
+    setError(null);
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -203,7 +205,7 @@ export default function PickupPointsPage() {
                 Nuestros Puntos de Recogida
               </h1>
               <p className="mt-4 text-lg text-muted-foreground">
-                Encuentra tu punto InTrack más cercano. Utiliza nuestro buscador inteligente para preguntar por una ciudad o comunidad.
+                Encuentra tu punto InTrack más cercano. Utiliza nuestro buscador para filtrar por ciudad o comunidad autónoma.
               </p>
             </div>
             
@@ -212,11 +214,11 @@ export default function PickupPointsPage() {
                 <Input
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Ej: 'Punts de recollida a Andalusia' o 'Càceres'"
+                  placeholder="Ej: 'Andalucía' o 'Cáceres'"
                   disabled={isLoading}
                   className="flex-1"
                 />
-                <Button type="submit" disabled={isLoading || !searchQuery.trim()}>
+                <Button type="submit" disabled={isLoading}>
                   {isLoading ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
                   ) : (
@@ -224,8 +226,11 @@ export default function PickupPointsPage() {
                   )}
                   <span className="sr-only">Buscar</span>
                 </Button>
+                {searchQuery && 
+                    <Button variant="outline" onClick={clearSearch} disabled={isLoading}>Limpiar</Button>
+                }
               </form>
-               {error && (
+               {error && !isLoading && (
                 <Alert variant="destructive" className="mt-4">
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>{error}</AlertDescription>
@@ -233,7 +238,7 @@ export default function PickupPointsPage() {
               )}
             </div>
 
-            <div className="max-w-4xl mx-auto space-y-8">
+            <div className="max-w-5xl mx-auto space-y-12">
               {isLoading ? (
                  <div className="flex justify-center items-center py-10">
                     <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -241,26 +246,26 @@ export default function PickupPointsPage() {
               ) : filteredPoints.length > 0 ? (
                 filteredPoints.filter(c => c.points.length > 0).map((communityGroup) => (
                   <div key={communityGroup.community}>
-                    <h2 className="text-2xl font-bold text-foreground mb-4">{communityGroup.community}</h2>
-                    <Accordion type="single" collapsible className="w-full border rounded-lg">
+                    <h2 className="text-3xl font-bold text-foreground mb-6 border-b-2 border-primary pb-2">{communityGroup.community}</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {communityGroup.points.map((point) => (
-                            <AccordionItem value={point.city} key={point.city} className="px-6">
-                                <AccordionTrigger className="text-lg font-medium hover:no-underline">
-                                    {point.city}
-                                </AccordionTrigger>
-                                <AccordionContent>
-                                    <div className="flex items-center gap-4 p-4 bg-muted/50 rounded-md">
-                                        <MapPin className="h-6 w-6 text-primary" />
-                                        <p className="text-muted-foreground">{point.address}</p>
-                                    </div>
-                                </AccordionContent>
-                            </AccordionItem>
+                            <Card key={point.city} className="flex flex-col">
+                                <CardHeader>
+                                    <CardTitle className="flex items-center gap-2 text-xl">
+                                        <MapPin className="h-5 w-5 text-primary" />
+                                        {point.city}
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-muted-foreground">{point.address}</p>
+                                </CardContent>
+                            </Card>
                         ))}
-                    </Accordion>
+                    </div>
                   </div>
                 ))
               ) : (
-                <div className="text-center py-10">
+                !error && <div className="text-center py-10">
                   <p className="text-muted-foreground">No s'han trobat resultats per a la teva cerca.</p>
                 </div>
               )}
@@ -273,3 +278,5 @@ export default function PickupPointsPage() {
     </div>
   );
 }
+
+    
