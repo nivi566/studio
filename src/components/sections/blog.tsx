@@ -69,7 +69,7 @@ export function Blog() {
         </div>
         
         <div className="text-center mt-12">
-          <Button asChild size="lg" style={{backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))'}}>
+          <Button asChild size="lg">
             <Link href="/blog">Ver todos los artículos</Link>
           </Button>
         </div>
