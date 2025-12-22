@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -76,7 +77,7 @@ export function Header() {
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="font-medium text-accent transition-colors hover:text-foreground/80"
+              className="font-medium text-foreground transition-colors hover:text-foreground/80"
             >
               {link.label}
             </Link>
