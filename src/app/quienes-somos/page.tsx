@@ -31,7 +31,6 @@ const values = [
 
 export default function AboutUsPage() {
     const heroImage = PlaceHolderImages.find(img => img.id === 'about-us-hero');
-    const valuesImage = PlaceHolderImages.find(img => img.id === 'about-us-values');
 
     return (
         <div className="flex min-h-screen flex-col bg-background">
@@ -78,18 +77,16 @@ export default function AboutUsPage() {
                                    Gracias a nuestra apuesta por la tecnología de vanguardia y un equipo humano excepcional, nos hemos convertido en un referente en el sector, ofreciendo soluciones de envío nacionales e internacionales a miles de empresas y particulares.
                                 </p>
                             </div>
-                            {valuesImage && (
-                                <div className="rounded-lg overflow-hidden shadow-lg">
-                                    <Image
-                                        src={valuesImage.imageUrl}
-                                        alt={valuesImage.description}
-                                        data-ai-hint={valuesImage.imageHint}
-                                        width={600}
-                                        height={500}
-                                        className="object-cover w-full h-full"
-                                    />
-                                </div>
-                            )}
+                            <div className="rounded-lg overflow-hidden shadow-lg">
+                                <Image
+                                    src="/historia.png"
+                                    alt="Ilustración sobre la historia de InTrack"
+                                    data-ai-hint="logistics history"
+                                    width={600}
+                                    height={500}
+                                    className="object-cover w-full h-full"
+                                />
+                            </div>
                         </div>
                     </div>
                 </section>
