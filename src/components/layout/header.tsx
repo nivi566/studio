@@ -28,6 +28,7 @@ const navLinks = [
   { href: '/puntos-de-recogida', label: 'Puntos de Recogida' },
   { href: '/blog', label: 'Blog' },
   { href: '/contacto', label: 'Contacto' },
+  { href: '/assistent', label: 'Asistente' },
 ];
 
 export function Header() {
