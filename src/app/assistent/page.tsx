@@ -53,7 +53,7 @@ export default function AssistantPage() {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          errorData.error || 'Hi ha hagut un problema amb la resposta del servidor.'
+          errorData.error || 'Hubo un problema con la respuesta del servidor.'
         );
       }
 
@@ -62,7 +62,7 @@ export default function AssistantPage() {
       setMessages(prev => [...prev, botMessage]);
     } catch (err: any) {
       setError(
-        err.message || 'No s`ha pogut connectar amb l`assistent. Prova-ho de nou.'
+        err.message || 'No se pudo conectar con el asistente. Inténtalo de nuevo.'
       );
     } finally {
       setIsLoading(false);
@@ -76,10 +76,10 @@ export default function AssistantPage() {
         <div className="w-full max-w-3xl mx-auto px-4 flex flex-col h-[80vh]">
           <div className="text-center mb-8">
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-              Assistent Virtual
+              Asistente Virtual
             </h1>
             <p className="mt-4 text-lg text-muted-foreground">
-              Fes-me una pregunta i faré tot el possible per ajudar-te.
+              Hazme una pregunta y haré todo lo posible para ayudarte.
             </p>
           </div>
 
@@ -144,7 +144,7 @@ export default function AssistantPage() {
                 <Input
                   value={input}
                   onChange={e => setInput(e.target.value)}
-                  placeholder="Escriu el teu missatge..."
+                  placeholder="Escribe tu mensaje..."
                   disabled={isLoading}
                   className="flex-1"
                 />
