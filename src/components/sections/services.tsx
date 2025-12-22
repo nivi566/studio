@@ -67,8 +67,8 @@ export function Services() {
             <DialogTrigger asChild>
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <urgentShipmentsService.icon className="h-8 w-8 text-primary" />
+                  <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
+                    <urgentShipmentsService.icon className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
                   <CardTitle className="mt-4">{urgentShipmentsService.title}</CardTitle>
                 </CardHeader>
@@ -80,7 +80,7 @@ export function Services() {
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <Zap className="h-6 w-6 text-primary" />
+                  <Zap className="h-6 w-6 text-[#0B3C5D]" />
                   Envíos Urgentes 24h
                 </DialogTitle>
                 <DialogDescription>
@@ -91,15 +91,15 @@ export function Services() {
                 <p>Cuando el tiempo apremia, nuestro servicio de Envíos Urgentes 24h es tu mejor aliado. Garantizamos la entrega de tu paquete en cualquier punto de la península en un plazo máximo de 24 horas laborables.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
-                    <Rocket className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <Rocket className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Máxima Prioridad:</span> Tu envío es tratado con la máxima urgencia en todos nuestros procesos logísticos.</div>
                   </li>
                    <li className="flex items-start gap-3">
-                    <Clock className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <Clock className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Entrega al Día Siguiente:</span> Recogemos tu paquete y lo entregamos a lo largo del siguiente día laborable.</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <MapPin className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Seguimiento Detallado:</span> Incluye nuestro seguimiento en tiempo real para que no pierdas de vista tu envío ni un segundo.</div>
                   </li>
                 </ul>
@@ -114,8 +114,8 @@ export function Services() {
             <DialogTrigger asChild>
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <guaranteedDeliveriesService.icon className="h-8 w-8 text-primary" />
+                  <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
+                    <guaranteedDeliveriesService.icon className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
                   <CardTitle className="mt-4">{guaranteedDeliveriesService.title}</CardTitle>
                 </CardHeader>
@@ -127,7 +127,7 @@ export function Services() {
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <ShieldCheck className="h-6 w-6 text-primary" />
+                  <ShieldCheck className="h-6 w-6 text-[#0B3C5D]" />
                   Entregas Garantizadas
                 </DialogTitle>
                 <DialogDescription>
@@ -138,15 +138,15 @@ export function Services() {
                 <p>Entendemos la importancia de que tus paquetes lleguen en perfecto estado. Por ello, todos nuestros servicios incluyen garantías para proteger tu envío.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
-                    <Package className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <Package className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Seguro Básico Incluido:</span> Cada envío cuenta con una cobertura básica contra pérdida o daño.</div>
                   </li>
                    <li className="flex items-start gap-3">
-                    <ShieldCheck className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <ShieldCheck className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Seguro Adicional:</span> Para artículos de alto valor, ofrecemos opciones de seguro ampliado para una protección total.</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <MapPin className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Garantía de Entrega:</span> Nos comprometemos a cumplir los plazos de entrega estipulados para el servicio que elijas.</div>
                   </li>
                 </ul>
@@ -161,8 +161,8 @@ export function Services() {
             <DialogTrigger asChild>
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <realTimeTrackingService.icon className="h-8 w-8 text-primary" />
+                  <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
+                    <realTimeTrackingService.icon className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
                   <CardTitle className="mt-4">{realTimeTrackingService.title}</CardTitle>
                 </CardHeader>
@@ -174,7 +174,7 @@ export function Services() {
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <Smartphone className="h-6 w-6 text-primary" />
+                  <Smartphone className="h-6 w-6 text-[#0B3C5D]" />
                   Seguimiento en Tiempo Real
                 </DialogTitle>
                 <DialogDescription>
@@ -185,15 +185,15 @@ export function Services() {
                 <p>Nuestra plataforma de seguimiento te ofrece tranquilidad al permitirte ver la ubicación exacta de tu paquete en cada etapa del viaje, desde cualquier dispositivo.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <MapPin className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Visualización en Mapa:</span> Observa el progreso de tu envío en un mapa interactivo y en tiempo real.</div>
                   </li>
                    <li className="flex items-start gap-3">
-                    <Package className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <Package className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Actualizaciones de Estado:</span> Recibe notificaciones automáticas en cada punto clave: recogida, en tránsito, en reparto y entregado.</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Globe className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <Globe className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Estimación de Entrega:</span> Accede a una ventana de tiempo de entrega estimada que se actualiza dinámicamente según las condiciones del tráfico y la ruta.</div>
                   </li>
                 </ul>
@@ -208,8 +208,8 @@ export function Services() {
             <DialogTrigger asChild>
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <economicShipmentsService.icon className="h-8 w-8 text-primary" />
+                  <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
+                    <economicShipmentsService.icon className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
                   <CardTitle className="mt-4">{economicShipmentsService.title}</CardTitle>
                 </CardHeader>
@@ -221,7 +221,7 @@ export function Services() {
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <DollarSign className="h-6 w-6 text-primary" />
+                  <DollarSign className="h-6 w-6 text-[#0B3C5D]" />
                   Envíos Económicos
                 </DialogTitle>
                 <DialogDescription>
@@ -232,15 +232,15 @@ export function Services() {
                 <p>Nuestro servicio de envíos económicos está pensado para paquetes que no requieren una entrega inmediata, permitiéndote ahorrar significativamente en los costes de transporte.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
-                    <PiggyBank className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <PiggyBank className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Precios competitivos:</span> Ofrecemos algunas de las tarifas más bajas del mercado para envíos estándar.</div>
                   </li>
                    <li className="flex items-start gap-3">
-                    <Package className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <Package className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Fiabilidad garantizada:</span> Aunque sea económico, tu paquete es tratado con el máximo cuidado y cuenta con seguimiento.</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Globe className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <Globe className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Amplia cobertura:</span> Disponible para una gran cantidad de destinos nacionales e internacionales.</div>
                   </li>
                 </ul>
@@ -255,8 +255,8 @@ export function Services() {
             <DialogTrigger asChild>
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <integralLogisticsService.icon className="h-8 w-8 text-primary" />
+                  <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
+                    <integralLogisticsService.icon className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
                   <CardTitle className="mt-4">{integralLogisticsService.title}</CardTitle>
                 </CardHeader>
@@ -268,7 +268,7 @@ export function Services() {
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <Warehouse className="h-6 w-6 text-primary" />
+                  <Warehouse className="h-6 w-6 text-[#0B3C5D]" />
                   Logística Integral para E-commerce
                 </DialogTitle>
                 <DialogDescription>
@@ -279,15 +279,15 @@ export function Services() {
                 <p>Nuestra solución de logística integral está diseñada para e-commerce y empresas que buscan externalizar sus operaciones de almacenaje, preparación y envío.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
-                    <Package className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <Package className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Almacenaje flexible:</span> Guarda tu stock en nuestros almacenes seguros y optimizados.</div>
                   </li>
                    <li className="flex items-start gap-3">
-                    <ShoppingCart className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <ShoppingCart className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Picking y Packing:</span> Preparamos tus pedidos con precisión y los empaquetamos profesionalmente para proteger tus productos.</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Ship className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <Ship className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Distribución nacional e internacional:</span> Nos encargamos de la entrega final a tus clientes con nuestras tarifas competitivas.</div>
                   </li>
                 </ul>
@@ -302,8 +302,8 @@ export function Services() {
             <DialogTrigger asChild>
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <internationalTransportService.icon className="h-8 w-8 text-primary" />
+                  <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
+                    <internationalTransportService.icon className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
                   <CardTitle className="mt-4">{internationalTransportService.title}</CardTitle>
                 </CardHeader>
@@ -315,7 +315,7 @@ export function Services() {
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <Globe className="h-6 w-6 text-primary" />
+                  <Globe className="h-6 w-6 text-[#0B3C5D]" />
                   Transporte Internacional
                 </DialogTitle>
                 <DialogDescription>
@@ -326,15 +326,15 @@ export function Services() {
                 <p>Nuestra red global nos permite ofrecer soluciones de transporte internacional adaptadas a tus necesidades, combinando diferentes medios para optimizar tiempo y coste.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
-                    <Plane className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <Plane className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Transporte Aéreo:</span> La opción más rápida para envíos urgentes a cualquier destino internacional.</div>
                   </li>
                    <li className="flex items-start gap-3">
-                    <Ship className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <Ship className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Transporte Marítimo:</span> Ideal para grandes volúmenes y cargas no urgentes, ofreciendo la solución más económica.</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Package className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <Package className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div><span className="font-semibold text-foreground">Gestión Aduanera:</span> Nos encargamos de todos los trámites y documentación necesarios para un despacho de aduanas sin complicaciones.</div>
                   </li>
                 </ul>
@@ -351,4 +351,5 @@ export function Services() {
   );
 }
 
+    
     
