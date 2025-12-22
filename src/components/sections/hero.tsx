@@ -19,10 +19,10 @@ export function Hero() {
       <div className="relative container mx-auto px-4 z-10 grid md:grid-cols-2 gap-16 items-center">
         <div className="space-y-6 text-center md:text-left text-white">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight drop-shadow-lg">
-            Envíos rápidos, seguros y al mejor precio
+            Tu paquete, a tu ritmo.
           </h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto md:mx-0 drop-shadow-md">
-            Tu paquete, a tu ritmo.
+            Envíos rápidos, seguros y al mejor precio
           </p>
         </div>
         <div className="w-full">
