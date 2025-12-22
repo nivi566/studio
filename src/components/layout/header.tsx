@@ -77,7 +77,7 @@ export function Header() {
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="font-medium text-amber-500 transition-colors hover:text-amber-400"
+              className="font-medium text-orange-400 transition-colors hover:text-orange-500"
             >
               {link.label}
             </Link>
@@ -146,7 +146,7 @@ export function Header() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      className="text-lg font-medium text-amber-500"
+                      className="text-lg font-medium text-orange-400"
                       onClick={(e) => handleNavClick(e, link.href)}
                     >
                       {link.label}
