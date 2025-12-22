@@ -2,6 +2,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import {
@@ -15,10 +16,12 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const allPickupPoints = [
   {
     community: 'Andalucía',
+    imageId: 'pickup-andalucia',
     points: [
       { city: 'Almería', address: 'Paseo de Almería, 50, 04001 Almería' },
       { city: 'Cádiz', address: 'Calle Ancha, 1, 11001 Cádiz' },
@@ -32,6 +35,7 @@ const allPickupPoints = [
   },
   {
     community: 'Aragón',
+    imageId: 'pickup-aragon',
     points: [
       { city: 'Huesca', address: 'Coso Bajo, 35, 22001 Huesca' },
       { city: 'Teruel', address: 'Plaza del Torico, 1, 44001 Teruel' },
@@ -40,29 +44,34 @@ const allPickupPoints = [
   },
   {
     community: 'Principado de Asturias',
+    imageId: 'pickup-asturias',
     points: [
       { city: 'Oviedo', address: 'Calle Uría, 5, 33003 Oviedo' },
     ]
   },
   {
     community: 'Illes Balears',
+    imageId: 'pickup-baleares',
     points: [
        { city: 'Palma', address: 'Passeig des Born, 1, 07012 Palma, Illes Balears' },
     ]
   },
   {
     community: 'Canarias',
+    imageId: 'pickup-canarias',
     points: [
     ]
   },
   {
     community: 'Cantabria',
+    imageId: 'pickup-cantabria',
     points: [
       { city: 'Santander', address: 'Paseo de Pereda, 20, 39004 Santander' },
     ]
   },
   {
     community: 'Castilla-La Mancha',
+    imageId: 'pickup-castilla-la-mancha',
     points: [
       { city: 'Albacete', address: 'Calle Ancha, 10, 02001 Albacete' },
       { city: 'Ciudad Real', address: 'Plaza Mayor, 1, 13001 Ciudad Real' },
@@ -73,6 +82,7 @@ const allPickupPoints = [
   },
     {
     community: 'Castilla y León',
+    imageId: 'pickup-castilla-y-leon',
     points: [
       { city: 'Ávila', address: 'Plaza de Santa Teresa, 5, 05001 Ávila' },
       { city: 'Burgos', address: 'Plaza Mayor, 1, 09003 Burgos' },
@@ -87,6 +97,7 @@ const allPickupPoints = [
   },
   {
     community: 'Cataluña',
+    imageId: 'pickup-cataluna',
     points: [
       { city: 'Barcelona', address: 'Passeig de Gràcia, 92, 08008 Barcelona' },
       { city: 'Girona', address: 'Rambla de la Llibertat, 1, 17004 Girona' },
@@ -96,6 +107,7 @@ const allPickupPoints = [
   },
   {
     community: 'Comunidad Valenciana',
+    imageId: 'pickup-valencia',
     points: [
       { city: 'Alicante', address: 'Avenida Maisonnave, 3, 03003 Alicante' },
       { city: 'Castellón de la Plana', address: 'Carrer d\'Enmig, 33, 12001 Castelló de la Plana' },
@@ -104,6 +116,7 @@ const allPickupPoints = [
   },
   {
     community: 'Extremadura',
+    imageId: 'pickup-extremadura',
     points: [
       { city: 'Badajoz', address: 'Calle Menacho, 49, 06001 Badajoz' },
       { city: 'Cáceres', address: 'Avenida de España, 1, 10002 Cáceres' },
@@ -111,6 +124,7 @@ const allPickupPoints = [
   },
   {
     community: 'Galicia',
+    imageId: 'pickup-galicia',
     points: [
       { city: 'A Coruña', address: 'Rúa Real, 22, 15003 A Coruña' },
       { city: 'Lugo', address: 'Praza Maior, 1, 27001 Lugo' },
@@ -120,24 +134,28 @@ const allPickupPoints = [
   },
   {
     community: 'Comunidad de Madrid',
+    imageId: 'pickup-madrid',
     points: [
        { city: 'Madrid', address: 'Calle Gran Vía, 28, 28013 Madrid' },
     ]
   },
   {
     community: 'Región de Murcia',
+    imageId: 'pickup-murcia',
     points: [
        { city: 'Murcia', address: 'Calle Trapería, 1, 30001 Murcia' },
     ]
   },
   {
     community: 'Comunidad Foral de Navarra',
+    imageId: 'pickup-navarra',
     points: [
        { city: 'Pamplona', address: 'Plaza del Castillo, 1, 31001 Pamplona' },
     ]
   },
   {
     community: 'País Vasco',
+    imageId: 'pickup-pais-vasco',
     points: [
       { city: 'Bilbao', address: 'Gran Vía de Don Diego López de Haro, 38, 48009 Bilbao' },
       { city: 'San Sebastián', address: 'Alameda del Boulevard, 1, 20003 San Sebastián' },
@@ -146,6 +164,7 @@ const allPickupPoints = [
   },
   {
     community: 'La Rioja',
+    imageId: 'pickup-rioja',
     points: [
       { city: 'Logroño', address: 'Calle del Laurel, 1, 26001 Logroño' },
     ]
@@ -244,26 +263,42 @@ export default function PickupPointsPage() {
                     <Loader2 className="h-8 w-8 animate-spin text-primary" />
                  </div>
               ) : filteredPoints.length > 0 ? (
-                filteredPoints.filter(c => c.points.length > 0).map((communityGroup) => (
-                  <div key={communityGroup.community}>
-                    <h2 className="text-3xl font-bold text-foreground mb-6 border-b-2 border-primary pb-2">{communityGroup.community}</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {communityGroup.points.map((point) => (
-                            <Card key={point.city} className="flex flex-col">
-                                <CardHeader>
-                                    <CardTitle className="flex items-center gap-2 text-xl">
-                                        <MapPin className="h-5 w-5 text-primary" />
-                                        {point.city}
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-muted-foreground">{point.address}</p>
-                                </CardContent>
-                            </Card>
-                        ))}
+                filteredPoints.filter(c => c.points.length > 0).map((communityGroup) => {
+                  const communityImage = PlaceHolderImages.find(img => img.id === communityGroup.imageId);
+                  return (
+                    <div key={communityGroup.community}>
+                      <h2 className="text-3xl font-bold text-foreground mb-6 border-b-2 border-primary pb-2">{communityGroup.community}</h2>
+                      
+                      {communityImage && (
+                        <div className="relative w-full h-48 md:h-64 rounded-lg overflow-hidden mb-8 shadow-lg">
+                           <Image
+                            src={communityImage.imageUrl}
+                            alt={`Imagen representativa de ${communityGroup.community}`}
+                            data-ai-hint={communityImage.imageHint}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                          {communityGroup.points.map((point) => (
+                              <Card key={point.city} className="flex flex-col">
+                                  <CardHeader>
+                                      <CardTitle className="flex items-center gap-2 text-xl">
+                                          <MapPin className="h-5 w-5 text-primary" />
+                                          {point.city}
+                                      </CardTitle>
+                                  </CardHeader>
+                                  <CardContent>
+                                      <p className="text-muted-foreground">{point.address}</p>
+                                  </CardContent>
+                              </Card>
+                          ))}
+                      </div>
                     </div>
-                  </div>
-                ))
+                  )
+                })
               ) : (
                 !error && <div className="text-center py-10">
                   <p className="text-muted-foreground">No s'han trobat resultats per a la teva cerca.</p>
@@ -278,5 +313,3 @@ export default function PickupPointsPage() {
     </div>
   );
 }
-
-    
