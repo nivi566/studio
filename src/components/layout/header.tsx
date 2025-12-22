@@ -65,10 +65,10 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-header/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <div className="mr-4 flex">
-          <Logo className="text-white"/>
+          <Logo />
         </div>
         
         <nav className="hidden md:flex md:items-center md:gap-6 text-sm">
@@ -117,7 +117,7 @@ export function Header() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-               <Button asChild>
+               <Button asChild style={{ backgroundColor: '#0B3C5D', color: 'white' }}>
                 <Link href="/login">Iniciar Sesión</Link>
               </Button>
             )
@@ -125,17 +125,17 @@ export function Header() {
           
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden text-white">
+              <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Open Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-full max-w-xs bg-header">
+            <SheetContent side="right" className="w-full max-w-xs bg-background">
               <div className="flex h-full flex-col">
                 <div className="flex items-center justify-between border-b pb-4">
-                  <Logo className="text-white"/>
+                  <Logo />
                   <SheetTrigger asChild>
-                    <Button variant="ghost" size="icon" className="text-white">
+                    <Button variant="ghost" size="icon">
                       <X className="h-5 w-5" />
                       <span className="sr-only">Close Menu</span>
                     </Button>
