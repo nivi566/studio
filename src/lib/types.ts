@@ -7,6 +7,7 @@ export type BlogPost = {
   author: string;
   category: string;
   imageId: string;
+  localImage?: string;
   content: string;
 };
 
@@ -17,5 +18,5 @@ export type PressRelease = {
   description: string;
   fullContent: string;
   imageId?: string;
+  localImage?: string;
 };
-

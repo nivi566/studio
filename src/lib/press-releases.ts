@@ -32,6 +32,7 @@ export const pressReleases: PressRelease[] = [
         title: "InTrack lanza su iniciativa de embalaje 100% sostenible",
         description: "Nos comprometemos a utilizar únicamente materiales reciclados y biodegradables en todos nuestros envíos.",
         imageId: "sustainable-packaging",
+        localImage: "/embalaje.png",
         fullContent: `
             <p class="mb-4"><strong>MADRID, 1 de junio de 2024</strong> – En un firme compromiso con el medio ambiente, InTrack ha lanzado hoy su nueva iniciativa "Green Pack", con el objetivo de utilizar embalajes 100% sostenibles en todas sus operaciones para finales de 2025. La compañía sustituirá progresivamente los plásticos de un solo uso por materiales reciclados, reciclables y biodegradables.</p>
             <p class="mb-4">Esta iniciativa incluye el uso de cajas de cartón con certificación FSC, cintas adhesivas de papel y rellenos protectores compostables. "La sostenibilidad no es una opción, es una responsabilidad", declaró la Directora de Sostenibilidad de InTrack. "Queremos liderar el cambio en la industria logística hacia un modelo más respetuoso con el planeta, y el embalaje es un pilar fundamental de esta transformación".</p>
