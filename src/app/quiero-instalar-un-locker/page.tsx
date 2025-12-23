@@ -120,7 +120,7 @@ export default function InstallLockerPage() {
                         ¿Cómo instalar taquillas inteligentes locker InTrack?
                     </h2>
                     <p className="mt-4 text-lg text-muted-foreground">
-                        El proceso es sencillo, rápido y totalmente gratuito para ti.
+                        Si tienes un espacio libre en tu negocio de 2 metros o más, ¡es momento de aprovecharlo! Sigue estos sencillos pasos y forma parte de nuestra red de Lockers:
                     </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
