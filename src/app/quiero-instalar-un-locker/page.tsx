@@ -20,7 +20,7 @@ const benefits = [
     {
         icon: DollarSign,
         title: 'Más tráfico',
-        description: 'Recibe una comisión por cada paquete gestionado desde tu Locker. Una fuente de ingresos adicional sin esfuerzo.'
+        description: 'El 50% de los usuarios visitan comercios cercanos y ¡más del 80% compran!'
     },
     {
         icon: Users,
