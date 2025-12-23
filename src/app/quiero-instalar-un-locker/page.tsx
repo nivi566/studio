@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, CheckCircle2, Truck } from 'lucide-react';
+import { Users, CheckCircle2, Truck, ClipboardList, MapPin, Wrench, Power } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import Image from 'next/image';
 
@@ -28,6 +28,29 @@ const benefits = [
         description: 'Residentes y trabajadores podrán recoger sus paquetes en cualquier momento'
     }
 ];
+
+const installationSteps = [
+    {
+        icon: ClipboardList,
+        title: '1. Envía tu solicitud',
+        description: 'Rellena y envía el formulario de contacto que encontrarás más abajo. Es rápido y sin compromiso.'
+    },
+    {
+        icon: MapPin,
+        title: '2. Estudiamos la ubicación',
+        description: 'Nuestro equipo evaluará la viabilidad de tu local para asegurar que cumple los requisitos de espacio y accesibilidad.'
+    },
+    {
+        icon: Wrench,
+        title: '3. Instalación gratuita',
+        description: 'Nos encargamos de la instalación completa del Locker en tu negocio, sin ningún coste ni obra para ti.'
+    },
+    {
+        icon: Power,
+        title: '4. ¡Listo para funcionar!',
+        description: 'Una vez instalado, activamos el Locker y tu negocio empezará a atraer nuevos clientes y a disfrutar de las ventajas.'
+    }
+]
 
 export default function InstallLockerPage() {
   return (
@@ -85,6 +108,32 @@ export default function InstallLockerPage() {
                                 <p className="text-muted-foreground">{benefit.description}</p>
                             </CardContent>
                         </Card>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <section className="py-16 sm:py-24 bg-background">
+             <div className="container mx-auto px-4">
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                    <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+                        ¿Cómo instalar taquillas inteligentes locker InTrack?
+                    </h2>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                        El proceso es sencillo, rápido y totalmente gratuito para ti.
+                    </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {installationSteps.map((step) => (
+                        <div key={step.title} className="text-center">
+                            <div className="flex justify-center mb-4">
+                                <div className="bg-primary/10 p-4 rounded-full border-2 border-primary/20">
+                                    <step.icon className="h-8 w-8 text-primary" />
+                                </div>
+                            </div>
+                            <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
+                            <p className="mt-2 text-muted-foreground">{step.description}</p>
+                        </div>
                     ))}
                 </div>
             </div>
