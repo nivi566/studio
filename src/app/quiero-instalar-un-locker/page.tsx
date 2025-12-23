@@ -24,7 +24,7 @@ const benefits = [
     },
     {
         icon: Users,
-        title: 'Atrae más clientes',
+        title: 'Más cómodo',
         description: 'Conviértete en un punto de referencia en tu barrio. Los usuarios que recogen paquetes a menudo realizan compras adicionales en tu establecimiento.'
     }
 ];
