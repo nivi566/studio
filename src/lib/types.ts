@@ -8,7 +8,6 @@ export type BlogPost = {
   category: string;
   imageId: string;
   content: string;
-  localImage?: string;
 };
 
 export type PressRelease = {
@@ -18,5 +17,5 @@ export type PressRelease = {
   description: string;
   fullContent: string;
   imageId?: string;
-  localImage?: string;
 };
+

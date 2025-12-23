@@ -20,9 +20,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const postImage = post.localImage ? null : PlaceHolderImages.find(img => img.id === post.imageId);
-  const imageUrl = post.localImage || postImage?.imageUrl;
-  const imageHint = post.localImage ? 'sustainability logistics' : postImage?.imageHint;
+  const postImage = PlaceHolderImages.find(img => img.id === post.imageId);
+  const imageUrl = postImage?.imageUrl;
+  const imageHint = postImage?.imageHint;
 
   return (
     <div className="flex min-h-screen flex-col bg-background">

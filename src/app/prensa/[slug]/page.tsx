@@ -1,4 +1,3 @@
-
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { pressReleases } from '@/lib/press-releases';
@@ -21,9 +20,9 @@ export default function PressReleasePage({ params }: PressReleasePageProps) {
     notFound();
   }
 
-  const releaseImage = release.localImage ? null : PlaceHolderImages.find(img => img.id === release.imageId);
-  const imageUrl = release.localImage || releaseImage?.imageUrl;
-  const imageHint = release.localImage ? 'sustainability logistics' : releaseImage?.imageHint;
+  const releaseImage = PlaceHolderImages.find(img => img.id === release.imageId);
+  const imageUrl = releaseImage?.imageUrl;
+  const imageHint = releaseImage?.imageHint;
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
