@@ -25,7 +25,7 @@ const benefits = [
     {
         icon: Users,
         title: 'Más cómodo',
-        description: 'Conviértete en un punto de referencia en tu barrio. Los usuarios que recogen paquetes a menudo realizan compras adicionales en tu establecimiento.'
+        description: 'Residentes y trabajadores podrán recoger sus paquetes en cualquier momento'
     }
 ];
 
