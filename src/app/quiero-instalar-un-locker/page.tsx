@@ -15,17 +15,17 @@ const benefits = [
     {
         icon: Users,
         title: 'Atrae más clientes',
-        description: 'Converteix-te en un punt de referència al teu barri. Els usuaris que recullen paquets sovint realitzen compres addicionals al teu establiment.'
+        description: 'Conviértete en un punto de referencia en tu barrio. Los usuarios que recogen paquetes a menudo realizan compras adicionales en tu establecimiento.'
     },
     {
         icon: DollarSign,
-        title: 'Genera ingressos passius',
-        description: 'Rep una comissió per cada paquet gestionat des del teu Locker. Una font d\'ingressos addicional sense esforç.'
+        title: 'Genera ingresos pasivos',
+        description: 'Recibe una comisión por cada paquete gestionado desde tu Locker. Una fuente de ingresos adicional sin esfuerzo.'
     },
     {
         icon: CheckCircle2,
-        title: 'Sense cap cost per a tu',
-        description: 'Nosaltres ens encarreguem de la instal·lació, el manteniment i el suport tècnic del Locker, tot sense cap cost per al teu negoci.'
+        title: 'Sin coste para ti',
+        description: 'Nosotros nos encargamos de la instalación, el mantenimiento y el soporte técnico del Locker, todo sin ningún coste para tu negocio.'
     }
 ];
 
@@ -39,13 +39,13 @@ export default function InstallLockerPage() {
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <div className="space-y-6">
                         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-                            Converteix el teu negoci en un punt InTrack
+                            Convierte tu negocio en un punto InTrack
                         </h1>
                         <p className="text-lg text-muted-foreground">
-                            Aprofita l'oportunitat d'unir-te a la nostra xarxa de Lockers intel·ligents. Ofereix un servei valuós a la teva comunitat, atrau nous clients i genera ingressos addicionals sense cap inversió.
+                            Aprovecha la oportunidad de unirte a nuestra red de Lockers inteligentes. Ofrece un servicio valioso a tu comunidad, atrae nuevos clientes y genera ingresos adicionales sin ninguna inversión.
                         </p>
                         <Button size="lg" asChild>
-                           <a href="#contact-form">Sol·licita informació</a>
+                           <a href="#contact-form">Solicita información</a>
                         </Button>
                     </div>
                     <div className="rounded-lg overflow-hidden shadow-lg">
@@ -66,10 +66,10 @@ export default function InstallLockerPage() {
              <div className="container mx-auto px-4">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-                        Beneficis per al teu negoci
+                        Beneficios para tu negocio
                     </h2>
                     <p className="mt-4 text-lg text-muted-foreground">
-                        Descobreix per què instal·lar un Locker InTrack és una decisió intel·ligent.
+                        Descubre por qué instalar un Locker InTrack es una decisión inteligente.
                     </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -95,36 +95,36 @@ export default function InstallLockerPage() {
             <div className="max-w-2xl mx-auto">
                  <Card className="shadow-xl">
                     <CardHeader className="text-center">
-                        <CardTitle className="text-3xl">¿Estàs interessat?</CardTitle>
-                        <p className="text-muted-foreground pt-2">Deixa'ns les teves dades i un dels nostres especialistes es posarà en contacte amb tu per explicar-te tots els detalls sense compromís.</p>
+                        <CardTitle className="text-3xl">¿Estás interesado?</CardTitle>
+                        <p className="text-muted-foreground pt-2">Déjanos tus datos y uno de nuestros especialistas se pondrá en contacto contigo para explicarte todos los detalles sin compromiso.</p>
                     </CardHeader>
                     <CardContent>
                         <form action="https://formspree.io/f/xrbnkanl" method="POST" className="space-y-6">
                             <div className="grid sm:grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="name">Nom i cognoms</Label>
-                                    <Input id="name" name="name" placeholder="El teu nom" required />
+                                    <Label htmlFor="name">Nombre y apellidos</Label>
+                                    <Input id="name" name="name" placeholder="Tu nombre" required />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="business-name">Nom del negoci</Label>
-                                    <Input id="business-name" name="business-name" placeholder="Nom del teu negoci" required />
+                                    <Label htmlFor="business-name">Nombre del negocio</Label>
+                                    <Input id="business-name" name="business-name" placeholder="Nombre de tu negocio" required />
                                 </div>
                             </div>
                             <div className="grid sm:grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="email">Correu electrònic</Label>
-                                    <Input id="email" name="email" type="email" placeholder="el_teu@email.com" required />
+                                    <Label htmlFor="email">Correo electrónico</Label>
+                                    <Input id="email" name="email" type="email" placeholder="tu@email.com" required />
                                 </div>
                                  <div className="space-y-2">
-                                    <Label htmlFor="phone">Telèfon</Label>
-                                    <Input id="phone" name="phone" type="tel" placeholder="El teu telèfon de contacte" required />
+                                    <Label htmlFor="phone">Teléfono</Label>
+                                    <Input id="phone" name="phone" type="tel" placeholder="Tu teléfono de contacto" required />
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="message">Missatge (opcional)</Label>
-                                <Textarea id="message" name="message" placeholder="Explica'ns una mica sobre el teu negoci o si tens alguna pregunta..." className="min-h-[100px]" />
+                                <Label htmlFor="message">Mensaje (opcional)</Label>
+                                <Textarea id="message" name="message" placeholder="Cuéntanos un poco sobre tu negocio o si tienes alguna pregunta..." className="min-h-[100px]" />
                             </div>
-                            <Button type="submit" className="w-full" size="lg">Enviar sol·licitud</Button>
+                            <Button type="submit" className="w-full" size="lg">Enviar solicitud</Button>
                         </form>
                     </CardContent>
                 </Card>
