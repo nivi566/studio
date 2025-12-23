@@ -15,7 +15,7 @@ const benefits = [
     {
         icon: CheckCircle2,
         title: 'Sin coste ni complicaciones',
-        description: 'Nosotros nos encargamos de la instalación, el mantenimiento y el soporte técnico del Locker, todo sin ningún coste para tu negocio.'
+        description: 'InTrack se ocupa de todo: costes, instalación y mantenimiento'
     },
     {
         icon: DollarSign,
