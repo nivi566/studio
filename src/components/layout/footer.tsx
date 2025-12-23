@@ -24,7 +24,7 @@ const footerLinks = {
     { label: 'Sedes', href: '#' },
     { label: 'Puntos de Recogida', href: '/puntos-de-recogida' },
     { label: 'Contacto', href: '/contacto' },
-    { label: 'Trabaja con nosotros', href: '#' },
+    { label: 'Trabaja con nosotros', href: '/trabaja-con-nosotros' },
     { label: 'Prensa', href: '/prensa' },
   ],
   'Legal': [
