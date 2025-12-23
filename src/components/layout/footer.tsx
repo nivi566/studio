@@ -21,7 +21,7 @@ const footerLinks = {
   ],
   'Compañía': [
     { label: 'Quiénes somos', href: '/quienes-somos' },
-    { label: 'Quiero instalar un Locker', href: '#' },
+    { label: 'Quiero instalar un Locker', href: '/quiero-instalar-un-locker' },
     { label: 'Puntos de Recogida', href: '/puntos-de-recogida' },
     { label: 'Contacto', href: '/contacto' },
     { label: 'Trabaja con nosotros', href: '/trabaja-con-nosotros' },
