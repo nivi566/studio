@@ -13,9 +13,9 @@ import Image from 'next/image';
 
 const benefits = [
     {
-        icon: Users,
-        title: 'Atrae más clientes',
-        description: 'Conviértete en un punto de referencia en tu barrio. Los usuarios que recogen paquetes a menudo realizan compras adicionales en tu establecimiento.'
+        icon: CheckCircle2,
+        title: 'Sin coste ni complicaciones',
+        description: 'Nosotros nos encargamos de la instalación, el mantenimiento y el soporte técnico del Locker, todo sin ningún coste para tu negocio.'
     },
     {
         icon: DollarSign,
@@ -23,9 +23,9 @@ const benefits = [
         description: 'Recibe una comisión por cada paquete gestionado desde tu Locker. Una fuente de ingresos adicional sin esfuerzo.'
     },
     {
-        icon: CheckCircle2,
-        title: 'Sin coste para ti',
-        description: 'Nosotros nos encargamos de la instalación, el mantenimiento y el soporte técnico del Locker, todo sin ningún coste para tu negocio.'
+        icon: Users,
+        title: 'Atrae más clientes',
+        description: 'Conviértete en un punto de referencia en tu barrio. Los usuarios que recogen paquetes a menudo realizan compras adicionales en tu establecimiento.'
     }
 ];
 
