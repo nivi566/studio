@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { DollarSign, Users, CheckCircle2 } from 'lucide-react';
+import { Users, CheckCircle2, Truck } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import Image from 'next/image';
 
@@ -18,7 +18,7 @@ const benefits = [
         description: 'InTrack se ocupa de todo: costes, instalación y mantenimiento'
     },
     {
-        icon: DollarSign,
+        icon: Truck,
         title: 'Más tráfico',
         description: 'El 50% de los usuarios visitan comercios cercanos y ¡más del 80% compran!'
     },
