@@ -31,7 +31,7 @@ const footerLinks = {
     { label: 'Aviso Legal', href: '#' },
     { label: 'Política de Privacidad', href: '#' },
     { label: 'Política de Cookies', href: '#' },
-    { label: 'Términos y Condiciones', href: '#' },
+    { label: 'Términos y Condiciones', href: '/terminos-y-condiciones' },
   ],
 };
 
