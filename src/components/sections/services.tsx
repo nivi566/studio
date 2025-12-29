@@ -1,6 +1,7 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane, PiggyBank, MapPin, Clock, Rocket } from 'lucide-react';
+import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane, PiggyBank, MapPin, Clock, Rocket, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import {
   Dialog,
   DialogContent,
@@ -30,10 +31,10 @@ const realTimeTrackingService = {
   description: 'Controla la ubicación de tu paquete en cada momento, desde la recogida hasta la entrega final.',
 };
 
-const economicShipmentsService = {
+const pricingService = {
   icon: DollarSign,
-  title: 'Envíos Económicos',
-  description: 'La opción más rentable para tus envíos no urgentes, con la misma seguridad y fiabilidad.',
+  title: 'Tarifas',
+  description: 'Consulta nuestros precios competitivos para envíos nacionales, urgentes e internacionales.',
 };
 
 const integralLogisticsService = {
@@ -209,12 +210,12 @@ export function Services() {
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
                   <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
-                    <economicShipmentsService.icon className="h-8 w-8 text-[#0B3C5D]" />
+                    <pricingService.icon className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
-                  <CardTitle className="mt-4">{economicShipmentsService.title}</CardTitle>
+                  <CardTitle className="mt-4">{pricingService.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{economicShipmentsService.description}</p>
+                  <p className="text-muted-foreground">{pricingService.description}</p>
                 </CardContent>
               </Card>
             </DialogTrigger>
@@ -222,33 +223,40 @@ export function Services() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <DollarSign className="h-6 w-6 text-[#0B3C5D]" />
-                  Envíos Económicos
+                  Nuestras Tarifas
                 </DialogTitle>
                 <DialogDescription>
-                  La opción perfecta para enviar sin prisas y al mejor precio, sin renunciar a la calidad y seguridad.
+                  Planes de precios claros y competitivos para cada tipo de envío.
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4 space-y-4 text-sm text-muted-foreground">
-                <p>Nuestro servicio de envíos económicos está pensado para paquetes que no requieren una entrega inmediata, permitiéndote ahorrar significativamente en los costes de transporte.</p>
+                <p>Ofrecemos una estructura de precios transparente para que siempre sepas cuánto te costará tu envío. Sin sorpresas ni costes ocultos.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
                     <PiggyBank className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Precios competitivos:</span> Ofrecemos algunas de las tarifas más bajas del mercado para envíos estándar.</div>
+                    <div><span className="font-semibold text-foreground">Precios competitivos:</span> Tarifas ajustadas para envíos nacionales, urgentes e internacionales.</div>
                   </li>
                    <li className="flex items-start gap-3">
                     <Package className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Fiabilidad garantizada:</span> Aunque sea económico, tu paquete es tratado con el máximo cuidado y cuenta con seguimiento.</div>
+                    <div><span className="font-semibold text-foreground">Calculadora online:</span> Usa nuestra herramienta para obtener un presupuesto al instante para tu envío.</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <Globe className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Amplia cobertura:</span> Disponible para una gran cantidad de destinos nacionales e internacionales.</div>
+                    <div><span className="font-semibold text-foreground">Sin costes ocultos:</span> El precio que ves es el precio que pagas. Incluimos seguimiento y seguro básico.</div>
                   </li>
                 </ul>
-                <p>Ideal para envíos personales, regalos o ventas de e-commerce donde el cliente prefiere un menor coste a una mayor velocidad.</p>
+                <p>Consulta nuestra página de tarifas para ver todos los detalles y encontrar el plan que mejor se adapta a ti.</p>
               </div>
-               <DialogClose asChild>
-                <Button type="button" variant="secondary">Cerrar</Button>
-              </DialogClose>
+                <div className="flex gap-2">
+                   <DialogClose asChild>
+                    <Button type="button" variant="secondary" className="w-full">Cerrar</Button>
+                  </DialogClose>
+                  <Button asChild className="w-full">
+                    <Link href="/tarifas" className="flex items-center gap-2">
+                        Ver Tarifas <ArrowRight />
+                    </Link>
+                  </Button>
+                </div>
             </DialogContent>
           </Dialog>
           <Dialog>
@@ -352,4 +360,6 @@ export function Services() {
 }
 
     
+    
+
     
