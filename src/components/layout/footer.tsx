@@ -15,7 +15,6 @@ const socialLinks = [
 const footerLinks = {
   'Servicios': [
     { label: 'Envíos Urgentes', href: '#' },
-    { label: 'Envíos Económicos', href: '#' },
     { label: 'Logística Integral', href: '#' },
     { label: 'Transporte Internacional', href: '#' },
     { label: 'Tarifas', href: '/tarifas' },
