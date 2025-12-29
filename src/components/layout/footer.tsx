@@ -18,7 +18,7 @@ const footerLinks = {
     { label: 'Envíos Económicos', href: '#' },
     { label: 'Logística Integral', href: '#' },
     { label: 'Transporte Internacional', href: '#' },
-    { label: 'Tarifas', href: '#' },
+    { label: 'Tarifas', href: '/tarifas' },
   ],
   'Compañía': [
     { label: 'Quiénes somos', href: '/quienes-somos' },
