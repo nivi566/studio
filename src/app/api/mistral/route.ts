@@ -2,8 +2,6 @@
 import {NextRequest, NextResponse} from 'next/server';
 import MistralClient from '@mistralai/mistralai';
 
-// No inicialitzar el client aquí
-
 const systemPrompt = `
 Eres un asistente virtual experto en la información de la página web https://intrack-logistics.netlify.app/.
 Tu tarea es responder únicamente con información que se encuentre en esa página.
@@ -20,7 +18,7 @@ Cuando respondas, sigue estas reglas:
 
 export async function POST(req: NextRequest) {
   try {
-    // Inicialitza el client dins de la funció POST
+    // Inicialitza el client dins de la funció POST per accedir a les variables d'entorn
     const mistral = new MistralClient(process.env.MISTRAL_API_KEY);
 
     const { message } = await req.json();
