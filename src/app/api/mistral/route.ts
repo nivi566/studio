@@ -6,14 +6,14 @@ const systemPrompt = `
 Eres un asistente virtual experto en la información de la página web https://intrack-logistics.netlify.app/.
 Tu tarea es responder únicamente con información que se encuentre en esa página.
 No inventes datos, ni proporciones ejemplos externos, ni listas genéricas.
-Si la información no está en la web, di claramente: "Ho sento, no tinc aquesta informació en aquest moment."
+Si la información no está en la web, di claramente: "Lo siento, no tengo esa información en este momento."
 
 Cuando respondas, sigue estas reglas:
 1. Solo utiliza contenido de la web indicada.
 2. No agregues información externa.
 3. Sé claro, conciso y directo.
 4. Mantén el estilo y tono de la web.
-5. Responde en catalán.
+5. Responde en español.
 `;
 
 export async function POST(req: NextRequest) {
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     const { message } = await req.json();
 
     if (!message) {
-      return NextResponse.json({ error: 'El missatge és obligatori' }, { status: 400 });
+      return NextResponse.json({ error: 'El mensaje es obligatorio' }, { status: 400 });
     }
     
     const chatResponse = await mistral.chat({
@@ -38,11 +38,11 @@ export async function POST(req: NextRequest) {
     if (chatResponse.choices.length > 0 && chatResponse.choices[0].message.content) {
       return NextResponse.json({ reply: chatResponse.choices[0].message.content });
     } else {
-      return NextResponse.json({ reply: "Ho sento, no he pogut processar la teva sol·licitud en aquest moment." });
+      return NextResponse.json({ reply: "Lo siento, no he podido procesar tu solicitud en este momento." });
     }
 
   } catch (error) {
     console.error('Error en la API de Mistral:', error);
-    return NextResponse.json({ error: 'Ha ocorregut un error intern.' }, { status: 500 });
+    return NextResponse.json({ error: 'Ha ocurrido un error interno.' }, { status: 500 });
   }
 }

@@ -20,7 +20,7 @@ export default function AssistantPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Hola! Sóc l\'assistent virtual de InTrack. En què et puc ajudar?'
+      content: '¡Hola! Soy el asistente virtual de InTrack. ¿En qué puedo ayudarte?'
     }
   ]);
   const [input, setInput] = useState('');
@@ -52,7 +52,7 @@ export default function AssistantPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Error en la resposta del servidor');
+        throw new Error('Error en la respuesta del servidor');
       }
 
       const data = await response.json();
@@ -60,7 +60,7 @@ export default function AssistantPage() {
       setMessages((prev) => [...prev, assistantMessage]);
 
     } catch (error) {
-      const errorMessage: Message = { role: 'assistant', content: 'Ho sento, ha ocorregut un error. Intenta-ho de nou més tard.' };
+      const errorMessage: Message = { role: 'assistant', content: 'Lo siento, ha ocurrido un error. Inténtalo de nuevo más tarde.' };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
@@ -75,7 +75,7 @@ export default function AssistantPage() {
           <CardHeader>
             <CardTitle className="text-2xl flex items-center gap-2">
               <Bot />
-              Assistent Virtual
+              Asistente Virtual
             </CardTitle>
           </CardHeader>
           <CardContent className="flex-1 flex flex-col gap-4 overflow-hidden">
@@ -125,7 +125,7 @@ export default function AssistantPage() {
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Escriu la teva consulta..."
+                placeholder="Escribe tu consulta..."
                 disabled={isLoading}
               />
               <Button type="submit" disabled={isLoading || !input.trim()}>
