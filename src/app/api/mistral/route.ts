@@ -13,12 +13,12 @@ Cuando respondas, sigue estas reglas:
 2. No agregues información externa.
 3. Sé claro, conciso y directo.
 4. Mantén el estilo y tono de la web.
-5. Responde en español.
+5. Responde siempre y únicamente en español.
 `;
 
 export async function POST(req: NextRequest) {
   try {
-    // Inicialitza el client dins de la funció POST per accedir a les variables d'entorn
+    // Inicializa el cliente dentro de la función POST para acceder a las variables de entorno
     const mistral = new MistralClient(process.env.MISTRAL_API_KEY);
 
     const { message } = await req.json();
