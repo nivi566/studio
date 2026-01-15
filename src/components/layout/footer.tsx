@@ -1,11 +1,9 @@
-
 'use client';
 import Link from 'next/link';
 import { Facebook, Twitter, Linkedin, Youtube } from 'lucide-react';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useTranslations } from 'next-intl';
 
 const socialLinks = [
   { icon: Facebook, href: '#', label: 'Facebook' },
@@ -14,32 +12,31 @@ const socialLinks = [
   { icon: Youtube, href: '#', label: 'YouTube' },
 ];
 
+const footerLinks = {
+  'Servicios': [
+    { label: 'Envíos Urgentes', href: '#' },
+    { label: 'Logística Integral', href: '#' },
+    { label: 'Transporte Internacional', href: '#' },
+    { label: 'Tarifas', href: '/tarifas' },
+  ],
+  'Compañía': [
+    { label: 'Quiénes somos', href: '/quienes-somos' },
+    { label: 'Quiero instalar un Locker', href: '/quiero-instalar-un-locker' },
+    { label: 'Puntos de Recogida', href: '/puntos-de-recogida' },
+    { label: 'Contacto', href: '/contacto' },
+    { label: 'Trabaja con nosotros', href: '/trabaja-con-nosotros' },
+    { label: 'Prensa', href: '/prensa' },
+  ],
+  'Legal': [
+    { label: 'Aviso Legal', href: '#' },
+    { label: 'Política de Privacidad', href: '#' },
+    { label: 'Política de Cookies', href: '#' },
+    { label: 'Términos y Condiciones', href: '/terminos-y-condiciones' },
+  ],
+};
+
+
 export function Footer() {
-  const t = useTranslations('Footer');
-
-  const footerLinks = {
-    [t('services.title')]: [
-      { label: t('services.urgent'), href: '#' },
-      { label: t('services.integral'), href: '#' },
-      { label: t('services.international'), href: '#' },
-      { label: t('services.rates'), href: '/tarifas' },
-    ],
-    [t('company.title')]: [
-      { label: t('company.about'), href: '/quienes-somos' },
-      { label: t('company.locker'), href: '/quiero-instalar-un-locker' },
-      { label: t('company.pickup'), href: '/puntos-de-recogida' },
-      { label: t('company.contact'), href: '/contacto' },
-      { label: t('company.work'), href: '/trabaja-con-nosotros' },
-      { label: t('company.press'), href: '/prensa' },
-    ],
-    [t('legal.title')]: [
-      { label: t('legal.notice'), href: '#' },
-      { label: t('legal.privacy'), href: '#' },
-      { label: t('legal.cookies'), href: '#' },
-      { label: t('legal.terms'), href: '/terminos-y-condiciones' },
-    ],
-  };
-
   return (
     <footer className="bg-background text-foreground border-t">
       <div className="container mx-auto px-4 py-12 lg:py-16">
@@ -47,7 +44,7 @@ export function Footer() {
           <div className="space-y-4">
             <Logo />
             <p className="text-muted-foreground max-w-xs">
-              {t('tagline')}
+              Tu solución de confianza para envíos nacionales e internacionales. Rapidez, seguridad y precios competitivos.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
@@ -77,17 +74,17 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">{t('newsletter.title')}</h3>
-            <p className="text-sm text-muted-foreground">{t('newsletter.description')}</p>
+            <h3 className="font-semibold text-foreground">Subscríbete a nuestro boletín</h3>
+            <p className="text-sm text-muted-foreground">Recibe las últimas noticias y ofertas especiales directamente en tu bandeja de entrada.</p>
             <form action="https://formspree.io/f/xrbnkanl" method="POST" className="flex gap-2">
-              <Input type="email" name="email" placeholder={t('newsletter.placeholder')} className="bg-background" required />
-              <Button type="submit" variant="default">{t('newsletter.button')}</Button>
+              <Input type="email" name="email" placeholder="Tu email" className="bg-background" required />
+              <Button type="submit" variant="default">Subscribirse</Button>
             </form>
           </div>
         </div>
 
         <div className="mt-12 border-t border-border pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} InTrack. {t('rights')}</p>
+          <p>&copy; {new Date().getFullYear()} InTrack. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

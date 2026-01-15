@@ -1,11 +1,8 @@
-
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from '@/context/AuthContext';
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'InTrack | Envíos rápidos, seguros y al mejor precio',
@@ -19,30 +16,20 @@ const inter = Inter({
   weight: ['400', '500', '600', '700', '800'] 
 });
 
-async function AppBody({ children, locale }: { children: React.ReactNode, locale: string }) {
-  const messages = await getMessages();
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <body className="font-body antialiased">
-      <NextIntlClientProvider messages={messages}>
+    <html lang="es" className={`${inter.variable} scroll-smooth`}>
+       <body className="font-body antialiased">
         <AuthProvider>
           {children}
           <Toaster />
         </AuthProvider>
-      </NextIntlClientProvider>
-    </body>
-  );
-}
-
-export default function RootLayout({
-  children,
-  params: {locale}
-}: Readonly<{
-  children: React.ReactNode;
-  params: {locale: string};
-}>) {
-  return (
-    <html lang={locale} className={`${inter.variable} scroll-smooth`}>
-      <AppBody locale={locale}>{children}</AppBody>
+      </body>
     </html>
   );
 }
