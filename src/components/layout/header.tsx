@@ -1,9 +1,9 @@
 'use client';
 
 import * as React from 'react';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { Menu, X, LogOut, LayoutDashboard } from 'lucide-react';
-import { usePathname, useRouter } from 'next-intl/client';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -18,26 +18,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { useTranslations } from 'next-intl';
-import { LanguageSwitcher } from '../language-switcher';
+
+const navLinks = [
+  { href: '/', label: 'Inicio' },
+  { href: '/#services', label: 'Servicios' },
+  { href: '/tracking', label: 'Seguir mi pedido' },
+  { href: '/quienes-somos', label: 'Quiénes somos' },
+  { href: '/puntos-de-recogida', label: 'Puntos de Recogida' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contacto', label: 'Contacto' },
+  { href: '/assistent', label: 'Asistente' },
+];
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout, isLoading } = useAuth();
-  const t = useTranslations('Header');
-
-  const navLinks = [
-    { href: '/', label: t('home') },
-    { href: '/#services', label: t('services') },
-    { href: '/tracking', label: t('tracking') },
-    { href: '/quienes-somos', label: t('about') },
-    { href: '/puntos-de-recogida', label: t('pickupPoints') },
-    { href: '/blog', label: t('blog') },
-    { href: '/contacto', label: t('contact') },
-    { href: '/assistent', label: t('assistant') },
-  ];
 
   const isAnchorLink = (href: string) => href.startsWith('/#');
 
@@ -85,7 +82,6 @@ export function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2">
-           <LanguageSwitcher />
           {!isLoading && (
             user ? (
               <DropdownMenu>
@@ -119,7 +115,7 @@ export function Header() {
               </DropdownMenu>
             ) : (
                <Button asChild style={{ backgroundColor: '#0B3C5D', color: 'white' }}>
-                <Link href="/login">{t('login')}</Link>
+                <Link href="/login">Iniciar Sesión</Link>
               </Button>
             )
           )}
