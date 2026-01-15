@@ -4,6 +4,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from '@/context/AuthContext';
+import {NextIntlClientProvider} from 'next-intl';
+import {getMessages} from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'InTrack | Envíos rápidos, seguros y al mejor precio',
@@ -17,25 +19,30 @@ const inter = Inter({
   weight: ['400', '500', '600', '700', '800'] 
 });
 
-function AppBody({ children }: { children: React.ReactNode }) {
+async function AppBody({ children, locale }: { children: React.ReactNode, locale: string }) {
+  const messages = await getMessages();
   return (
     <body className="font-body antialiased">
-      <AuthProvider>
-        {children}
-        <Toaster />
-      </AuthProvider>
+      <NextIntlClientProvider messages={messages}>
+        <AuthProvider>
+          {children}
+          <Toaster />
+        </AuthProvider>
+      </NextIntlClientProvider>
     </body>
   );
 }
 
 export default function RootLayout({
   children,
+  params: {locale}
 }: Readonly<{
   children: React.ReactNode;
+  params: {locale: string};
 }>) {
   return (
-    <html lang="es" className={`${inter.variable} scroll-smooth`}>
-      <AppBody>{children}</AppBody>
+    <html lang={locale} className={`${inter.variable} scroll-smooth`}>
+      <AppBody locale={locale}>{children}</AppBody>
     </html>
   );
 }

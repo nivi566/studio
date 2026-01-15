@@ -18,29 +18,32 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-
-const navLinks = [
-  { href: '/', label: 'Inicio' },
-  { href: '/#services', label: 'Servicios' },
-  { href: '/tracking', label: 'Seguir mi pedido' },
-  { href: '/quienes-somos', label: 'Quiénes somos' },
-  { href: '/puntos-de-recogida', label: 'Puntos de Recogida' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contacto', label: 'Contacto' },
-  { href: '/assistent', label: 'Asistente' },
-];
+import { useTranslations } from 'next-intl';
+import LanguageSwitcher from '@/components/language-switcher';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout, isLoading } = useAuth();
+  const t = useTranslations('Header');
+
+  const navLinks = [
+    { href: '/', label: t('home') },
+    { href: '/#services', label: t('services') },
+    { href: '/tracking', label: t('tracking') },
+    { href: '/quienes-somos', label: t('aboutUs') },
+    { href: '/puntos-de-recogida', label: t('pickupPoints') },
+    { href: '/blog', label: t('blog') },
+    { href: '/contacto', label: t('contact') },
+    { href: '/assistent', label: t('assistant') },
+  ];
 
   const isAnchorLink = (href: string) => href.startsWith('/#');
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (isAnchorLink(href)) {
-      if (pathname !== '/') {
+      if (pathname !== '/') { // Simplified logic, assumes base path is '/'
         router.push(href);
       } else {
         e.preventDefault();
@@ -82,6 +85,7 @@ export function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2">
+          <LanguageSwitcher />
           {!isLoading && (
             user ? (
               <DropdownMenu>
@@ -104,18 +108,18 @@ export function Header() {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => router.push('/dashboard')}>
                     <LayoutDashboard className="mr-2 h-4 w-4" />
-                    <span>Mi perfil</span>
+                    <span>{t('myProfile')}</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={logout}>
                     <LogOut className="mr-2 h-4 w-4" />
-                    <span>Salir</span>
+                    <span>{t('logout')}</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
                <Button asChild style={{ backgroundColor: '#0B3C5D', color: 'white' }}>
-                <Link href="/login">Iniciar Sesión</Link>
+                <Link href="/login">{t('login')}</Link>
               </Button>
             )
           )}

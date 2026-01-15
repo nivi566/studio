@@ -1,141 +1,69 @@
-
-'use client';
-
-import React, { useState, useRef, useEffect } from 'react';
-import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Send, User, Bot, Loader2 } from 'lucide-react';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { cn } from '@/lib/utils';
-
-type Message = {
-  role: 'user' | 'assistant';
-  content: string;
-};
-
-export default function AssistantPage() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: '¡Hola! Soy el asistente virtual de InTrack. ¿En qué puedo ayudarte?'
-    }
-  ]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
-    }
-  }, [messages]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim()) return;
-
-    const userMessage: Message = { role: 'user', content: input };
-    setMessages((prev) => [...prev, userMessage]);
-    setInput('');
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('/api/mistral', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: input }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Error en la respuesta del servidor');
-      }
-
-      const data = await response.json();
-      const assistantMessage: Message = { role: 'assistant', content: data.reply };
-      setMessages((prev) => [...prev, assistantMessage]);
-
-    } catch (error) {
-      const errorMessage: Message = { role: 'assistant', content: 'Lo siento, ha ocurrido un error. Inténtalo de nuevo más tarde.' };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <Header />
-      <main className="flex-1 flex items-center justify-center py-12">
-        <Card className="w-full max-w-2xl h-[70vh] flex flex-col">
-          <CardHeader>
-            <CardTitle className="text-2xl flex items-center gap-2">
-              <Bot />
-              Asistente Virtual
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="flex-1 flex flex-col gap-4 overflow-hidden">
-            <div ref={scrollAreaRef} className="flex-1 overflow-y-auto pr-4 space-y-4">
-              {messages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={cn(
-                    'flex items-start gap-3',
-                    msg.role === 'user' ? 'justify-end' : 'justify-start'
-                  )}
-                >
-                  {msg.role === 'assistant' && (
-                    <Avatar className="h-8 w-8">
-                      <AvatarFallback><Bot size={20} /></AvatarFallback>
-                    </Avatar>
-                  )}
-                  <div
-                    className={cn(
-                      'rounded-lg px-4 py-2 max-w-[80%]',
-                      msg.role === 'user'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted'
-                    )}
-                  >
-                    <p className="text-sm">{msg.content}</p>
-                  </div>
-                   {msg.role === 'user' && (
-                    <Avatar className="h-8 w-8">
-                      <AvatarFallback><User size={20} /></AvatarFallback>
-                    </Avatar>
-                  )}
-                </div>
-              ))}
-               {isLoading && (
-                <div className="flex items-start gap-3 justify-start">
-                  <Avatar className="h-8 w-8">
-                    <AvatarFallback><Bot size={20} /></AvatarFallback>
-                  </Avatar>
-                  <div className="rounded-lg px-4 py-2 bg-muted flex items-center">
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                  </div>
-                </div>
-              )}
-            </div>
-            <form onSubmit={handleSubmit} className="flex items-center gap-2 pt-4 border-t">
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Escribe tu consulta..."
-                disabled={isLoading}
-              />
-              <Button type="submit" disabled={isLoading || !input.trim()}>
-                <Send className="h-5 w-5" />
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </main>
-      <Footer />
-    </div>
-  );
+{
+  "name": "nextn",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack --port 9002 --hostname 0.0.0.0",
+    "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
+    "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
+    "build": "NODE_ENV=production next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@genkit-ai/google-genai": "^1.20.0",
+    "@genkit-ai/next": "^1.20.0",
+    "@hookform/resolvers": "^4.1.3",
+    "@mistralai/mistralai": "^0.5.0",
+    "@radix-ui/react-accordion": "^1.2.3",
+    "@radix-ui/react-alert-dialog": "^1.1.6",
+    "@radix-ui/react-avatar": "^1.1.3",
+    "@radix-ui/react-checkbox": "^1.1.4",
+    "@radix-ui/react-collapsible": "^1.1.11",
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-dropdown-menu": "^2.1.6",
+    "@radix-ui/react-label": "^2.1.2",
+    "@radix-ui/react-menubar": "^1.1.6",
+    "@radix-ui/react-popover": "^1.1.6",
+    "@radix-ui/react-progress": "^1.1.2",
+    "@radix-ui/react-radio-group": "^1.2.3",
+    "@radix-ui/react-scroll-area": "^1.2.3",
+    "@radix-ui/react-select": "^2.1.6",
+    "@radix-ui/react-separator": "^1.1.2",
+    "@radix-ui/react-slider": "^1.2.3",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-switch": "^1.1.3",
+    "@radix-ui/react-tabs": "^1.1.3",
+    "@radix-ui/react-toast": "^1.2.6",
+    "@radix-ui/react-tooltip": "^1.1.8",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "dotenv": "^16.5.0",
+    "embla-carousel-react": "^8.6.0",
+    "firebase": "^11.9.1",
+    "genkit": "^1.20.0",
+    "lucide-react": "^0.475.0",
+    "next": "15.3.8",
+    "next-intl": "^3.17.2",
+    "patch-package": "^8.0.0",
+    "react": "^18.3.1",
+    "react-day-picker": "^8.10.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.54.2",
+    "recharts": "^2.15.1",
+    "tailwind-merge": "^3.0.1",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "genkit-cli": "^1.20.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
 }

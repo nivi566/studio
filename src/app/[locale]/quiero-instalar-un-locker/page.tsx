@@ -1,0 +1,188 @@
+
+
+'use client';
+
+import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Users, CheckCircle2, Truck, ClipboardList, MapPin, Wrench, Power } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import Image from 'next/image';
+
+const benefits = [
+    {
+        icon: CheckCircle2,
+        title: 'Sin coste ni complicaciones',
+        description: 'InTrack se ocupa de todo: costes, instalación y mantenimiento'
+    },
+    {
+        icon: Truck,
+        title: 'Más tráfico',
+        description: 'El 50% de los usuarios visitan comercios cercanos y ¡más del 80% compran!'
+    },
+    {
+        icon: Users,
+        title: 'Más cómodo',
+        description: 'Residentes y trabajadores podrán recoger sus paquetes en cualquier momento'
+    }
+];
+
+const installationSteps = [
+    {
+        icon: ClipboardList,
+        title: '1. Envía tu solicitud',
+        description: 'Rellena y envía el formulario de contacto que encontrarás más abajo. Es rápido y sin compromiso.'
+    },
+    {
+        icon: MapPin,
+        title: '2. Estudiamos la ubicación',
+        description: 'Nuestro equipo evaluará la viabilidad de tu local para asegurar que cumple los requisitos de espacio y accesibilidad.'
+    },
+    {
+        icon: Wrench,
+        title: '3. Instalación gratuita',
+        description: 'Nos encargamos de la instalación completa del Locker en tu negocio, sin ningún coste ni obra para ti.'
+    },
+    {
+        icon: Power,
+        title: '4. ¡Listo para funcionar!',
+        description: 'Una vez instalado, activamos el Locker y tu negocio empezará a atraer nuevos clientes y a disfrutar de las ventajas.'
+    }
+]
+
+export default function InstallLockerPage() {
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      <Header />
+      <main className="flex-1">
+        <section className="relative bg-primary/5 py-16 sm:py-24">
+            <div className="container mx-auto px-4">
+                <div className="grid md:grid-cols-2 gap-12 items-center">
+                    <div className="space-y-6">
+                        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
+                            Convierte tu negocio en un punto InTrack
+                        </h1>
+                        <p className="text-lg text-muted-foreground">
+                            Aprovecha la oportunidad de unirte a nuestra red de Lockers inteligentes. Ofrece un servicio valioso a tu comunidad, atrae nuevos clientes y genera ingresos adicionales sin ninguna inversión.
+                        </p>
+                        <Button size="lg" asChild>
+                           <a href="#contact-form">Solicita información</a>
+                        </Button>
+                    </div>
+                    <div className="rounded-lg overflow-hidden shadow-lg">
+                        <Image
+                            src="/locker.png"
+                            alt="Taquilla intel·ligent de InTrack en un negoci local"
+                            data-ai-hint="smart locker"
+                            width={600}
+                            height={500}
+                            className="object-cover w-full h-full"
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section className="py-16 sm:py-24">
+             <div className="container mx-auto px-4">
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                    <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+                        Beneficios para tu negocio
+                    </h2>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                        Descubre por qué instalar un Locker InTrack es una decisión inteligente.
+                    </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {benefits.map((benefit) => (
+                        <Card key={benefit.title} className="text-center p-6 border-0 shadow-lg">
+                             <CardHeader className="items-center p-0">
+                                <div className="bg-primary/10 p-4 rounded-full">
+                                    <benefit.icon className="h-8 w-8 text-primary" />
+                                </div>
+                                <CardTitle className="mt-4 text-xl">{benefit.title}</CardTitle>
+                            </CardHeader>
+                            <CardContent className="p-0 mt-2">
+                                <p className="text-muted-foreground">{benefit.description}</p>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <section className="py-16 sm:py-24 bg-background">
+             <div className="container mx-auto px-4">
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                    <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+                        ¿Cómo instalar taquillas inteligentes locker InTrack?
+                    </h2>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                        Si tienes un espacio libre en tu negocio de 2 metros o más, ¡es momento de aprovecharlo! Sigue estos sencillos pasos y forma parte de nuestra red de Lockers:
+                    </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {installationSteps.map((step) => (
+                        <div key={step.title} className="text-center">
+                            <div className="flex justify-center mb-4">
+                                <div className="bg-primary/10 p-4 rounded-full border-2 border-primary/20">
+                                    <step.icon className="h-8 w-8 text-primary" />
+                                </div>
+                            </div>
+                            <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
+                            <p className="mt-2 text-muted-foreground">{step.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-form" className="py-16 sm:py-24 bg-primary/5">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl mx-auto">
+                 <Card className="shadow-xl">
+                    <CardHeader className="text-center">
+                        <CardTitle className="text-3xl">¿Estás interesado?</CardTitle>
+                        <p className="text-muted-foreground pt-2">Déjanos tus datos y uno de nuestros especialistas se pondrá en contacto contigo para explicarte todos los detalles sin compromiso.</p>
+                    </CardHeader>
+                    <CardContent>
+                        <form action="https://formspree.io/f/xrbnkanl" method="POST" className="space-y-6">
+                            <div className="grid sm:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="name">Nombre y apellidos</Label>
+                                    <Input id="name" name="name" placeholder="Tu nombre" required />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="business-name">Nombre del negocio</Label>
+                                    <Input id="business-name" name="business-name" placeholder="Nombre de tu negocio" required />
+                                </div>
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="email">Correo electrónico</Label>
+                                    <Input id="email" name="email" type="email" placeholder="tu@email.com" required />
+                                </div>
+                                 <div className="space-y-2">
+                                    <Label htmlFor="phone">Teléfono</Label>
+                                    <Input id="phone" name="phone" type="tel" placeholder="Tu teléfono de contacto" required />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="message">Mensaje (opcional)</Label>
+                                <Textarea id="message" name="message" placeholder="Cuéntanos un poco sobre tu negocio o si tienes alguna pregunta..." className="min-h-[100px]" />
+                            </div>
+                            <Button type="submit" className="w-full" size="lg">Enviar solicitud</Button>
+                        </form>
+                    </CardContent>
+                </Card>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
+  );
+}
