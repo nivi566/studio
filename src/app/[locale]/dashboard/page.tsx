@@ -171,7 +171,7 @@ export default function DashboardPage() {
                                                 </Badge>
                                             </TableCell>
                                             <TableCell className="text-right">
-                                                <Button variant="outline" size="sm" onClick={() => router.push(order.trackingUrl)}>
+                                                <Button variant="outline" size="sm" onClick={() => router.push(`/tracking?code=${order.id}`)}>
                                                     Seguir
                                                 </Button>
                                             </TableCell>

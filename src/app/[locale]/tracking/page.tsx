@@ -2,7 +2,8 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Button } from '@/components/ui/button';
@@ -44,17 +45,18 @@ export default function TrackingPage() {
   const [shipment, setShipment] = useState<ShipmentData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!trackingCode) return;
+  const doSearch = useCallback(async (code: string) => {
+    if (!code) return;
 
     setIsLoading(true);
     setError(null);
     setShipment(null);
+    setTrackingCode(code);
 
     try {
-      const response = await fetch(`https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=shipments&tracking_code=${trackingCode}`);
+      const response = await fetch(`https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=shipments&tracking_code=${code}`);
       const data: ShipmentData[] = await response.json();
 
       if (data.length > 0) {
@@ -66,6 +68,20 @@ export default function TrackingPage() {
       setError('Ha habido un problema al conectar con el servidor. Inténtalo de nuevo más tarde.');
     } finally {
       setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const codeFromQuery = searchParams.get('code');
+    if (codeFromQuery) {
+      doSearch(codeFromQuery);
+    }
+  }, [searchParams, doSearch]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (trackingCode) {
+      doSearch(trackingCode);
     }
   };
   
