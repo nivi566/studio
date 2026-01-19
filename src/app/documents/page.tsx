@@ -70,7 +70,7 @@ export default function DocumentsPage() {
           ]);
 
           if (!docsRes.ok || !usersRes.ok) {
-            throw new Error('Error en obtenir les dades de les factures o usuaris.');
+            throw new Error('Error al obtener los datos de las facturas o usuarios.');
           }
 
           const allDocs: DocumentLine[] = await docsRes.json();
@@ -120,7 +120,7 @@ export default function DocumentsPage() {
           setInvoices(processedInvoices.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
           
         } catch (e) {
-          setError('Hi ha hagut un problema en carregar les teves factures. Si us plau, torna a intentar-ho més tard.');
+          setError('Ha habido un problema al cargar tus facturas. Por favor, inténtalo de nuevo más tarde.');
           console.error(e);
         } finally {
           setIsLoading(false);
@@ -137,7 +137,7 @@ export default function DocumentsPage() {
 
   const formatDate = (dateString: string) => {
       try {
-        return new Date(dateString).toLocaleDateString('ca-ES', {
+        return new Date(dateString).toLocaleDateString('es-ES', {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric'
@@ -189,7 +189,7 @@ export default function DocumentsPage() {
               <div className="mb-8 flex justify-between items-center print:hidden">
                 <Button variant="outline" onClick={() => setSelectedInvoice(null)}>
                   <ArrowLeft className="mr-2" />
-                  Tornar al llistat
+                  Volver al listado
                 </Button>
                 <Button onClick={handlePrint}>
                   <Printer className="mr-2" />
@@ -202,7 +202,7 @@ export default function DocumentsPage() {
                   <div>
                     <h1 className="text-3xl font-bold text-foreground">FACTURA</h1>
                     <p className="text-muted-foreground">Nº: {selectedInvoice.id}</p>
-                    <p className="text-muted-foreground">Data: {formatDate(selectedInvoice.date)}</p>
+                    <p className="text-muted-foreground">Fecha: {formatDate(selectedInvoice.date)}</p>
                   </div>
                   <Logo />
                 </header>
@@ -218,7 +218,7 @@ export default function DocumentsPage() {
                     </address>
                   </div>
                   <div>
-                    <h2 className="font-semibold text-foreground mb-2">Per a:</h2>
+                    <h2 className="font-semibold text-foreground mb-2">Para:</h2>
                     {fiscalData ? (
                       <address className="not-italic text-sm text-muted-foreground">
                         <strong>{fiscalData.empresa}</strong><br/>
@@ -226,7 +226,7 @@ export default function DocumentsPage() {
                         ID Fiscal: {fiscalData.fiscalid}
                       </address>
                     ) : (
-                      <p className="text-sm text-destructive">Dades fiscals no trobades.</p>
+                      <p className="text-sm text-destructive">Datos fiscales no encontrados.</p>
                     )}
                   </div>
                 </section>
@@ -235,9 +235,9 @@ export default function DocumentsPage() {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="w-2/4">Concepte</TableHead>
-                        <TableHead className="text-right">Unitats</TableHead>
-                        <TableHead className="text-right">Preu Unitari</TableHead>
+                        <TableHead className="w-2/4">Concepto</TableHead>
+                        <TableHead className="text-right">Unidades</TableHead>
+                        <TableHead className="text-right">Precio Unitario</TableHead>
                         <TableHead className="text-right">Total</TableHead>
                       </TableRow>
                     </TableHeader>
@@ -257,7 +257,7 @@ export default function DocumentsPage() {
                 <section className="flex justify-end mt-8">
                   <div className="w-full max-w-xs space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Base Imposable:</span>
+                      <span className="text-muted-foreground">Subtotal:</span>
                       <span className="font-medium text-foreground">{selectedInvoice.subtotal.toFixed(2)} €</span>
                     </div>
                     <div className="flex justify-between">
@@ -272,7 +272,7 @@ export default function DocumentsPage() {
                 </section>
                 
                 <footer className="mt-12 pt-4 border-t text-center text-xs text-muted-foreground">
-                    <p>Gràcies per la seva confiança.</p>
+                    <p>Gracias por su confianza.</p>
                 </footer>
               </div>
             </div>
@@ -289,8 +289,8 @@ export default function DocumentsPage() {
       <main className="flex-1 py-12 sm:py-16">
         <div className="container mx-auto px-4">
             <div className="mb-8">
-                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">Les meves factures</h1>
-                <p className="mt-2 text-lg text-muted-foreground">Aquí pots consultar i descarregar les teves factures.</p>
+                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">Mis Facturas</h1>
+                <p className="mt-2 text-lg text-muted-foreground">Aquí puedes consultar y descargar tus facturas.</p>
             </div>
             
             {isLoading ? (
@@ -316,7 +316,7 @@ export default function DocumentsPage() {
                             <CardContent className="flex-grow flex flex-col justify-end">
                                 <p className="text-3xl font-bold text-right text-primary mb-4">{invoice.total.toFixed(2)} €</p>
                                 <Button className="w-full" onClick={() => setSelectedInvoice(invoice)}>
-                                    Veure Factura
+                                    Ver Factura
                                 </Button>
                             </CardContent>
                         </Card>
@@ -326,10 +326,10 @@ export default function DocumentsPage() {
                 <div className="text-center py-10 max-w-2xl mx-auto">
                      <Card className="p-8">
                         <CardHeader>
-                            <CardTitle>No hi ha factures</CardTitle>
+                            <CardTitle>No hay facturas</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-muted-foreground">De moment no tens cap factura generada. Quan tinguis una, apareixerà aquí.</p>
+                            <p className="text-muted-foreground">De momento no tienes ninguna factura generada. Cuando tengas una, aparecerá aquí.</p>
                         </CardContent>
                     </Card>
                 </div>
