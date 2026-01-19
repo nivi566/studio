@@ -35,38 +35,27 @@ export default function LoginPage() {
     }
 
     try {
-      const response = await fetch(
-        `https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=usuari`
-      );
+      // Step 1: Fetch user(s) by username, case-insensitively.
+      const searchUrl = `https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=usuari&usuari=${encodeURIComponent(inputUser)}&case_sensitive=false`;
+      
+      const response = await fetch(searchUrl);
 
       if (!response.ok) {
-        let errorBody = 'Error desconocido del servidor.';
-        try {
-          const body = await response.json();
-          errorBody = body.error || JSON.stringify(body);
-        } catch (e) {
-          errorBody = `Error ${response.status}: ${response.statusText}`;
-        }
-        throw new Error(`Error al conectar con el servidor: ${errorBody}`);
+        throw new Error('Error al conectar con el servidor de autenticación.');
       }
       
-      const allUsers: any[] = await response.json();
+      const potentialUsers: any[] = await response.json();
 
-      if (!Array.isArray(allUsers)) {
-          throw new Error('La respuesta de la API no tiene un formato válido.');
+      if (potentialUsers.length === 0) {
+        setError('Datos incorrectos. Verifica tu usuario y contraseña.');
+        setIsLoading(false);
+        return;
       }
-
-      const foundUser = allUsers.find((u) => {
-        // Comprobación robusta: asegurarse de que los campos existen antes de procesarlos
-        if (!u.usuari || !u.password) {
-          return false;
-        }
-        
-        const sheetUser = String(u.usuari).trim().toLowerCase();
-        const sheetPassword = String(u.password).trim();
-        
-        return sheetUser === inputUser.toLowerCase() && sheetPassword === inputPassword;
-      });
+      
+      // Step 2: Find the exact user by checking the password case-sensitively on the client side.
+      const foundUser = potentialUsers.find(
+        (u) => String(u.password).trim() === inputPassword
+      );
 
       if (foundUser) {
         const userPayload = {
@@ -77,8 +66,6 @@ export default function LoginPage() {
         };
         await login(userPayload);
       } else {
-        console.error('Login fallido. Datos introducidos:', { user: inputUser });
-        console.error('Datos recibidos de la API:', allUsers);
         setError('Datos incorrectos. Verifica tu usuario y contraseña.');
       }
     } catch (err: any) {
