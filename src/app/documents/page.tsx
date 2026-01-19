@@ -190,125 +190,103 @@ export default function DocumentsPage() {
   
   if (selectedInvoice) {
     return (
-      <>
-        <style jsx global>{`
-          @media print {
-            body * {
-              visibility: hidden;
-            }
-            #zona-factura, #zona-factura * {
-              visibility: visible;
-            }
-            #zona-factura {
-              position: absolute;
-              left: 0;
-              top: 0;
-              width: 100%;
-              margin: 0;
-              padding: 0;
-              border: none;
-              box-shadow: none;
-            }
-          }
-        `}</style>
-        <div className="flex min-h-screen flex-col bg-background print:bg-white">
-          <Header className="print:hidden" />
-          <main className="flex-1 py-12 sm:py-16">
-            <div className="container mx-auto px-4 max-w-4xl">
-              <div className="mb-8 flex justify-between items-center print:hidden">
-                <Button variant="outline" onClick={() => setSelectedInvoice(null)}>
-                  <ArrowLeft className="mr-2" />
-                  Volver al listado
-                </Button>
-                <Button onClick={handlePrint}>
-                  <Printer className="mr-2" />
-                  Imprimir PDF
-                </Button>
-              </div>
-
-              <div id="zona-factura" className="bg-card text-card-foreground p-8 sm:p-12 rounded-lg border shadow-lg">
-                <header className="flex justify-between items-start pb-8 border-b">
-                  <div>
-                    <h1 className="text-3xl font-bold text-foreground">FACTURA</h1>
-                    <p className="text-muted-foreground">Nº: {selectedInvoice.id}</p>
-                    <p className="text-muted-foreground">Fecha: {formatDate(selectedInvoice.date)}</p>
-                  </div>
-                  <Logo />
-                </header>
-
-                <section className="grid sm:grid-cols-2 gap-8 my-8">
-                  <div>
-                    <h2 className="font-semibold text-foreground mb-2">De:</h2>
-                    <address className="not-italic text-sm text-muted-foreground">
-                      <strong>InTrack Logistics, S.L.</strong><br/>
-                      Calle Resina, 41<br/>
-                      28021, Madrid, España<br/>
-                      NIF: B12345678
-                    </address>
-                  </div>
-                  <div>
-                    <h2 className="font-semibold text-foreground mb-2">Para:</h2>
-                    {fiscalData ? (
-                      <address className="not-italic text-sm text-muted-foreground">
-                        <strong>{fiscalData.empresa}</strong><br/>
-                        {fiscalData.adreca}<br/>
-                        ID Fiscal: {fiscalData.fiscalid}
-                      </address>
-                    ) : (
-                      <p className="text-sm text-destructive">Datos fiscales no encontrados.</p>
-                    )}
-                  </div>
-                </section>
-
-                <section>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className="w-2/4">Concepto</TableHead>
-                        <TableHead className="text-right">Unidades</TableHead>
-                        <TableHead className="text-right">Precio Unitario</TableHead>
-                        <TableHead className="text-right">Total</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {selectedInvoice.lines.map((line, index) => (
-                        <TableRow key={index}>
-                          <TableCell className="font-medium">{line.concept}</TableCell>
-                          <TableCell className="text-right">{line.quantity}</TableCell>
-                          <TableCell className="text-right">{line.unitPrice.toFixed(2)} €</TableCell>
-                          <TableCell className="text-right">{line.total.toFixed(2)} €</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </section>
-
-                <section className="flex justify-end mt-8">
-                  <div className="w-full max-w-xs space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Subtotal:</span>
-                      <span className="font-medium text-foreground">{selectedInvoice.subtotal.toFixed(2)} €</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">IVA (21%):</span>
-                      <span className="font-medium text-foreground">{selectedInvoice.vat.toFixed(2)} €</span>
-                    </div>
-                    <div className="flex justify-between text-lg font-bold border-t pt-2 mt-2">
-                      <span className="text-foreground">TOTAL:</span>
-                      <span className="text-primary">{selectedInvoice.total.toFixed(2)} €</span>
-                    </div>
-                  </div>
-                </section>
-                
-                <footer className="mt-12 pt-4 border-t text-center text-xs text-muted-foreground">
-                    <p>Gracias por su confianza.</p>
-                </footer>
-              </div>
+      <div className="flex min-h-screen flex-col bg-background print:bg-white">
+        <Header />
+        <main className="flex-1 py-12 sm:py-16">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <div className="mb-8 flex justify-between items-center">
+              <Button variant="outline" onClick={() => setSelectedInvoice(null)}>
+                <ArrowLeft className="mr-2" />
+                Volver al listado
+              </Button>
+              <Button onClick={handlePrint}>
+                <Printer className="mr-2" />
+                Imprimir PDF
+              </Button>
             </div>
-          </main>
-          <Footer className="print:hidden" />
-        </div>
-      </>
+
+            <div id="zona-factura" className="bg-card text-card-foreground p-8 sm:p-12 rounded-lg border shadow-lg">
+              <header className="flex justify-between items-start pb-8 border-b">
+                <div>
+                  <h1 className="text-3xl font-bold text-foreground">FACTURA</h1>
+                  <p className="text-muted-foreground">Nº: {selectedInvoice.id}</p>
+                  <p className="text-muted-foreground">Fecha: {formatDate(selectedInvoice.date)}</p>
+                </div>
+                <Logo />
+              </header>
+
+              <section className="grid sm:grid-cols-2 gap-8 my-8">
+                <div>
+                  <h2 className="font-semibold text-foreground mb-2">De:</h2>
+                  <address className="not-italic text-sm text-muted-foreground">
+                    <strong>InTrack Logistics, S.L.</strong><br/>
+                    Calle Resina, 41<br/>
+                    28021, Madrid, España<br/>
+                    NIF: B12345678
+                  </address>
+                </div>
+                <div>
+                  <h2 className="font-semibold text-foreground mb-2">Para:</h2>
+                  {fiscalData ? (
+                    <address className="not-italic text-sm text-muted-foreground">
+                      <strong>{fiscalData.empresa}</strong><br/>
+                      {fiscalData.adreca}<br/>
+                      ID Fiscal: {fiscalData.fiscalid}
+                    </address>
+                  ) : (
+                    <p className="text-sm text-destructive">Datos fiscales no encontrados.</p>
+                  )}
+                </div>
+              </section>
+
+              <section>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-2/4">Concepto</TableHead>
+                      <TableHead className="text-right">Unidades</TableHead>
+                      <TableHead className="text-right">Precio Unitario</TableHead>
+                      <TableHead className="text-right">Total</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {selectedInvoice.lines.map((line, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-medium">{line.concept}</TableCell>
+                        <TableCell className="text-right">{line.quantity}</TableCell>
+                        <TableCell className="text-right">{line.unitPrice.toFixed(2)} €</TableCell>
+                        <TableCell className="text-right">{line.total.toFixed(2)} €</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </section>
+
+              <section className="flex justify-end mt-8">
+                <div className="w-full max-w-xs space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Subtotal:</span>
+                    <span className="font-medium text-foreground">{selectedInvoice.subtotal.toFixed(2)} €</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">IVA (21%):</span>
+                    <span className="font-medium text-foreground">{selectedInvoice.vat.toFixed(2)} €</span>
+                  </div>
+                  <div className="flex justify-between text-lg font-bold border-t pt-2 mt-2">
+                    <span className="text-foreground">TOTAL:</span>
+                    <span className="text-primary">{selectedInvoice.total.toFixed(2)} €</span>
+                  </div>
+                </div>
+              </section>
+              
+              <footer className="mt-12 pt-4 border-t text-center text-xs text-muted-foreground">
+                  <p>Gracias por su confianza.</p>
+              </footer>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
     );
   }
 
