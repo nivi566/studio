@@ -25,7 +25,10 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(null);
 
-    if (!usuari || !password) {
+    const inputUser = usuari.trim();
+    const inputPassword = password.trim();
+
+    if (!inputUser || !inputPassword) {
       setError('El usuario y la contraseña son obligatorios.');
       setIsLoading(false);
       return;
@@ -42,9 +45,14 @@ export default function LoginPage() {
       
       const allUsers: any[] = await response.json();
 
-      const foundUser = allUsers.find(
-        (u) => u.usuari.toLowerCase() === usuari.toLowerCase() && String(u.password) === password
-      );
+      const foundUser = allUsers.find((u) => {
+        if (!u.usuari || u.password === undefined) {
+          return false;
+        }
+        const sheetUser = String(u.usuari).trim().toLowerCase();
+        const sheetPassword = String(u.password).trim();
+        return sheetUser === inputUser.toLowerCase() && sheetPassword === inputPassword;
+      });
 
       if (foundUser) {
         const userPayload = {
