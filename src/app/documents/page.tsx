@@ -66,7 +66,7 @@ export default function DocumentsPage() {
         try {
           const [docsRes, usersRes] = await Promise.all([
             fetch('https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=documents'),
-            fetch('https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=usuaris')
+            fetch('https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=usuari')
           ]);
 
           if (!docsRes.ok || !usersRes.ok) {

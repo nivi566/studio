@@ -36,7 +36,7 @@ export default function LoginPage() {
 
     try {
       const response = await fetch(
-        `https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=usuaris`
+        `https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=usuari`
       );
 
       if (!response.ok) {
