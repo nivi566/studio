@@ -65,7 +65,7 @@ export default function DocumentsPage() {
         setError(null);
         try {
           const [docsRes, usersRes] = await Promise.all([
-            fetch('https://sheetdb.io/api/v1/r7rclmv3hog7m?sheet=documents'),
+            fetch('https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=documents'),
             fetch('https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=usuaris')
           ]);
 

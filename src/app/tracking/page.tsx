@@ -54,7 +54,7 @@ export default function TrackingPage() {
     setShipment(null);
 
     try {
-      const response = await fetch(`https://sheetdb.io/api/v1/r7rclmv3hog7m/search?tracking_code=${trackingCode}`);
+      const response = await fetch(`https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=shipments&tracking_code=${trackingCode}`);
       const data: ShipmentData[] = await response.json();
 
       if (data.length > 0) {
