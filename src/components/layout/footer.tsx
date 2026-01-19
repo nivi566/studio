@@ -4,6 +4,7 @@ import { Facebook, Twitter, Linkedin, Youtube } from 'lucide-react';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 
 const socialLinks = [
   { icon: Facebook, href: '#', label: 'Facebook' },
@@ -36,9 +37,9 @@ const footerLinks = {
 };
 
 
-export function Footer() {
+export function Footer({ className }: { className?: string }) {
   return (
-    <footer className="bg-background text-foreground border-t">
+    <footer className={cn("bg-background text-foreground border-t", className)}>
       <div className="container mx-auto px-4 py-12 lg:py-16">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
           <div className="space-y-4">

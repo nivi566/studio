@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Menu, X, LogOut, LayoutDashboard } from 'lucide-react';
+import { Menu, X, LogOut, LayoutDashboard, FileText } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -18,8 +18,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { cn } from '@/lib/utils';
 
-export function Header() {
+export function Header({ className }: { className?: string }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -61,7 +62,7 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
+    <header className={cn("sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm", className)}>
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <div className="mr-4 flex">
           <Logo />
@@ -104,6 +105,10 @@ export function Header() {
                   <DropdownMenuItem onClick={() => router.push('/dashboard')}>
                     <LayoutDashboard className="mr-2 h-4 w-4" />
                     <span>Mi perfil</span>
+                  </DropdownMenuItem>
+                   <DropdownMenuItem onClick={() => router.push('/documents')}>
+                    <FileText className="mr-2 h-4 w-4" />
+                    <span>Mis Facturas</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={logout}>
