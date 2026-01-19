@@ -25,7 +25,7 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(null);
 
-    const inputEmail = email.trim();
+    const inputEmail = email.trim().toLowerCase();
     const inputPassword = password.trim();
 
     if (!inputEmail || !inputPassword) {
@@ -35,28 +35,31 @@ export default function LoginPage() {
     }
 
     try {
-      // Step 1: Fetch user(s) by email, case-insensitively.
-      const searchUrl = `https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=usuari&usuari=${encodeURIComponent(inputEmail)}&case_sensitive=false`;
-      
-      const response = await fetch(searchUrl);
+      // Step 1: Fetch all users. This is more reliable than search.
+      const fetchUrl = `https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=usuari`;
+      const response = await fetch(fetchUrl);
 
       if (!response.ok) {
-        const errorBody = await response.text().catch(() => 'No se pudo leer el cuerpo de la respuesta de error.');
+        const errorBody = await response.text().catch(() => 'No se pudo leer el cuerpo del error.');
         console.error('Error de SheetDB:', { status: response.status, statusText: response.statusText, body: errorBody });
-        throw new Error(`Error del servidor (${response.status}). Revisa la consola para más detalles.`);
+        throw new Error(`Error del servidor (${response.status}). No se pudo conectar con la base de datos.`);
       }
       
-      const potentialUsers: any[] = await response.json();
+      const allUsers: any[] = await response.json();
 
-      if (potentialUsers.length === 0) {
-        setError('Datos incorrectos. Verifica tu correo y contraseña.');
-        setIsLoading(false);
-        return;
+      if (!Array.isArray(allUsers)) {
+          console.error("La respuesta de la API no es una lista de usuarios:", allUsers);
+          throw new Error("La respuesta del servidor no tiene el formato esperado.");
       }
-      
-      // Step 2: Find the exact user by checking the password case-sensitively on the client side.
-      const foundUser = potentialUsers.find(
-        (u) => u.password && String(u.password).trim() === inputPassword
+
+      // Step 2: Find the user on the client side.
+      // This is more robust as it avoids issues with SheetDB's search endpoint.
+      const foundUser = allUsers.find(
+        (u) => 
+          u.usuari &&
+          String(u.usuari).trim().toLowerCase() === inputEmail &&
+          u.password &&
+          String(u.password).trim() === inputPassword
       );
 
       if (foundUser) {
