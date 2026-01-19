@@ -40,17 +40,31 @@ export default function LoginPage() {
       );
 
       if (!response.ok) {
-        throw new Error('Error al conectar con el servidor.');
+        let errorBody = 'Error desconocido del servidor.';
+        try {
+          const body = await response.json();
+          errorBody = body.error || JSON.stringify(body);
+        } catch (e) {
+          errorBody = `Error ${response.status}: ${response.statusText}`;
+        }
+        throw new Error(`Error al conectar con el servidor: ${errorBody}`);
       }
       
       const allUsers: any[] = await response.json();
 
+      if (!Array.isArray(allUsers)) {
+          throw new Error('La respuesta de la API no tiene un formato válido.');
+      }
+
       const foundUser = allUsers.find((u) => {
-        if (!u.usuari || u.password === undefined) {
+        // Comprobación robusta: asegurarse de que los campos existen antes de procesarlos
+        if (!u.usuari || !u.password) {
           return false;
         }
+        
         const sheetUser = String(u.usuari).trim().toLowerCase();
         const sheetPassword = String(u.password).trim();
+        
         return sheetUser === inputUser.toLowerCase() && sheetPassword === inputPassword;
       });
 
@@ -63,11 +77,13 @@ export default function LoginPage() {
         };
         await login(userPayload);
       } else {
-        setError('Datos incorrectos');
+        console.error('Login fallido. Datos introducidos:', { user: inputUser });
+        console.error('Datos recibidos de la API:', allUsers);
+        setError('Datos incorrectos. Verifica tu usuario y contraseña.');
       }
-    } catch (err) {
-      setError('Ha ocurrido un error inesperado. Inténtalo de nuevo.');
-      console.error(err);
+    } catch (err: any) {
+      console.error('Error detallado en el inicio de sesión:', err);
+      setError(err.message || 'Ha ocurrido un error inesperado. Inténtalo de nuevo.');
     } finally {
       setIsLoading(false);
     }
