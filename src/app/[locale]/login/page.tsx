@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -34,7 +33,7 @@ export default function LoginPage() {
 
     try {
       const response = await fetch(
-        `https://sheetdb.io/api/v1/y18n35bih1e4k?sheet=usuari`
+        `https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=usuaris`
       );
 
       if (!response.ok) {
@@ -44,7 +43,7 @@ export default function LoginPage() {
       const allUsers: any[] = await response.json();
 
       const foundUser = allUsers.find(
-        (u) => u.usuari.toLowerCase() === usuari.toLowerCase() && u.password === password
+        (u) => u.usuari.toLowerCase() === usuari.toLowerCase() && String(u.password) === password
       );
 
       if (foundUser) {
