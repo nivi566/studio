@@ -13,7 +13,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 
 export default function LoginPage() {
-  const [usuari, setUsuari] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,18 +25,18 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(null);
 
-    const inputUser = usuari.trim();
+    const inputEmail = email.trim();
     const inputPassword = password.trim();
 
-    if (!inputUser || !inputPassword) {
-      setError('El usuario y la contraseña son obligatorios.');
+    if (!inputEmail || !inputPassword) {
+      setError('El correo electrónico y la contraseña son obligatorios.');
       setIsLoading(false);
       return;
     }
 
     try {
-      // Step 1: Fetch user(s) by username, case-insensitively.
-      const searchUrl = `https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=usuari&usuari=${encodeURIComponent(inputUser)}&case_sensitive=false`;
+      // Step 1: Fetch user(s) by email, case-insensitively.
+      const searchUrl = `https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=usuari&usuari=${encodeURIComponent(inputEmail)}&case_sensitive=false`;
       
       const response = await fetch(searchUrl);
 
@@ -47,7 +47,7 @@ export default function LoginPage() {
       const potentialUsers: any[] = await response.json();
 
       if (potentialUsers.length === 0) {
-        setError('Datos incorrectos. Verifica tu usuario y contraseña.');
+        setError('Datos incorrectos. Verifica tu correo y contraseña.');
         setIsLoading(false);
         return;
       }
@@ -66,7 +66,7 @@ export default function LoginPage() {
         };
         await login(userPayload);
       } else {
-        setError('Datos incorrectos. Verifica tu usuario y contraseña.');
+        setError('Datos incorrectos. Verifica tu correo y contraseña.');
       }
     } catch (err: any) {
       console.error('Error detallado en el inicio de sesión:', err);
@@ -90,13 +90,13 @@ export default function LoginPage() {
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="usuario">Usuario</Label>
+                            <Label htmlFor="email">Correo electrónico</Label>
                             <Input
-                                id="usuario"
-                                type="text"
-                                placeholder="Tu usuario"
-                                value={usuari}
-                                onChange={(e) => setUsuari(e.target.value)}
+                                id="email"
+                                type="email"
+                                placeholder="tu@email.com"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
                         </div>
