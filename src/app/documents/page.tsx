@@ -70,14 +70,21 @@ export default function DocumentsPage() {
           ]);
 
           if (!docsRes.ok || !usersRes.ok) {
-            throw new Error('Error al obtener los datos de las facturas o usuarios.');
+            let errorMsg = 'Error al obtener los datos.';
+            if (!docsRes.ok) {
+                errorMsg += ` Error en facturas: ${docsRes.statusText}.`
+            }
+            if (!usersRes.ok) {
+                errorMsg += ` Error en usuarios: ${usersRes.statusText}.`
+            }
+            throw new Error(errorMsg);
           }
 
           const allDocs: DocumentLine[] = await docsRes.json();
           const allUsers: UserFiscalData[] = await usersRes.json();
           
-          const userDocs = allDocs.filter(doc => doc.usuari.toLowerCase() === user.usuari.toLowerCase());
-          const userFiscalData = allUsers.find(u => u.usuari.toLowerCase() === user.usuari.toLowerCase()) || null;
+          const userDocs = allDocs.filter(doc => doc.usuari && doc.usuari.toLowerCase() === user.usuari.toLowerCase());
+          const userFiscalData = allUsers.find(u => u.usuari && u.usuari.toLowerCase() === user.usuari.toLowerCase()) || null;
           
           if (userDocs.length === 0) {
             setInvoices([]);
@@ -89,6 +96,8 @@ export default function DocumentsPage() {
 
           const grouped = userDocs.reduce((acc, doc) => {
             const { num_factura, data, concepte, preu_unitari, unitats } = doc;
+            if (!num_factura) return acc; // Skip lines without an invoice number
+
             if (!acc[num_factura]) {
               acc[num_factura] = {
                 id: num_factura,
@@ -96,8 +105,10 @@ export default function DocumentsPage() {
                 lines: [],
               };
             }
-            const unitPrice = parseFloat(String(preu_unitari).replace(',', '.'));
-            const quantity = parseInt(String(unitats), 10);
+            // Robust parsing
+            const unitPrice = parseFloat(String(preu_unitari || '0').replace(/[^0-9,.]/g, "").replace(',', '.'));
+            const quantity = parseInt(String(unitats || '0'), 10);
+            
             if (!isNaN(unitPrice) && !isNaN(quantity)) {
                 const lineTotal = unitPrice * quantity;
                 acc[num_factura].lines.push({
@@ -117,10 +128,16 @@ export default function DocumentsPage() {
               return { ...invoice, subtotal, vat, total };
           });
 
-          setInvoices(processedInvoices.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
+          setInvoices(processedInvoices.sort((a, b) => {
+              try {
+                return new Date(b.date).getTime() - new Date(a.date).getTime()
+              } catch {
+                return 0;
+              }
+          }));
           
-        } catch (e) {
-          setError('Ha habido un problema al cargar tus facturas. Por favor, inténtalo de nuevo más tarde.');
+        } catch (e: any) {
+          setError(e.message || 'Ha habido un problema al cargar tus facturas. Por favor, inténtalo de nuevo más tarde.');
           console.error(e);
         } finally {
           setIsLoading(false);
@@ -137,7 +154,19 @@ export default function DocumentsPage() {
 
   const formatDate = (dateString: string) => {
       try {
-        return new Date(dateString).toLocaleDateString('es-ES', {
+        // Attempt to parse dates like YYYY-MM-DD or MM/DD/YYYY
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) {
+            // Handle DD/MM/YYYY format if needed
+            const parts = dateString.split('/');
+            if (parts.length === 3) {
+                const [day, month, year] = parts;
+                const isoDate = new Date(`${year}-${month}-${day}`);
+                 if (!isNaN(isoDate.getTime())) return isoDate.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            }
+            return dateString; // fallback to original string
+        }
+        return date.toLocaleDateString('es-ES', {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric'

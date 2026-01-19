@@ -56,7 +56,7 @@ export default function LoginPage() {
       
       // Step 2: Find the exact user by checking the password case-sensitively on the client side.
       const foundUser = potentialUsers.find(
-        (u) => String(u.password).trim() === inputPassword
+        (u) => u.password && String(u.password).trim() === inputPassword
       );
 
       if (foundUser) {
