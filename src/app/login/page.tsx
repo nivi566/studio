@@ -41,7 +41,9 @@ export default function LoginPage() {
       const response = await fetch(searchUrl);
 
       if (!response.ok) {
-        throw new Error('Error al conectar con el servidor de autenticación.');
+        const errorBody = await response.text().catch(() => 'No se pudo leer el cuerpo de la respuesta de error.');
+        console.error('Error de SheetDB:', { status: response.status, statusText: response.statusText, body: errorBody });
+        throw new Error(`Error del servidor (${response.status}). Revisa la consola para más detalles.`);
       }
       
       const potentialUsers: any[] = await response.json();
