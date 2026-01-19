@@ -34,22 +34,25 @@ export default function LoginPage() {
 
     try {
       const response = await fetch(
-        `https://sheetdb.io/api/v1/y18n35bih1e4k/search?sheet=usuari&usuari=${encodeURIComponent(usuari)}&password=${encodeURIComponent(password)}&case_sensitive=false`
+        `https://sheetdb.io/api/v1/y18n35bih1e4k?sheet=usuari`
       );
 
       if (!response.ok) {
         throw new Error('Error al conectar con el servidor.');
       }
       
-      const data: any[] = await response.json();
+      const allUsers: any[] = await response.json();
 
-      if (data.length > 0) {
-        // La API de SheetDB devuelve un array. Si hay resultados, la credencial es correcta.
+      const foundUser = allUsers.find(
+        (u) => u.usuari.toLowerCase() === usuari.toLowerCase() && u.password === password
+      );
+
+      if (foundUser) {
         const userPayload = {
-          usuari: data[0].usuari,
-          nom: data[0].nom,
-          empresa: data[0].empresa,
-          rol: data[0].rol,
+          usuari: foundUser.usuari,
+          nom: foundUser.nom,
+          empresa: foundUser.empresa,
+          rol: foundUser.rol,
         };
         await login(userPayload);
       } else {
@@ -124,3 +127,4 @@ export default function LoginPage() {
     </div>
   );
 }
+
