@@ -77,8 +77,8 @@ export default function DocumentsPage() {
           const allDocs: DocumentLine[] = await docsRes.json();
           const allUsers: UserFiscalData[] = await usersRes.json();
           
-          const userDocs = allDocs.filter(doc => doc.usuari === user.usuari);
-          const userFiscalData = allUsers.find(u => u.usuari === user.usuari) || null;
+          const userDocs = allDocs.filter(doc => doc.usuari.toLowerCase() === user.usuari.toLowerCase());
+          const userFiscalData = allUsers.find(u => u.usuari.toLowerCase() === user.usuari.toLowerCase()) || null;
           
           if (userDocs.length === 0) {
             setInvoices([]);
