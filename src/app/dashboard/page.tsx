@@ -151,7 +151,7 @@ export default function DashboardPage() {
                              <Table>
                                 <TableHeader>
                                     <TableRow>
-                                    <TableHead>Nº Pedido</TableHead>
+                                    <TableHead>Nº de seguimiento</TableHead>
                                     <TableHead>Fecha</TableHead>
                                     <TableHead>Destino</TableHead>
                                     <TableHead>Estado</TableHead>
