@@ -11,6 +11,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Loader2, Printer, ArrowLeft, FileText, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Logo } from '@/components/icons/logo';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 type DocumentLine = {
   num_factura: string;
@@ -23,6 +25,7 @@ type DocumentLine = {
   dte: string;
   fpagament: string;
   albara: string;
+  estat: 'Pagada' | 'Pendent';
 };
 
 type UserData = {
@@ -42,6 +45,7 @@ type VatDetail = {
 type GroupedInvoice = {
   id: string;
   date: string;
+  status: 'Pagada' | 'Pendent';
   lines: {
     concept: string;
     quantity: number;
@@ -59,7 +63,7 @@ type GroupedInvoice = {
 
 const safeParseFloat = (value: string | number | null | undefined, defaultValue = 0): number => {
     if (value === null || value === undefined) return defaultValue;
-    const stringValue = String(value).replace(/,/g, '.');
+    const stringValue = String(value).replace(/,/g, '.').replace(/€/g, '').trim();
     const parsed = parseFloat(stringValue);
     return isNaN(parsed) ? defaultValue : parsed;
 };
@@ -114,7 +118,7 @@ export default function DocumentsPage() {
           const usersMap = new Map(allUsers.map(u => [u.usuari.toLowerCase(), u]));
 
           const grouped = userDocs.reduce((acc, doc) => {
-            const { num_factura, data, concepte, preu_unitari, unitats, iva, dte, fpagament } = doc;
+            const { num_factura, data, concepte, preu_unitari, unitats, iva, dte, fpagament, estat } = doc;
             if (!num_factura) return acc;
 
             if (!acc[num_factura]) {
@@ -122,6 +126,7 @@ export default function DocumentsPage() {
                 id: num_factura,
                 date: data,
                 paymentMethod: fpagament,
+                status: estat === 'Pagada' ? 'Pagada' : 'Pendent',
                 lines: [],
                 clientData: usersMap.get(doc.usuari.toLowerCase()),
               };
@@ -241,6 +246,12 @@ export default function DocumentsPage() {
                 <h1 className="text-3xl font-bold text-foreground">FACTURA</h1>
                 <p className="text-muted-foreground">Nº: {selectedInvoice.id}</p>
                 <p className="text-muted-foreground">Fecha: {formatDate(selectedInvoice.date)}</p>
+                <Badge className={cn(
+                    "mt-2",
+                    selectedInvoice.status === 'Pagada' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                )}>
+                    {selectedInvoice.status}
+                </Badge>
               </div>
               <Logo />
             </header>
@@ -355,12 +366,22 @@ export default function DocumentsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {invoices.map(invoice => (
                         <Card key={invoice.id} className="flex flex-col">
-                            <CardHeader className="flex flex-row items-start justify-between">
-                                <div>
-                                    <CardTitle className="text-lg">Factura {invoice.id}</CardTitle>
-                                    <CardDescription>{formatDate(invoice.date)}</CardDescription>
+                            <CardHeader>
+                                <div className="flex flex-row items-start justify-between">
+                                    <div>
+                                        <CardTitle className="text-lg">Factura {invoice.id}</CardTitle>
+                                        <CardDescription>{formatDate(invoice.date)}</CardDescription>
+                                    </div>
+                                    <FileText className="h-8 w-8 text-muted-foreground" />
                                 </div>
-                                <FileText className="h-8 w-8 text-muted-foreground" />
+                                <div className="pt-2">
+                                     <Badge className={cn(
+                                        "font-semibold",
+                                        invoice.status === 'Pagada' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                    )}>
+                                        {invoice.status}
+                                    </Badge>
+                                </div>
                             </CardHeader>
                             <CardContent className="flex-grow flex flex-col justify-end">
                                 <p className="text-3xl font-bold text-right text-primary mb-4">{invoice.total.toFixed(2)} €</p>
@@ -389,3 +410,5 @@ export default function DocumentsPage() {
     </div>
   );
 }
+
+    
