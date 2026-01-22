@@ -19,14 +19,25 @@ type DocumentLine = {
   concepte: string;
   preu_unitari: string;
   unitats: string;
+  iva: string;
+  dte: string;
+  fpagament: string;
+  albara: string;
 };
 
-type UserFiscalData = {
+type UserData = {
   usuari: string;
   empresa: string;
   fiscalid: string;
   adreca: string;
+  rol: string;
+  telefon: string;
 };
+
+type VatDetail = {
+    base: number;
+    amount: number;
+}
 
 type GroupedInvoice = {
   id: string;
@@ -35,11 +46,22 @@ type GroupedInvoice = {
     concept: string;
     quantity: number;
     unitPrice: number;
-    total: number;
+    discount: number;
+    netTotal: number;
+    vatRate: number;
   }[];
   subtotal: number;
-  vat: number;
+  vatDetails: Record<string, VatDetail>;
   total: number;
+  paymentMethod: string;
+  clientData?: UserData;
+};
+
+const safeParseFloat = (value: string | number | null | undefined, defaultValue = 0): number => {
+    if (value === null || value === undefined) return defaultValue;
+    const stringValue = String(value).replace(/,/g, '.');
+    const parsed = parseFloat(stringValue);
+    return isNaN(parsed) ? defaultValue : parsed;
 };
 
 export default function DocumentsPage() {
@@ -47,7 +69,6 @@ export default function DocumentsPage() {
   const router = useRouter();
 
   const [invoices, setInvoices] = useState<GroupedInvoice[]>([]);
-  const [fiscalData, setFiscalData] = useState<UserFiscalData | null>(null);
   const [selectedInvoice, setSelectedInvoice] = useState<GroupedInvoice | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -69,22 +90,20 @@ export default function DocumentsPage() {
             fetch('https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=usuari')
           ]);
 
-          if (!docsRes.ok || !usersRes.ok) {
-            let errorMsg = 'Error al obtener los datos.';
-            if (!docsRes.ok) {
-                errorMsg += ` Error en facturas: ${docsRes.statusText}.`
-            }
-            if (!usersRes.ok) {
-                errorMsg += ` Error en usuarios: ${usersRes.statusText}.`
-            }
-            throw new Error(errorMsg);
-          }
+          if (!docsRes.ok) throw new Error(`Error al obtener los documentos: ${docsRes.statusText}`);
+          if (!usersRes.ok) throw new Error(`Error al obtener los usuarios: ${usersRes.statusText}`);
 
           const allDocs: DocumentLine[] = await docsRes.json();
-          const allUsers: UserFiscalData[] = await usersRes.json();
+          const allUsers: UserData[] = await usersRes.json();
           
-          const userDocs = allDocs.filter(doc => doc.usuari && doc.usuari.toLowerCase() === user.usuari.toLowerCase());
-          const userFiscalData = allUsers.find(u => u.usuari && u.usuari.toLowerCase() === user.usuari.toLowerCase()) || null;
+          const currentUserData = allUsers.find(u => u.usuari && u.usuari.toLowerCase() === user.usuari.toLowerCase());
+          const currentUserRole = currentUserData?.rol?.toLowerCase() || 'client';
+
+          const isAdmin = ['admin', 'administrador', 'treballador'].includes(currentUserRole);
+
+          const userDocs = isAdmin 
+            ? allDocs 
+            : allDocs.filter(doc => doc.usuari && doc.usuari.toLowerCase() === user.usuari.toLowerCase());
           
           if (userDocs.length === 0) {
             setInvoices([]);
@@ -92,48 +111,69 @@ export default function DocumentsPage() {
             return;
           }
 
-          setFiscalData(userFiscalData);
+          const usersMap = new Map(allUsers.map(u => [u.usuari.toLowerCase(), u]));
 
           const grouped = userDocs.reduce((acc, doc) => {
-            const { num_factura, data, concepte, preu_unitari, unitats } = doc;
-            if (!num_factura) return acc; // Skip lines without an invoice number
+            const { num_factura, data, concepte, preu_unitari, unitats, iva, dte, fpagament } = doc;
+            if (!num_factura) return acc;
 
             if (!acc[num_factura]) {
               acc[num_factura] = {
                 id: num_factura,
                 date: data,
+                paymentMethod: fpagament,
                 lines: [],
+                clientData: usersMap.get(doc.usuari.toLowerCase()),
               };
             }
-            // Robust parsing
-            const unitPrice = parseFloat(String(preu_unitari || '0').replace(/[^0-9,.]/g, "").replace(',', '.'));
-            const quantity = parseInt(String(unitats || '0'), 10);
+
+            const unitPrice = safeParseFloat(preu_unitari);
+            const quantity = safeParseFloat(unitats);
+            const discountPercentage = safeParseFloat(dte);
+            const vatRate = safeParseFloat(iva);
             
-            if (!isNaN(unitPrice) && !isNaN(quantity)) {
-                const lineTotal = unitPrice * quantity;
-                acc[num_factura].lines.push({
-                    concept: concepte,
-                    quantity: quantity,
-                    unitPrice: unitPrice,
-                    total: lineTotal,
-                });
-            }
+            const grossTotal = unitPrice * quantity;
+            const discountAmount = grossTotal * (discountPercentage / 100);
+            const netTotal = grossTotal - discountAmount;
+
+            acc[num_factura].lines.push({
+                concept: concepte,
+                quantity: quantity,
+                unitPrice: unitPrice,
+                discount: discountPercentage,
+                netTotal: netTotal,
+                vatRate: vatRate,
+            });
+            
             return acc;
           }, {} as Record<string, any>);
           
-          const processedInvoices = Object.values(grouped).map(invoice => {
-              const subtotal = invoice.lines.reduce((sum: number, line: any) => sum + line.total, 0);
-              const vat = subtotal * 0.21;
-              const total = subtotal + vat;
-              return { ...invoice, subtotal, vat, total };
+          const processedInvoices: GroupedInvoice[] = Object.values(grouped).map((invoice: any) => {
+              const subtotal = invoice.lines.reduce((sum: number, line: any) => sum + line.netTotal, 0);
+              const vatDetails = invoice.lines.reduce((acc: Record<string, VatDetail>, line: any) => {
+                  const rate = String(line.vatRate);
+                  if (!acc[rate]) {
+                      acc[rate] = { base: 0, amount: 0 };
+                  }
+                  acc[rate].base += line.netTotal;
+                  acc[rate].amount += line.netTotal * (line.vatRate / 100);
+                  return acc;
+              }, {});
+              
+              const totalVat = Object.values(vatDetails).reduce((sum, detail) => sum + detail.amount, 0);
+              const total = subtotal + totalVat;
+
+              return { ...invoice, subtotal, vatDetails, total };
           });
 
           setInvoices(processedInvoices.sort((a, b) => {
-              try {
-                return new Date(b.date).getTime() - new Date(a.date).getTime()
-              } catch {
-                return 0;
-              }
+            try {
+              const dateA = new Date(a.date.split('/').reverse().join('-')).getTime();
+              const dateB = new Date(b.date.split('/').reverse().join('-')).getTime();
+              return dateB - dateA;
+            } catch {
+              return 0;
+            }
           }));
           
         } catch (e: any) {
@@ -146,37 +186,28 @@ export default function DocumentsPage() {
 
       fetchData();
     }
-  }, [user]);
+  }, [user, authLoading, router]);
 
   const handlePrint = () => {
     window.print();
   };
 
   const formatDate = (dateString: string) => {
+      if (!dateString) return '';
       try {
-        // Attempt to parse dates like YYYY-MM-DD or MM/DD/YYYY
-        const date = new Date(dateString);
-        if (isNaN(date.getTime())) {
-            // Handle DD/MM/YYYY format if needed
-            const parts = dateString.split('/');
-            if (parts.length === 3) {
-                const [day, month, year] = parts;
-                const isoDate = new Date(`${year}-${month}-${day}`);
-                 if (!isNaN(isoDate.getTime())) return isoDate.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-            }
-            return dateString; // fallback to original string
+        const parts = dateString.split('/');
+        if (parts.length === 3) {
+            const [day, month, year] = parts;
+            const isoDate = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
+             if (!isNaN(isoDate.getTime())) return isoDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
         }
-        return date.toLocaleDateString('es-ES', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
+        return dateString;
       } catch (e) {
           return dateString;
       }
   }
 
-  if (authLoading || !user) {
+  if (authLoading || (!user && !isLoading)) {
     return (
       <div className="flex min-h-screen flex-col bg-background">
         <Header />
@@ -189,103 +220,114 @@ export default function DocumentsPage() {
   }
   
   if (selectedInvoice) {
+    const { clientData } = selectedInvoice;
     return (
-      <div className="flex min-h-screen flex-col bg-background print:bg-white">
-        <Header />
-        <main className="flex-1 py-12 sm:py-16">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <div className="mb-8 flex justify-between items-center">
-              <Button variant="outline" onClick={() => setSelectedInvoice(null)}>
-                <ArrowLeft className="mr-2" />
-                Volver al listado
-              </Button>
-              <Button onClick={handlePrint}>
-                <Printer className="mr-2" />
-                Imprimir PDF
-              </Button>
-            </div>
-
-            <div id="zona-factura" className="bg-card text-card-foreground p-8 sm:p-12 rounded-lg border shadow-lg">
-              <header className="flex justify-between items-start pb-8 border-b">
-                <div>
-                  <h1 className="text-3xl font-bold text-foreground">FACTURA</h1>
-                  <p className="text-muted-foreground">Nº: {selectedInvoice.id}</p>
-                  <p className="text-muted-foreground">Fecha: {formatDate(selectedInvoice.date)}</p>
-                </div>
-                <Logo />
-              </header>
-
-              <section className="grid sm:grid-cols-2 gap-8 my-8">
-                <div>
-                  <h2 className="font-semibold text-foreground mb-2">De:</h2>
-                  <address className="not-italic text-sm text-muted-foreground">
-                    <strong>InTrack Logistics, S.L.</strong><br/>
-                    Calle Resina, 41<br/>
-                    28021, Madrid, España<br/>
-                    NIF: B12345678
-                  </address>
-                </div>
-                <div>
-                  <h2 className="font-semibold text-foreground mb-2">Para:</h2>
-                  {fiscalData ? (
-                    <address className="not-italic text-sm text-muted-foreground">
-                      <strong>{fiscalData.empresa}</strong><br/>
-                      {fiscalData.adreca}<br/>
-                      ID Fiscal: {fiscalData.fiscalid}
-                    </address>
-                  ) : (
-                    <p className="text-sm text-destructive">Datos fiscales no encontrados.</p>
-                  )}
-                </div>
-              </section>
-
-              <section>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-2/4">Concepto</TableHead>
-                      <TableHead className="text-right">Unidades</TableHead>
-                      <TableHead className="text-right">Precio Unitario</TableHead>
-                      <TableHead className="text-right">Total</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {selectedInvoice.lines.map((line, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">{line.concept}</TableCell>
-                        <TableCell className="text-right">{line.quantity}</TableCell>
-                        <TableCell className="text-right">{line.unitPrice.toFixed(2)} €</TableCell>
-                        <TableCell className="text-right">{line.total.toFixed(2)} €</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </section>
-
-              <section className="flex justify-end mt-8">
-                <div className="w-full max-w-xs space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Subtotal:</span>
-                    <span className="font-medium text-foreground">{selectedInvoice.subtotal.toFixed(2)} €</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">IVA (21%):</span>
-                    <span className="font-medium text-foreground">{selectedInvoice.vat.toFixed(2)} €</span>
-                  </div>
-                  <div className="flex justify-between text-lg font-bold border-t pt-2 mt-2">
-                    <span className="text-foreground">TOTAL:</span>
-                    <span className="text-primary">{selectedInvoice.total.toFixed(2)} €</span>
-                  </div>
-                </div>
-              </section>
-              
-              <footer className="mt-12 pt-4 border-t text-center text-xs text-muted-foreground">
-                  <p>Gracias por su confianza.</p>
-              </footer>
-            </div>
+      <div className="bg-background print:bg-white">
+        <div className="container mx-auto px-4 py-8 print:p-0">
+          <div className="mb-8 flex justify-between items-center print:hidden">
+            <Button variant="outline" onClick={() => setSelectedInvoice(null)}>
+              <ArrowLeft className="mr-2" />
+              Volver al listado
+            </Button>
+            <Button onClick={handlePrint}>
+              <Printer className="mr-2" />
+              Imprimir PDF
+            </Button>
           </div>
-        </main>
-        <Footer />
+
+          <div id="zona-factura" className="bg-card text-card-foreground p-8 sm:p-12 rounded-lg border shadow-lg print:border-none print:shadow-none print:rounded-none">
+            <header className="flex justify-between items-start pb-8 border-b">
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">FACTURA</h1>
+                <p className="text-muted-foreground">Nº: {selectedInvoice.id}</p>
+                <p className="text-muted-foreground">Fecha: {formatDate(selectedInvoice.date)}</p>
+              </div>
+              <Logo />
+            </header>
+
+            <section className="grid sm:grid-cols-2 gap-8 my-8">
+              <div>
+                <h2 className="font-semibold text-foreground mb-2">De:</h2>
+                <address className="not-italic text-sm text-muted-foreground">
+                  <strong>InTrack Logistics, S.L.</strong><br/>
+                  Calle Resina, 41<br/>
+                  28021, Madrid, España<br/>
+                  NIF: B12345678<br/>
+                  Tel: +34 912 345 678
+                </address>
+              </div>
+              <div>
+                <h2 className="font-semibold text-foreground mb-2">Para:</h2>
+                {clientData ? (
+                  <address className="not-italic text-sm text-muted-foreground">
+                    <strong>{clientData.empresa}</strong><br/>
+                    {clientData.adreca}<br/>
+                    NIF: {clientData.fiscalid}<br/>
+                    Tel: {clientData.telefon}
+                  </address>
+                ) : (
+                  <p className="text-sm text-destructive">Datos fiscales del cliente no disponibles.</p>
+                )}
+              </div>
+            </section>
+
+            <section>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-2/5">Concepto</TableHead>
+                    <TableHead className="text-right">Cant.</TableHead>
+                    <TableHead className="text-right">P. Unitario</TableHead>
+                    <TableHead className="text-right">Dto. %</TableHead>
+                    <TableHead className="text-right">Total Neto</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {selectedInvoice.lines.map((line, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">{line.concept}</TableCell>
+                      <TableCell className="text-right">{line.quantity}</TableCell>
+                      <TableCell className="text-right">{line.unitPrice.toFixed(2)} €</TableCell>
+                      <TableCell className="text-right">{line.discount.toFixed(2)}%</TableCell>
+                      <TableCell className="text-right">{line.netTotal.toFixed(2)} €</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </section>
+
+            <section className="flex flex-col items-end mt-8">
+              <div className="w-full max-w-sm space-y-4">
+                  <div className="space-y-2 border-t pt-4">
+                      {Object.entries(selectedInvoice.vatDetails).map(([rate, details]) => (
+                          <div key={rate} className="flex justify-between text-sm">
+                              <span className="text-muted-foreground">Base Imponible ({rate}%):</span>
+                              <span className="font-medium text-foreground">{details.base.toFixed(2)} €</span>
+                          </div>
+                      ))}
+                  </div>
+                  <div className="space-y-2 border-t pt-2">
+                       {Object.entries(selectedInvoice.vatDetails).map(([rate, details]) => (
+                          <div key={rate} className="flex justify-between text-sm">
+                              <span className="text-muted-foreground">Cuota IVA ({rate}%):</span>
+                              <span className="font-medium text-foreground">{details.amount.toFixed(2)} €</span>
+                          </div>
+                      ))}
+                  </div>
+                <div className="flex justify-between text-lg font-bold border-t pt-2 mt-2">
+                  <span className="text-foreground">TOTAL FACTURA:</span>
+                  <span className="text-primary">{selectedInvoice.total.toFixed(2)} €</span>
+                </div>
+              </div>
+            </section>
+            
+            <footer className="mt-12 pt-4 border-t text-xs text-muted-foreground space-y-4">
+                {selectedInvoice.paymentMethod && <p><strong>Forma de pago:</strong> {selectedInvoice.paymentMethod}</p>}
+                <p>Inscrita en el Registro Mercantil de Madrid, Tomo 1234, Folio 56, Hoja M-78901.</p>
+                <p>En cumplimiento de la Ley Orgánica de Protección de Datos y Garantía de Derechos Digitales (LOPDGDD 3/2018), le informamos que sus datos serán tratados con la finalidad de gestionar la relación comercial. Puede ejercer sus derechos en info@intrack-logistics.es.</p>
+            </footer>
+          </div>
+        </div>
       </div>
     );
   }
@@ -313,7 +355,7 @@ export default function DocumentsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {invoices.map(invoice => (
                         <Card key={invoice.id} className="flex flex-col">
-                            <CardHeader className="flex flex-row items-center justify-between">
+                            <CardHeader className="flex flex-row items-start justify-between">
                                 <div>
                                     <CardTitle className="text-lg">Factura {invoice.id}</CardTitle>
                                     <CardDescription>{formatDate(invoice.date)}</CardDescription>
