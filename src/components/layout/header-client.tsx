@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Menu, X, LogOut, LayoutDashboard, FileText } from 'lucide-react';
+import { Menu, X, LogOut, LayoutDashboard, FileText, ClipboardList } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -95,6 +95,10 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
                   <DropdownMenuItem onClick={() => router.push('/documents')}>
                   <FileText className="mr-2 h-4 w-4" />
                   <span>Mis Facturas</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push('/albaranes')}>
+                  <ClipboardList className="mr-2 h-4 w-4" />
+                  <span>Mis Albaranes</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={logout}>
