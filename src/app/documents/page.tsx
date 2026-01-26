@@ -226,120 +226,144 @@ export default function DocumentsPage() {
   
   if (selectedInvoice) {
     const { clientData } = selectedInvoice;
+    const printStyles = `
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+        #zona-factura, #zona-factura * {
+          visibility: visible;
+        }
+        #zona-factura {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          border: none;
+          box-shadow: none;
+        }
+      }
+    `;
+
     return (
-      <div className="bg-background print:bg-white">
-        <div className="container mx-auto px-4 py-8 print:p-0">
-          <div className="mb-8 flex justify-between items-center print:hidden">
-            <Button variant="outline" onClick={() => setSelectedInvoice(null)}>
-              <ArrowLeft className="mr-2" />
-              Volver al listado
-            </Button>
-            <Button onClick={handlePrint}>
-              <Printer className="mr-2" />
-              Imprimir PDF
-            </Button>
-          </div>
+      <>
+        <style>{printStyles}</style>
+        <div className="bg-background print:bg-white">
+          <div className="container mx-auto px-4 py-8 print:p-0">
+            <div className="mb-8 flex justify-between items-center print:hidden">
+              <Button variant="outline" onClick={() => setSelectedInvoice(null)}>
+                <ArrowLeft className="mr-2" />
+                Volver al listado
+              </Button>
+              <Button onClick={handlePrint}>
+                <Printer className="mr-2" />
+                Imprimir PDF
+              </Button>
+            </div>
 
-          <div id="zona-factura" className="bg-card text-card-foreground p-8 sm:p-12 rounded-lg border shadow-lg print:border-none print:shadow-none print:rounded-none">
-            <header className="flex justify-between items-start pb-8 border-b">
-              <div>
-                <h1 className="text-3xl font-bold text-foreground">FACTURA</h1>
-                <p className="text-muted-foreground">Nº: {selectedInvoice.id}</p>
-                <p className="text-muted-foreground">Fecha: {formatDate(selectedInvoice.date)}</p>
-                <Badge className={cn(
-                    "mt-2",
-                    selectedInvoice.status === 'Pagada' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                )}>
-                    {selectedInvoice.status}
-                </Badge>
-              </div>
-              <Logo />
-            </header>
-
-            <section className="grid sm:grid-cols-2 gap-8 my-8">
-              <div>
-                <h2 className="font-semibold text-foreground mb-2">De:</h2>
-                <address className="not-italic text-sm text-muted-foreground">
-                  <strong>InTrack Logistics, S.L.</strong><br/>
-                  Calle Resina, 41<br/>
-                  28021, Madrid, España<br/>
-                  NIF: B12345678<br/>
-                  Tel: +34 912 345 678
-                </address>
-              </div>
-              <div>
-                <h2 className="font-semibold text-foreground mb-2">Para:</h2>
-                {clientData ? (
-                  <address className="not-italic text-sm text-muted-foreground">
-                    <strong>{clientData.empresa}</strong><br/>
-                    {clientData.adreca}<br/>
-                    NIF: {clientData.fiscalid}<br/>
-                    Tel: {clientData.telefon}
-                  </address>
-                ) : (
-                  <p className="text-sm text-destructive">Datos fiscales del cliente no disponibles.</p>
-                )}
-              </div>
-            </section>
-
-            <section>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-2/5">Concepto</TableHead>
-                    <TableHead className="text-right">Cant.</TableHead>
-                    <TableHead className="text-right">P. Unitario</TableHead>
-                    <TableHead className="text-right">Dto. %</TableHead>
-                    <TableHead className="text-right">Total Neto</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {selectedInvoice.lines.map((line, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="font-medium">{line.concept}</TableCell>
-                      <TableCell className="text-right">{line.quantity}</TableCell>
-                      <TableCell className="text-right">{line.unitPrice.toFixed(2)} €</TableCell>
-                      <TableCell className="text-right">{line.discount.toFixed(2)}%</TableCell>
-                      <TableCell className="text-right">{line.netTotal.toFixed(2)} €</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </section>
-
-            <section className="flex flex-col items-end mt-8">
-              <div className="w-full max-w-sm space-y-4">
-                  <div className="space-y-2 border-t pt-4">
-                      {Object.entries(selectedInvoice.vatDetails).map(([rate, details]) => (
-                          <div key={rate} className="flex justify-between text-sm">
-                              <span className="text-muted-foreground">Base Imponible ({rate}%):</span>
-                              <span className="font-medium text-foreground">{details.base.toFixed(2)} €</span>
-                          </div>
-                      ))}
-                  </div>
-                  <div className="space-y-2 border-t pt-2">
-                       {Object.entries(selectedInvoice.vatDetails).map(([rate, details]) => (
-                          <div key={rate} className="flex justify-between text-sm">
-                              <span className="text-muted-foreground">Cuota IVA ({rate}%):</span>
-                              <span className="font-medium text-foreground">{details.amount.toFixed(2)} €</span>
-                          </div>
-                      ))}
-                  </div>
-                <div className="flex justify-between text-lg font-bold border-t pt-2 mt-2">
-                  <span className="text-foreground">TOTAL FACTURA:</span>
-                  <span className="text-primary">{selectedInvoice.total.toFixed(2)} €</span>
+            <div id="zona-factura" className="bg-card text-card-foreground p-8 sm:p-12 rounded-lg border shadow-lg">
+              <header className="flex justify-between items-start pb-8 border-b">
+                <div>
+                  <h1 className="text-3xl font-bold text-foreground">FACTURA</h1>
+                  <p className="text-muted-foreground">Nº: {selectedInvoice.id}</p>
+                  <p className="text-muted-foreground">Fecha: {formatDate(selectedInvoice.date)}</p>
+                  <Badge className={cn(
+                      "mt-2",
+                      selectedInvoice.status === 'Pagada' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                  )}>
+                      {selectedInvoice.status}
+                  </Badge>
                 </div>
-              </div>
-            </section>
-            
-            <footer className="mt-12 pt-4 border-t text-xs text-muted-foreground space-y-4">
-                {selectedInvoice.paymentMethod && <p><strong>Forma de pago:</strong> {selectedInvoice.paymentMethod}</p>}
-                <p>Inscrita en el Registro Mercantil de Madrid, Tomo 1234, Folio 56, Hoja M-78901.</p>
-                <p>En cumplimiento de la Ley Orgánica de Protección de Datos y Garantía de Derechos Digitales (LOPDGDD 3/2018), le informamos que sus datos serán tratados con la finalidad de gestionar la relación comercial. Puede ejercer sus derechos en info@intrack-logistics.es.</p>
-            </footer>
+                <Logo />
+              </header>
+
+              <section className="grid sm:grid-cols-2 gap-8 my-8">
+                <div>
+                  <h2 className="font-semibold text-foreground mb-2">De:</h2>
+                  <address className="not-italic text-sm text-muted-foreground">
+                    <strong>InTrack Logistics, S.L.</strong><br/>
+                    Calle Resina, 41<br/>
+                    28021, Madrid, España<br/>
+                    NIF: B12345678<br/>
+                    Tel: +34 912 345 678
+                  </address>
+                </div>
+                <div>
+                  <h2 className="font-semibold text-foreground mb-2">Para:</h2>
+                  {clientData ? (
+                    <address className="not-italic text-sm text-muted-foreground">
+                      <strong>{clientData.empresa}</strong><br/>
+                      {clientData.adreca}<br/>
+                      NIF: {clientData.fiscalid}<br/>
+                      Tel: {clientData.telefon}
+                    </address>
+                  ) : (
+                    <p className="text-sm text-destructive">Datos fiscales del cliente no disponibles.</p>
+                  )}
+                </div>
+              </section>
+
+              <section>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-2/5">Concepto</TableHead>
+                      <TableHead className="text-right">Cant.</TableHead>
+                      <TableHead className="text-right">P. Unitario</TableHead>
+                      <TableHead className="text-right">Dto. %</TableHead>
+                      <TableHead className="text-right">Total Neto</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {selectedInvoice.lines.map((line, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-medium">{line.concept}</TableCell>
+                        <TableCell className="text-right">{line.quantity}</TableCell>
+                        <TableCell className="text-right">{line.unitPrice.toFixed(2)} €</TableCell>
+                        <TableCell className="text-right">{line.discount.toFixed(2)}%</TableCell>
+                        <TableCell className="text-right">{line.netTotal.toFixed(2)} €</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </section>
+
+              <section className="flex flex-col items-end mt-8">
+                <div className="w-full max-w-sm space-y-4">
+                    <div className="space-y-2 border-t pt-4">
+                        {Object.entries(selectedInvoice.vatDetails).map(([rate, details]) => (
+                            <div key={rate} className="flex justify-between text-sm">
+                                <span className="text-muted-foreground">Base Imponible ({rate}%):</span>
+                                <span className="font-medium text-foreground">{details.base.toFixed(2)} €</span>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="space-y-2 border-t pt-2">
+                         {Object.entries(selectedInvoice.vatDetails).map(([rate, details]) => (
+                            <div key={rate} className="flex justify-between text-sm">
+                                <span className="text-muted-foreground">Cuota IVA ({rate}%):</span>
+                                <span className="font-medium text-foreground">{details.amount.toFixed(2)} €</span>
+                            </div>
+                        ))}
+                    </div>
+                  <div className="flex justify-between text-lg font-bold border-t pt-2 mt-2">
+                    <span className="text-foreground">TOTAL FACTURA:</span>
+                    <span className="text-primary">{selectedInvoice.total.toFixed(2)} €</span>
+                  </div>
+                </div>
+              </section>
+              
+              <footer className="mt-12 pt-4 border-t text-xs text-muted-foreground space-y-4">
+                  {selectedInvoice.paymentMethod && <p><strong>Forma de pago:</strong> {selectedInvoice.paymentMethod}</p>}
+                  <p>Inscrita en el Registro Mercantil de Madrid, Tomo 1234, Folio 56, Hoja M-78901.</p>
+                  <p>En cumplimiento de la Ley Orgánica de Protección de Datos y Garantía de Derechos Digitales (LOPDGDD 3/2018), le informamos que sus datos serán tratados con la finalidad de gestionar la relación comercial. Puede ejercer sus derechos en info@intrack-logistics.es.</p>
+              </footer>
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 
