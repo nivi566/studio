@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -7,8 +6,8 @@ import { Footer } from '@/components/layout/footer';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Send, User, Bot, Loader2 } from 'lucide-react';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Send, User, Loader2 } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 
 type Message = {
@@ -74,7 +73,10 @@ export default function AssistantPage() {
         <Card className="w-full max-w-2xl h-[70vh] flex flex-col">
           <CardHeader>
             <CardTitle className="text-2xl flex items-center gap-2">
-               <img src="/logoi.png" alt="InTrack Logo" className="h-8 w-8 rounded-full" />
+               <Avatar className="h-8 w-8">
+                 <AvatarImage src="/logoi.png" alt="InTrack Logo" />
+                 <AvatarFallback>AI</AvatarFallback>
+               </Avatar>
               Asistente Virtual
             </CardTitle>
           </CardHeader>
@@ -90,7 +92,8 @@ export default function AssistantPage() {
                 >
                   {msg.role === 'assistant' && (
                     <Avatar className="h-8 w-8">
-                       <img src="/logoi.png" alt="Asistente" className="h-8 w-8 rounded-full" />
+                       <AvatarImage src="/logoi.png" alt="Asistente" />
+                       <AvatarFallback>AI</AvatarFallback>
                     </Avatar>
                   )}
                   <div
@@ -113,7 +116,8 @@ export default function AssistantPage() {
                {isLoading && (
                 <div className="flex items-start gap-3 justify-start">
                   <Avatar className="h-8 w-8">
-                    <img src="/logoi.png" alt="Asistente" className="h-8 w-8 rounded-full" />
+                    <AvatarImage src="/logoi.png" alt="Asistente" />
+                    <AvatarFallback>AI</AvatarFallback>
                   </Avatar>
                   <div className="rounded-lg px-4 py-2 bg-muted flex items-center">
                     <Loader2 className="h-5 w-5 animate-spin" />
