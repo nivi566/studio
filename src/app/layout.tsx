@@ -7,6 +7,9 @@ import { AuthProvider } from '@/context/AuthContext';
 export const metadata: Metadata = {
   title: 'InTrack | Envíos rápidos, seguros y al mejor precio',
   description: 'Soluciones de paquetería nacional e internacional para empresas y particulares.',
+  icons: {
+    icon: '/logoi.png',
+  },
 };
 
 const inter = Inter({ 

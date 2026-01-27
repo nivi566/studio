@@ -18,7 +18,7 @@ import { Footer } from '@/components/layout/footer';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
-import { FileEdit, KeyRound, Package, User as UserIcon } from 'lucide-react';
+import { FileEdit, KeyRound, User as UserIcon } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from '@/components/ui/badge';
 
@@ -143,7 +143,7 @@ export default function DashboardPage() {
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
-                                <Package /> Mis pedidos
+                                <img src="/logoi.png" alt="Pedidos" className="h-6 w-6" /> Mis pedidos
                             </CardTitle>
                             <CardDescription>Aquí puedes ver un historial de tus pedidos recientes.</CardDescription>
                         </CardHeader>
