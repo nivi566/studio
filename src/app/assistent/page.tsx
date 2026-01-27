@@ -74,7 +74,7 @@ export default function AssistantPage() {
         <Card className="w-full max-w-2xl h-[70vh] flex flex-col">
           <CardHeader>
             <CardTitle className="text-2xl flex items-center gap-2">
-              <Bot />
+               <img src="/logoi.png" alt="InTrack Logo" className="h-8 w-8 rounded-full" />
               Asistente Virtual
             </CardTitle>
           </CardHeader>
@@ -90,7 +90,7 @@ export default function AssistantPage() {
                 >
                   {msg.role === 'assistant' && (
                     <Avatar className="h-8 w-8">
-                      <AvatarFallback><Bot size={20} /></AvatarFallback>
+                       <img src="/logoi.png" alt="Asistente" className="h-8 w-8 rounded-full" />
                     </Avatar>
                   )}
                   <div
@@ -113,7 +113,7 @@ export default function AssistantPage() {
                {isLoading && (
                 <div className="flex items-start gap-3 justify-start">
                   <Avatar className="h-8 w-8">
-                    <AvatarFallback><Bot size={20} /></AvatarFallback>
+                    <img src="/logoi.png" alt="Asistente" className="h-8 w-8 rounded-full" />
                   </Avatar>
                   <div className="rounded-lg px-4 py-2 bg-muted flex items-center">
                     <Loader2 className="h-5 w-5 animate-spin" />
