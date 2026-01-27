@@ -9,7 +9,7 @@ export function Logo({ className }: { className?: string }) {
         alt="InTrack Logo"
         width={40}
         height={40}
-        className="rounded-md bg-transparent"
+        className="rounded-full bg-transparent"
       />
       <span className="text-xl font-bold tracking-tight">InTrack</span>
     </Link>
