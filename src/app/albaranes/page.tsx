@@ -372,9 +372,15 @@ export default function AlbaranesPage() {
       <Header />
       <main className="flex-1 py-12 sm:py-16">
         <div className="container mx-auto px-4">
-            <div className="mb-8">
-                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">Mis Albaranes</h1>
-                <p className="mt-2 text-lg text-muted-foreground">Aquí puedes consultar y descargar tus albaranes.</p>
+            <div className="flex items-start justify-between mb-8 flex-wrap gap-4">
+                <div>
+                    <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">Mis Albaranes</h1>
+                    <p className="mt-2 text-lg text-muted-foreground">Aquí puedes consultar y descargar tus albaranes.</p>
+                </div>
+                 <Button variant="outline" onClick={() => router.push('/dashboard')}>
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Volver a mi perfil
+                </Button>
             </div>
             
             {isLoading ? (
