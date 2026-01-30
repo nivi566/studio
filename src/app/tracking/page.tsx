@@ -1,194 +1,132 @@
+"use client";
 
-
-'use client';
-
-import React, { useState } from 'react';
-import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { AlertCircle, Loader2, CheckCircle, Package, Truck, Warehouse } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { cn } from '@/lib/utils';
-
-type ShipmentStatus = 'Procesando' | 'En almacén' | 'Preparado para envío' | 'En tránsito' | 'Entregado';
-
-type ShipmentData = {
-  tracking_code: string;
-  origen: string;
-  destination: string;
-  eta: string;
-  location: string;
-  status: ShipmentStatus;
-};
-
-const timelineSteps: { status: ShipmentStatus; icon: React.ElementType; label: string }[] = [
-  { status: 'Procesando', icon: Warehouse, label: 'Procesando' },
-  { status: 'Preparado para envío', icon: Package, label: 'Preparado' },
-  { status: 'En tránsito', icon: Truck, label: 'En tránsito' },
-  { status: 'Entregado', icon: CheckCircle, label: 'Entregado' },
-];
-
-const statusColorMap: Record<ShipmentStatus, string> = {
-  'Procesando': 'bg-yellow-500',
-  'En almacén': 'bg-yellow-500', 
-  'Preparado para envío': 'bg-orange-500',
-  'En tránsito': 'bg-blue-500',
-  'Entregado': 'bg-green-500',
-};
-
+import { useState } from 'react';
 
 export default function TrackingPage() {
   const [trackingCode, setTrackingCode] = useState('');
-  const [shipment, setShipment] = useState<ShipmentData | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  // CONFIGURACIÓN: Reemplaza esto con tu URL de SheetDB
+  const SHEETDB_URL = "https://sheetdb.io/api/v1/nmk5zmlkneovd";
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!trackingCode) return;
 
-    setIsLoading(true);
-    setError(null);
-    setShipment(null);
+    setLoading(true);
+    setError('');
+    setResult(null);
 
     try {
-      const response = await fetch(`https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=shipments&tracking_code=${trackingCode}`);
-      const data: ShipmentData[] = await response.json();
+      // IMPORTANTE: ?sheet=tracking le dice a la API que SOLO mire esa pestaña
+      const response = await fetch(`${SHEETDB_URL}/search?sheet=tracking&tracking_code=${trackingCode.toUpperCase()}`);
+      const data = await response.json();
 
       if (data.length > 0) {
-        setShipment(data[0]);
+        setResult(data[0]);
       } else {
-        setError('Código no encontrado. Por favor, verifica el código y vuelve a intentarlo.');
+        setError('Codi de seguiment no trobat. Revisa que sigui correcte.');
       }
     } catch (err) {
-      setError('Ha habido un problema al conectar con el servidor. Inténtalo de nuevo más tarde.');
+      setError('Error en la connexió. Torna-ho a intentar.');
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
-  
-  const currentStatusIndex = shipment ? timelineSteps.findIndex(step => step.status === shipment.status || (shipment.status === 'En almacén' && step.status === 'Procesando') ) : -1;
 
+  // Lógica de la barra de progreso basada en tu Excel
+  const getProgress = (status: string) => {
+    const s = status?.toLowerCase();
+    if (s === 'entregado' || s === 'lliurat') return { width: '100%', color: 'bg-green-500' };
+    if (s === 'en transito' || s === 'en trànsit') return { width: '50%', color: 'bg-blue-500' };
+    return { width: '15%', color: 'bg-yellow-500' }; // Procesando o Almacén
+  };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <Header />
-      <main className="flex-1">
-        <section className="py-16 sm:py-24">
-          <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-                Localiza tu envío
-              </h1>
-              <p className="mt-4 text-lg text-muted-foreground">
-                Introduce tu código de seguimiento para ver el estado actual de tu paquete.
-              </p>
+    <div className="min-h-screen bg-gray-50 py-12 px-4">
+      <div className="max-w-2xl mx-auto">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
+          Localitza el teu enviament
+        </h1>
+
+        {/* Buscador */}
+        <form onSubmit={handleSearch} className="flex gap-2 mb-10">
+          <input
+            type="text"
+            placeholder="Ex: TRK-001"
+            className="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-black"
+            value={trackingCode}
+            onChange={(e) => setTrackingCode(e.target.value)}
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all disabled:opacity-50"
+          >
+            {loading ? 'Cercant...' : 'Cercar'}
+          </button>
+        </form>
+
+        {/* Mensaje de Error */}
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6 text-center">
+            {error}
+          </div>
+        )}
+
+        {/* Tarjeta de Resultados */}
+        {result && (
+          <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <p className="text-sm text-gray-500 uppercase tracking-wider">Estat de l'enviament</p>
+                <h2 className="text-xl font-bold text-gray-800">{result.status}</h2>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-500 uppercase tracking-wider">Codi</p>
+                <p className="font-mono font-bold text-blue-600">{result.tracking_code}</p>
+              </div>
             </div>
 
-            <Card className="max-w-xl mx-auto">
-              <CardContent className="p-6">
-                <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4">
-                  <Input
-                    type="text"
-                    value={trackingCode}
-                    onChange={(e) => setTrackingCode(e.target.value)}
-                    placeholder="Escribe el código de seguimiento"
-                    className="flex-grow text-base"
-                    aria-label="Código de seguimiento"
-                  />
-                  <Button type="submit" disabled={isLoading} className="sm:w-auto w-full">
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Buscando...
-                      </>
-                    ) : 'Buscar'}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-            
-            {error && (
-              <Alert variant="destructive" className="max-w-xl mx-auto mt-8">
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>
-                      {error}
-                  </AlertDescription>
-              </Alert>
-            )}
+            {/* Barra de Progreso */}
+            <div className="relative pt-1 mb-8">
+              <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
+                <div
+                  style={{ width: getProgress(result.status).width }}
+                  className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center ${getProgress(result.status).color} transition-all duration-500`}
+                ></div>
+              </div>
+              <div className="flex justify-between text-xs text-gray-400">
+                <span>Almacén</span>
+                <span>En Trànsit</span>
+                <span>Lliurat</span>
+              </div>
+            </div>
 
-            {shipment && (
-              <Card className="max-w-3xl mx-auto mt-12 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Resultados de tu envío</CardTitle>
-                  <p className="text-muted-foreground">Código: <span className="font-mono text-primary">{shipment.tracking_code}</span></p>
-                </CardHeader>
-                <CardContent className="space-y-8">
-                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
-                      <div>
-                          <p className="font-medium text-muted-foreground">Origen</p>
-                          <p className="text-lg font-semibold text-foreground">{shipment.origen}</p>
-                      </div>
-                      <div>
-                          <p className="font-medium text-muted-foreground">Destino</p>
-                          <p className="text-lg font-semibold text-foreground">{shipment.destination}</p>
-                      </div>
-                      <div>
-                          <p className="font-medium text-muted-foreground">Fecha prevista (ETA)</p>
-                          <p className="text-lg font-semibold text-foreground">{shipment.eta}</p>
-                      </div>
-                      <div>
-                          <p className="font-medium text-muted-foreground">Ubicación actual</p>
-                          <p className="text-lg font-semibold text-foreground">{shipment.location}</p>
-                      </div>
-                  </div>
-
-                  <div>
-                     <p className="font-medium text-muted-foreground mb-4">Estado del envío</p>
-                     <div className="flex items-center">
-                        {timelineSteps.map((step, index) => {
-                            const isActive = currentStatusIndex >= index;
-                            const isCurrent = currentStatusIndex === index;
-                            const colorClass = statusColorMap[step.status] || 'bg-muted';
-                            
-                            return (
-                                <React.Fragment key={step.status}>
-                                    <div className="flex flex-col items-center">
-                                        <div className={cn(
-                                            "w-10 h-10 rounded-full flex items-center justify-center border-4 transition-all duration-300",
-                                            isActive ? `border-transparent ${colorClass}` : 'bg-muted border-muted-foreground/30',
-                                            isCurrent ? 'scale-110' : ''
-                                        )}>
-                                            <step.icon className={cn("w-5 h-5", isActive ? 'text-white' : 'text-muted-foreground')} />
-                                        </div>
-                                        <p className={cn(
-                                            "mt-2 text-xs font-semibold text-center",
-                                            isActive ? 'text-foreground' : 'text-muted-foreground'
-                                        )}>{step.label}</p>
-                                    </div>
-
-                                    {index < timelineSteps.length - 1 && (
-                                         <div className={cn(
-                                            "flex-1 h-1 mx-2 transition-colors duration-300",
-                                            currentStatusIndex > index ? colorClass : 'bg-muted'
-                                         )}></div>
-                                    )}
-                                </React.Fragment>
-                            );
-                        })}
-                     </div>
-                  </div>
-
-                </CardContent>
-              </Card>
-            )}
-
+            {/* Detalles */}
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <p className="text-sm text-gray-500">Origen</p>
+                <p className="font-medium text-gray-800">{result.origen}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Destí</p>
+                <p className="font-medium text-gray-800">{result.destination}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Ubicació Actual</p>
+                <p className="font-medium text-gray-800">{result.location}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Data Prevista (ETA)</p>
+                <p className="font-medium text-gray-800">{result.eta}</p>
+              </div>
+            </div>
           </div>
-        </section>
-      </main>
-      <Footer />
+        )}
+      </div>
     </div>
   );
 }
