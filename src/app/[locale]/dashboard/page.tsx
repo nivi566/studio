@@ -79,6 +79,23 @@ export default function DashboardPage() {
     );
   }
 
+  const handleVerFactura = async (trackingCode: string) => {
+    try {
+      const response = await fetch(`https://sheetdb.io/api/v1/nmk5zmlkneovd/search?sheet=documents&tracking_code=${trackingCode}`);
+      const data = await response.json();
+
+      if (data.length > 0 && data[0].num_factura) {
+        const invoiceId = data[0].num_factura;
+        router.push(`/documents?id=${invoiceId}`);
+      } else {
+        alert("No se ha encontrado una factura vinculada a este código de seguimiento.");
+      }
+    } catch (error) {
+      console.error("Error al buscar la factura:", error);
+      alert("Error al conectar con la base de datos para buscar la factura.");
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />

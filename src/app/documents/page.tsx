@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Button } from '@/components/ui/button';
@@ -71,6 +71,7 @@ const safeParseFloat = (value: string | number | null | undefined, defaultValue 
 export default function DocumentsPage() {
   const { user, isLoading: authLoading } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [invoices, setInvoices] = useState<GroupedInvoice[]>([]);
   const [selectedInvoice, setSelectedInvoice] = useState<GroupedInvoice | null>(null);
@@ -192,6 +193,19 @@ export default function DocumentsPage() {
       fetchData();
     }
   }, [user, authLoading, router]);
+
+  useEffect(() => {
+    if (invoices.length > 0) {
+      const invoiceIdFromQuery = searchParams.get('id');
+      if (invoiceIdFromQuery) {
+        const invoiceToSelect = invoices.find(inv => inv.id === invoiceIdFromQuery);
+        if (invoiceToSelect) {
+          setSelectedInvoice(invoiceToSelect);
+        }
+      }
+    }
+  }, [invoices, searchParams]);
+
 
   const handlePrint = () => {
     window.print();
