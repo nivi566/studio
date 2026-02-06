@@ -1,4 +1,3 @@
-
 import { BlogPost } from '@/lib/types';
 
 export const blogPosts: BlogPost[] = [
@@ -9,7 +8,7 @@ export const blogPosts: BlogPost[] = [
     date: '2026-02-03',
     author: 'Redacción',
     category: 'Actualidad',
-    imageId: 'blog-post-3',
+    imageId: 'warehouse-colmena',
     content: `
       <p>Señales contradictorias en la actividad logística al comienzo de un 2026 que seguirá marcado por lo que el Foro Económico Mundial ha denominado una nueva <strong>"etapa de volatilidad estructural"</strong>.</p>
       
