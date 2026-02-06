@@ -1,6 +1,6 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane, PiggyBank, MapPin, Clock, Rocket, ArrowRight, Bell, Lock } from 'lucide-react';
+import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane, PiggyBank, MapPin, Clock, Rocket, ArrowRight, Bell, Lock, CreditCard } from 'lucide-react';
 import Link from 'next/link';
 import {
   Dialog,
@@ -37,10 +37,10 @@ const pricingService = {
   description: 'Consulta nuestros precios competitivos para envíos nacionales, urgentes e internacionales.',
 };
 
-const integralLogisticsService = {
-  icon: Warehouse,
-  title: 'Logística Integral',
-  description: 'Soluciones completas de almacenaje, preparación de pedidos (picking) y distribución para tu e-commerce.',
+const internationalShoppingService = {
+  icon: ShoppingCart,
+  title: 'Compras Internacionales',
+  description: 'Compra en cualquier tienda del mundo y recibe tus paquetes de forma segura en nuestra red de lockers.',
 };
 
 const internationalTransportService = {
@@ -269,42 +269,42 @@ export function Services() {
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
                   <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
-                    <integralLogisticsService.icon className="h-8 w-8 text-[#0B3C5D]" />
+                    <internationalShoppingService.icon className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
-                  <CardTitle className="mt-4">{integralLogisticsService.title}</CardTitle>
+                  <CardTitle className="mt-4">{internationalShoppingService.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{integralLogisticsService.description}</p>
+                  <p className="text-muted-foreground">{internationalShoppingService.description}</p>
                 </CardContent>
               </Card>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <Warehouse className="h-6 w-6 text-[#0B3C5D]" />
-                  Logística Integral para E-commerce
+                  <ShoppingCart className="h-6 w-6 text-[#0B3C5D]" />
+                  Compras Internacionales
                 </DialogTitle>
                 <DialogDescription>
-                  Una solución completa para que puedas centrarte en vender, mientras nosotros nos encargamos del resto.
+                  Compra en tus tiendas favoritas de EE.UU., China o Europa y recíbelo aquí.
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4 space-y-4 text-sm text-muted-foreground">
-                <p>Nuestra solución de logística integral está diseñada para e-commerce y empresas que buscan externalizar sus operaciones de almacenaje, preparación y envío.</p>
+                <p>¿Quieres comprar en una tienda que no envía a tu país? Con nuestro servicio de Compras Internacionales, te proporcionamos una dirección de entrega en los principales hubs logísticos del mundo.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
-                    <Package className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Almacenaje flexible:</span> Guarda tu stock en nuestros almacenes seguros y optimizados.</div>
+                    <Globe className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Dirección Global:</span> Compra como si vivieras allí y nosotros nos encargamos de traerlo a tu locker local.</div>
                   </li>
                    <li className="flex items-start gap-3">
-                    <ShoppingCart className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Picking y Packing:</span> Preparamos tus pedidos con precisión y los empaquetamos profesionalmente para proteger tus productos.</div>
+                    <CreditCard className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Consolidación de Paquetes:</span> Agrupamos varias compras en un solo envío para que ahorres en gastos de transporte.</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Ship className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Distribución nacional e internacional:</span> Nos encargamos de la entrega final a tus clientes con nuestras tarifas competitivas.</div>
+                    <ShieldCheck className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Gestión de Aduanas:</span> Olvídate de papeleos complicados. Tramitamos los impuestos y aranceles por ti.</div>
                   </li>
                 </ul>
-                <p>Integramos nuestra plataforma con tu tienda online para automatizar todo el proceso. ¡Ideal para escalar tu negocio sin preocuparte por la logística!</p>
+                <p>Expande tus posibilidades de compra sin fronteras y con la seguridad de InTrack.</p>
               </div>
                <DialogClose asChild>
                 <Button type="button" variant="secondary">Cerrar</Button>
