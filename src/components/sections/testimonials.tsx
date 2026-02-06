@@ -25,7 +25,7 @@ const testimonials = [
     id: 3,
     name: 'Elena Martínez',
     role: 'E-commerce Manager',
-    quote: 'La integración de sus nuevas soluciones de picking ha optimizado nuestra preparación de pedidos al máximo. Ahora nuestras PYMES conectan con Europa de forma ágil y digital.',
+    quote: 'Integrar el widget de InTrack en nuestra tienda online ha reducido las entregas fallidas a cero. Nuestros clientes valoran muchísimo poder elegir un punto de recogida 24/7. Ha sido un salto de calidad para nuestra logística.',
     avatarId: 'avatar3',
     rating: 5,
   },
