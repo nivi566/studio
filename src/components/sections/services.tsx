@@ -1,6 +1,6 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Zap, DollarSign, Smartphone, Globe, ShieldCheck, ShoppingCart, Rocket, ArrowRight, Bell, Lock, CreditCard, Clock, MapPin, Package, Ship, Plane, PiggyBank } from 'lucide-react';
+import { Zap, DollarSign, Smartphone, Globe, ShieldCheck, ShoppingCart, Rocket, ArrowRight, Bell, Lock, CreditCard, Clock, MapPin, Package, Building2, Layers, TrendingUp, Undo2, PiggyBank } from 'lucide-react';
 import Link from 'next/link';
 import {
   Dialog,
@@ -43,10 +43,10 @@ const internationalShoppingService = {
   description: 'Compra en cualquier tienda del mundo y recibe tus paquetes de forma segura en nuestra red de lockers.',
 };
 
-const internationalTransportService = {
-  icon: Globe,
-  title: 'Transporte Internacional',
-  description: 'Conectamos tu negocio con el mundo a través de nuestra extensa red de transporte multimodal.',
+const b2bSolutionsService = {
+  icon: Building2,
+  title: 'Soluciones para Empresas y E-commerce (B2B)',
+  description: 'Optimizamos la logística de tu negocio con integraciones personalizadas, tarifas por volumen y gestión de devoluciones.',
 };
 
 
@@ -316,42 +316,42 @@ export function Services() {
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
                   <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
-                    <internationalTransportService.icon className="h-8 w-8 text-[#0B3C5D]" />
+                    <b2bSolutionsService.icon className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
-                  <CardTitle className="mt-4">{internationalTransportService.title}</CardTitle>
+                  <CardTitle className="mt-4">{b2bSolutionsService.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{internationalTransportService.description}</p>
+                  <p className="text-muted-foreground">{b2bSolutionsService.description}</p>
                 </CardContent>
               </Card>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <Globe className="h-6 w-6 text-[#0B3C5D]" />
-                  Transporte Internacional
+                  <Building2 className="h-6 w-6 text-[#0B3C5D]" />
+                  Soluciones B2B y E-commerce
                 </DialogTitle>
                 <DialogDescription>
-                  Llevamos tus envíos a cualquier rincón del mundo con la máxima eficiencia y seguridad.
+                  Impulsa la logística de tu negocio con herramientas diseñadas para crecer.
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4 space-y-4 text-sm text-muted-foreground">
-                <p>Nuestra red global nos permite ofrecer soluciones de transporte internacional adaptadas a tus necesidades, combinando diferentes medios para optimizar tiempo y coste.</p>
+                <p>Entendemos los retos de la logística moderna. Por eso ofrecemos soluciones personalizadas para empresas que buscan eficiencia y escalabilidad.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
-                    <Plane className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Transporte Aéreo:</span> La opción más rápida para envíos urgentes a cualquier destino internacional.</div>
+                    <Layers className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Integración API/Plugins:</span> Conecta tu tienda online directamente con nuestra red para automatizar envíos.</div>
                   </li>
                    <li className="flex items-start gap-3">
-                    <Ship className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Transporte Marítimo:</span> Ideal para grandes volúmenes y cargas no urgentes, ofreciendo la solución más económica.</div>
+                    <TrendingUp className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Tarifas Corporativas:</span> Accede a precios preferenciales basados en tu volumen mensual de envíos.</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Package className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Gestión Aduanera:</span> Nos encargamos de todos los trámites y documentación necesarios para un despacho de aduanas sin complicaciones.</div>
+                    <Undo2 className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
+                    <div><span className="font-semibold text-foreground">Logística Inversa:</span> Gestiona las devoluciones de tus clientes de forma sencilla a través de nuestros lockers.</div>
                   </li>
                 </ul>
-                <p>Con nuestro seguimiento avanzado, siempre sabrás dónde está tu envío, desde la recogida hasta la entrega final en el país de destino.</p>
+                <p className="font-bold">Impulsa el crecimiento de tu negocio con un socio logístico que entiende tus necesidades.</p>
               </div>
                <DialogClose asChild>
                 <Button type="button" variant="secondary">Cerrar</Button>
