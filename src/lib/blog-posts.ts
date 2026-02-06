@@ -5,25 +5,31 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'resumen-enero-2026-volatilidad-estructural',
     title: 'Resumen enero 2026: Y ahora, ¿una nueva etapa de "volatilidad estructural"?',
-    description: 'Un análisis profundo de los retos y tendencias que definen el comienzo de 2026 en el sector logístico global.',
-    date: '2026-01-31',
-    author: 'Equipo InTrack',
+    description: 'Señales contradictorias en la actividad logística al comienzo de un 2026 marcado por la volatilidad estructural.',
+    date: '2026-02-03',
+    author: 'Redacción',
     category: 'Actualidad',
     imageId: 'blog-post-3',
     content: `
-      <p>Al cerrar el primer mes de 2026, el sector logístico se encuentra en una encrucijada. Lo que antes llamábamos "disrupciones temporales" parece haberse convertido en una <strong>volatilidad estructural</strong> que redefine las reglas del juego para transportistas, cargadores y consumidores por igual.</p>
+      <p>Señales contradictorias en la actividad logística al comienzo de un 2026 que seguirá marcado por lo que el Foro Económico Mundial ha denominado una nueva <strong>"etapa de volatilidad estructural"</strong>.</p>
       
-      <h3 class="font-bold text-xl mt-6 mb-3">¿Qué entendemos por volatilidad estructural?</h3>
-      <p>A diferencia de las crisis cíclicas del pasado, la situación actual se caracteriza por la superposición de múltiples factores de inestabilidad que no desaparecen con el tiempo, sino que se integran en la operativa diaria.</p>
-      <ul class="list-disc list-inside space-y-2 mt-2">
-        <li><strong>Inestabilidad Geopolítica Permanente:</strong> El conflicto en las fronteras del este de Europa y las tensiones en las rutas marítimas clave han dejado de ser noticias de última hora para ser variables fijas en la planificación de rutas.</li>
-        <li><strong>Fluctuación de Costes Energéticos:</strong> La transición hacia energías limpias, aunque necesaria, mantiene una presión constante sobre el precio del combustible y la electricidad, afectando directamente a los márgenes operativos.</li>
-        <li><strong>Cambios en los Hábitos de Consumo:</strong> El consumidor de 2026 ya no solo exige rapidez, sino una transparencia absoluta y una flexibilidad que obliga a los e-commerce a reinventar su logística de última milla constantemente.</li>
-      </ul>
+      <p class="mt-4">A modo de resumen, pese a caer la cifra de negocio de todas las ramas de actividad logística y de transporte entre octubre y noviembre, y tras un dubitativo mes de diciembre, las ventas del sector logístico y de transporte terminan 2025 con un <strong>incremento acumulado de un 6,2%</strong>, la misma tasa que se registró en 2024. Además, en el plano laboral, el transporte y la logística han aumentado la contratación laboral un 5,9% en 2025, especialmente en actividades postales y de correo por el impulso del comercio electrónico y la laboralización de la 'Ley Rider'.</p>
 
-      <h3 class="font-bold text-xl mt-8 mb-3">La resiliencia como única estrategia</h3>
-      <p>En este escenario, la capacidad de adaptación no es un valor añadido, sino un requisito de supervivencia. Las empresas que están liderando el sector son aquellas que han apostado por la <strong>digitalización extrema</strong>: desde la automatización de almacenes hasta el uso de algoritmos predictivos para anticiparse a los cuellos de botella.</p>
-      <p>En <strong>InTrack</strong>, seguimos trabajando para ofrecer soluciones que mitiguen estos riesgos, proporcionando una red de puntos de recogida robusta y herramientas digitales que permiten a nuestros clientes navegar esta nueva etapa con total confianza.</p>
+      <h3 class="font-bold text-xl mt-8 mb-3">Claves logísticas para 2026</h3>
+      <p>Con estos datos, el Foro Económico Mundial sitúa a las cadenas de suministro globales en una etapa que obliga a adoptar modelos con mayor capacidad de adaptación. Tensiones inmologísticas, auge del comercio electrónico, suministro eléctrico y reducción de capacidad de transporte son algunas de las siete claves que marcarán este 2026.</p>
+      <p class="mt-2">Por su parte, Crédito y Caución ha revisado a la baja la previsión de crecimiento de la producción, anticipando que el sector finalizará 2026 con un repunte del 2,4%, frente al 3,7% estimado anteriormente.</p>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">Horeca y comercio electrónico</h3>
+      <p>El canal Horeca vive un cambio estructural que está tensionando su modelo tradicional de distribución, detectándose signos claros de obsolescencia. En el segmento del e-commerce, los consumidores impulsan la logística hacia compras dentro de aplicaciones de mensajería, soluciones de pago digitales y tiendas <em>phygital</em>.</p>
+      <p class="mt-2">La gestión de las devoluciones se consolida como factor diferencial. DS Smith calcula que el e-commerce español terminó 2025 con <strong>15,2 millones de devoluciones</strong>, un auténtico quebradero de cabeza por el coste operativo y el daño reputacional que generan. De momento, el canal online gana peso en las rebajas de enero con un aumento de ventas del 15%.</p>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">Panorama empresarial</h3>
+      <p>En el plano empresarial, Palibex superó el millón de palets movidos en 2025. DHL Supply Chain gestionará un millón de pedidos anuales de Miravia, mientras que Havi Logistics centraliza actividades en su nueva plataforma de San Fernando de Henares.</p>
+      <p class="mt-2">Mercadona sigue impulsando sus "colmenas" para el canal online, reclutando personal para su nueva plataforma en Vallecas e invirtiendo 25 millones de euros en la de Málaga. Por otro lado, plataformas como Shein, AliExpress y Temu dominan el mercado de bajo coste en España. En este entorno, <strong>nuestra red InTrack</strong> sigue reforzando su presencia y analizando oportunidades estratégicas para liderar el sector de las consignas inteligentes.</p>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">No todo el monte es orégano</h3>
+      <p>La actividad logística también manda señales negativas. UPS ha anunciado recortes de plantilla y cierres de instalaciones para adaptarse a menores volúmenes. Amazon también aprovecha la IA para aligerar plantilla y cierra tiendas físicas de sus líneas Fresh y Go.</p>
+      <p class="mt-2">Nike y Zalando siguen caminos similares de optimización y automatización que implican ajustes en sus redes logísticas europeas. Mientras tanto, el sector se adapta a regulaciones como la 'Ley Rider', que Trabajo calcula hará aflorar más de 50.000 puestos de trabajo en el sector del reparto.</p>
     `
   },
   {
@@ -129,7 +135,7 @@ export const blogPosts: BlogPost[] = [
       <h3 class="font-bold text-xl mt-6 mb-3">Emisiones de carbono de envíos a domicilio vs envíos a puntos de recogida</h3>
       <p>Los envíos a puntos de recogida de <strong>InTrack</strong> están ganando terreno rápidamente. La razón es simple: se entregan más paquetes en menos paradas. Al disminuir el número de entregas individuales, también se disminuye el tráfico, lo que a su vez reduce la congestión en las ciudades y mejora la calidad del aire. Esta eficiencia no solo es beneficiosa para el medio ambiente, al reducir las emisiones de CO₂, sino que también se traduce en una optimización de costes y una experiencia de usuario mejorada gracias a la flexibilidad en la recepción de sus paquetes.</p>
 
-      <p>Según el estudio realizado por South Pole para <strong>InTrack</strong>, el envío a puntos de recogida tiene el potencial de reducir las emisiones de carbono por paquete entre un 64% y un 86%, dependiendo de cómo el consumidor elija recoger dicho paquete. En concreto, el estudio estima que enviar paquetes a puntos de recogida podría disminuir las emisiones de CO2e en un promedio de 146,4 g por paquete*. Esto representa una reducción aproximada al 64% en emisiones, si lo comparamos con el método tradicional de envíos a domicilio*. Con esta reducción tan significativa, los envíos a puntos de recogida se presentan no solo como una opción viable, sino una respuesta al reto de las emisiones en el sector logístico.</p>
+      <p>Según el estudio realizado por South Pole para <strong>InTrack</strong>, el envío a puntos de recogida tiene el potencial de reducir las emisiones de carbono por paquete entre un 64% y un 86%, dependiendo de cómo el consumidor elija recoger dicho paquete. En concreto, el estudio estima que enviar paquetes a puntos de recogida podría disminuir las emisiones de CO2e en un promedio de 146,4 g por paquete*. Esto representa una reducción aproximada al 64% en emisiones, si lo comparamos con el método tradicional de envíos a domicilio*. Con esta reducción tan significativa, los envíos a puntos de recogida se presentan no solo como una opción viable, sino una respuesta al resto de las emisiones en el sector logístico.</p>
 
       <h3 class="font-bold text-xl mt-8 mb-3">¿Cómo funcionan los envíos sostenibles a través de Punto Pack y Lockers?</h3>
       <p>Los envíos a puntos de recogida <strong>InTrack</strong> son envíos de paquetes a puntos de recogida estratégicamente ubicados, conocidos como Punto Pack y Lockers. Los Punto Pack son puntos de recogida en pequeños comercios de barrio y los Lockers son taquillas inteligentes que se encuentran principalmente en gasolileras, supermercados y centros comerciales.</p>
