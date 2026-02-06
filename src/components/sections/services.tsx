@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button';
 const urgentShipmentsService = {
   icon: Zap,
   title: 'Envíos Urgentes 24h',
-  description: 'Entregas en tiempo récord para cuando no puedes esperar. Cobertura nacional garantizada.',
+  description: 'La solución más rápida para tus envíos más importantes. Cobertura nacional garantizada.',
 };
 
 const guaranteedDeliveriesService = {
@@ -257,7 +257,7 @@ export function Services() {
                     <div><span className="font-semibold text-foreground">Seguimiento Detallado:</span> Incluye nuestro seguimiento en tiempo real para que no pierdas de vista tu envío ni un segundo.</div>
                   </li>
                 </ul>
-                <p>Perfecto para documentos importantes, regalos de última hora o cualquier situación que requiera velocidad y fiabilidad.</p>
+                <p className="font-bold text-foreground">Perfecto para documentos importantes, regalos de última hora o cualquier situación que requiera velocidad y fiabilidad.</p>
               </div>
                <DialogClose asChild>
                 <Button type="button" variant="secondary">Cerrar</Button>
