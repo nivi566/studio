@@ -56,22 +56,46 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'sostenibilidad-en-la-logistica',
     title: '¡Conoce la empresa de mensajería que reduce hasta un -86% las emisiones CO2!',
-    description: 'Descubre las prácticas y tecnologías que están haciendo la logística más ecológica.',
+    description: 'Descubre cómo los envíos a puntos de recogida pueden reducir drásticamente la huella de carbono.',
     date: '2024-08-10',
     author: 'Ana López',
     category: 'Sostenibilidad',
     imageId: 'blog-post-4',
     localImage: '/sostenibilidad.png',
     content: `
-      <p>La sostenibilidad se ha convertido en una prioridad para la industria logística. La presión de los consumidores, las regulaciones y la propia conciencia corporativa están impulsando a las empresas a adoptar prácticas más ecológicas. El objetivo es claro: reducir la huella de carbono y minimizar el impacto ambiental sin sacrificar la eficiencia.</p>
-      <p>Desde la optimización de rutas para reducir el consumo de combustible hasta la adopción de flotas de vehículos eléctricos, las estrategias son variadas y efectivas.</p>
-      <h3 class="font-bold text-lg mt-4 mb-2">Iniciativas Verdes:</h3>
-      <ul class="list-disc list-inside space-y-2">
-        <li><strong>Vehículos Eléctricos (VE):</strong> La transición a furgonetas y camiones eléctricos es uno de los pasos más significativos para reducir las emisiones directas.</li>
-        <li><strong>Embalaje Sostenible:</strong> Uso de materiales reciclados, reciclables y biodegradables, así como la optimización del tamaño de los paquetes para reducir el desperdicio.</li>
-        <li><strong>Logística Inversa:</strong> Sistemas eficientes para la devolución y reciclaje de productos, cerrando el ciclo de la economía circular.</li>
-      </ul>
-      <p class="mt-4">Un futuro logístico más verde no solo es posible, sino esencial. Las empresas que lideran este cambio no solo contribuyen al planeta, sino que también mejoran su imagen de marca y conectan con una base de clientes cada vez más consciente del medio ambiente.</p>
+      <p>En un mundo donde el cambio climático se manifiesta con fuerza, las empresas emergen como actores clave en la búsqueda de soluciones. Especialmente el sector logístico y de envíos, sector que más contamina emitiendo cada año el 25% de emisiones de C02.</p>
+
+      <p>Los envíos tradicionales a domicilio, aunque rápidos en términos de tiempo, tienen un costo ambiental considerable. Cada paquete que llega a nuestro domicilio implica un vehículo adicional en las carreteras, generando más emisiones de carbono. Ante este desafío, <strong>InTrack</strong> ofrece una solución más sostenible: los envíos a puntos de recogida. Una propuesta que no solo busca reducir las emisiones de carbono, sino también brindar a los clientes una opción más conveniente para recibir sus paquetes.</p>
+
+      <h3 class="font-bold text-xl mt-6 mb-3">Emisiones de carbono de envíos a domicilio vs envíos a puntos de recogida</h3>
+      <p>Los envíos a puntos de recogida de <strong>InTrack</strong> están ganando terreno rápidamente. La razón es simple: se entregan más paquetes en menos paradas. Al disminuir el número de entregas individuales, también se disminuye el tráfico, lo que a su vez reduce la congestión en las ciudades y mejora la calidad del aire. Esta eficiencia no solo es beneficiosa para el medio ambiente, al reducir las emisiones de CO₂, sino que también se traduce en una optimización de costes y una experiencia de usuario mejorada gracias a la flexibilidad en la recepción de sus paquetes.</p>
+
+      <p>Según el estudio realizado por South Pole para <strong>InTrack</strong>, el envío a puntos de recogida tiene el potencial de reducir las emisiones de carbono por paquete entre un 64% y un 86%, dependiendo de cómo el consumidor elija recoger dicho paquete. En concreto, el estudio estima que enviar paquetes a puntos de recogida podría disminuir las emisiones de CO2e en un promedio de 146,4 g por paquete*. Esto representa una reducción aproximada al 64% en emisiones, si lo comparamos con el método tradicional de envíos a domicilio*. Con esta reducción tan significativa, los envíos a puntos de recogida se presentan no solo como una opción viable, sino una respuesta al reto de las emisiones en el sector logístico.</p>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">¿Cómo funcionan los envíos sostenibles a través de Punto Pack y Lockers?</h3>
+      <p>Los envíos a puntos de recogida <strong>InTrack</strong> son envíos de paquetes a puntos de recogida estratégicamente ubicados, conocidos como Punto Pack y Lockers. Los Punto Pack son puntos de recogida en pequeños comercios de barrio y los Lockers son taquillas inteligentes que se encuentran principalmente en gasolineras, supermercados y centros comerciales.</p>
+
+      <p>Actualmente, la red <strong>InTrack</strong> cuenta con miles de Punto Packs y Lockers en España, por lo que siempre hay un punto de recogida cerca, haciendo que el envío y la recepción de paquetes sea eficaz, además de sostenible. Enviar un paquete a puntos de recogida con <strong>InTrack</strong>, es un proceso principalmente online y sencillo.</p>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">El futuro sostenible de los envíos en InTrack: más allá del paquete</h3>
+      <p>En <strong>InTrack</strong>, la sostenibilidad es un pilar estratégico. Por ello, están cambiando el paradigma de la entrega de paquetería. Están realizando una transformación integral del servicio de logística. Ya sea a través de la optimización de rutas, están reemplazando su flota por vehículos ecológicos en la última milla, hacen uso de energías renovables en sus instalaciones e incluso en los Lockers ya que muchos de ellos funcionan gracias a la energía generada por placas solares instaladas en ellos, lo que refuerza el compromiso de <strong>InTrack</strong> con la sostenibilidad.</p>
+
+      <p>Además, la promoción activa del reciclaje así como la reducción de residuos son procedimientos que trabajan día a día. Una de las últimas acciones que ha lanzado para ayudar con la reducción del uso del plástico, consiste en reemplazar el uso de sacas de plástico por sacas de tela. <strong>InTrack</strong> proporciona a los repartidores bolsas de tela para transportar varios paquetes al mismo tiempo. Estas bolsas, al ser de tela, son reutilizables y reducen el uso de bolsas de plástico.</p>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">InTrack y su compromiso verde y social</h3>
+      <p><strong>InTrack</strong> es plenamente consciente del impacto que las empresas de envíos pueden tener en el medio ambiente. Por eso, han tomado medidas proactivas para garantizar que sus operaciones sean lo más verdes posible. Es una cuestión de responsabilidad corporativa y de hacer lo correcto por el planeta.</p>
+
+      <p>Por otro lado, <strong>InTrack</strong> ha establecido un ambicioso objetivo de sostenibilidad: lograr la neutralidad de carbono para el año 2040. Se han fijado metas basadas en la ciencia para reducir las emisiones de gases de efecto invernadero en un 42% para el año 2030 y alcanzar cero emisiones netas para el año 2040.</p>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">La sostenibilidad es una responsabilidad compartida</h3>
+      <p>La elección de un método de envío sostenible es una responsabilidad compartida entre empresas y consumidores. Al elegir opciones sostenibles, no solo se cuida el planeta, sino que también se dan pasos hacia un futuro más verde y sostenible. Cada vez que un cliente elige un punto de recogida en lugar de una entrega a domicilio, está tomando una decisión consciente de reducir su huella de carbono.</p>
+
+      <p>Para maximizar el ahorro de emisiones, es esencial que los usuarios se dirijan a los Punto Pack o Locker de manera ecológica, ya sea caminando o en bicicleta. No se debe subestimar el impacto significativo de esta simple acción en la reducción de la huella de carbono. Además, al adoptar prácticas más verdes, los usuarios no solo ayudan al medio ambiente, sino que también promueven un estilo de vida más saludable.</p>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">Otros beneficios de los envíos a puntos de recogida</h3>
+      <p>Más allá de abordar cuestiones ambientales, los envíos a puntos de recogida proponen soluciones tangibles a desafíos urbanos actuales. Un ejemplo de cómo las ciudades están adaptándose a estos desafíos es la implementación reciente en Barcelona de la «tasa Amazon». Esta tasa requiere que las empresas de reparto a domicilio paguen por aparcar cuando realizan entregas a domicilio “por la ocupación del espacio público que se produce como consecuencia de la entrega a domicilio de paquetería”. Esta medida, que está siendo considerada por otros ayuntamientos en España, busca promover ciudades con menos contaminación y aliviar la congestión vehicular.</p>
+
+      <p>Por último, los envíos a puntos de recogida también son sinónimo de eficiencia y ahorro. Con la opción de entrega a puntos de recogida, los usuarios pueden ahorrar más del 40% en sus envíos, beneficiándose de un servicio de calidad, ecológico y económico. Si quieres disfrutar de estos beneficios, empieza a enviar con <strong>InTrack</strong>.</p>
     `
   },
   {
