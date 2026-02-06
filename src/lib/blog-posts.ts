@@ -168,5 +168,34 @@ export const blogPosts: BlogPost[] = [
 
       <p class="mt-6">En <strong>InTrack</strong>, trabajamos codo con codo con e-commerce para integrar sus procesos de picking con nuestra red de distribución, asegurando que la cadena logística sea fluida desde el almacén hasta las manos del cliente.</p>
     `
+  },
+  {
+    slug: 'pymes-logistica-europa-este',
+    title: 'Resiliencia y digitalización: el nuevo eje logístico que conecta a las PYMES españolas con el este de Europa',
+    description: 'Análisis sobre cómo la digitalización está abriendo mercados en el este de Europa para las pequeñas empresas españolas.',
+    date: '2024-08-25',
+    author: 'InTrack Editorial',
+    category: 'Tendencias',
+    imageId: 'blog-post-3',
+    content: `
+      <p>En el panorama actual de la economía global, las Pequeñas y Medianas Empresas (PYMES) españolas están encontrando nuevas y emocionantes oportunidades de expansión. Uno de los mercados más prometedores es, sin duda, el este de Europa. Pero, ¿cómo han logrado estas empresas superar las barreras geográficas y logísticas? La respuesta reside en dos conceptos clave: <strong>resiliencia y digitalización</strong>.</p>
+
+      <h3 class="font-bold text-xl mt-6 mb-3">El auge del mercado en el este de Europa</h3>
+      <p>Países como Polonia, República Checa, Hungría y Rumanía han experimentado un crecimiento económico sostenido y una digitalización acelerada. Esto ha creado una demanda creciente de productos de calidad, donde las empresas españolas tienen mucho que ofrecer, desde moda y gastronomía hasta soluciones tecnológicas.</p>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">La digitalización como motor de expansión</h3>
+      <p>La digitalización no solo se trata de tener una página web. Para las PYMES españolas, ha significado integrar herramientas avanzadas de gestión logística que permiten:</p>
+      <ul class="list-disc list-inside space-y-2 mt-2">
+        <li><strong>Transparencia total:</strong> Seguimiento en tiempo real de los envíos a través de fronteras internacionales.</li>
+        <li><strong>Optimización de costes:</strong> Plataformas que comparan y seleccionan las mejores rutas y tarifas automáticamente.</li>
+        <li><strong>Gestión aduanera ágil:</strong> Digitalización de documentos para evitar retrasos en las entregas transfronterizas.</li>
+      </ul>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">Resiliencia ante la incertidumbre</h3>
+      <p>Los últimos años han puesto a prueba las cadenas de suministro globales. Las PYMES que han prosperado son aquellas que han sabido diversificar sus rutas y socios logísticos. En este sentido, contar con una red robusta como la de <strong>InTrack</strong>, que combina transporte internacional eficiente con una red capilar de puntos de recogida locales, ha sido un factor diferenciador.</p>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">Conclusiones para el futuro</h3>
+      <p>El eje logístico España-Este de Europa ya no es una meta lejana, sino una realidad accesible. Con las herramientas digitales adecuadas y una mentalidad resiliente, las PYMES españolas están mejor posicionadas que nunca para conquistar nuevos horizontes. La logística ha dejado de ser una barrera para convertirse en el puente que conecta el talento español con los mercados emergentes de Europa.</p>
+    `
   }
 ];
