@@ -133,30 +133,40 @@ export const blogPosts: BlogPost[] = [
     `
   },
   {
-    slug: 'que-son-los-envios-verdes',
-    title: '¿Qué son los envíos verdes?',
-    description: 'Descubre en qué consiste la logística sostenible y cómo los envíos verdes están transformando el sector.',
+    slug: 'que-es-el-picking-ventajas',
+    title: '¿Qué es el picking y qué ventajas aporta a tiendas online y a consumidores?',
+    description: 'Aprende todo sobre el picking, una fase crítica en la logística de cualquier e-commerce, y cómo optimizarlo.',
     date: '2024-07-28',
     author: 'Sofía Romero',
-    category: 'Sostenibilidad',
-    imageId: 'blog-post-3',
+    category: 'Logística',
+    imageId: 'logistics-warehouse',
     content: `
-      <p>En un mundo cada vez más consciente del impacto ambiental, los "envíos verdes" se han convertido en una prioridad para empresas y consumidores por igual. Pero, ¿qué significa realmente este concepto y por qué es tan importante para el futuro de la logística?</p>
+      <p>En el mundo de la logística y el e-commerce, el término <strong>picking</strong> es fundamental. Se refiere al proceso de preparación de pedidos, que consiste en la recogida y combinación de artículos no unitarios para conformar el pedido de un cliente.</p>
       
-      <h3 class="font-bold text-xl mt-6 mb-3">Definiendo los envíos verdes</h3>
-      <p>Los envíos verdes se refieren a todas aquellas prácticas y estrategias logísticas diseñadas para minimizar la huella de carbono y el impacto ambiental negativo asociado al transporte de mercancías. Esto abarca desde el embalaje hasta la entrega final.</p>
-      
-      <h3 class="font-bold text-xl mt-8 mb-3">Pilares de la logística verde:</h3>
-      <ul class="list-disc list-inside space-y-4 mt-4">
-        <li><strong>Reducción de emisiones:</strong> Uso de vehículos eléctricos, híbridos o bicicletas para la entrega de última milla, reduciendo drásticamente el CO2 expulsado a la atmósfera.</li>
-        <li><strong>Puntos de recogida y Lockers:</strong> Centralizar las entregas en puntos comunes evita múltiples paradas de camiones en domicilios individuales, lo que reduce el tráfico y las emisiones.</li>
-        <li><strong>Embalaje eco-amigable:</strong> Utilizar materiales reciclados, biodegradables y optimizar el tamaño de las cajas para evitar transportar "aire", lo que mejora la eficiencia del espacio en los vehículos.</li>
-        <li><strong>Optimización de rutas:</strong> Uso de tecnología avanzada e IA para planificar las rutas más cortas y eficientes, minimizando el kilometraje y el consumo de combustible.</li>
+      <h3 class="font-bold text-xl mt-6 mb-3">Las fases del picking</h3>
+      <p>Un proceso de picking eficiente se divide generalmente en cuatro etapas clave:</p>
+      <ul class="list-disc list-inside space-y-2 mt-2">
+        <li><strong>Preparación:</strong> Recogida de datos y entrega de órdenes de pedido.</li>
+        <li><strong>Recorridos:</strong> Desplazamiento desde la zona de operaciones hasta el lugar donde se encuentra el producto.</li>
+        <li><strong>Extracción:</strong> Localización y recogida del artículo de la estantería o zona de almacenamiento.</li>
+        <li><strong>Verificación y cierre:</strong> Control de que el pedido es correcto y preparación para su embalaje (packing).</li>
       </ul>
 
-      <h3 class="font-bold text-xl mt-8 mb-3">El compromiso de InTrack</h3>
-      <p>En InTrack, entendemos que el futuro de la logística debe ser sostenible. Por ello, nuestra red de lockers inteligentes es una pieza clave en nuestra estrategia de envíos verdes, permitiendo una reducción significativa en el impacto ambiental de cada entrega.</p>
-      <p class="mt-4">Al elegir envíos verdes, no solo estás cumpliendo con normativas ambientales, sino que estás conectando con una generación de clientes que valoran la responsabilidad corporativa y el cuidado del planeta.</p>
+      <h3 class="font-bold text-xl mt-8 mb-3">Ventajas para las tiendas online</h3>
+      <ul class="list-disc list-inside space-y-4 mt-4">
+        <li><strong>Reducción de errores:</strong> Un sistema de picking optimizado minimiza las posibilidades de enviar el producto equivocado.</li>
+        <li><strong>Aumento de la productividad:</strong> Permite preparar más pedidos en menos tiempo, optimizando los costes operativos.</li>
+        <li><strong>Mejor gestión de stock:</strong> Facilita un control en tiempo real de las existencias disponibles.</li>
+      </ul>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">Ventajas para el consumidor</h3>
+      <p>Aunque el picking ocurre "entre bambalinas", el cliente final percibe sus beneficios directamente:</p>
+      <ul class="list-disc list-inside space-y-2 mt-2">
+        <li><strong>Rapidez en la entrega:</strong> Cuanto más rápido se prepara el pedido, antes llega al domicilio o locker.</li>
+        <li><strong>Pedidos correctos:</strong> Recibir exactamente lo que se compró sin incidencias aumenta la satisfacción y confianza.</li>
+      </ul>
+
+      <p class="mt-6">En <strong>InTrack</strong>, trabajamos codo con codo con e-commerce para integrar sus procesos de picking con nuestra red de distribución, asegurando que la cadena logística sea fluida desde el almacén hasta las manos del cliente.</p>
     `
   }
 ];
