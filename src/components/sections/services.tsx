@@ -1,6 +1,6 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane, PiggyBank, MapPin, Clock, Rocket, ArrowRight, Bell, Lock, CreditCard } from 'lucide-react';
+import { Zap, DollarSign, Smartphone, Globe, ShieldCheck, ShoppingCart, Rocket, ArrowRight, Bell, Lock, CreditCard, Clock, MapPin, Package, Ship, Plane, PiggyBank } from 'lucide-react';
 import Link from 'next/link';
 import {
   Dialog,
@@ -156,7 +156,7 @@ export function Services() {
                     </div>
                   </li>
                 </ul>
-                <p className="pt-2 italic">Compra con la confianza de que tus pedidos nacionales están en las mejores manos, protegidos de imprevistos y esperas innecesarias.</p>
+                <p className="pt-2 font-bold">Compra con la confianza de que tus pedidos nacionales están en las mejores manos, protegidos de imprevistos y esperas innecesarias.</p>
               </div>
                <DialogClose asChild>
                 <Button type="button" variant="secondary">Cerrar</Button>
