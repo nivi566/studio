@@ -306,7 +306,7 @@ export function Services() {
                     <div><span className="font-semibold text-foreground">Estimación de Entrega:</span> Accede a una ventana de tiempo de entrega estimada que se actualiza dinámicamente según las condiciones del tráfico y la ruta.</div>
                   </li>
                 </ul>
-                <p>El seguimiento en tiempo real está incluido en todos nuestros servicios sin coste adicional.</p>
+                <p className="font-bold text-foreground">El seguimiento en tiempo real está incluido en todos nuestros servicios sin coste adicional.</p>
               </div>
                <DialogClose asChild>
                 <Button type="button" variant="secondary">Cerrar</Button>
