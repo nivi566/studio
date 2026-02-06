@@ -16,8 +16,8 @@ const testimonials = [
   {
     id: 2,
     name: 'Carlos Rodríguez',
-    role: 'Director de Operaciones',
-    quote: 'Navegar la volatilidad estructural de 2026 ha sido posible gracias a la resiliencia de InTrack. Su capacidad de adaptación y su red en el este de Europa son simplemente impecables.',
+    role: 'Comprador Internacional',
+    quote: 'Compro mucho en tiendas de EE. UU. y Asia, y siempre tenía problemas con la entrega final en mi domicilio. Ahora uso mi dirección de InTrack y sé que mi paquete internacional me espera seguro en una taquilla blindada. Cero estrés.',
     avatarId: 'avatar2',
     rating: 5,
   },
@@ -64,7 +64,7 @@ export function Testimonials() {
               <Card key={testimonial.id} className="flex flex-col">
                 <CardContent className="p-6 flex-grow flex flex-col">
                   <div className="flex-grow">
-                    <StarRating rating={testimonial.rating} />
+                    StarRating rating={testimonial.rating} />
                     <blockquote className="mt-4 text-foreground/80 italic">
                       "{testimonial.quote}"
                     </blockquote>
