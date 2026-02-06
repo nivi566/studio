@@ -18,7 +18,7 @@ const steps = [
   },
   {
     icon: CheckCircle2,
-    title: 'Entrega en destino',
+    title: 'Recoge cuando quieras',
     description: 'Tu paquete llega a su destino de forma rápida y segura.',
   },
 ];
