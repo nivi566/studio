@@ -59,7 +59,7 @@ export function Services() {
             Una solución para cada necesidad
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Ofrecemos una amplia gama de servicios diseñados para adaptarse a los requisitos de tu envío, ya seas particular o empresa.
+            La red de lockers inteligentes que se adapta a tu ritmo de vida
           </p>
         </div>
 
@@ -358,8 +358,3 @@ export function Services() {
     </section>
   );
 }
-
-    
-    
-
-    
