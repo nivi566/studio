@@ -125,7 +125,7 @@ export const blogPosts: BlogPost[] = [
     date: '2024-08-10',
     author: 'Ana López',
     category: 'Sostenibilidad',
-    imageId: 'blog-post-4',
+    imageId: 'pickup-rioja',
     content: `
       <p>En un mundo donde el cambio climático se manifiesta con fuerza, las empresas emergen como actores clave en la búsqueda de soluciones. Especialmente el sector logístico y de envíos, sector que más contamina emitiendo cada año el 25% de emisiones de C02.</p>
 
@@ -170,6 +170,7 @@ export const blogPosts: BlogPost[] = [
     author: 'Carlos García',
     category: 'Logística',
     imageId: 'blog-post-1',
+    localImage: '/devolucion.png',
     content: `
       <p class="font-bold text-lg mb-4">1 de cada 3 compradores digitales detiene su compra cuando no hay un servicio de devolución bien detallado.</p>
       <p>En un ámbito tan dinámico como el del e-commerce, la satisfacción del cliente juega un papel fundamental. Para los compradores digitales, la posibilidad de realizar devoluciones y cambios de manera sencilla es uno de los factores primordiales al realizar compras online. Sin embargo, a menudo se pasa por alto este aspecto importante: el proceso de devolución.</p>
