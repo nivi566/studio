@@ -38,7 +38,7 @@ const pricingService = {
 };
 
 const internationalShoppingService = {
-  icon: ShoppingCart,
+  icon: Globe,
   title: 'Compras Internacionales',
   description: 'Compra en cualquier tienda del mundo y recibe tus paquetes de forma segura en nuestra red de lockers.',
 };
@@ -136,7 +136,7 @@ export function Services() {
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <ShoppingCart className="h-6 w-6 text-[#0B3C5D]" />
+                  <Globe className="h-6 w-6 text-[#0B3C5D]" />
                   Compras Internacionales
                 </DialogTitle>
                 <DialogDescription>
@@ -323,6 +323,9 @@ export function Services() {
                     <pricingService.icon className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
                   <CardTitle className="mt-4">{pricingService.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{pricingService.description}</p>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">{pricingService.description}</p>
