@@ -20,7 +20,7 @@ const urgentShipmentsService = {
 };
 
 const guaranteedDeliveriesService = {
-  icon: ShieldCheck,
+  icon: Package,
   title: 'Recepción de paquetería nacional',
   description: 'Tu paquete está protegido en nuestras taquillas de alta seguridad hasta que tú lo retires.',
 };
@@ -82,7 +82,7 @@ export function Services() {
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <ShieldCheck className="h-6 w-6 text-[#0B3C5D]" />
+                  <Package className="h-6 w-6 text-[#0B3C5D]" />
                   Recepción de paquetería nacional
                 </DialogTitle>
                 <DialogDescription>
