@@ -8,8 +8,8 @@ const testimonials = [
   {
     id: 1,
     name: 'Ana García',
-    role: 'CEO, ModaOnline',
-    quote: 'La solución de logística inversa "Reverse" de InTrack ha sido un cambio total para nosotros. Hemos mejorado la confianza de nuestros clientes y reducido las dudas de compra significativamente.',
+    role: 'Cliente Particular',
+    quote: 'Por fin he dejado de perseguir repartidores por todo el barrio. Con el locker de InTrack recojo mis compras de Amazon al salir del gimnasio, incluso si es medianoche. Es la libertad que necesitaba para mi día a día.',
     avatarId: 'avatar1',
     rating: 5,
   },
