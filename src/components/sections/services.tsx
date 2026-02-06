@@ -326,9 +326,6 @@ export function Services() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">{pricingService.description}</p>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{pricingService.description}</p>
                 </CardContent>
               </Card>
             </DialogTrigger>
