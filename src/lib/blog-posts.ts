@@ -129,7 +129,7 @@ export const blogPosts: BlogPost[] = [
 
       <h3 class="font-bold text-xl mt-8 mb-3">Mantén a tus usuarios en tu e-commerce sin que abandonen el proceso de compra</h3>
       <p>Gestionar las devoluciones de manera eficiente ya no es un desafío con nuestros servicios de logística inversa. Desde las etiquetas preimpresas hasta las recogidas programadas, ofrecemos soluciones que se adaptan a las necesidades. No dejes que la falta de un servicio de devolución detallado impacte en tu e-commerce. No se trata solo de retener a los clientes; se trata de construir una base de clientes leales que confíen en tu marca.</p>
-      <p class="mt-4">Con nuestra solución <strong>Reverse</strong>, simple y efectiva de logística inversa, puedes diferenciarte de tus competidores. Al ofrecer un servicio de devolución detallado que atiende las necesidades y comodidades del cliente, aumentarás tus ventas y llevarás tu negocio al siguiente nivel. Con nosotros, las devoluciones no son un problema; son una oportunidad para mostrar a tus clientes que te importan.</p>
+      <p class="mt-4">Con nuestra solución <strong>Reverse</strong>, simple y efectiva de logística inversa, puedes diferenciarte de tus competidores. Al ofrecer un servicio de devolución detallado que atiende las necesidades y comodidades del cliente, aumentarás tus ventas y llevarás tu negocio al siguiente nivel. Con nosotros, las devoluciones no son un problema; son una oportunidad para mostrar a tus clientes que te importan Boris.</p>
     `
   },
   {
@@ -172,30 +172,36 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'pymes-logistica-europa-este',
     title: 'Resiliencia y digitalización: el nuevo eje logístico que conecta a las PYMES españolas con el este de Europa',
-    description: 'Análisis sobre cómo la digitalización está abriendo mercados en el este de Europa para las pequeñas empresas españolas.',
+    description: 'Análisis sobre el impacto de la inestabilidad geopolítica y el desplazamiento de la producción hacia el este de Europa en 2026.',
     date: '2024-08-25',
     author: 'InTrack Editorial',
     category: 'Tendencias',
     imageId: 'blog-post-3',
     content: `
-      <p>En el panorama actual de la economía global, las Pequeñas y Medianas Empresas (PYMES) españolas están encontrando nuevas y emocionantes oportunidades de expansión. Uno de los mercados más prometedores es, sin duda, el este de Europa. Pero, ¿cómo han logrado estas empresas superar las barreras geográficas y logísticas? La respuesta reside en dos conceptos clave: <strong>resiliencia y digitalización</strong>.</p>
+      <p>La era de la calma geopolítica en Europa ha terminado. Al adentrarnos en 2026, el sector del transporte y la logística se enfrenta a una redefinición total. Para las empresas españolas, esto no solo implica navegar la incertidumbre, sino aprovechar su posición privilegiada como puerta de entrada al Mediterráneo y al Atlántico para conectar con los nuevos flujos comerciales del este.</p>
 
-      <h3 class="font-bold text-xl mt-6 mb-3">El auge del mercado en el este de Europa</h3>
-      <p>Países como Polonia, República Checa, Hungría y Rumanía han experimentado un crecimiento económico sostenido y una digitalización acelerada. Esto ha creado una demanda creciente de productos de calidad, donde las empresas españolas tienen mucho que ofrecer, desde moda y gastronomía hasta soluciones tecnológicas.</p>
+      <p class="mt-4">Según el último informe Market Insights ON lanzado por Trans.eu y CargoON, la inestabilidad geopolítica es hoy la mayor amenaza para las cadenas de suministro: para el 74% de los directivos de logística, los factores geopolíticos representan los riesgos más graves. En esta nueva realidad, el sector ya no es solo un motor comercial, sino que ha sido reconocido oficialmente como un pilar fundamental de la seguridad europea.</p>
 
-      <h3 class="font-bold text-xl mt-8 mb-3">La digitalización como motor de expansión</h3>
-      <p>La digitalización no solo se trata de tener una página web. Para las PYMES españolas, ha significado integrar herramientas avanzadas de gestión logística que permiten:</p>
-      <ul class="list-disc list-inside space-y-2 mt-2">
-        <li><strong>Transparencia total:</strong> Seguimiento en tiempo real de los envíos a través de fronteras internacionales.</li>
-        <li><strong>Optimización de costes:</strong> Plataformas que comparan y seleccionan las mejores rutas y tarifas automáticamente.</li>
-        <li><strong>Gestión aduanera ágil:</strong> Digitalización de documentos para evitar retrasos en las entregas transfronterizas.</li>
-      </ul>
+      <h3 class="font-bold text-xl mt-8 mb-3">Fragilidad de las cadenas de suministro y en la adopción digital</h3>
+      <p>El informe también subraya el impacto de la crisis fronteriza de septiembre de 2025 en Małaszewicze (Polonia), un punto clave de transbordo ferroviario entre Europa Occidental y China. El cierre de dos semanas de la frontera con Bielorrusia por ejercicios militares supuso una pérdida de al menos 450 millones de euros para la UE. Como consecuencia, China ha acelerado el desarrollo de rutas alternativas (Corredor Medio y Mar Ártico) ante la inestabilidad de las actuales.</p>
 
-      <h3 class="font-bold text-xl mt-8 mb-3">Resiliencia ante la incertidumbre</h3>
-      <p>Los últimos años han puesto a prueba las cadenas de suministro globales. Las PYMES que han prosperado son aquellas que han sabido diversificar sus rutas y socios logísticos. En este sentido, contar con una red robusta como la de <strong>InTrack</strong>, que combina transporte internacional eficiente con una red capilar de puntos de recogida locales, ha sido un factor diferenciador.</p>
+      <p class="mt-4">Otro de los puntos clave que aborda el informe gira en torno a la "Brecha de Confianza" en las nuevas tecnologías. A pesar de que solo el 5% de los directivos se sienten totalmente preparados para estas perturbaciones, la transformación digital se perfila como la principal solución. En esta ocasión España rompe la tendencia, con un 9,2% de empresas españolas utilizando IA, por encima de la media de la UE (8%), siendo su crecimiento anual cuatro veces superior al promedio europeo.</p>
 
-      <h3 class="font-bold text-xl mt-8 mb-3">Conclusiones para el futuro</h3>
-      <p>El eje logístico España-Este de Europa ya no es una meta lejana, sino una realidad accesible. Con las herramientas digitales adecuadas y una mentalidad resiliente, las PYMES españolas están mejor posicionadas que nunca para conquistar nuevos horizontes. La logística ha dejado de ser una barrera para convertirse en el puente que conecta el talento español con los mercados emergentes de Europa.</p>
+      <h3 class="font-bold text-xl mt-8 mb-3">El desplazamiento del eje: de la periferia al centro logístico</h3>
+      <p>Además de todo el contexto que nos define el informe, estamos asistiendo a un viraje al este de la producción en Europa, tras décadas de ostentación alemana como centro de gravedad económico. Hoy, el fenómeno del nearshoring y la eficiencia de los mercados del este (Polonia, República Checa y Rumanía principalmente) están creando nuevos corredores estratégicos de alto rendimiento.</p>
+
+      <p class="mt-4">En este contexto, España se está consolidando también como uno de los hubs con mayor potencial de crecimiento. La regionalización de las cadenas de suministro está llevando a las empresas españolas a apostar por una mayor integración con los mercados del CEE, que ya de por sí gestionan una parte crítica del transporte bilateral, especialmente Polonia.</p>
+
+      <p class="mt-4 italic">Una actividad logística en expansión que, sin embargo, se da de bruces con la volatilidad del mercado, la falta de capacidad y de confianza.</p>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">SafePay: garantía de cobro en la nueva geografía logística europea</h3>
+      <p>Para las empresas españolas este desplazamiento no es un evento lejano. Polonia ya es uno de los 10 principales destinos de nuestras exportaciones, con un intercambio que supera los 15.000 millones de euros. Nuestros sectores estrella —el agroalimentario y la automoción— están alimentando este nuevo motor europeo.</p>
+
+      <p class="mt-4">Sin embargo, enviar un camión desde Andalucía o el Levante hasta Varsovia supone recorrer más de 2.000 kilómetros. Para un transportista español, aceptar una carga de una empresa desconocida en Europa del Este —o para un transportista polaco aceptar un retorno de un operador logístico español con el que nunca ha trabajado— conlleva un riesgo financiero enorme.</p>
+
+      <p class="mt-4">Para resolver la fricción histórica entre cargadores españoles y transportistas del este herramientas como SafePay de Trans.eu se vuelven indispensables. Al garantizar el cobro del viaje y eliminar el riesgo de impagos, las empresas españolas pueden atraer la capacidad de transporte más competitiva de Europa, asegurando que sus mercancías lleguen a destino sin importar la volatilidad del mercado.</p>
+
+      <p class="mt-4">A modo de resumen, podemos concluir que el crecimiento económico en Europa del Este ha remodelado la geografía logística de Europa, y Trans.eu se posiciona como el hub central para esta nueva dinámica. La implementación de SafePay va más allá de una simple mejora en la seguridad financiera, constituyéndose como una ventaja estratégica clave que elimina las barreras del mercado. Al garantizar la seguridad de los pagos, SafePay facilita la cobertura eficiente de las rutas del emergente eje Oeste-Este, optimizando significativamente el flujo de mercancías entre los principales centros de consumo y los prósperos núcleos de producción en Europa del Este.</p>
     `
   }
 ];
