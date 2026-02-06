@@ -304,7 +304,7 @@ export function Services() {
                     <div><span className="font-semibold text-foreground">Gestión de Aduanas:</span> Olvídate de papeleos complicados. Tramitamos los impuestos y aranceles por ti.</div>
                   </li>
                 </ul>
-                <p>Expande tus posibilidades de compra sin fronteras y con la seguridad de InTrack.</p>
+                <p className="font-bold">Expande tus posibilidades de compra sin fronteras y con la seguridad de InTrack.</p>
               </div>
                <DialogClose asChild>
                 <Button type="button" variant="secondary">Cerrar</Button>
