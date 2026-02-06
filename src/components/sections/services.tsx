@@ -355,7 +355,7 @@ export function Services() {
                     <div><span className="font-semibold text-foreground">Sin costes ocultos:</span> El precio que ves es el precio que pagas. Incluimos seguimiento y seguro básico.</div>
                   </li>
                 </ul>
-                <p>Consulta nuestra página de tarifas para ver todos los detalles y encontrar el plan que mejor se adapta a ti.</p>
+                <p className="font-bold text-foreground">Consulta nuestra página de tarifas para ver todos los detalles y encontrar el plan que mejor se adapta a ti.</p>
               </div>
                 <div className="flex gap-2">
                    <DialogClose asChild>
