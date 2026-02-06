@@ -132,24 +132,31 @@ export const blogPosts: BlogPost[] = [
       <p class="mt-4">Con nuestra solución <strong>Reverse</strong>, simple y efectiva de logística inversa, puedes diferenciarte de tus competidores. Al ofrecer un servicio de devolución detallado que atiende las necesidades y comodidades del cliente, aumentarás tus ventas y llevarás tu negocio al siguiente nivel. Con nosotros, las devoluciones no son un problema; son una oportunidad para mostrar a tus clientes que te importan.</p>
     `
   },
-    {
-    slug: 'logistica-internacional-sin-fronteras',
-    title: 'Logística internacional: Navegando la complejidad del comercio global',
-    description: 'Claves para gestionar envíos internacionales de forma eficiente en un mundo conectado.',
+  {
+    slug: 'que-son-los-envios-verdes',
+    title: '¿Qué son los envíos verdes?',
+    description: 'Descubre en qué consiste la logística sostenible y cómo los envíos verdes están transformando el sector.',
     date: '2024-07-28',
     author: 'Sofía Romero',
-    category: 'Internacional',
+    category: 'Sostenibilidad',
     imageId: 'blog-post-3',
     content: `
-      <p>El comercio electrónico ha derribado las fronteras, permitiendo a empresas de todos los tamaños llegar a clientes de todo el mundo. Sin embargo, la logística internacional presenta un conjunto único de desafíos: desde la gestión de aduanas y aranceles hasta la coordinación de múltiples modos de transporte.</p>
-      <p>Una estrategia de logística internacional bien ejecutada es fundamental para el éxito global. Requiere un conocimiento profundo de las regulaciones, una red de socios confiables y tecnología que brinde visibilidad de extremo a extremo.</p>
-      <h3 class="font-bold text-lg mt-4 mb-2">Pilares de la Logística Global:</h3>
-      <ul class="list-disc list-inside space-y-2">
-        <li><strong>Gestión Aduanera:</strong> Entender y cumplir con las normativas de importación y exportación de cada país es crucial para evitar retrasos y multas. El uso de agentes de aduanas expertos es a menudo indispensable.</li>
-        <li><strong>Transporte Multimodal:</strong> La combinación inteligente de transporte aéreo, marítimo y terrestre para optimizar costes y tiempos de tránsito. La elección depende de la urgencia y la naturaleza del producto.</li>
-        <li><strong>Tecnología y Visibilidad:</strong> Plataformas que permiten un seguimiento unificado del envío a través de diferentes transportistas y fronteras, proporcionando tranquilidad tanto a la empresa como al cliente final.</li>
+      <p>En un mundo cada vez más consciente del impacto ambiental, los "envíos verdes" se han convertido en una prioridad para empresas y consumidores por igual. Pero, ¿qué significa realmente este concepto y por qué es tan importante para el futuro de la logística?</p>
+      
+      <h3 class="font-bold text-xl mt-6 mb-3">Definiendo los envíos verdes</h3>
+      <p>Los envíos verdes se refieren a todas aquellas prácticas y estrategias logísticas diseñadas para minimizar la huella de carbono y el impacto ambiental negativo asociado al transporte de mercancías. Esto abarca desde el embalaje hasta la entrega final.</p>
+      
+      <h3 class="font-bold text-xl mt-8 mb-3">Pilares de la logística verde:</h3>
+      <ul class="list-disc list-inside space-y-4 mt-4">
+        <li><strong>Reducción de emisiones:</strong> Uso de vehículos eléctricos, híbridos o bicicletas para la entrega de última milla, reduciendo drásticamente el CO2 expulsado a la atmósfera.</li>
+        <li><strong>Puntos de recogida y Lockers:</strong> Centralizar las entregas en puntos comunes evita múltiples paradas de camiones en domicilios individuales, lo que reduce el tráfico y las emisiones.</li>
+        <li><strong>Embalaje eco-amigable:</strong> Utilizar materiales reciclados, biodegradables y optimizar el tamaño de las cajas para evitar transportar "aire", lo que mejora la eficiencia del espacio en los vehículos.</li>
+        <li><strong>Optimización de rutas:</strong> Uso de tecnología avanzada e IA para planificar las rutas más cortas y eficientes, minimizando el kilometraje y el consumo de combustible.</li>
       </ul>
-      <p class="mt-4">Aunque compleja, la logística internacional abre un mundo de oportunidades. Con los socios y las herramientas adecuadas, las empresas se pueden expandir y competir en el escenario global con confianza.</p>
+
+      <h3 class="font-bold text-xl mt-8 mb-3">El compromiso de InTrack</h3>
+      <p>En InTrack, entendemos que el futuro de la logística debe ser sostenible. Por ello, nuestra red de lockers inteligentes es una pieza clave en nuestra estrategia de envíos verdes, permitiendo una reducción significativa en el impacto ambiental de cada entrega.</p>
+      <p class="mt-4">Al elegir envíos verdes, no solo estás cumpliendo con normativas ambientales, sino que estás conectando con una generación de clientes que valoran la responsabilidad corporativa y el cuidado del planeta.</p>
     `
   }
 ];
