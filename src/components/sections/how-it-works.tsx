@@ -4,7 +4,7 @@ const steps = [
   {
     icon: FileText,
     title: 'Regístrate',
-    description: 'Indica el origen, destino y detalles de tu paquete.',
+    description: 'Contacta con nosotros y selecciona el punto de recogida Intrack que mejor te venga.',
   },
   {
     icon: ListChecks,
@@ -45,7 +45,7 @@ export function HowItWorks() {
               <div className="relative z-10">
                 <div className="flex items-center justify-center h-24 w-24 rounded-full bg-background border-4 border-[#0B3C5D] shadow-lg">
                   <div className="flex items-center justify-center h-20 w-20 rounded-full bg-[#0B3C5D] text-white">
-                    <span className="text-base font-bold uppercase tracking-wider">Paso {index + 1}</span>
+                    <span className="text-sm font-bold uppercase tracking-wider">Paso {index + 1}</span>
                   </div>
                 </div>
                 <div className="mt-6">
