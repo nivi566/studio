@@ -21,7 +21,7 @@
     {
       "id": "avatar3",
       "description": "Avatar for a customer testimonial.",
-      "imageUrl": "https://images.unsplash.com/photo-1544717304-a2db4a7b16ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3b21hbiUyMGZhY2V8ZW58MHx8fHwxNzY0Mjc4Mjc1fDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1544717304-a2db4a7b16ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3b21hbiUyMGZhY2V8ZW58MHx8fHwxNzY2Mjc4Mjc1fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "woman face"
     },
     {
@@ -50,9 +50,9 @@
     },
     {
       "id": "blog-post-4",
-      "description": "Electric delivery van representing green logistics.",
-      "imageUrl": "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxlbGVjdHJpYyUyMHZhbiUyMGRlbGl2ZXJ5fGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib-rb-4.1.0&q=80&w=1080",
-      "imageHint": "electric van"
+      "description": "Visual representation of carbon footprint reduction and environmental protection.",
+      "imageUrl": "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjbzIlMjByZWR1Y3Rpb258ZW58MHx8fHwxNzY2NDI4MzMzfDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "co2 reduction"
     },
     {
       "id": "about-us-hero",
@@ -74,7 +74,7 @@
     },
     {
       "id": "pickup-aragon",
-      "imageUrl": "https://images.unsplash.com/photo-1636620324294-024931cfed34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhcmFnb24lMjBsYW5kc2NhcGV8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1636620324294-024931cfed34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhcmFnb24lMjBsYW5kc2NhcGV8ZW58MHx8fHwxNzY2NDI4MzMzfDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "aragon landscape",
       "description": "Landscape of Aragon"
     },
@@ -128,7 +128,7 @@
     },
     {
       "id": "pickup-extremadura",
-      "imageUrl": "https://images.unsplash.com/photo-1611579802953-f9e1138bd84b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxleHRyZW1hZHVyYSUyMG5hdHVyZXxlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1611579802953-f9e1138bd84b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHhleHRyZW1hZHVyYSUyMG5hdHVyZXxlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "extremadura nature",
       "description": "Nature in Extremadura"
     },
