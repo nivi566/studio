@@ -43,9 +43,9 @@ export function HowItWorks() {
                 <div className="hidden lg:block absolute top-1/2 left-1/2 w-full h-0.5 border-t-2 border-dashed border-border -translate-y-1/2 z-0" />
               )}
               <div className="relative z-10">
-                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-background border-4 border-[#0B3C5D] shadow-lg">
-                  <div className="flex items-center justify-center h-16 w-16 rounded-full bg-[#0B3C5D] text-white">
-                    <span className="text-2xl font-bold">{index + 1}</span>
+                <div className="flex items-center justify-center h-24 w-24 rounded-full bg-background border-4 border-[#0B3C5D] shadow-lg">
+                  <div className="flex items-center justify-center h-20 w-20 rounded-full bg-[#0B3C5D] text-white">
+                    <span className="text-base font-bold uppercase tracking-wider">Paso {index + 1}</span>
                   </div>
                 </div>
                 <div className="mt-6">
