@@ -21,7 +21,7 @@ const urgentShipmentsService = {
 
 const guaranteedDeliveriesService = {
   icon: ShieldCheck,
-  title: 'Entregas Garantizadas',
+  title: 'Recepción de paquetería nacional',
   description: 'Todos nuestros envíos incluyen un seguro básico y la garantía de entrega en perfectas condiciones.',
 };
 
@@ -129,7 +129,7 @@ export function Services() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <ShieldCheck className="h-6 w-6 text-[#0B3C5D]" />
-                  Entregas Garantizadas
+                  Recepción de paquetería nacional
                 </DialogTitle>
                 <DialogDescription>
                   Tu tranquilidad es nuestra prioridad. Por eso, cada envío está protegido.
