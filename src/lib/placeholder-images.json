@@ -50,9 +50,9 @@
     },
     {
       "id": "blog-post-4",
-      "description": "Green energy and sustainable logistics concept.",
-      "imageUrl": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzdXN0YWluYWJpbGl0eSUyMGxvZ2lzdGljc3xlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
-      "imageHint": "sustainability energy"
+      "description": "Electric delivery van representing green logistics.",
+      "imageUrl": "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxlbGVjdHJpYyUyMHZhbiUyMGRlbGl2ZXJ5fGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "electric van"
     },
     {
       "id": "about-us-hero",
@@ -128,7 +128,7 @@
     },
     {
       "id": "pickup-extremadura",
-      "imageUrl": "https://images.unsplash.com/photo-1611579802953-f9e1138bd84b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxleHRyZW1hZHVyYSUyMG5hdHVyZXxlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1611579802953-f9e1138bd84b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxleHRyZW1hZHVyYSUyMG5hdHVyZXxlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "extremadura nature",
       "description": "Nature in Extremadura"
     },
