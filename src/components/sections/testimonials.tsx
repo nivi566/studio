@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Star } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const testimonials = [
   {
@@ -10,7 +10,8 @@ const testimonials = [
     name: 'Ana García',
     role: 'Cliente Particular',
     quote: 'Por fin he dejado de perseguir repartidores por todo el barrio. Con el locker de InTrack recojo mis compras de Amazon al salir del gimnasio, incluso si es medianoche. Es la libertad que necesitaba para mi día a día.',
-    avatarId: '', // Se deja vacío para que use la inicial
+    avatarId: '',
+    fallbackClass: 'bg-orange-500 text-white',
     rating: 5,
   },
   {
@@ -18,7 +19,8 @@ const testimonials = [
     name: 'Carlos Rodríguez',
     role: 'Comprador Internacional',
     quote: 'Compro mucho en tiendas de EE. UU. y Asia, y siempre tenía problemas con la entrega final en mi domicilio. Ahora uso mi dirección de InTrack y sé que mi paquete internacional me espera seguro en una taquilla blindada. Cero estrés.',
-    avatarId: '', // Se deja vacío para que use la inicial
+    avatarId: '',
+    fallbackClass: 'bg-blue-600 text-white',
     rating: 5,
   },
   {
@@ -26,7 +28,8 @@ const testimonials = [
     name: 'Elena Martínez',
     role: 'E-commerce Manager',
     quote: 'Integrar el widget de InTrack en nuestra tienda online ha reducido las entregas fallidas a cero. Nuestros clientes valoran muchísimo poder elegir un punto de recogida 24/7. Ha sido un salto de calidad para nuestra logística.',
-    avatarId: 'avatar3',
+    avatarId: '',
+    fallbackClass: 'bg-emerald-500 text-white', // Verde esmeralda solicitado
     rating: 5,
   },
 ];
@@ -37,7 +40,10 @@ function StarRating({ rating }: { rating: number }) {
       {Array.from({ length: 5 }, (_, i) => (
         <Star
           key={i}
-          className={`h-5 w-5 ${i < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+          className={cn(
+            "h-5 w-5",
+            i < rating ? "text-yellow-400 fill-current" : "text-gray-300"
+          )}
         />
       ))}
     </div>
@@ -59,18 +65,21 @@ export function Testimonials() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial) => {
-            const avatarImage = PlaceHolderImages.find(img => img.id === testimonial.avatarId);
+            const avatarImage = testimonial.avatarId 
+              ? PlaceHolderImages.find(img => img.id === testimonial.avatarId)
+              : null;
+              
             return (
-              <Card key={testimonial.id} className="flex flex-col">
+              <Card key={testimonial.id} className="flex flex-col border-none shadow-md">
                 <CardContent className="p-6 flex-grow flex flex-col">
                   <div className="flex-grow">
                     <StarRating rating={testimonial.rating} />
-                    <blockquote className="mt-4 text-foreground/80 italic">
+                    <blockquote className="mt-4 text-foreground/80 italic leading-relaxed">
                       "{testimonial.quote}"
                     </blockquote>
                   </div>
                   <div className="mt-6 flex items-center gap-4">
-                    <Avatar>
+                    <Avatar className="h-12 w-12 border-2 border-background shadow-sm">
                       {testimonial.avatarId && avatarImage && (
                         <AvatarImage 
                           src={avatarImage.imageUrl} 
@@ -78,7 +87,7 @@ export function Testimonials() {
                           data-ai-hint={avatarImage.imageHint}
                         />
                       )}
-                      <AvatarFallback className="bg-primary/10 text-primary font-bold">
+                      <AvatarFallback className={cn("font-bold text-lg", testimonial.fallbackClass)}>
                         {testimonial.name.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
