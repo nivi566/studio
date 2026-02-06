@@ -26,7 +26,7 @@ export const blogPosts: BlogPost[] = [
 
       <h3 class="font-bold text-xl mt-8 mb-3">InTrack, un aliado estratégico en la gestión de pedidos y envíos</h3>
       <p>Más allá de ser una empresa de mensajería, InTrack se presenta como un aliado estratégico para tu negocio. Con su tecnología avanzada de herramienta de envíos, permite a los propietarios de tiendas online tener un control total sobre sus envíos, garantizando una experiencia óptima para el cliente final.</p>
-      <p>Los beneficios de integrar InTrack en tu e-commerce son innumerables, desde la automatización de procesos hasta la posibilidad de ofrecer múltiples opciones de entrega a los clientes. Además, las soluciones informáticas de envío InTrack son compatibles con las principales plataformas de comercio electrónico, como por ejemplo Prestashop, Shopify, Woocommerce, entre otros.</p>
+      <p>Los beneficios de integrar InTrack in tu e-commerce son innumerables, desde la automatización de procesos hasta la posibilidad de ofrecer múltiples opciones de entrega a los clientes. Además, las soluciones informáticas de envío InTrack son compatibles con las principales plataformas de comercio electrónico, como por ejemplo Prestashop, Shopify, Woocommerce, entre otros.</p>
 
       <h3 class="font-bold text-xl mt-8 mb-3">Soluciones informáticas de InTrack para el e-commerce</h3>
       <p>InTrack ofrece una amplia gama de soluciones informáticas además de brindar soporte tecnológico avanzado para garantizar una integración fluida y eficiente.</p>
@@ -99,12 +99,12 @@ export const blogPosts: BlogPost[] = [
     `
   },
   {
-    slug: 'el-impacto-de-la-ia-en-almacenes',
-    title: 'El impacto de la IA en la gestión de almacenes',
-    description: 'La inteligencia artificial está optimizando desde el inventario hasta la preparación de pedidos.',
+    slug: 'logistica-inversa-devoluciones-ecommerce',
+    title: 'Gestiona las devoluciones de tu e-commerce de manera eficiente con logística inversa',
+    description: 'Descubre cómo la logística inversa puede transformar la gestión de devoluciones en una ventaja competitiva para tu tienda online.',
     date: '2024-08-05',
     author: 'Carlos García',
-    category: 'Tecnología',
+    category: 'Logística',
     imageId: 'blog-post-1',
     content: `
       <p>Los almacenes modernos son ecosistemas complejos donde la eficiencia es crucial. La Inteligencia Artificial (IA) ha surgido como una herramienta revolucionaria para optimizar cada rincón de la gestión de almacenes. Su capacidad para analizar grandes volúmenes de datos y tomar decisiones inteligentes está transformando las operaciones.</p>
