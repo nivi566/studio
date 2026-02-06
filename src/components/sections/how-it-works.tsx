@@ -13,7 +13,7 @@ const steps = [
   },
   {
     icon: Truck,
-    title: 'Prepara para la recogida',
+    title: 'Recibe tu código',
     description: 'Un mensajero recogerá el paquete en la dirección que nos indiques.',
   },
   {
