@@ -10,7 +10,7 @@ const testimonials = [
     name: 'Ana García',
     role: 'Cliente Particular',
     quote: 'Por fin he dejado de perseguir repartidores por todo el barrio. Con el locker de InTrack recojo mis compras de Amazon al salir del gimnasio, incluso si es medianoche. Es la libertad que necesitaba para mi día a día.',
-    avatarId: 'avatar1',
+    avatarId: '', // Se deja vacío para que use la inicial
     rating: 5,
   },
   {
@@ -71,14 +71,16 @@ export function Testimonials() {
                   </div>
                   <div className="mt-6 flex items-center gap-4">
                     <Avatar>
-                      {avatarImage && (
+                      {testimonial.avatarId && avatarImage && (
                         <AvatarImage 
                           src={avatarImage.imageUrl} 
                           alt={testimonial.name}
                           data-ai-hint={avatarImage.imageHint}
                         />
                       )}
-                      <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                      <AvatarFallback className="bg-primary/10 text-primary font-bold">
+                        {testimonial.name.charAt(0)}
+                      </AvatarFallback>
                     </Avatar>
                     <div>
                       <p className="font-semibold text-foreground">{testimonial.name}</p>
