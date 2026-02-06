@@ -8,24 +8,24 @@ const testimonials = [
   {
     id: 1,
     name: 'Ana García',
-    role: 'CEO, TechSolutions',
-    quote: 'La eficiencia y fiabilidad de InTrack han sido clave para la logística de nuestro e-commerce. ¡El seguimiento en tiempo real es fantástico!',
+    role: 'CEO, ModaOnline',
+    quote: 'La solución de logística inversa "Reverse" de InTrack ha sido un cambio total para nosotros. Hemos mejorado la confianza de nuestros clientes y reducido las dudas de compra significativamente.',
     avatarId: 'avatar1',
     rating: 5,
   },
   {
     id: 2,
     name: 'Carlos Rodríguez',
-    role: 'Particular',
-    quote: 'Envié un paquete urgente a otra ciudad y llegó al día siguiente tal como prometieron. Un servicio impecable y una atención al cliente excelente.',
+    role: 'Director de Operaciones',
+    quote: 'Navegar la volatilidad estructural de 2026 ha sido posible gracias a la resiliencia de InTrack. Su capacidad de adaptación y su red en el este de Europa son simplemente impecables.',
     avatarId: 'avatar2',
     rating: 5,
   },
   {
     id: 3,
     name: 'Elena Martínez',
-    role: 'Manager de Logística',
-    quote: 'Gestionamos todos nuestros envíos internacionales con ellos. Su plataforma es intuitiva y su red global nos da la tranquilidad que necesitamos.',
+    role: 'E-commerce Manager',
+    quote: 'La integración de sus nuevas soluciones de picking ha optimizado nuestra preparación de pedidos al máximo. Ahora nuestras PYMES conectan con Europa de forma ágil y digital.',
     avatarId: 'avatar3',
     rating: 5,
   },
@@ -53,7 +53,7 @@ export function Testimonials() {
             Lo que dicen nuestros clientes
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            La confianza y satisfacción de nuestros usuarios es nuestra mejor carta de presentación.
+            La confianza y satisfacción de nuestros usuarios basada en nuestras soluciones más innovadoras.
           </p>
         </div>
 
@@ -65,7 +65,7 @@ export function Testimonials() {
                 <CardContent className="p-6 flex-grow flex flex-col">
                   <div className="flex-grow">
                     <StarRating rating={testimonial.rating} />
-                    <blockquote className="mt-4 text-foreground/80">
+                    <blockquote className="mt-4 text-foreground/80 italic">
                       "{testimonial.quote}"
                     </blockquote>
                   </div>
