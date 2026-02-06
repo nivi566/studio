@@ -3,7 +3,7 @@ import { FileText, ListChecks, Truck, CheckCircle2 } from 'lucide-react';
 const steps = [
   {
     icon: FileText,
-    title: 'Rellena los datos',
+    title: 'Regístrate',
     description: 'Indica el origen, destino y detalles de tu paquete.',
   },
   {
