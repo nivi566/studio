@@ -176,7 +176,7 @@ export const blogPosts: BlogPost[] = [
     date: '2024-08-25',
     author: 'InTrack Editorial',
     category: 'Tendencias',
-    imageId: 'blog-post-3',
+    imageId: 'press-release-expansion',
     content: `
       <p>La era de la calma geopolítica en Europa ha terminado. Al adentrarnos en 2026, el sector del transporte y la logística se enfrenta a una redefinición total. Para las empresas españolas, esto no solo implica navegar la incertidumbre, sino aprovechar su posición privilegiada como puerta de entrada al Mediterráneo y al Atlántico para conectar con los nuevos flujos comerciales del este.</p>
 
