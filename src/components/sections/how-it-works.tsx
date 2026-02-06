@@ -14,7 +14,7 @@ const steps = [
   {
     icon: Truck,
     title: 'Recibe tu código',
-    description: 'Un mensajero recogerá el paquete en la dirección que nos indiques.',
+    description: 'Te avisaremos al móvil en cuanto tu paquete esté depositado y seguro en el locker.',
   },
   {
     icon: CheckCircle2,
