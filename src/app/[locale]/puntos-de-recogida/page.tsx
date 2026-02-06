@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import React, { useState } from 'react';
@@ -104,6 +102,7 @@ const allPickupPoints = [
       { city: 'Girona', address: 'Rambla de la Llibertat, 1, 17004 Girona' },
       { city: 'Lleida', address: 'Carrer Major, 3, 25007 Lleida' },
       { city: 'Tarragona', address: 'Rambla Nova, 45, 43003 Tarragona' },
+      { city: 'Reus', address: 'Raval de Robuster, 10, 43204 Reus' },
     ]
   },
   {
