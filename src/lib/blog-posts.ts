@@ -55,7 +55,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'sostenibilidad-en-la-logistica',
-    title: 'Sostenibilidad en la logística: El camino hacia un futuro verde',
+    title: '¡Conoce la empresa de mensajería que reduce hasta un -86% las emisiones CO2!',
     description: 'Descubre las prácticas y tecnologías que están haciendo la logística más ecológica.',
     date: '2024-08-10',
     author: 'Ana López',
