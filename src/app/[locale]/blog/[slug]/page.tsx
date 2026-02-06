@@ -1,12 +1,12 @@
-
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 import { blogPosts } from '@/lib/blog-posts';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, User } from 'lucide-react';
+import { Calendar, User, ArrowLeft } from 'lucide-react';
 
 type BlogPostPageProps = {
   params: {
@@ -22,7 +22,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const postImage = PlaceHolderImages.find(img => img.id === post.imageId);
-  const imageUrl = postImage?.imageUrl;
+  const imageUrl = post.localImage || postImage?.imageUrl;
   const imageHint = postImage?.imageHint;
 
   return (
@@ -30,6 +30,16 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       <Header />
       <main className="flex-1 py-16 sm:py-24">
         <article className="container mx-auto px-4 max-w-4xl">
+          <div className="mb-8">
+            <Link 
+              href="/blog" 
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Volver al blog
+            </Link>
+          </div>
+
           <header className="mb-12 text-center">
             <Badge variant="secondary" className="mb-4">{post.category}</Badge>
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
