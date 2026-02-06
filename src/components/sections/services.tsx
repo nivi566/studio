@@ -1,6 +1,6 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane, PiggyBank, MapPin, Clock, Rocket, ArrowRight } from 'lucide-react';
+import { Zap, DollarSign, Warehouse, Smartphone, Globe, ShieldCheck, Package, Ship, ShoppingCart, Plane, PiggyBank, MapPin, Clock, Rocket, ArrowRight, Bell, Lock } from 'lucide-react';
 import Link from 'next/link';
 import {
   Dialog,
@@ -22,7 +22,7 @@ const urgentShipmentsService = {
 const guaranteedDeliveriesService = {
   icon: ShieldCheck,
   title: 'Recepción de paquetería nacional',
-  description: 'Todos nuestros envíos incluyen un seguro básico y la garantía de entrega en perfectas condiciones.',
+  description: 'Tu paquete está protegido en nuestras taquillas de alta seguridad hasta que tú lo retires.',
 };
 
 const realTimeTrackingService = {
@@ -132,26 +132,31 @@ export function Services() {
                   Recepción de paquetería nacional
                 </DialogTitle>
                 <DialogDescription>
-                  Tu tranquilidad es nuestra prioridad. Por eso, cada envío está protegido.
+                  Tu tranquilidad es nuestra prioridad. Por eso, tu paquete está protegido desde que llega a nuestras manos hasta que tú lo retiras.
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4 space-y-4 text-sm text-muted-foreground">
-                <p>Entendemos la importancia de que tus paquetes lleguen en perfecto estado. Por ello, todos nuestros servicios incluyen garantías para proteger tu envío.</p>
-                <ul className="space-y-2">
+                <ul className="space-y-4">
                   <li className="flex items-start gap-3">
-                    <Package className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Seguro Básico Incluido:</span> Cada envío cuenta con una cobertura básica contra pérdida o daño.</div>
+                    <Lock className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
+                    <div>
+                      <span className="font-semibold text-foreground">Custodia Blindada:</span> Una vez recibido en nuestro punto, tu paquete se almacena en taquillas de alta seguridad con vigilancia, evitando robos o daños en el portal de tu casa.
+                    </div>
                   </li>
                    <li className="flex items-start gap-3">
-                    <ShieldCheck className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Seguro Adicional:</span> Para artículos de alto valor, ofrecemos opciones de seguro ampliado para una protección total.</div>
+                    <Bell className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
+                    <div>
+                      <span className="font-semibold text-foreground">Notificación Instantánea:</span> Garantizamos el aviso inmediato vía App/SMS en cuanto tu pedido es depositado. Sabrás en tiempo real que tu compra ya está a salvo con nosotros.
+                    </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Garantía de Entrega:</span> Nos comprometemos a cumplir los plazos de entrega estipulados para el servicio que elijas.</div>
+                    <Clock className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
+                    <div>
+                      <span className="font-semibold text-foreground">Garantía de Disponibilidad 24/7:</span> Nos comprometemos a que el punto de recogida elegido esté operativo y accesible para ti en el momento que decidas, sin errores de acceso.
+                    </div>
                   </li>
                 </ul>
-                <p>Envía con la confianza de que tu paquete está en las mejores manos y protegido ante cualquier imprevisto.</p>
+                <p className="pt-2 italic">Compra con la confianza de que tus pedidos nacionales están en las mejores manos, protegidos de imprevistos y esperas innecesarias.</p>
               </div>
                <DialogClose asChild>
                 <Button type="button" variant="secondary">Cerrar</Button>
