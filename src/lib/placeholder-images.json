@@ -15,7 +15,7 @@
     {
       "id": "avatar2",
       "description": "Avatar for a customer testimonial.",
-      "imageUrl": "https://images.unsplash.com/photo-1710974481447-fb001ad9ad5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjBmYWNlfGVufDB8fHx8MTc2NDI5ODQ0Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1710974481447-fb001ad9ad5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjBmYWNlfGVufDB8fHx8MTc2NDI5ODQ0Mnww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "person face"
     },
     {
@@ -33,14 +33,14 @@
     {
       "id": "blog-post-1",
       "description": "Warehouse with packages for logistics blog post.",
-      "imageUrl": "https://images.unsplash.com/photo-1739204618173-3e89def7140f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx3YXJlaG91c2UlMjBwYWNrYWdlc3xlbnwwfHx8fDE3NjQyODMwMzN8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1739204618173-3e89def7140f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx3YXJlaG91c2UlMjBwYWNrYWdlc3xlbnwwfHx8fDE3NjY0MjgzMzN8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "warehouse packages"
     },
     {
       "id": "blog-post-2",
-      "description": "Drone delivering a package for technology in logistics blog post.",
-      "imageUrl": "https://images.unsplash.com/photo-1753781466384-cf5eee0a505d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZWxpdmVyeSUyMGRyb25lfGVufDB8fHx8MTc2NDM0MzkwN3ww&ixlib-rb-4.1.0&q=80&w=1080",
-      "imageHint": "delivery drone"
+      "description": "E-commerce shopping and delivery solutions visualization.",
+      "imageUrl": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxlY29tbWVyY2UlMjBkZWxpdmVyeXxlbnwwfHx8fDE3NjY0MjAzMDN8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "ecommerce delivery"
     },
     {
       "id": "blog-post-3",
@@ -51,7 +51,7 @@
     {
       "id": "about-us-hero",
       "description": "A diverse team collaborating in a modern office.",
-      "imageUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtZWV0aW5nJTIwY29sbGFib3JhdGlvbnxlbnwwfHx8fDE3NjQyNTU2NzF8MA&ixlibrb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtZWV0aW5nJTIwY29sbGFib3JhdGlvbnxlbnwwfHx8fDE3NjY0MjAzMDN8MA&ixlibrb-4.1.0&q=80&w=1080",
       "imageHint": "team collaboration"
     },
     {
@@ -171,7 +171,7 @@
     {
       "id": "sustainable-packaging",
       "description": "A cardboard box with eco-friendly filler.",
-      "imageUrl": "https://images.unsplash.com/photo-1621451537084-482c73c03a6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzdXN0YWluYWJsZSUyMHBhY2thZ2luZ3xlbnwwfHx8fDE3NjY0MTgzMjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1621451537084-482c73c03a6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzdXN0YWluYWJsZSUyMHBhY2thZ2luZ3xlbnwwfHx8fDE3NjY0MTgzMjJ8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "sustainable packaging"
     }
   ]
