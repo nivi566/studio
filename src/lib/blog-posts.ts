@@ -3,7 +3,7 @@ import { BlogPost } from '@/lib/types';
 export const blogPosts: BlogPost[] = [
   {
     slug: 'la-revolucion-de-la-ultima-milla',
-    title: 'La revolución de la última milla',
+    title: '¿Tienes un e-commerce? ¡Soluciones tecnológicas que te cambiarán la vida!',
     description: 'Cómo la tecnología está transformando la entrega final y qué significa para tu negocio.',
     date: '2024-08-15',
     author: 'Juan Pérez',
@@ -37,7 +37,7 @@ export const blogPosts: BlogPost[] = [
       <ul class="list-disc list-inside space-y-2">
         <li><strong>Vehículos Eléctricos (VE):</strong> La transición a furgonetas y camiones eléctricos es uno de los pasos más significativos para reducir las emisiones directas.</li>
         <li><strong>Embalaje Sostenible:</strong> Uso de materiales reciclados, reciclables y biodegradables, así como la optimización del tamaño de los paquetes para reducir el desperdicio.</li>
-        <li><strong>Logística Inversa:</strong> Sistemas eficientes para la devolución y reciclaje de productos, cerrando el ciclo de vida del producto de manera responsable.</li>
+        <li><strong>Logística Inversa:</strong> Sistemas eficientes para la devolución y reciclaje de productos, cerrando el ciclo de la economía circular.</li>
       </ul>
       <p class="mt-4">Un futuro logístico más verde no solo es posible, sino esencial. Las empresas que lideran este cambio no solo contribuyen al planeta, sino que también mejoran su imagen de marca y conectan con una base de clientes cada vez más consciente del medio ambiente.</p>
     `
