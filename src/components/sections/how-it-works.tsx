@@ -8,7 +8,7 @@ const steps = [
   },
   {
     icon: ListChecks,
-    title: 'Elige tu servicio',
+    title: 'Compra online',
     description: 'Selecciona la opción de envío que mejor se adapte a tu necesidad y presupuesto.',
   },
   {
