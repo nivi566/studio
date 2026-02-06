@@ -19,7 +19,7 @@ const steps = [
   {
     icon: CheckCircle2,
     title: 'Recoge cuando quieras',
-    description: 'Tu paquete llega a su destino de forma rápida y segura.',
+    description: 'Escanea tu código en la taquilla las 24h del día y llévate tu paquete sin esperas.',
   },
 ];
 
@@ -27,7 +27,7 @@ export function HowItWorks() {
   return (
     <section id="how-it-works" className="py-16 sm:py-24">
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
             Recoger tus compras nunca fue tan fácil
           </h2>
