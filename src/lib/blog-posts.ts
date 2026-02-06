@@ -1,3 +1,4 @@
+
 import { BlogPost } from '@/lib/types';
 
 export const blogPosts: BlogPost[] = [
@@ -61,11 +62,10 @@ export const blogPosts: BlogPost[] = [
     author: 'Ana López',
     category: 'Sostenibilidad',
     imageId: 'blog-post-4',
-    localImage: '/sostenibilidad.png',
     content: `
       <p>En un mundo donde el cambio climático se manifiesta con fuerza, las empresas emergen como actores clave en la búsqueda de soluciones. Especialmente el sector logístico y de envíos, sector que más contamina emitiendo cada año el 25% de emisiones de C02.</p>
 
-      <p>Los envíos tradicionales a domicilio, aunque rápidos en términos de tiempo, tienen un costo ambiental considerable. Cada paquete que llega a nuestro domicilio implica un vehículo adicional en las carreteras, generando más emisiones de carbono. Ante este desafío, <strong>InTrack</strong> ofrece una solución más sostenible: los envíos a puntos de recogida. Una propuesta que no solo busca reducir las emisiones de carbono, sino también brindar a los clientes una opción más conveniente para recibir sus paquetes.</p>
+      <p>Los envíos trasacionales a domicilio, aunque rápidos en términos de tiempo, tienen un costo ambiental considerable. Cada paquete que llega a nuestro domicilio implica un vehículo adicional en las carreteras, generando más emisiones de carbono. Ante este desafío, <strong>InTrack</strong> ofrece una solución más sostenible: los envíos a puntos de recogida. Una propuesta que no solo busca reducir las emisiones de carbono, sino también brindar a los clientes una opción más conveniente para recibir sus paquetes.</p>
 
       <h3 class="font-bold text-xl mt-6 mb-3">Emisiones de carbono de envíos a domicilio vs envíos a puntos de recogida</h3>
       <p>Los envíos a puntos de recogida de <strong>InTrack</strong> están ganando terreno rápidamente. La razón es simple: se entregan más paquetes en menos paradas. Al disminuir el número de entregas individuales, también se disminuye el tráfico, lo que a su vez reduce la congestión en las ciudades y mejora la calidad del aire. Esta eficiencia no solo es beneficiosa para el medio ambiente, al reducir las emisiones de CO₂, sino que también se traduce en una optimización de costes y una experiencia de usuario mejorada gracias a la flexibilidad en la recepción de sus paquetes.</p>
@@ -73,7 +73,7 @@ export const blogPosts: BlogPost[] = [
       <p>Según el estudio realizado por South Pole para <strong>InTrack</strong>, el envío a puntos de recogida tiene el potencial de reducir las emisiones de carbono por paquete entre un 64% y un 86%, dependiendo de cómo el consumidor elija recoger dicho paquete. En concreto, el estudio estima que enviar paquetes a puntos de recogida podría disminuir las emisiones de CO2e en un promedio de 146,4 g por paquete*. Esto representa una reducción aproximada al 64% en emisiones, si lo comparamos con el método tradicional de envíos a domicilio*. Con esta reducción tan significativa, los envíos a puntos de recogida se presentan no solo como una opción viable, sino una respuesta al reto de las emisiones en el sector logístico.</p>
 
       <h3 class="font-bold text-xl mt-8 mb-3">¿Cómo funcionan los envíos sostenibles a través de Punto Pack y Lockers?</h3>
-      <p>Los envíos a puntos de recogida <strong>InTrack</strong> son envíos de paquetes a puntos de recogida estratégicamente ubicados, conocidos como Punto Pack y Lockers. Los Punto Pack son puntos de recogida en pequeños comercios de barrio y los Lockers son taquillas inteligentes que se encuentran principalmente en gasolineras, supermercados y centros comerciales.</p>
+      <p>Los envíos a puntos de recogida <strong>InTrack</strong> son envíos de paquetes a puntos de recogida estratégicamente ubicados, conocidos como Punto Pack y Lockers. Los Punto Pack son puntos de recogida en pequeños comercios de barrio y los Lockers son taquillas inteligentes que se encuentran principalmente en gasolileras, supermercados y centros comerciales.</p>
 
       <p>Actualmente, la red <strong>InTrack</strong> cuenta con miles de Punto Packs y Lockers en España, por lo que siempre hay un punto de recogida cerca, haciendo que el envío y la recepción de paquetes sea eficaz, además de sostenible. Enviar un paquete a puntos de recogida con <strong>InTrack</strong>, es un proceso principalmente online y sencillo.</p>
 

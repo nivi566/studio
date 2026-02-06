@@ -49,6 +49,12 @@
       "imageHint": "cargo ship"
     },
     {
+      "id": "blog-post-4",
+      "description": "Green energy and sustainable logistics concept.",
+      "imageUrl": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzdXN0YWluYWJpbGl0eSUyMGxvZ2lzdGljc3xlbnwwfHx8fDE3NjY0MTQ5Mzl8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "sustainability energy"
+    },
+    {
       "id": "about-us-hero",
       "description": "A diverse team collaborating in a modern office.",
       "imageUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtZWV0aW5nJTIwY29sbGFib3JhdGlvbnxlbnwwfHx8fDE3NjY0MjAzMDN8MA&ixlibrb-4.1.0&q=80&w=1080",
@@ -98,7 +104,7 @@
     },
     {
       "id": "pickup-castilla-la-mancha",
-      "imageUrl": "https://images.unsplash.com/photo-1661929777732-d0f05c29133a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYW5jaGElMjB3aW5kbWlsbHN8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1661929777732-d0f05c29133a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwwfHxtYW5jaGElMjB3aW5kbWlsbHN8ZW58MHx8fHwxNzY2NDE0OTM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "mancha windmills",
       "description": "Windmills of Castilla-La Mancha"
     },
@@ -146,7 +152,7 @@
     },
     {
       "id": "pickup-navarra",
-      "imageUrl": "https://images.unsplash.com/photo-1650368697735-7e0ee047155e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxuYXZhcnJhJTIwZm9yZXN0fGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1650368697735-7e0ee047155e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwwfHxuYXZhcnJhJTIwZm9yZXN0fGVufDB8fHx8MTc2NjQxNDkzOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "navarra forest",
       "description": "Forest of Navarra"
     },
