@@ -15,9 +15,9 @@ const socialLinks = [
 
 const footerLinks = {
   'Servicios': [
-    { label: 'Envíos Urgentes', href: '#' },
-    { label: 'Logística Integral', href: '#' },
-    { label: 'Transporte Internacional', href: '#' },
+    { label: 'Recepción de Paquetería', href: '/#services' },
+    { label: 'Compras Internacionales', href: '/#services' },
+    { label: 'Soluciones B2B y E-commerce', href: '/#services' },
     { label: 'Tarifas', href: '/tarifas' },
   ],
   'Compañía': [
