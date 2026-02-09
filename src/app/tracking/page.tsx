@@ -1,6 +1,23 @@
-"use client";
+'use client';
 
 import { useState } from 'react';
+import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { 
+  Search, 
+  Package, 
+  MapPin, 
+  Calendar, 
+  ArrowRight, 
+  Truck, 
+  CheckCircle2, 
+  Clock, 
+  ChevronLeft 
+} from 'lucide-react';
+import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 
 export default function TrackingPage() {
@@ -9,7 +26,6 @@ export default function TrackingPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // CONFIGURACIÓN: Reemplaza con tu URL real de SheetDB
   const SHEETDB_URL = "https://sheetdb.io/api/v1/nmk5zmlkneovd";
 
   const handleSearch = async (e: React.FormEvent) => {
@@ -21,20 +37,17 @@ export default function TrackingPage() {
     setResult(null);
 
     try {
-      // Importante: sheet=tracking para no tocar tus otras pestañas
       const response = await fetch(`${SHEETDB_URL}/search?sheet=tracking&tracking_code=${trackingCode.toUpperCase()}`);
-      
       if (!response.ok) throw new Error('Error en la red');
-      
       const data = await response.json();
 
       if (data && data.length > 0) {
         setResult(data[0]);
       } else {
-        setError('Código de seguimiento no encontrado. Por favor, verifica el código (Ej: TRK-001).');
+        setError('Código no encontrado. Por favor, verifica tu referencia (Ej: TRK-001).');
       }
     } catch (err) {
-      setError('Hubo un error en la conexión. Verifica tu URL de SheetDB.');
+      setError('Error en la conexión. Por favor, inténtalo de nuevo más tarde.');
     } finally {
       setLoading(false);
     }
@@ -42,104 +55,131 @@ export default function TrackingPage() {
 
   const getProgress = (status: string) => {
     const s = status?.toLowerCase() || '';
-    if (s.includes('entregado') || s.includes('lliurat')) return { width: '100%', color: 'bg-green-500' };
-    if (s.includes('transito') || s.includes('trànsit')) return { width: '50%', color: 'bg-blue-500' };
-    return { width: '15%', color: 'bg-orange-500' };
+    
+    // ENTREGADO -> VERDE
+    if (s.includes('entregado') || s.includes('lliurat')) {
+      return { width: '100%', color: 'bg-green-500', icon: <CheckCircle2 className="text-green-500 h-6 w-6" /> };
+    }
+    // ENVIADO -> AZUL
+    if (s.includes('enviado') || s.includes('enviat')) {
+      return { width: '75%', color: 'bg-blue-500', icon: <Truck className="text-blue-500 h-6 w-6" /> };
+    }
+    // PREPARADO -> ROJO
+    if (s.includes('preparado') || s.includes('preparat')) {
+      return { width: '40%', color: 'bg-red-500', icon: <Package className="text-red-500 h-6 w-6" /> };
+    }
+    // PROCESANDO -> GRIS
+    return { width: '15%', color: 'bg-gray-400', icon: <Clock className="text-gray-400 h-6 w-6" /> };
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Sección Hero con el patrón de la web */}
-      <section className="bg-white py-16 px-4 border-b border-gray-100">
-        <div className="max-w-4xl mx-auto text-center">
-          <Link href="/" className="text-orange-500 hover:underline text-sm mb-6 inline-block font-medium">
-            ← Volver al inicio
-          </Link>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Localiza tu envío
-          </h1>
-          <p className="text-lg text-gray-600 mb-10">
-            Introduce tu código de seguimiento para ver el estado actual de tu paquete.
-          </p>
-
-          <form onSubmit={handleSearch} className="max-w-md mx-auto relative">
-            <input
-              type="text"
-              placeholder="TRK-001"
-              className="w-full p-4 pr-32 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none text-black bg-white shadow-sm"
-              value={trackingCode}
-              onChange={(e) => setTrackingCode(e.target.value)}
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="absolute right-2 top-2 bottom-2 bg-orange-500 hover:bg-orange-600 text-white px-6 rounded-md font-bold transition-colors disabled:opacity-50"
-            >
-              {loading ? '...' : 'Buscar'}
-            </button>
-          </form>
-          
-          {error && (
-            <div className="mt-6 p-4 bg-red-50 text-red-600 rounded-lg border border-red-100 text-sm">
-              ⚠️ {error}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Resultados con diseño profesional */}
-      {result && (
-        <section className="max-w-4xl mx-auto py-12 px-4 animate-in fade-in duration-500">
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="p-8 border-b border-gray-50 flex justify-between items-center bg-gray-50/50">
-              <div>
-                <p className="text-xs font-bold text-gray-400 uppercase">Estado</p>
-                <p className="text-xl font-bold text-gray-900">{result.status}</p>
-              </div>
-              <div className="text-right">
-                <p className="text-xs font-bold text-gray-400 uppercase">Referencia</p>
-                <p className="text-xl font-mono font-bold text-orange-500">{result.tracking_code}</p>
-              </div>
+    <div className="flex min-h-screen flex-col bg-background">
+      <Header />
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="py-12 sm:py-20 bg-muted/30 border-b">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center mb-10">
+              <Link href="/" className="inline-flex items-center text-sm font-medium text-primary hover:underline mb-6">
+                <ChevronLeft className="h-4 w-4 mr-1" /> Volver al inicio
+              </Link>
+              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
+                Localiza tu envío
+              </h1>
+              <p className="text-lg text-muted-foreground">
+                Introduce tu código de seguimiento para conocer el estado de tu paquete en tiempo real.
+              </p>
             </div>
 
-            <div className="p-8">
-              {/* Barra de progreso */}
-              <div className="mb-10">
-                <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                  <div 
-                    className={`h-full ${getProgress(result.status).color} transition-all duration-1000`}
-                    style={{ width: getProgress(result.status).width }}
-                  />
-                </div>
-                <div className="flex justify-between mt-2 text-[10px] font-bold text-gray-400 uppercase">
-                  <span>Procesando</span>
-                  <span>En Tránsito</span>
-                  <span>Entregado</span>
-                </div>
-              </div>
-
-              {/* Grid de información (usando tus columnas del Excel) */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <DetailBox label="Origen" value={result.origen} icon="📍" />
-                <DetailBox label="Destino" value={result.destination} icon="🏁" />
-                <DetailBox label="Ubicación Actual" value={result.location} icon="🚚" />
-                <DetailBox label="Fecha Estimada (ETA)" value={result.eta} icon="📅" />
-              </div>
+            <div className="max-w-2xl mx-auto">
+              <Card className="border-2 shadow-xl">
+                <CardContent className="pt-8">
+                  <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4">
+                    <div className="relative flex-1">
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                      <Input 
+                        placeholder="Ej: TRK-001" 
+                        className="pl-10 h-12 text-lg"
+                        value={trackingCode}
+                        onChange={(e) => setTrackingCode(e.target.value)}
+                      />
+                    </div>
+                    <Button type="submit" size="lg" className="h-12 px-8 text-lg font-semibold" disabled={loading}>
+                      {loading ? 'Buscando...' : 'Buscar'}
+                    </Button>
+                  </form>
+                  {error && (
+                    <div className="mt-4 p-3 bg-destructive/10 border border-destructive/20 rounded-md text-destructive text-sm text-center font-medium animate-in fade-in slide-in-from-top-1">
+                      ⚠️ {error}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
-      )}
+
+        {/* Results Section */}
+        {result && (
+          <section className="py-12 container mx-auto px-4 animate-in fade-in zoom-in duration-500">
+            <Card className="max-w-4xl mx-auto overflow-hidden border-2 shadow-lg">
+              <CardHeader className="bg-muted/50 border-b flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0 p-8">
+                <div>
+                  <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold">Referencia de envío</Label>
+                  <CardTitle className="text-2xl font-mono text-primary">{result.tracking_code}</CardTitle>
+                </div>
+                <div className="sm:text-right">
+                  <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold">Estado del paquete</Label>
+                  <div className="flex items-center gap-2 sm:justify-end">
+                    {getProgress(result.status).icon}
+                    <span className="text-xl font-bold">{result.status}</span>
+                  </div>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="p-8 sm:p-12">
+                {/* Visual Progress Bar */}
+                <div className="mb-16">
+                  <div className="h-3 w-full bg-muted rounded-full overflow-hidden mb-4">
+                    <div 
+                      className={`h-full ${getProgress(result.status).color} transition-all duration-1000 ease-in-out`}
+                      style={{ width: getProgress(result.status).width }}
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 text-[9px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                    <span className="text-left">Procesando</span>
+                    <span className="text-center">Preparado</span>
+                    <span className="text-center">Enviado</span>
+                    <span className="text-right">Entregado</span>
+                  </div>
+                </div>
+
+                {/* Info Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <DetailBox label="Origen" value={result.origen} icon={<MapPin className="h-5 w-5" />} />
+                  <DetailBox label="Destino Final" value={result.destination} icon={<ArrowRight className="h-5 w-5" />} />
+                  <DetailBox label="Ubicación Actual" value={result.location} icon={<Truck className="h-5 w-5" />} />
+                  <DetailBox label="Fecha Entrega (ETA)" value={result.eta} icon={<Calendar className="h-5 w-5" />} />
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+        )}
+      </main>
+      <Footer />
     </div>
   );
 }
 
-function DetailBox({ label, value, icon }: { label: string, value: string, icon: string }) {
+function DetailBox({ label, value, icon }: { label: string, value: string, icon: React.ReactNode }) {
   return (
-    <div className="flex items-start space-x-3">
-      <span className="text-2xl">{icon}</span>
+    <div className="flex items-start gap-4 p-5 rounded-xl bg-muted/20 border border-transparent hover:border-border hover:bg-muted/30 transition-all">
+      <div className="bg-background p-2.5 rounded-lg shadow-sm border text-primary">
+        {icon}
+      </div>
       <div>
-        <p className="text-xs font-bold text-gray-400 uppercase">{label}</p>
-        <p className="text-gray-900 font-semibold">{value || 'No disponible'}</p>
+        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{label}</p>
+        <p className="text-foreground font-bold text-lg leading-tight">{value || 'En proceso...'}</p>
       </div>
     </div>
   );
