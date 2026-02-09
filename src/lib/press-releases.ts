@@ -3,40 +3,40 @@ import { PressRelease } from '@/lib/types';
 
 export const pressReleases: PressRelease[] = [
     {
-        slug: "revolucion-ultima-milla-ia",
-        date: "2024-08-20",
-        title: "InTrack revoluciona la logística de última milla con IA",
-        description: "Nuestra nueva plataforma optimiza las rutas de entrega en tiempo real, reduciendo los tiempos de espera en un 30%.",
-        imageId: "blog-post-2",
+        slug: "liderazgo-volatilidad-estructural-2026",
+        date: "2026-02-10",
+        title: "InTrack lidera la respuesta a la volatilidad estructural del sector logístico",
+        description: "Presentamos nuestro plan estratégico para navegar los retos de 2026, enfocados en la resiliencia operativa y la eficiencia digital.",
+        imageId: "warehouse-colmena",
         fullContent: `
-            <p class="mb-4"><strong>MADRID, 20 de agosto de 2024</strong> – InTrack, la empresa líder en soluciones logísticas innovadoras, ha anunciado hoy el lanzamiento de su nueva plataforma de optimización de última milla basada en Inteligencia Artificial (IA). Esta tecnología de vanguardia está diseñada para transformar la eficiencia de las entregas finales, prometiendo una reducción de hasta un 30% en los tiempos de espera para los clientes y una disminución significativa en la huella de carbono de las operaciones.</p>
-            <p class="mb-4">La plataforma utiliza algoritmos avanzados para analizar en tiempo real variables como el tráfico, las condiciones meteorológicas y la disponibilidad de los repartidores para asignar y ajustar las rutas de entrega de manera dinámica. "Estamos redefiniendo lo que es posible en la logística", afirmó el CEO de InTrack. "No se trata solo de entregar más rápido, sino de hacerlo de manera más inteligente y sostenible".</p>
-            <p>La nueva herramienta ya está siendo implementada en las principales ciudades españolas y se espera que esté disponible para toda la red nacional a finales de año.</p>
+            <p class="mb-4"><strong>MADRID, 10 de febrero de 2026</strong> – InTrack ha presentado hoy su hoja de ruta para afrontar lo que el Foro Económico Mundial define como la "etapa de volatilidad estructural". En un entorno marcado por cambios constantes en los flujos comerciales y costes energéticos fluctuantes, InTrack apuesta por una infraestructura flexible y tecnológica.</p>
+            <p class="mb-4">El plan incluye una inversión de 15 millones de euros en la automatización de sus centros de consolidación y el refuerzo de su red de taquillas inteligentes, que ya supera las 5.000 unidades en toda la península. "Nuestra misión es transformar la incertidumbre en una ventaja competitiva para nuestros clientes", destacó el Director de Estrategia.</p>
+            <p>Con esta iniciativa, InTrack se consolida como el socio logístico más fiable para empresas que operan en mercados de alta volatilidad.</p>
         `
     },
     {
-        slug: "expansion-internacional-portugal-francia",
-        date: "2024-07-15",
-        title: "InTrack anuncia su expansión a Portugal y Francia",
-        description: "Ampliamos nuestra red para ofrecer soluciones de envío fiables y rápidas en los mercados vecinos.",
+        slug: "expansion-este-europa-polonia-rumania",
+        date: "2026-01-15",
+        title: "InTrack anuncia la apertura de su hub logístico número 50 en el Este de Europa",
+        description: "Consolidamos nuestra presencia en el corredor España-Polonia con la inauguración de una nueva plataforma de distribución avanzada.",
         imageId: 'press-release-expansion',
         fullContent: `
-            <p class="mb-4"><strong>MADRID, 15 de julio de 2024</strong> – Como parte de su ambicioso plan de crecimiento europeo, InTrack ha anunciado hoy el inicio de sus operaciones en Portugal y Francia. Esta expansión estratégica permitirá a la compañía ofrecer su gama completa de servicios logísticos, incluyendo envíos urgentes y soluciones para e-commerce, en dos de los mercados más importantes de Europa Occidental.</p>
-            <p class="mb-4">"Nuestra entrada en Portugal y Francia es un paso natural en nuestra misión de conectar negocios y personas sin fronteras", explicó el Director de Expansión Internacional. "Hemos establecido una sólida infraestructura local en ambos países para garantizar los mismos estándares de calidad y fiabilidad que nos caracterizan en España".</p>
-            <p>Con esta medida, InTrack fortalece su posición como un actor clave en el panorama logístico europeo, facilitando el comercio transfronterizo para miles de empresas.</p>
+            <p class="mb-4"><strong>VARSOVIA, 15 de enero de 2026</strong> – InTrack continúa su imparable expansión internacional con la apertura de su hub número 50 en Europa del Este, ubicado estratégicamente en las afueras de Varsovia. Esta nueva instalación permitirá reducir los tiempos de tránsito entre España y Polonia en un 20%.</p>
+            <p class="mb-4">"El eje logístico hacia el Este es vital para las PYMES españolas. Esta apertura no solo es un hito de crecimiento para InTrack, sino una puerta abierta para miles de empresas que buscan mercados dinámicos", explicó el Director de Expansión Internacional. El nuevo hub cuenta con tecnología de picking robotizado y está preparado para gestionar hasta 50.000 paquetes diarios.</p>
+            <p>Con esta apertura, InTrack refuerza su compromiso de conectar negocios y personas sin fronteras, ofreciendo una trazabilidad total en tiempo real.</p>
         `
     },
     {
-        slug: "iniciativa-embalaje-sostenible",
-        date: "2024-06-01",
-        title: "InTrack lanza su iniciativa de embalaje 100% sostenible",
-        description: "Nos comprometemos a utilizar únicamente materiales reciclados y biodegradables en todos nuestros envíos.",
-        imageId: "sustainable-packaging",
-        localImage: "/embalaje.png",
+        slug: "lanzamiento-reverse-ai-logistica-inversa",
+        date: "2025-12-05",
+        title: "InTrack presenta 'Reverse AI': el futuro de la logística inversa automatizada",
+        description: "Nuestra nueva solución utiliza inteligencia artificial para predecir y optimizar el retorno de mercancías, reduciendo costes para el e-commerce.",
+        imageId: "blog-post-1",
+        localImage: "/devolucion.png",
         fullContent: `
-            <p class="mb-4"><strong>MADRID, 1 de junio de 2024</strong> – En un firme compromiso con el medio ambiente, InTrack ha lanzado hoy su nueva iniciativa "Green Pack", con el objetivo de utilizar embalajes 100% sostenibles en todas sus operaciones para finales de 2025. La compañía sustituirá progresivamente los plásticos de un solo uso por materiales reciclados, reciclables y biodegradables.</p>
-            <p class="mb-4">Esta iniciativa incluye el uso de cajas de cartón con certificación FSC, cintas adhesivas de papel y rellenos protectores compostables. "La sostenibilidad no es una opción, es una responsabilidad", declaró la Directora de Sostenibilidad de InTrack. "Queremos liderar el cambio en la industria logística hacia un modelo más respetuoso con el planeta, y el embalaje es un pilar fundamental de esta transformación".</p>
-            <p>InTrack también colaborará con sus clientes para fomentar la reutilización y el reciclaje de los materiales de embalaje, cerrando así el ciclo de la economía circular.</p>
+            <p class="mb-4"><strong>MADRID, 5 de diciembre de 2025</strong> – Con el objetivo de solucionar uno de los mayores retos del e-commerce, InTrack ha lanzado 'Reverse AI', una plataforma diseñada específicamente para la gestión de devoluciones. La herramienta utiliza algoritmos predictivos para determinar la ruta de retorno más eficiente, reduciendo la huella de carbono y los costes operativos.</p>
+            <p class="mb-4">Esta innovación permite a los comercios online ofrecer un proceso de devolución "sin etiquetas" y ultra-rápido a través de la red de Lockers InTrack. "Sabemos que una buena experiencia de devolución es clave para la fidelización. Con Reverse AI, hacemos que lo complejo parezca sencillo tanto para el comercio como para el usuario final", afirmó la responsable de Producto Digital.</p>
+            <p>La solución ya ha sido adoptada por los principales retailers del país, demostrando una reducción media del 30% en el tiempo de procesamiento de devoluciones.</p>
         `
     }
 ];
