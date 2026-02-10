@@ -4,13 +4,13 @@
 
 @layer base {
   :root {
-    --background: 210 20% 96%;
+    --background: 210 20% 98%;
     --foreground: 224 71% 4%;
     --card: 0 0% 100%;
     --card-foreground: 224 71% 4%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 71% 4%;
-    --primary: 38 92% 50%; /* Orange */
+    --primary: 38 92% 50%; /* Orange Corporate */
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -28,7 +28,7 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
   .dark {
     --background: 224 71% 4%;
@@ -63,9 +63,16 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
   h1, h2, h3, h4, h5, h6, .card-title {
-    @apply font-semibold;
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .btn-hover-effect {
+    @apply transition-all duration-300 active:scale-95;
   }
 }
