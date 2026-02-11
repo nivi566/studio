@@ -27,7 +27,7 @@ export default function ContactPage() {
         <section className="py-16 sm:py-24">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h1 className="text-4xl sm:text-5xl font-black tracking-tighter text-foreground mb-4 uppercase">
+              <h1 className="text-4xl sm:text-5xl font-black tracking-tighter text-foreground mb-4">
                 {t.contact.title}
               </h1>
               <p className="mt-4 text-lg text-muted-foreground font-medium">
@@ -37,14 +37,14 @@ export default function ContactPage() {
 
             <div className="grid md:grid-cols-2 gap-16 items-start">
                 <div className="space-y-8">
-                    <h2 className="text-2xl font-black text-foreground uppercase tracking-tighter">{t.contact.infoTitle}</h2>
+                    <h2 className="text-2xl font-black text-foreground tracking-tighter">{t.contact.infoTitle}</h2>
                     <div className="space-y-6">
                         <div className="flex items-start gap-4">
                             <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
                                 <MapPin className="h-6 w-6 text-primary" />
                             </div>
                             <div>
-                                <h3 className="font-black text-lg text-foreground uppercase tracking-tighter">{t.contact.hq}</h3>
+                                <h3 className="font-black text-lg text-foreground tracking-tighter">{t.contact.hq}</h3>
                                 <p className="text-muted-foreground font-medium">Calle Resina, 41<br />28021, Madrid, España</p>
                             </div>
                         </div>
@@ -53,7 +53,7 @@ export default function ContactPage() {
                                 <Mail className="h-6 w-6 text-primary" />
                             </div>
                             <div>
-                                <h3 className="font-black text-lg text-foreground uppercase tracking-tighter">{t.contact.support}</h3>
+                                <h3 className="font-black text-lg text-foreground tracking-tighter">{t.contact.support}</h3>
                                 <p className="text-muted-foreground font-medium">info@intrack-logistics.cat</p>
                             </div>
                         </div>
@@ -62,14 +62,14 @@ export default function ContactPage() {
                                 <Phone className="h-6 w-6 text-primary" />
                             </div>
                             <div>
-                                <h3 className="font-black text-lg text-foreground uppercase tracking-tighter">{t.contact.phone}</h3>
+                                <h3 className="font-black text-lg text-foreground tracking-tighter">{t.contact.phone}</h3>
                                 <p className="text-muted-foreground font-medium">+34 912 345 678</p>
                             </div>
                         </div>
                     </div>
                     
                     <div className="p-6 bg-muted rounded-xl border-2 border-emerald-500/20 shadow-inner">
-                        <h4 className="font-black flex items-center gap-2 mb-2 uppercase tracking-tighter text-emerald-700">
+                        <h4 className="font-black flex items-center gap-2 mb-2 tracking-tighter text-emerald-700">
                             <MessageSquare className="h-5 w-5" /> 
                             {t.contact.urgentTitle}
                         </h4>
@@ -82,7 +82,7 @@ export default function ContactPage() {
                 <div>
                      <Card className="border-4 border-emerald-500/10 shadow-2xl">
                         <CardHeader>
-                            <CardTitle className="text-2xl font-black uppercase tracking-tighter">{t.contact.formTitle}</CardTitle>
+                            <CardTitle className="text-2xl font-black tracking-tighter">{t.contact.formTitle}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <form action="https://formspree.io/f/xrbnkanl" method="POST" className="space-y-5">
@@ -122,7 +122,7 @@ export default function ContactPage() {
                                     <Textarea id="message" name="message" placeholder={t.contact.messagePlaceholder} className="min-h-[100px] font-bold" required />
                                 </div>
 
-                                <Button type="submit" className="w-full text-lg h-14 font-black uppercase tracking-widest bg-emerald-600 hover:bg-emerald-700 shadow-lg active:scale-[0.98] transition-all">
+                                <Button type="submit" className="w-full text-lg h-14 font-black tracking-widest bg-emerald-600 hover:bg-emerald-700 shadow-lg active:scale-[0.98] transition-all">
                                     {t.contact.submit}
                                 </Button>
                             </form>

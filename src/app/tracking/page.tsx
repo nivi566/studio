@@ -77,10 +77,10 @@ export default function TrackingPage() {
         <section className="py-12 sm:py-20 bg-muted/30 border-b">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center mb-10">
-              <Link href="/" className="inline-flex items-center text-sm font-black text-primary hover:underline mb-6 uppercase tracking-tighter">
+              <Link href="/" className="inline-flex items-center text-sm font-black text-primary hover:underline mb-6 tracking-tighter">
                 <ChevronLeft className="h-4 w-4 mr-1" /> {t.nav.home}
               </Link>
-              <h1 className="text-4xl sm:text-5xl font-black tracking-tighter text-foreground mb-4 uppercase">
+              <h1 className="text-4xl sm:text-5xl font-black tracking-tighter text-foreground mb-4">
                 {t.tracking.title}
               </h1>
               <p className="text-lg text-muted-foreground font-medium">
@@ -101,7 +101,7 @@ export default function TrackingPage() {
                         onChange={(e) => setTrackingCode(e.target.value)}
                       />
                     </div>
-                    <Button type="submit" size="lg" className="h-12 px-8 text-lg font-black uppercase tracking-widest bg-emerald-600 hover:bg-emerald-700" disabled={loading}>
+                    <Button type="submit" size="lg" className="h-12 px-8 text-lg font-black tracking-widest bg-emerald-600 hover:bg-emerald-700" disabled={loading}>
                       {loading ? t.tracking.searching : t.tracking.button}
                     </Button>
                   </form>
@@ -122,13 +122,13 @@ export default function TrackingPage() {
               <CardHeader className="bg-muted/50 border-b flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0 p-8">
                 <div>
                   <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black">{t.tracking.refLabel}</Label>
-                  <CardTitle className="text-2xl font-black font-mono text-primary uppercase">{result.tracking_code}</CardTitle>
+                  <CardTitle className="text-2xl font-black font-mono text-primary">{result.tracking_code}</CardTitle>
                 </div>
                 <div className="sm:text-right">
                   <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black">{t.tracking.statusLabel}</Label>
                   <div className="flex items-center gap-2 sm:justify-end">
                     {getProgress(result.status).icon}
-                    <span className="text-xl font-black uppercase tracking-tighter">{getProgress(result.status).label}</span>
+                    <span className="text-xl font-black tracking-tighter">{getProgress(result.status).label}</span>
                   </div>
                 </div>
               </CardHeader>
@@ -173,7 +173,7 @@ function DetailBox({ label, value, icon }: { label: string, value: string, icon:
       </div>
       <div>
         <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-1">{label}</p>
-        <p className="text-foreground font-black text-lg leading-tight uppercase tracking-tighter">{value || '---'}</p>
+        <p className="text-foreground font-black text-lg leading-tight tracking-tighter">{value || '---'}</p>
       </div>
     </div>
   );
