@@ -1,30 +1,36 @@
-
-import {NextRequest, NextResponse} from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import MistralClient from '@mistralai/mistralai';
 
+// Este es el "cerebro" del asistente. Aquí le damos los datos reales.
 const systemPrompt = `
-Eres un asistente virtual experto en la información de la página web https://intrack-logistics.netlify.app/.
-Tu tarea es responder únicamente con información que se encuentre en esa página.
-No inventes datos, ni proporciones ejemplos externos, ni listas genéricas.
-Si la información no está en la web, di claramente: "Lo siento, no tengo esa información en este momento."
+Eres el asistente virtual oficial de InTrack Logistics. 
+Tu tarea es ayudar a los usuarios basándote EXCLUSIVAMENTE en estos datos reales:
 
-Cuando respondas, sigue estas reglas:
-1. Solo utiliza contenido de la web indicada.
-2. No agregues información externa.
-3. Sé claro, conciso y directo.
-4. Mantén el estilo y tono de la web.
-5. Responde siempre y únicamente en español.
+INFORMACIÓN DE CONTACTO:
+- Correo oficial: info@intrack-logistics.cat
+- Sede Operativa: Calle Resina, 41, 28021, Madrid, España.
+- Teléfono: +34 912 345 678
+- Web: https://intrack-logistics.cat/
+
+SERVICIOS:
+- Transporte Terrestre, Marítimo y Aéreo.
+- Almacenamiento y Distribución.
+- Logística Inversa y Soluciones a medida.
+
+INSTRUCCIONES IMPORTANTES:
+1. Si te preguntan por contacto, da el email info@intrack-logistics.cat. NUNCA uses correos de outlook, gmail o hotmail.
+2. Si preguntan por "Puntos de Recogida", diles que pueden ver el mapa en la sección correspondiente del menú superior.
+3. IDIOMA: Responde SIEMPRE en el mismo idioma en el que el usuario te escriba (si te escribe en Inglés, responde en Inglés; si es en Catalán, responde en Catalán), de forma profesional y muy concisa.
+4. Si algo no está en esta lista, di: "Lo siento, no tengo esa información detallada, por favor contacta a info@intrack-logistics.cat".
 `;
 
 export async function POST(req: NextRequest) {
   try {
-    // Inicializa el cliente dentro de la función POST para acceder a las variables de entorno
     const mistral = new MistralClient(process.env.MISTRAL_API_KEY);
-
     const { message } = await req.json();
 
     if (!message) {
-      return NextResponse.json({ error: 'El mensaje es obligatorio' }, { status: 400 });
+      return NextResponse.json({ error: 'Mensaje vacío' }, { status: 400 });
     }
     
     const chatResponse = await mistral.chat({
@@ -33,16 +39,15 @@ export async function POST(req: NextRequest) {
         { role: 'system', content: systemPrompt },
         { role: 'user', content: message }
       ],
+      temperature: 0.1, // Temperatura muy baja para que no invente datos
     });
 
-    if (chatResponse.choices.length > 0 && chatResponse.choices[0].message.content) {
-      return NextResponse.json({ reply: chatResponse.choices[0].message.content });
-    } else {
-      return NextResponse.json({ reply: "Lo siento, no he podido procesar tu solicitud en este momento." });
-    }
+    const reply = chatResponse.choices[0].message.content || "Lo siento, no puedo responder ahora.";
+
+    return NextResponse.json({ reply });
 
   } catch (error) {
-    console.error('Error en la API de Mistral:', error);
-    return NextResponse.json({ error: 'Ha ocurrido un error interno.' }, { status: 500 });
+    console.error('Error Mistral:', error);
+    return NextResponse.json({ error: 'Error interno' }, { status: 500 });
   }
 }
