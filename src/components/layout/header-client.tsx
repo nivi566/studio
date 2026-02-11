@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -66,20 +67,22 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
   }
 
   const LanguageSelector = () => (
-    <div className="flex items-center gap-1 bg-muted/50 p-1 rounded-lg border border-border/50">
-      {(['es', 'ca', 'en'] as Language[]).map((lang) => (
-        <button
-          key={lang}
-          onClick={() => setLanguage(lang)}
-          className={cn(
-            "px-2 py-1 text-[10px] font-black rounded-md transition-all uppercase tracking-tighter",
-            language === lang 
-              ? "bg-emerald-500 text-white shadow-sm" 
-              : "text-muted-foreground hover:text-foreground"
-          )}
-        >
-          {lang}
-        </button>
+    <div className="flex items-center gap-3 px-2">
+      {(['es', 'ca', 'en'] as Language[]).map((lang, index) => (
+        <React.Fragment key={lang}>
+          <button
+            onClick={() => setLanguage(lang)}
+            className={cn(
+              "text-[11px] font-black transition-all uppercase tracking-widest",
+              language === lang 
+                ? "text-primary scale-110" 
+                : "text-foreground/60 hover:text-primary"
+            )}
+          >
+            {lang}
+          </button>
+          {index < 2 && <span className="text-foreground/10 text-[10px] font-light">|</span>}
+        </React.Fragment>
       ))}
     </div>
   );
@@ -101,7 +104,7 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
 
       <div className="flex flex-1 items-center justify-end gap-4">
         {/* Selector de Idioma */}
-        <div className="hidden sm:block">
+        <div className="hidden sm:block border-r pr-4 border-border/50">
           <LanguageSelector />
         </div>
 
@@ -164,7 +167,7 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
                 </Button>
               </div>
               
-              <div className="py-4 flex justify-center border-b">
+              <div className="py-6 flex justify-center border-b bg-muted/30">
                 <LanguageSelector />
               </div>
 
