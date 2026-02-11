@@ -68,8 +68,8 @@ export default function ContactPage() {
                         </div>
                     </div>
                     
-                    <div className="p-6 bg-muted rounded-xl border-2 border-emerald-500/20 shadow-inner">
-                        <h4 className="font-black flex items-center gap-2 mb-2 tracking-tighter text-emerald-700">
+                    <div className="p-6 bg-muted rounded-xl border-2 border-primary/20 shadow-inner">
+                        <h4 className="font-black flex items-center gap-2 mb-2 tracking-tighter text-primary">
                             <MessageSquare className="h-5 w-5" /> 
                             {t.contact.urgentTitle}
                         </h4>
@@ -80,7 +80,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                     <Card className="border-4 border-emerald-500/10 shadow-2xl">
+                     <Card className="border-4 border-primary/10 shadow-2xl">
                         <CardHeader>
                             <CardTitle className="text-2xl font-black tracking-tighter">{t.contact.formTitle}</CardTitle>
                         </CardHeader>
@@ -122,7 +122,7 @@ export default function ContactPage() {
                                     <Textarea id="message" name="message" placeholder={t.contact.messagePlaceholder} className="min-h-[100px] font-bold" required />
                                 </div>
 
-                                <Button type="submit" className="w-full text-lg h-14 font-black tracking-widest bg-emerald-600 hover:bg-emerald-700 shadow-lg active:scale-[0.98] transition-all">
+                                <Button type="submit" className="w-full text-lg h-14 font-black tracking-widest bg-primary hover:bg-primary/90 shadow-lg active:scale-[0.98] transition-all">
                                     {t.contact.submit}
                                 </Button>
                             </form>
