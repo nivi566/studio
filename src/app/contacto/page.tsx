@@ -8,7 +8,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Phone, Mail, MapPin, MessageSquare } from 'lucide-react';
 import { Label } from '@/components/ui/label';
-// Importamos Select de Shadcn para un look profesional
 import {
   Select,
   SelectContent,
@@ -16,8 +15,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ContactPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
@@ -25,25 +27,25 @@ export default function ContactPage() {
         <section className="py-16 sm:py-24">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-                ¿Necesitas ayuda con tu paquete?
+              <h1 className="text-4xl sm:text-5xl font-black tracking-tighter text-foreground mb-4 uppercase">
+                {t.contact.title}
               </h1>
-              <p className="mt-4 text-lg text-muted-foreground">
-                Nuestro equipo humano está al otro lado de la tecnología. Escríbenos y te responderemos lo antes posible para que tu experiencia con los lockers sea perfecta.
+              <p className="mt-4 text-lg text-muted-foreground font-medium">
+                {t.contact.subtitle}
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-16 items-start">
                 <div className="space-y-8">
-                    <h2 className="text-2xl font-bold text-foreground">Información de Contacto</h2>
+                    <h2 className="text-2xl font-black text-foreground uppercase tracking-tighter">{t.contact.infoTitle}</h2>
                     <div className="space-y-6">
                         <div className="flex items-start gap-4">
                             <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
                                 <MapPin className="h-6 w-6 text-primary" />
                             </div>
                             <div>
-                                <h3 className="font-semibold text-lg text-foreground">Sede Operativa</h3>
-                                <p className="text-muted-foreground">Calle Resina, 41<br />28021, Madrid, España</p>
+                                <h3 className="font-black text-lg text-foreground uppercase tracking-tighter">{t.contact.hq}</h3>
+                                <p className="text-muted-foreground font-medium">Calle Resina, 41<br />28021, Madrid, España</p>
                             </div>
                         </div>
                          <div className="flex items-start gap-4">
@@ -51,8 +53,8 @@ export default function ContactPage() {
                                 <Mail className="h-6 w-6 text-primary" />
                             </div>
                             <div>
-                                <h3 className="font-semibold text-lg text-foreground">Atención al Cliente</h3>
-                                <p className="text-muted-foreground">info@intrack-logistics.cat</p>
+                                <h3 className="font-black text-lg text-foreground uppercase tracking-tighter">{t.contact.support}</h3>
+                                <p className="text-muted-foreground font-medium">info@intrack-logistics.cat</p>
                             </div>
                         </div>
                          <div className="flex items-start gap-4">
@@ -60,70 +62,68 @@ export default function ContactPage() {
                                 <Phone className="h-6 w-6 text-primary" />
                             </div>
                             <div>
-                                <h3 className="font-semibold text-lg text-foreground">Teléfono Soporte</h3>
-                                <p className="text-muted-foreground">+34 912 345 678</p>
+                                <h3 className="font-black text-lg text-foreground uppercase tracking-tighter">{t.contact.phone}</h3>
+                                <p className="text-muted-foreground font-medium">+34 912 345 678</p>
                             </div>
                         </div>
                     </div>
                     
-                    {/* Cuadro de ayuda rápida adicional */}
-                    <div className="p-6 bg-muted rounded-xl border border-border">
-                        <h4 className="font-bold flex items-center gap-2 mb-2">
-                            <MessageSquare className="h-5 w-5 text-primary" /> 
-                            ¿Duda urgente?
+                    <div className="p-6 bg-muted rounded-xl border-2 border-emerald-500/20 shadow-inner">
+                        <h4 className="font-black flex items-center gap-2 mb-2 uppercase tracking-tighter text-emerald-700">
+                            <MessageSquare className="h-5 w-5" /> 
+                            {t.contact.urgentTitle}
                         </h4>
-                        <p className="text-sm text-muted-foreground">
-                            Si has perdido tu código de recogida, recuerda que puedes encontrarlo en el SMS o Email de confirmación que te enviamos al depositar el paquete.
+                        <p className="text-sm text-muted-foreground font-medium">
+                            {t.contact.urgentDesc}
                         </p>
                     </div>
                 </div>
 
                 <div>
-                     <Card className="border-2 shadow-lg">
+                     <Card className="border-4 border-emerald-500/10 shadow-2xl">
                         <CardHeader>
-                            <CardTitle className="text-2xl">Cuéntanos qué ocurre</CardTitle>
+                            <CardTitle className="text-2xl font-black uppercase tracking-tighter">{t.contact.formTitle}</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            {/* Importante: Mantener el action de Formspree */}
                             <form action="https://formspree.io/f/xrbnkanl" method="POST" className="space-y-5">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label htmlFor="name">Nombre</Label>
-                                        <Input id="name" name="name" placeholder="Tu nombre" required />
+                                        <Label htmlFor="name" className="font-black uppercase text-[10px] tracking-widest">{t.contact.name}</Label>
+                                        <Input id="name" name="name" placeholder={t.contact.name} required className="font-bold" />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="email">Email</Label>
-                                        <Input id="email" name="email" type="email" placeholder="tu@email.com" required />
+                                        <Label htmlFor="email" className="font-black uppercase text-[10px] tracking-widest">{t.contact.email}</Label>
+                                        <Input id="email" name="email" type="email" placeholder="tu@email.com" required className="font-bold" />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="reason">Motivo de la consulta</Label>
+                                    <Label htmlFor="reason" className="font-black uppercase text-[10px] tracking-widest">{t.contact.reason}</Label>
                                     <Select name="reason" required>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Selecciona una opción" />
+                                        <SelectTrigger className="font-bold">
+                                            <SelectValue placeholder={t.contact.reasonPlaceholder} />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="codigo">Problema con mi código / Locker</SelectItem>
-                                            <SelectItem value="internacional">Envío Internacional</SelectItem>
-                                            <SelectItem value="ecommerce">Soy un E-commerce / Empresa</SelectItem>
-                                            <SelectItem value="otro">Otros asuntos</SelectItem>
+                                            <SelectItem value="codigo" className="font-bold">{t.contact.reasons.code}</SelectItem>
+                                            <SelectItem value="internacional" className="font-bold">{t.contact.reasons.intl}</SelectItem>
+                                            <SelectItem value="ecommerce" className="font-bold">{t.contact.reasons.biz}</SelectItem>
+                                            <SelectItem value="otro" className="font-bold">{t.contact.reasons.other}</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="order">ID de Pedido o Locker (Opcional)</Label>
-                                    <Input id="order" name="order_id" placeholder="Ej: INT-12345" />
+                                    <Label htmlFor="order" className="font-black uppercase text-[10px] tracking-widest">{t.contact.orderId}</Label>
+                                    <Input id="order" name="order_id" placeholder="Ej: INT-12345" className="font-bold" />
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="message">Mensaje</Label>
-                                    <Textarea id="message" name="message" placeholder="¿En qué podemos ayudarte hoy?" className="min-h-[100px]" required />
+                                    <Label htmlFor="message" className="font-black uppercase text-[10px] tracking-widest">{t.contact.message}</Label>
+                                    <Textarea id="message" name="message" placeholder={t.contact.messagePlaceholder} className="min-h-[100px] font-bold" required />
                                 </div>
 
-                                <Button type="submit" className="w-full text-lg h-12">
-                                    Contactar ahora
+                                <Button type="submit" className="w-full text-lg h-14 font-black uppercase tracking-widest bg-emerald-600 hover:bg-emerald-700 shadow-lg active:scale-[0.98] transition-all">
+                                    {t.contact.submit}
                                 </Button>
                             </form>
                         </CardContent>

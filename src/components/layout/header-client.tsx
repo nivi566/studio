@@ -2,13 +2,15 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Menu, X, LogOut, LayoutDashboard, FileText, ClipboardList } from 'lucide-react';
+import { Menu, X, LogOut, LayoutDashboard, FileText, ClipboardList, Globe } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { Logo } from '@/components/icons/logo';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
+import { Language } from '@/lib/translations';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { cn } from '@/lib/utils';
 
 type NavLink = {
   href: string;
@@ -29,16 +32,15 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout, isLoading } = useAuth();
+  const { language, setLanguage, t } = useLanguage();
 
   const isAnchorLink = (href: string) => href.startsWith('/#');
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (isAnchorLink(href)) {
       if (pathname !== '/') { 
-        // Si no estamos en la home, dejamos que Link haga la navegación normal
         setIsMenuOpen(false);
       } else {
-        // Si estamos en la home, hacemos scroll suave manual
         e.preventDefault();
         const targetId = href.substring(2);
         const targetElement = document.getElementById(targetId);
@@ -63,6 +65,25 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   }
 
+  const LanguageSelector = () => (
+    <div className="flex items-center gap-1 bg-muted/50 p-1 rounded-lg border border-border/50">
+      {(['es', 'ca', 'en'] as Language[]).map((lang) => (
+        <button
+          key={lang}
+          onClick={() => setLanguage(lang)}
+          className={cn(
+            "px-2 py-1 text-[10px] font-black rounded-md transition-all uppercase tracking-tighter",
+            language === lang 
+              ? "bg-emerald-500 text-white shadow-sm" 
+              : "text-muted-foreground hover:text-foreground"
+          )}
+        >
+          {lang}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
     <>
       <nav className="hidden md:flex md:items-center md:gap-6 text-sm">
@@ -71,14 +92,19 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
             key={link.href}
             href={link.href}
             onClick={(e) => handleNavClick(e, link.href)}
-            className="font-semibold text-foreground/70 transition-colors hover:text-primary"
+            className="font-black text-foreground/70 transition-colors hover:text-primary uppercase tracking-tight"
           >
             {link.label}
           </Link>
         ))}
       </nav>
 
-      <div className="flex flex-1 items-center justify-end gap-2">
+      <div className="flex flex-1 items-center justify-end gap-4">
+        {/* Selector de Idioma */}
+        <div className="hidden sm:block">
+          <LanguageSelector />
+        </div>
+
         {!isLoading && (
           user ? (
             <DropdownMenu>
@@ -92,35 +118,31 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
               <DropdownMenuContent className="w-56" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-bold leading-none">{user.nom}</p>
+                    <p className="text-sm font-black leading-none">{user.nom}</p>
                     <p className="text-xs leading-none text-muted-foreground">
                       {user.empresa}
                     </p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => router.push('/dashboard')} className="cursor-pointer">
+                <DropdownMenuItem onClick={() => router.push('/dashboard')} className="cursor-pointer font-bold">
                   <LayoutDashboard className="mr-2 h-4 w-4" />
-                  <span>Mi perfil</span>
+                  <span>{t.nav.profile}</span>
                 </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => router.push('/documents')} className="cursor-pointer">
+                  <DropdownMenuItem onClick={() => router.push('/documents')} className="cursor-pointer font-bold">
                   <FileText className="mr-2 h-4 w-4" />
-                  <span>Mis Facturas</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push('/albaranes')} className="cursor-pointer">
-                  <ClipboardList className="mr-2 h-4 w-4" />
-                  <span>Mis Albaranes</span>
+                  <span>{t.nav.invoices}</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={logout} className="text-destructive cursor-pointer focus:text-destructive">
+                <DropdownMenuItem onClick={logout} className="text-destructive cursor-pointer focus:text-destructive font-bold">
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Salir</span>
+                  <span>{t.nav.logout}</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-              <Button asChild style={{ backgroundColor: '#0B3C5D', color: 'white' }} className="shadow-md hover:shadow-lg transition-all active:scale-95">
-              <Link href="/login">Iniciar Sesión</Link>
+              <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white font-black uppercase tracking-tight shadow-md hover:shadow-lg transition-all active:scale-95 text-xs h-9 px-4">
+              <Link href="/login">{t.nav.login}</Link>
             </Button>
           )
         )}
@@ -141,12 +163,17 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
                   <X className="h-6 w-6" />
                 </Button>
               </div>
-              <nav className="mt-8 flex flex-1 flex-col gap-4">
+              
+              <div className="py-4 flex justify-center border-b">
+                <LanguageSelector />
+              </div>
+
+              <nav className="mt-4 flex flex-1 flex-col gap-2">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="text-lg font-bold text-foreground hover:text-primary transition-colors py-2 border-b border-border/50"
+                    className="text-xl font-black text-foreground hover:text-primary transition-colors py-3 border-b border-border/30 uppercase tracking-tighter"
                     onClick={(e) => handleNavClick(e, link.href)}
                   >
                     {link.label}
@@ -155,8 +182,8 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
               </nav>
               <div className="mt-auto pb-8">
                  {!isLoading && !user && (
-                    <Button asChild className="w-full" size="lg" style={{ backgroundColor: '#0B3C5D' }}>
-                      <Link href="/login">Iniciar Sesión</Link>
+                    <Button asChild className="w-full bg-emerald-600 hover:bg-emerald-700 font-black uppercase tracking-widest" size="lg">
+                      <Link href="/login">{t.nav.login}</Link>
                     </Button>
                  )}
               </div>

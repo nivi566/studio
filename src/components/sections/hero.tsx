@@ -2,8 +2,11 @@
 
 import Image from 'next/image';
 import { ShippingCalculator } from '@/components/shipping-calculator';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section className="relative min-h-[85vh] w-full flex items-center justify-center overflow-hidden bg-slate-900">
       <Image
@@ -20,17 +23,17 @@ export function Hero() {
       <div className="relative container mx-auto px-4 z-10 grid md:grid-cols-2 gap-12 lg:gap-24 items-center">
         <div className="space-y-8 text-center md:text-left text-white animate-in fade-in slide-in-from-left-8 duration-700">
           <div className="space-y-4">
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight drop-shadow-2xl leading-tight">
-              Tu paquete, <br/><span className="text-primary italic">a tu ritmo.</span>
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter drop-shadow-2xl leading-tight uppercase">
+              {t.hero.title} <br/><span className="text-primary italic font-black">{t.hero.titleItalic}</span>
             </h1>
             <p className="text-lg md:text-2xl text-neutral-200 max-w-xl mx-auto md:mx-0 font-medium leading-relaxed drop-shadow-lg">
-              Envíos nacionales e internacionales con la red de lockers más segura y rápida del mercado.
+              {t.hero.subtitle}
             </p>
           </div>
           <div className="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
-                <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-sm font-semibold">Servicio 24/7 activo</span>
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-sm font-black uppercase tracking-tight">{t.hero.badge}</span>
              </div>
           </div>
         </div>

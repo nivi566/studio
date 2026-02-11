@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from '@/context/AuthContext';
+import { LanguageProvider } from '@/context/LanguageContext';
 
 export const metadata: Metadata = {
   title: 'InTrack | Logística Inteligente y Envíos 24h',
@@ -30,7 +31,7 @@ const inter = Inter({
   subsets: ['latin'], 
   variable: '--font-inter', 
   display: 'swap',
-  weight: ['400', '500', '600', '700', '800'] 
+  weight: ['400', '500', '600', '700', '800', '900'] 
 });
 
 export default function RootLayout({
@@ -41,10 +42,12 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} scroll-smooth`}>
        <body className="font-body antialiased selection:bg-primary/30 selection:text-primary-foreground">
-        <AuthProvider>
-          {children}
-          <Toaster />
-        </AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            {children}
+            <Toaster />
+          </AuthProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

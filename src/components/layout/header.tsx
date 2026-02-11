@@ -1,37 +1,22 @@
 'use client';
 
 import * as React from 'react';
-import Link from 'next/link';
-import { Menu, X, LogOut, LayoutDashboard, FileText } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
-
-import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Logo } from '@/components/icons/logo';
-import { useAuth } from '@/context/AuthContext';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
 import { HeaderClient } from './header-client';
 
 export function Header({ className }: { className?: string }) {
+  const { t } = useLanguage();
   
   const navLinks = [
-    { href: '/', label: "Inicio" },
-    { href: '/#services', label: "Servicios" },
-    { href: '/tracking', label: "Seguir mi pedido" },
-    { href: '/quienes-somos', label: "Quiénes somos" },
-    { href: '/puntos-de-recogida', label: "Puntos de Recogida" },
-    { href: '/blog', label: "Blog" },
-    { href: '/contacto', label: "Contacto" },
-    { href: '/assistent', label: "Asistente" },
+    { href: '/', label: t.nav.home },
+    { href: '/#services', label: t.nav.services },
+    { href: '/tracking', label: t.nav.tracking },
+    { href: '/quienes-somos', label: t.nav.about },
+    { href: '/puntos-de-recogida', label: t.nav.pickup },
+    { href: '/contacto', label: t.nav.contact },
+    { href: '/assistent', label: t.nav.assistant },
   ];
 
   return (
