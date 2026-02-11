@@ -144,7 +144,7 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-              <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white font-black tracking-tight shadow-md hover:shadow-lg transition-all active:scale-95 text-xs h-9 px-4">
+              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-black tracking-tight shadow-md hover:shadow-lg transition-all active:scale-95 text-xs h-9 px-4">
               <Link href="/login">{t.nav.login}</Link>
             </Button>
           )
@@ -185,7 +185,7 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
               </nav>
               <div className="mt-auto pb-8">
                  {!isLoading && !user && (
-                    <Button asChild className="w-full bg-emerald-600 hover:bg-emerald-700 font-black tracking-widest" size="lg">
+                    <Button asChild className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-black tracking-widest" size="lg">
                       <Link href="/login">{t.nav.login}</Link>
                     </Button>
                  )}
