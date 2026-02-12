@@ -1,56 +1,46 @@
+"use client";
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
-
-const pricingTiers = [
-    {
-        name: 'Nacional',
-        price: '4,99€',
-        priceDetails: 'por envío estándar',
-        description: 'Ideal para envíos no urgentes dentro del territorio nacional.',
-        features: [
-            'Entrega en 48/72 horas',
-            'Seguimiento en línea incluido',
-            'Cobertura en toda la península',
-            'Seguro básico incluido'
-        ],
-        buttonText: 'Comenzar ahora',
-        featured: false
-    },
-    {
-        name: 'Express 24h',
-        price: '8,99€',
-        priceDetails: 'por envío urgente',
-        description: 'La solución perfecta para cuando el tiempo es un factor clave.',
-        features: [
-            'Entrega garantizada en 24 horas',
-            'Seguimiento prioritario en tiempo real',
-            'Recogida a domicilio preferente',
-            'Notificaciones por SMS'
-        ],
-        buttonText: 'Seleccionar Express',
-        featured: true,
-        popularText: 'Más Popular'
-    },
-    {
-        name: 'Internacional',
-        price: 'Consultar',
-        priceDetails: 'según destino y peso',
-        description: 'Conecta con el mundo con nuestras tarifas competitivas.',
-        features: [
-            'Entrega en toda Europa en 3-5 días',
-            'Gestión de aduanas incluida',
-            'Red global de transportistas',
-            'Seguimiento internacional completo'
-        ],
-        buttonText: 'Calcular envío',
-        featured: false
-    }
-];
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function PricingPage() {
+    const { t } = useLanguage();
+    const p = t.pricingPage;
+
+    const pricingTiers = [
+        {
+            name: p.tiers.national.name,
+            price: '4,99€',
+            priceDetails: p.tiers.national.details,
+            description: p.tiers.national.desc,
+            features: p.tiers.national.features,
+            buttonText: p.tiers.national.cta,
+            featured: false
+        },
+        {
+            name: p.tiers.express.name,
+            price: '8,99€',
+            priceDetails: p.tiers.express.details,
+            description: p.tiers.express.desc,
+            features: p.tiers.express.features,
+            buttonText: p.tiers.express.cta,
+            featured: true,
+            popularText: p.tiers.express.popular
+        },
+        {
+            name: p.tiers.intl.name,
+            price: p.tiers.intl.priceText,
+            priceDetails: p.tiers.intl.details,
+            description: p.tiers.intl.desc,
+            features: p.tiers.intl.features,
+            buttonText: p.tiers.intl.cta,
+            featured: false
+        }
+    ];
+
     return (
         <div className="flex min-h-screen flex-col bg-background">
             <Header />
@@ -58,10 +48,10 @@ export default function PricingPage() {
                 <div className="container mx-auto px-4">
                     <div className="text-center max-w-3xl mx-auto mb-16">
                         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-                            Nuestras tarifas
+                            {p.title}
                         </h1>
                         <p className="mt-4 text-lg text-muted-foreground">
-                            Elige el plan que mejor se adapte a tus necesidades. Precios claros y sin sorpresas.
+                            {p.subtitle}
                         </p>
                     </div>
 

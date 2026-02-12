@@ -12,54 +12,21 @@ import {
   DialogClose
 } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button';
-
-const urgentShipmentsService = {
-  icon: Zap,
-  title: 'Envíos Urgentes 24h',
-  description: 'La solución más rápida para tus envíos más importantes. Cobertura nacional garantizada.',
-};
-
-const guaranteedDeliveriesService = {
-  icon: Package,
-  title: 'Recepción de paquetería nacional',
-  description: 'Tu paquete está protegido en nuestras taquillas de alta seguridad hasta que tú lo retires.',
-};
-
-const realTimeTrackingService = {
-  icon: Smartphone,
-  title: 'Seguimiento en Tiempo Real',
-  description: 'Controla la ubicación de tu paquete en cada momento, desde la recogida hasta la entrega final.',
-};
-
-const pricingService = {
-  icon: DollarSign,
-  title: 'Tarifas',
-  description: 'Consulta nuestros precios competitivos para envíos nacionales, urgentes e internacionales.',
-};
-
-const internationalShoppingService = {
-  icon: Globe,
-  title: 'Compras Internacionales',
-  description: 'Compra en cualquier tienda del mundo y recibe tus paquetes de forma segura en nuestra red de lockers.',
-};
-
-const b2bSolutionsService = {
-  icon: Building2,
-  title: 'Soluciones para Empresas y E-commerce (B2B)',
-  description: 'Optimizamos la logística de tu negocio con integraciones personalizadas, tarifas por volumen y gestión de devoluciones.',
-};
-
+import { useLanguage } from '@/context/LanguageContext';
 
 export function Services() {
+  const { t } = useLanguage();
+  const s = t.services.items;
+
   return (
     <section id="services" className="py-16 sm:py-24 bg-primary/5">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-            Una solución para cada necesidad
+            {t.services.title}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            La red de lockers inteligentes que se adapta a tu ritmo de vida
+            {t.services.subtitle}
           </p>
         </div>
 
@@ -70,12 +37,12 @@ export function Services() {
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
                   <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
-                    <guaranteedDeliveriesService.icon className="h-8 w-8 text-[#0B3C5D]" />
+                    <Package className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
-                  <CardTitle className="mt-4">{guaranteedDeliveriesService.title}</CardTitle>
+                  <CardTitle className="mt-4">{s.reception.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{guaranteedDeliveriesService.description}</p>
+                  <p className="text-muted-foreground">{s.reception.desc}</p>
                 </CardContent>
               </Card>
             </DialogTrigger>
@@ -83,10 +50,10 @@ export function Services() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <Package className="h-6 w-6 text-[#0B3C5D]" />
-                  Recepción de paquetería nacional
+                  {s.reception.detail.title}
                 </DialogTitle>
                 <DialogDescription>
-                  Tu tranquilidad es nuestra prioridad. Por eso, tu paquete está protegido desde que llega a nuestras manos hasta que tú lo retiras.
+                  {s.reception.detail.intro}
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4 space-y-4 text-sm text-muted-foreground">
@@ -94,26 +61,26 @@ export function Services() {
                   <li className="flex items-start gap-3">
                     <Lock className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div>
-                      <span className="font-semibold text-foreground">Custodia Blindada:</span> Una vez recibido en nuestro punto, tu paquete se almacena en taquillas de alta seguridad con vigilancia, evitando robos o daños en el portal de tu casa.
+                      <span className="font-semibold text-foreground">{s.reception.detail.f1}</span> {s.reception.detail.f1d}
                     </div>
                   </li>
                    <li className="flex items-start gap-3">
                     <Bell className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div>
-                      <span className="font-semibold text-foreground">Notificación Instantánea:</span> Garantizamos el aviso inmediato vía App/SMS en cuanto tu pedido es depositado. Sabrás en tiempo real que tu compra ya está a salvo con nosotros.
+                      <span className="font-semibold text-foreground">{s.reception.detail.f2}</span> {s.reception.detail.f2d}
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <Clock className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
                     <div>
-                      <span className="font-semibold text-foreground">Garantía de Disponibilidad 24/7:</span> Nos comprometemos a que el punto de recogida elegido esté operativo y accesible para ti en el momento que decidas, sin errores de acceso.
+                      <span className="font-semibold text-foreground">{s.reception.detail.f3}</span> {s.reception.detail.f3d}
                     </div>
                   </li>
                 </ul>
-                <p className="pt-2 font-bold text-foreground">Compra con la confianza de que tus pedidos nacionales están en las mejores manos, protegidos de imprevistos y esperas innecesarias.</p>
+                <p className="pt-2 font-bold text-foreground">{s.reception.detail.footer}</p>
               </div>
                <DialogClose asChild>
-                <Button type="button" variant="secondary">Cerrar</Button>
+                <Button type="button" variant="secondary">OK</Button>
               </DialogClose>
             </DialogContent>
           </Dialog>
@@ -124,12 +91,12 @@ export function Services() {
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
                   <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
-                    <internationalShoppingService.icon className="h-8 w-8 text-[#0B3C5D]" />
+                    <Globe className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
-                  <CardTitle className="mt-4">{internationalShoppingService.title}</CardTitle>
+                  <CardTitle className="mt-4">{s.intl.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{internationalShoppingService.description}</p>
+                  <p className="text-muted-foreground">{s.intl.desc}</p>
                 </CardContent>
               </Card>
             </DialogTrigger>
@@ -137,32 +104,31 @@ export function Services() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <Globe className="h-6 w-6 text-[#0B3C5D]" />
-                  Compras Internacionales
+                  {s.intl.detail.title}
                 </DialogTitle>
                 <DialogDescription>
-                  Compra en tus tiendas favoritas de EE.UU., China o Europa y recíbelo aquí.
+                  {s.intl.detail.intro}
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4 space-y-4 text-sm text-muted-foreground">
-                <p>¿Quieres comprar en una tienda que no envía a tu país? Con nuestro servicio de Compras Internacionales, te proporcionamos una dirección de entrega en los principales hubs logísticos del mundo.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
                     <Globe className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Dirección Global:</span> Compra como si vivieras allí y nosotros nos encargamos de traerlo a tu locker local.</div>
+                    <div><span className="font-semibold text-foreground">{s.intl.detail.f1}</span> {s.intl.detail.f1d}</div>
                   </li>
                    <li className="flex items-start gap-3">
                     <CreditCard className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Consolidación de Paquetes:</span> Agrupamos varias compras en un solo envío para que ahorres en gastos de transporte.</div>
+                    <div><span className="font-semibold text-foreground">{s.intl.detail.f2}</span> {s.intl.detail.f2d}</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <ShieldCheck className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Gestión de Aduanas:</span> Olvídate de papeleos complicados. Tramitamos los impuestos y aranceles por ti.</div>
+                    <div><span className="font-semibold text-foreground">{s.intl.detail.f3}</span> {s.intl.detail.f3d}</div>
                   </li>
                 </ul>
-                <p className="font-bold text-foreground">Expande tus posibilidades de compra sin fronteras y con la seguridad de InTrack.</p>
+                <p className="font-bold text-foreground">{s.intl.detail.footer}</p>
               </div>
                <DialogClose asChild>
-                <Button type="button" variant="secondary">Cerrar</Button>
+                <Button type="button" variant="secondary">OK</Button>
               </DialogClose>
             </DialogContent>
           </Dialog>
@@ -173,12 +139,12 @@ export function Services() {
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
                   <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
-                    <b2bSolutionsService.icon className="h-8 w-8 text-[#0B3C5D]" />
+                    <Building2 className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
-                  <CardTitle className="mt-4">{b2bSolutionsService.title}</CardTitle>
+                  <CardTitle className="mt-4">{s.b2b.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{b2bSolutionsService.description}</p>
+                  <p className="text-muted-foreground">{s.b2b.desc}</p>
                 </CardContent>
               </Card>
             </DialogTrigger>
@@ -186,32 +152,31 @@ export function Services() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <Building2 className="h-6 w-6 text-[#0B3C5D]" />
-                  Soluciones B2B y E-commerce
+                  {s.b2b.detail.title}
                 </DialogTitle>
                 <DialogDescription>
-                  Impulsa la logística de tu negocio con herramientas diseñadas para crecer.
+                  {s.b2b.detail.intro}
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4 space-y-4 text-sm text-muted-foreground">
-                <p>Entendemos los retos de la logística moderna. Por eso ofrecemos soluciones personalizadas para empresas que buscan eficiencia y escalabilidad.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
                     <Layers className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Integración API/Plugins:</span> Conecta tu tienda online directamente con nuestra red para automatizar envíos.</div>
+                    <div><span className="font-semibold text-foreground">{s.b2b.detail.f1}</span> {s.b2b.detail.f1d}</div>
                   </li>
                    <li className="flex items-start gap-3">
                     <TrendingUp className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Tarifas Corporativas:</span> Accede a precios preferenciales basados en tu volumen mensual de envíos.</div>
+                    <div><span className="font-semibold text-foreground">{s.b2b.detail.f2}</span> {s.b2b.detail.f2d}</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <Undo2 className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Logística Inversa:</span> Gestiona las devoluciones de tus clientes de forma sencilla a través de nuestros lockers.</div>
+                    <div><span className="font-semibold text-foreground">{s.b2b.detail.f3}</span> {s.b2b.detail.f3d}</div>
                   </li>
                 </ul>
-                <p className="font-bold text-foreground">Impulsa el crecimiento de tu negocio con un socio logístico que entiende tus necesidades.</p>
+                <p className="font-bold text-foreground">{s.b2b.detail.footer}</p>
               </div>
                <DialogClose asChild>
-                <Button type="button" variant="secondary">Cerrar</Button>
+                <Button type="button" variant="secondary">OK</Button>
               </DialogClose>
             </DialogContent>
           </Dialog>
@@ -222,12 +187,12 @@ export function Services() {
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
                   <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
-                    <urgentShipmentsService.icon className="h-8 w-8 text-[#0B3C5D]" />
+                    <Zap className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
-                  <CardTitle className="mt-4">{urgentShipmentsService.title}</CardTitle>
+                  <CardTitle className="mt-4">{s.urgent.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{urgentShipmentsService.description}</p>
+                  <p className="text-muted-foreground">{s.urgent.desc}</p>
                 </CardContent>
               </Card>
             </DialogTrigger>
@@ -235,32 +200,31 @@ export function Services() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <Zap className="h-6 w-6 text-[#0B3C5D]" />
-                  Envíos Urgentes 24h
+                  {s.urgent.detail.title}
                 </DialogTitle>
                 <DialogDescription>
-                  La solución más rápida para tus envíos más importantes.
+                  {s.urgent.detail.intro}
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4 space-y-4 text-sm text-muted-foreground">
-                <p>Cuando el tiempo apremia, nuestro servicio de Envíos Urgentes 24h es tu mejor aliado. Garantizamos la entrega de tu paquete en cualquier punto de la península en un plazo máximo de 24 horas laborables.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
                     <Rocket className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Máxima Prioridad:</span> Tu envío es tratado con la máxima urgencia en todos nuestros procesos logísticos.</div>
+                    <div><span className="font-semibold text-foreground">{s.urgent.detail.f1}</span> {s.urgent.detail.f1d}</div>
                   </li>
                    <li className="flex items-start gap-3">
                     <Clock className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Entrega al Día Siguiente:</span> Recogemos tu paquete y lo entregamos a lo largo del siguiente día laborable.</div>
+                    <div><span className="font-semibold text-foreground">{s.urgent.detail.f2}</span> {s.urgent.detail.f2d}</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <MapPin className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Seguimiento Detallado:</span> Incluye nuestro seguimiento en tiempo real para que no pierdas de vista tu envío ni un segundo.</div>
+                    <div><span className="font-semibold text-foreground">{s.urgent.detail.f3}</span> {s.urgent.detail.f3d}</div>
                   </li>
                 </ul>
-                <p className="font-bold text-foreground">Perfecto para documentos importantes, regalos de última hora o cualquier situación que requiera velocidad y fiabilidad.</p>
+                <p className="font-bold text-foreground">{s.urgent.detail.footer}</p>
               </div>
                <DialogClose asChild>
-                <Button type="button" variant="secondary">Cerrar</Button>
+                <Button type="button" variant="secondary">OK</Button>
               </DialogClose>
             </DialogContent>
           </Dialog>
@@ -271,12 +235,12 @@ export function Services() {
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
                   <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
-                    <realTimeTrackingService.icon className="h-8 w-8 text-[#0B3C5D]" />
+                    <Smartphone className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
-                  <CardTitle className="mt-4">{realTimeTrackingService.title}</CardTitle>
+                  <CardTitle className="mt-4">{s.tracking.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{realTimeTrackingService.description}</p>
+                  <p className="text-muted-foreground">{s.tracking.desc}</p>
                 </CardContent>
               </Card>
             </DialogTrigger>
@@ -284,32 +248,31 @@ export function Services() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <Smartphone className="h-6 w-6 text-[#0B3C5D]" />
-                  Seguimiento en Tiempo Real
+                  {s.tracking.detail.title}
                 </DialogTitle>
                 <DialogDescription>
-                  Ten el control total sobre tu envío con nuestra tecnología de seguimiento avanzada.
+                  {s.tracking.detail.intro}
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4 space-y-4 text-sm text-muted-foreground">
-                <p>Nuestra plataforma de seguimiento te ofrece tranquilidad al permitirte ver la ubicación exacta de tu paquete en cada etapa del viaje, desde cualquier dispositivo.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
                     <MapPin className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Visualización en Mapa:</span> Observa el progreso de tu envío en un mapa interactivo y en tiempo real.</div>
+                    <div><span className="font-semibold text-foreground">{s.tracking.detail.f1}</span> {s.tracking.detail.f1d}</div>
                   </li>
                    <li className="flex items-start gap-3">
                     <Package className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Actualizaciones de Estado:</span> Recibe notificaciones automáticas en cada punto clave: recogida, en tránsito, en reparto y entregado.</div>
+                    <div><span className="font-semibold text-foreground">{s.tracking.detail.f2}</span> {s.tracking.detail.f2d}</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <Globe className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Estimación de Entrega:</span> Accede a una ventana de tiempo de entrega estimada que se actualiza dinámicamente según las condiciones del tráfico y la ruta.</div>
+                    <div><span className="font-semibold text-foreground">{s.tracking.detail.f3}</span> {s.tracking.detail.f3d}</div>
                   </li>
                 </ul>
-                <p className="font-bold text-foreground">El seguimiento en tiempo real está incluido en todos nuestros servicios sin coste adicional.</p>
+                <p className="font-bold text-foreground">{s.tracking.detail.footer}</p>
               </div>
                <DialogClose asChild>
-                <Button type="button" variant="secondary">Cerrar</Button>
+                <Button type="button" variant="secondary">OK</Button>
               </DialogClose>
             </DialogContent>
           </Dialog>
@@ -320,12 +283,12 @@ export function Services() {
                <Card className="text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                 <CardHeader className="items-center">
                   <div className="bg-[#0B3C5D]/10 p-3 rounded-full">
-                    <pricingService.icon className="h-8 w-8 text-[#0B3C5D]" />
+                    <PiggyBank className="h-8 w-8 text-[#0B3C5D]" />
                   </div>
-                  <CardTitle className="mt-4">{pricingService.title}</CardTitle>
+                  <CardTitle className="mt-4">{s.pricing.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{pricingService.description}</p>
+                  <p className="text-muted-foreground">{s.pricing.desc}</p>
                 </CardContent>
               </Card>
             </DialogTrigger>
@@ -333,37 +296,36 @@ export function Services() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <DollarSign className="h-6 w-6 text-[#0B3C5D]" />
-                  Nuestras Tarifas
+                  {s.pricing.detail.title}
                 </DialogTitle>
                 <DialogDescription>
-                  Planes de precios claros y competitivos para cada tipo de envío.
+                  {s.pricing.detail.intro}
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4 space-y-4 text-sm text-muted-foreground">
-                <p>Ofrecemos una estructura de precios transparente para que siempre sepas cuánto te costará tu envío. Sin sorpresas ni costes ocultos.</p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-3">
                     <PiggyBank className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Precios competitivos:</span> Tarifas ajustadas para envíos nacionales, urgentes e internacionales.</div>
+                    <div><span className="font-semibold text-foreground">{s.pricing.detail.f1}</span> {s.pricing.detail.f1d}</div>
                   </li>
                    <li className="flex items-start gap-3">
                     <Package className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Calculadora online:</span> Usa nuestra herramienta para obtener un presupuesto al instante para tu envío.</div>
+                    <div><span className="font-semibold text-foreground">{s.pricing.detail.f2}</span> {s.pricing.detail.f2d}</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <Globe className="h-5 w-5 text-[#0B3C5D] mt-0.5 shrink-0" />
-                    <div><span className="font-semibold text-foreground">Sin costes ocultos:</span> El precio que ves es el precio que pagas. Incluimos seguimiento y seguro básico.</div>
+                    <div><span className="font-semibold text-foreground">{s.pricing.detail.f3}</span> {s.pricing.detail.f3d}</div>
                   </li>
                 </ul>
-                <p className="font-bold text-foreground">Consulta nuestra página de tarifas para ver todos los detalles y encontrar el plan que mejor se adapta a ti.</p>
+                <p className="font-bold text-foreground">{s.pricing.detail.footer}</p>
               </div>
                 <div className="flex gap-2">
                    <DialogClose asChild>
-                    <Button type="button" variant="secondary" className="w-full">Cerrar</Button>
+                    <Button type="button" variant="secondary" className="w-full">OK</Button>
                   </DialogClose>
                   <Button asChild className="w-full">
                     <Link href="/tarifas" className="flex items-center gap-2">
-                        Ver Tarifas <ArrowRight />
+                        {s.pricing.detail.cta} <ArrowRight />
                     </Link>
                   </Button>
                 </div>

@@ -1,3 +1,4 @@
+"use client";
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
@@ -6,8 +7,10 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function Blog() {
+  const { t } = useLanguage();
   const latestPosts = blogPosts.slice(0, 3);
 
   return (
@@ -15,10 +18,10 @@ export function Blog() {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-            Nuestro Blog
+            {t.blogSection.title}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Mantente al día con las últimas noticias, tendencias y consejos del sector de la logística y la paquetería.
+            {t.blogSection.subtitle}
           </p>
         </div>
 
@@ -60,7 +63,7 @@ export function Blog() {
                 </CardContent>
                 <div className="p-6 pt-0">
                   <Link href={`/blog/${post.slug}`} className="text-sm font-semibold text-primary hover:underline flex items-center gap-1">
-                    Leer más <ArrowRight className="w-4 h-4" />
+                    {t.blogSection.readMore} <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
               </Card>
@@ -70,7 +73,7 @@ export function Blog() {
         
         <div className="text-center mt-12">
           <Button asChild size="lg">
-            <Link href="/blog">Ver todos los artículos</Link>
+            <Link href="/blog">{t.blogSection.cta}</Link>
           </Button>
         </div>
       </div>
