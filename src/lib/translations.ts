@@ -250,6 +250,18 @@ export const translations = {
       messagePlaceholder: '¿En qué podemos ayudarte hoy?',
       submit: 'Contactar ahora'
     },
+    login: {
+      title: 'Iniciar Sesión',
+      subtitle: 'Accede a tu área privada.',
+      email: 'Correo electrónico',
+      password: 'Contraseña',
+      button: 'Entrar',
+      entering: 'Entrando...',
+      back: 'Volver al inicio',
+      errorRequired: 'El correo electrónico y la contraseña son obligatorios.',
+      errorInvalid: 'Datos incorrectos. Verifica tu correo y contraseña.',
+      errorServer: 'Ha ocurrido un error inesperado o de conexión.'
+    },
     footer: {
       desc: 'Tu solución de confianza para envíos nacionales e internacionales. Rapidez, seguridad y precios competitivos.',
       newsletter: 'Subscríbete a nuestro boletín',
@@ -507,6 +519,18 @@ export const translations = {
       messagePlaceholder: 'En què et podem ajudar avui?',
       submit: 'Contactar ara'
     },
+    login: {
+      title: 'Iniciar Sessió',
+      subtitle: 'Accedeix a la teva àrea privada.',
+      email: 'Correu electrònic',
+      password: 'Contrasenya',
+      button: 'Entrar',
+      entering: 'Entrant...',
+      back: 'Tornar a l\'inici',
+      errorRequired: 'El correu electrònic i la contrasenya són obligatoris.',
+      errorInvalid: 'Dades incorrectes. Verifica el teu correu i contrasenya.',
+      errorServer: 'Ha hagut un error inesperat o de connexió.'
+    },
     footer: {
       desc: 'La teva solució de confiança per enviaments nacionals i internacionals. Rapidesa, seguretat i preus competitius.',
       newsletter: 'Subscriu-te al nostre butlletí',
@@ -687,7 +711,7 @@ export const translations = {
           name: 'International',
           details: 'depending on destination',
           desc: 'Connect with the world at competitive rates.',
-          features: ['Europe in 3-5 days', 'Customs management', 'Global network', 'Full tracking'],
+          features: ['Europa in 3-5 days', 'Customs management', 'Global network', 'Full tracking'],
           cta: 'Calculate shipping',
           priceText: 'Inquire'
         }
@@ -763,6 +787,18 @@ export const translations = {
       message: 'Message',
       messagePlaceholder: 'How can we help you today?',
       submit: 'Contact now'
+    },
+    login: {
+      title: 'Login',
+      subtitle: 'Access your private area.',
+      email: 'Email address',
+      password: 'Password',
+      button: 'Enter',
+      entering: 'Entering...',
+      back: 'Back to home',
+      errorRequired: 'Email and password are required.',
+      errorInvalid: 'Incorrect details. Check your email and password.',
+      errorServer: 'An unexpected or connection error occurred.'
     },
     footer: {
       desc: 'Your trusted solution for national and international shipments. Speed, security, and competitive prices.',
