@@ -51,7 +51,7 @@ export function CompetitiveAdvantages() {
                 <div className="bg-primary/10 p-4 rounded-xl w-fit mb-4 group-hover:scale-110 transition-transform">
                   <adv.icon className="h-8 w-8 text-primary" />
                 </div>
-                <CardTitle className="text-xl font-black uppercase tracking-tighter leading-tight">
+                <CardTitle className="text-xl font-black tracking-tighter leading-tight">
                   {adv.title}
                 </CardTitle>
               </CardHeader>
