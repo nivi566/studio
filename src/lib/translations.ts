@@ -137,7 +137,7 @@ export const translations = {
     },
     competitiveAdvantages: {
       sectionTitle: '¿Por qué elegir InTrack?',
-      agilityTitle: 'Agilidad Tecnológica',
+      agilityTitle: 'Logística flexible',
       agilityDesc: 'Nos adaptamos a las necesidades específicas de tu mercancía y a tu ritmo de ventas, sin estructuras rígidas.',
       humanTitle: 'Atención Personalizada',
       humanDesc: 'Soporte real por expertos logísticos. Hablamos de persona a persona, sin bots.',
@@ -333,7 +333,7 @@ export const translations = {
             title: 'Compres Internacionals',
             intro: 'Compra a les teves botigues preferides d\'EUA, Xina o Europa i rep-ho aquí.',
             f1: 'Adreça Global:',
-            f1d: 'Compra com si visquessis allà i nosaltres ho portem.',
+            f1d: 'Compra com si voguessis allà i nosaltres ho portem.',
             f2: 'Consolidació:',
             f2d: 'Agrupem diverses compres en un sol enviament perquè estalviïs.',
             f3: 'Duanes:',
@@ -417,9 +417,9 @@ export const translations = {
     },
     competitiveAdvantages: {
       sectionTitle: 'Per què triar InTrack?',
-      agilityTitle: 'Agilitat Tecnològica',
+      agilityTitle: 'Logística flexible',
       agilityDesc: 'Ens adaptem a les necessitats específiques de la teva mercaderia i al teu ritme de vendes, sense estructures rígidies.',
-      humanTitle: 'Atenció Personalitzada',
+      humanTitle: 'Atenció Personalizada',
       humanDesc: 'Suport real per experts logístics. Parlem de persona a persona, sense bots.',
       securityTitle: 'Seguretat Garantida',
       securityDesc: 'Els teus enviaments estan protegits amb assegurances premium i custòdia blindada.',
@@ -472,7 +472,7 @@ export const translations = {
     },
     aboutPage: {
       heroTitle: 'Connectant el teu món, un enviament alhora',
-      heroSubtitle: 'Som un equip apassionat per la innovació, l\'eficiència i les persones.',
+      heroSubtitle: 'Som un equip apassionat per la innovació, l\'effciència i les persones.',
       storyTitle: 'La Nostra Història',
       storyP1: 'InTrack va néixer d\'una idea simple: fer que la logística fos més intel·ligent i accessible.',
       storyP2: 'Avui oferim solucions innovadores amb taquilles intel·ligents i codis QR.',
@@ -697,7 +697,7 @@ export const translations = {
     },
     competitiveAdvantages: {
       sectionTitle: 'Why choose InTrack?',
-      agilityTitle: 'Tech Agility',
+      agilityTitle: 'Flexible Logistics',
       agilityDesc: 'We adapt to the specific needs of your goods and your sales pace, without rigid structures.',
       humanTitle: 'Personalized Support',
       humanDesc: 'Real support from logistics experts. We speak person to person, no bots.',
