@@ -138,7 +138,7 @@ export const translations = {
     competitiveAdvantages: {
       sectionTitle: '¿Por qué elegir InTrack?',
       agilityTitle: 'Agilidad Tecnológica',
-      agilityDesc: 'Optimización de rutas por IA para entregas en tiempo récord y eficiencia máxima.',
+      agilityDesc: 'Nos adaptamos a las necesidades específicas de tu mercancía y a tu ritmo de ventas, sin estructuras rígidas.',
       humanTitle: 'Atención Personalizada',
       humanDesc: 'Soporte real por expertos logísticos. Hablamos de persona a persona, sin bots.',
       securityTitle: 'Seguridad Garantizada',
@@ -379,7 +379,7 @@ export const translations = {
             intro: 'Tingues el control total sobre el teu enviament amb tecnologia avançada.',
             f1: 'Mapa Interactiu:',
             f1d: 'Observa el progrés de l\'enviament visualment.',
-            f2: 'Actualitzacions:',
+            f2: 'Actualizaciones:',
             f2d: 'Notificacions automàtiques en cada punt clau.',
             f3: 'ETA Dinàmic:',
             f3d: 'Estimació de lliurament actualitzada segons el trànsit.',
@@ -418,7 +418,7 @@ export const translations = {
     competitiveAdvantages: {
       sectionTitle: 'Per què triar InTrack?',
       agilityTitle: 'Agilitat Tecnològica',
-      agilityDesc: 'Optimització de rutes per IA per a lliuraments en temps rècord i eficiència màxima.',
+      agilityDesc: 'Ens adaptem a les necessitats específiques de la teva mercaderia i al teu ritme de vendes, sense estructures rígidies.',
       humanTitle: 'Atenció Personalitzada',
       humanDesc: 'Suport real per experts logístics. Parlem de persona a persona, sense bots.',
       securityTitle: 'Seguretat Garantida',
@@ -698,7 +698,7 @@ export const translations = {
     competitiveAdvantages: {
       sectionTitle: 'Why choose InTrack?',
       agilityTitle: 'Tech Agility',
-      agilityDesc: 'AI route optimization for record-time deliveries and maximum efficiency.',
+      agilityDesc: 'We adapt to the specific needs of your goods and your sales pace, without rigid structures.',
       humanTitle: 'Personalized Support',
       humanDesc: 'Real support from logistics experts. We speak person to person, no bots.',
       securityTitle: 'Guaranteed Security',
