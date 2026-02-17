@@ -35,9 +35,11 @@ export function CompetitiveAdvantages() {
   return (
     <section id="advantages" className="py-16 sm:py-24 bg-muted/30">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-center mb-16 text-foreground">
-          {c.sectionTitle}
-        </h2>
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+            {c.sectionTitle}
+          </h2>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {advantages.map((adv, index) => (
