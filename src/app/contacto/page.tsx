@@ -1,12 +1,13 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Phone, Mail, MapPin, MessageSquare } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageSquare, Calculator } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -19,6 +20,23 @@ import { useLanguage } from '@/context/LanguageContext';
 
 export default function ContactPage() {
   const { t } = useLanguage();
+  
+  // --- LÓGICA DE LA CALCULADORA ---
+  const [weight, setWeight] = useState<string>('');
+  const [shippingType, setShippingType] = useState<string>('nacional');
+  const [totalPrice, setTotalPrice] = useState<number | null>(null);
+
+  useEffect(() => {
+    const w = parseFloat(weight);
+    if (!isNaN(w) && w > 0) {
+      // Tarifas: Base 5€ + 2€/kg nacional o 5€/kg internacional
+      const base = 5;
+      const rate = shippingType === 'internacional' ? 5 : 2;
+      setTotalPrice(base + (w * rate));
+    } else {
+      setTotalPrice(null);
+    }
+  }, [weight, shippingType]);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -38,6 +56,49 @@ export default function ContactPage() {
             <div className="grid md:grid-cols-2 gap-16 items-start">
                 <div className="space-y-8">
                     <h2 className="text-2xl font-black text-foreground tracking-tighter">{t.contact.infoTitle}</h2>
+                    
+                    {/* BLOQUE CALCULADORA (Estilo Corporativo) */}
+                    <div className="p-6 bg-muted rounded-xl border-2 border-primary/20 shadow-inner">
+                        <h4 className="font-black flex items-center gap-2 mb-4 tracking-tighter text-primary">
+                            <Calculator className="h-5 w-5" /> 
+                            {t.contact.reasons?.code || "Calculadora de Envío"}
+                        </h4>
+                        <div className="grid grid-cols-2 gap-4 mb-4">
+                            <div className="space-y-2">
+                                <Label className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">
+                                    Peso (kg)
+                                </Label>
+                                <Input 
+                                    type="number" 
+                                    placeholder="0" 
+                                    value={weight} 
+                                    onChange={(e) => setWeight(e.target.value)}
+                                    className="font-bold bg-background"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">
+                                    Tipo
+                                </Label>
+                                <Select onValueChange={setShippingType} defaultValue="nacional">
+                                    <SelectTrigger className="font-bold bg-background text-foreground">
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="nacional" className="font-bold">{t.contact.reasons?.code || "Nacional"}</SelectItem>
+                                        <SelectItem value="internacional" className="font-bold">{t.contact.reasons?.intl || "Internacional"}</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+                        {totalPrice !== null && (
+                            <div className="text-center p-4 bg-primary rounded-lg shadow-lg">
+                                <p className="text-[10px] text-primary-foreground/70 font-black uppercase tracking-[0.2em]">Presupuesto Estimado</p>
+                                <p className="text-3xl font-black text-primary-foreground">{totalPrice.toFixed(2)}€</p>
+                            </div>
+                        )}
+                    </div>
+
                     <div className="space-y-6">
                         <div className="flex items-start gap-4">
                             <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
@@ -48,7 +109,7 @@ export default function ContactPage() {
                                 <p className="text-muted-foreground font-medium">Calle Resina, 41<br />28021, Madrid, España</p>
                             </div>
                         </div>
-                         <div className="flex items-start gap-4">
+                        <div className="flex items-start gap-4">
                             <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
                                 <Mail className="h-6 w-6 text-primary" />
                             </div>
@@ -57,28 +118,10 @@ export default function ContactPage() {
                                 <p className="text-muted-foreground font-medium">info@intrack-logistics.cat</p>
                             </div>
                         </div>
-                         <div className="flex items-start gap-4">
-                            <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
-                                <Phone className="h-6 w-6 text-primary" />
-                            </div>
-                            <div>
-                                <h3 className="font-black text-lg text-foreground tracking-tighter">{t.contact.phone}</h3>
-                                <p className="text-muted-foreground font-medium">+34 912 345 678</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div className="p-6 bg-muted rounded-xl border-2 border-primary/20 shadow-inner">
-                        <h4 className="font-black flex items-center gap-2 mb-2 tracking-tighter text-primary">
-                            <MessageSquare className="h-5 w-5" /> 
-                            {t.contact.urgentTitle}
-                        </h4>
-                        <p className="text-sm text-muted-foreground font-medium">
-                            {t.contact.urgentDesc}
-                        </p>
                     </div>
                 </div>
 
+                {/* FORMULARIO */}
                 <div>
                      <Card className="border-4 border-primary/10 shadow-2xl">
                         <CardHeader>
@@ -86,6 +129,11 @@ export default function ContactPage() {
                         </CardHeader>
                         <CardContent>
                             <form action="https://formspree.io/f/xrbnkanl" method="POST" className="space-y-5">
+                                {/* Datos invisibles que se envían por correo */}
+                                <input type="hidden" name="calculo_peso" value={weight} />
+                                <input type="hidden" name="calculo_tipo" value={shippingType} />
+                                <input type="hidden" name="precio_estimado" value={totalPrice || 'No calculado'} />
+
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label htmlFor="name" className="font-black uppercase text-[10px] tracking-widest">{t.contact.name}</Label>
@@ -100,21 +148,17 @@ export default function ContactPage() {
                                 <div className="space-y-2">
                                     <Label htmlFor="reason" className="font-black uppercase text-[10px] tracking-widest">{t.contact.reason}</Label>
                                     <Select name="reason" required>
-                                        <SelectTrigger className="font-bold">
+                                        <SelectTrigger className="font-bold text-foreground">
                                             <SelectValue placeholder={t.contact.reasonPlaceholder} />
                                         </SelectTrigger>
                                         <SelectContent>
+                                            <SelectItem value="presupuesto_calculado" className="font-bold text-primary">Solicitar Envío Calculado</SelectItem>
                                             <SelectItem value="codigo" className="font-bold">{t.contact.reasons.code}</SelectItem>
                                             <SelectItem value="internacional" className="font-bold">{t.contact.reasons.intl}</SelectItem>
                                             <SelectItem value="ecommerce" className="font-bold">{t.contact.reasons.biz}</SelectItem>
                                             <SelectItem value="otro" className="font-bold">{t.contact.reasons.other}</SelectItem>
                                         </SelectContent>
                                     </Select>
-                                </div>
-
-                                <div className="space-y-2">
-                                    <Label htmlFor="order" className="font-black uppercase text-[10px] tracking-widest">{t.contact.orderId}</Label>
-                                    <Input id="order" name="order_id" placeholder="Ej: INT-12345" className="font-bold" />
                                 </div>
 
                                 <div className="space-y-2">

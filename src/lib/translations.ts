@@ -36,10 +36,10 @@ export const translations = {
           desc: 'Tu paquete está protegido en nuestras taquillas de alta seguridad hasta que tú lo retires.',
           detail: {
             title: 'Recepción de paquetería nacional',
-            intro: 'Tu tranquilidad es nuestra prioridad. Por eso, tu paquete está protegido desde que llega a nuestras manos hasta que tú lo retires.',
+            intro: 'Tu tranquilidad es nuestra priority. Por eso, tu paquete está protegido desde que llega a nuestras manos hasta que tú lo retires.',
             f1: 'Custodia Blindada:',
             f1d: 'Tu paquete se almacena en taquillas de alta seguridad con vigilancia.',
-            f2: 'Notificación Instantánea:',
+            f2: 'Notification Instantánea:',
             f2d: 'Garantizamos el aviso inmediato vía App/SMS en cuanto tu pedido es depositado.',
             f3: 'Garantía 24/7:',
             f3d: 'Acceso total en el momento que decidas.',
@@ -134,6 +134,17 @@ export const translations = {
         { title: 'Recoge cuando quieras', desc: 'Escanea tu código las 24h y llévate tu paquete.' }
       ],
       stepLabel: 'Paso'
+    },
+    competitiveAdvantages: {
+      sectionTitle: '¿Por qué elegir InTrack?',
+      agilityTitle: 'Agilidad Tecnológica',
+      agilityDesc: 'Optimización de rutas por IA para entregas en tiempo récord y eficiencia máxima.',
+      humanTitle: 'Atención Personalizada',
+      humanDesc: 'Soporte real por expertos logísticos. Hablamos de persona a persona, sin bots.',
+      securityTitle: 'Seguridad Garantizada',
+      securityDesc: 'Tus envíos están protegidos con seguros premium y custodia blindada en lockers.',
+      visibilityTitle: 'Visibilidad Total',
+      visibilityDesc: 'Tracking preciso en tiempo real y transparencia absoluta en tus costes operativos.'
     },
     blogSection: {
       title: 'Nuestro Blog',
@@ -404,6 +415,17 @@ export const translations = {
       ],
       stepLabel: 'Pas'
     },
+    competitiveAdvantages: {
+      sectionTitle: 'Per què triar InTrack?',
+      agilityTitle: 'Agilitat Tecnològica',
+      agilityDesc: 'Optimització de rutes per IA per a lliuraments en temps rècord i eficiència màxima.',
+      humanTitle: 'Atenció Personalitzada',
+      humanDesc: 'Suport real per experts logístics. Parlem de persona a persona, sense bots.',
+      securityTitle: 'Seguretat Garantida',
+      securityDesc: 'Els teus enviaments estan protegits amb assegurances premium i custòdia blindada.',
+      visibilityTitle: 'Visibilitat Total',
+      visibilityDesc: 'Tracking precís en temps real i transparència absoluta en els teus costos operatius.'
+    },
     blogSection: {
       title: 'El nostre Blog',
       subtitle: 'Mantén-te al dia amb les últimes notícies i consells del sector.',
@@ -672,6 +694,17 @@ export const translations = {
         { title: 'Pick up anytime', desc: 'Scan your code 24/7 and take your package home.' }
       ],
       stepLabel: 'Step'
+    },
+    competitiveAdvantages: {
+      sectionTitle: 'Why choose InTrack?',
+      agilityTitle: 'Tech Agility',
+      agilityDesc: 'AI route optimization for record-time deliveries and maximum efficiency.',
+      humanTitle: 'Personalized Support',
+      humanDesc: 'Real support from logistics experts. We speak person to person, no bots.',
+      securityTitle: 'Guaranteed Security',
+      securityDesc: 'Your shipments are protected with premium insurance and armored custody.',
+      visibilityTitle: 'Total Visibility',
+      visibilityDesc: 'Precise real-time tracking and absolute transparency in your operating costs.'
     },
     blogSection: {
       title: 'Our Blog',
