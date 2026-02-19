@@ -11,6 +11,7 @@ export const translations = {
       home: 'Inicio',
       services: 'Servicios',
       tracking: 'Seguimiento',
+      orders: 'Haz tu pedido',
       about: 'Quiénes Somos',
       pickup: 'Puntos de Recogida',
       blog: 'Blog',
@@ -87,7 +88,7 @@ export const translations = {
             f2: 'Entrega Siguiente Día:',
             f2d: 'Recogemos y entregamos en el siguiente día laborable.',
             f3: 'Seguimiento Total:',
-            f3d: 'No pierdas de vista tu envío ni un segundo.',
+            f3d: 'No perdis de vista tu envío ni un segundo.',
             footer: 'Perfecto para documentos importantes o regalos de última hora.'
           }
         },
@@ -236,6 +237,21 @@ export const translations = {
         delivered: 'Entregado'
       }
     },
+    ordersPage: {
+      title: 'Registra tu envío',
+      subtitle: 'Notifica la llegada de un paquete a nuestras instalaciones para su gestión en Locker.',
+      senderTitle: 'Datos del Remitente',
+      senderDesc: 'Información de la empresa que realiza el envío.',
+      companyLabel: 'Nombre de la Empresa',
+      trackingLabel: 'Referencia / Tracking Interno',
+      recipientTitle: 'Datos del Cliente Final',
+      recipientDesc: 'Información para la recogida en el Locker.',
+      clientNameLabel: 'Nombre del Destinatario',
+      clientDniLabel: 'DNI / NIE',
+      clientEmailLabel: 'Email de Contacto',
+      helpText: 'El cliente recibirá un email automático con su código de acceso cuando el paquete llegue al locker.',
+      submitButton: 'Registrar Pedido Ahora'
+    },
     contact: {
       title: '¿Necesitas ayuda con tu paquete?',
       subtitle: 'Nuestro equipo humano está al otro lado de la tecnología. Escríbenos y te responderemos lo antes posible.',
@@ -291,6 +307,7 @@ export const translations = {
       home: 'Inici',
       services: 'Serveis',
       tracking: 'Seguiment',
+      orders: 'Fes la teva comanda',
       about: 'Qui Som',
       pickup: 'Punts de Recollida',
       blog: 'Blog',
@@ -362,7 +379,7 @@ export const translations = {
           detail: {
             title: 'Enviaments Urgents 24h',
             intro: 'Garantim el lliurament del teu paquet en qualsevol punt en un termini màxim de 24 hores.',
-            f1: 'Màxima Prioritat:',
+            f1: 'Máxima Prioritat:',
             f1d: 'Tractament preferent en tots els nostres processos.',
             f2: 'Lliurament Següent Dia:',
             f2d: 'Recollim i lliurem el següent dia laborable.',
@@ -421,9 +438,9 @@ export const translations = {
       agilityDesc: 'Ens adaptem a les necessitats específiques de la teva mercaderia i al teu ritme de vendes, sense estructures rígidies.',
       humanTitle: 'Atenció Personalizada',
       humanDesc: 'Suport real per experts logístics. Parlem de persona a persona, sense bots.',
-      securityTitle: 'Seguretat Garantida',
+      securityTitle: 'Seguridad Garantizada',
       securityDesc: 'Els teus enviaments estan protegits amb assegurances premium i custòdia blindada.',
-      visibilityTitle: 'Visibilitat Total',
+      visibilityTitle: 'Visibilidad Total',
       visibilityDesc: 'Tracking precís en temps real i transparència absoluta en els teus costos operatius.'
     },
     blogSection: {
@@ -516,6 +533,21 @@ export const translations = {
         delivered: 'Lliurat'
       }
     },
+    ordersPage: {
+      title: 'Registra el teu enviament',
+      subtitle: 'Notifica l\'arribada d\'un paquet a les nostres instal·lacions per a la seva gestió en Locker.',
+      senderTitle: 'Dades del Remitent',
+      senderDesc: 'Informació de l\'empresa que realitza l\'enviament.',
+      companyLabel: 'Nom de l\'Empresa',
+      trackingLabel: 'Referència / Tracking Intern',
+      recipientTitle: 'Dades del Client Final',
+      recipientDesc: 'Informació per a la recollida al Locker.',
+      clientNameLabel: 'Nom del Destinatari',
+      clientDniLabel: 'DNI / NIE',
+      clientEmailLabel: 'Email de Contacte',
+      helpText: 'El client rebrà un email automàtic amb el seu codi d\'accés quan el paquet arribi al locker.',
+      submitButton: 'Registrar Comanda Ara'
+    },
     contact: {
       title: 'Necessites ajuda amb el teu paquet?',
       subtitle: 'El nostre equip humà està a l\'altre costat de la tecnologia. Escriu-nos i et respondrem al més aviat possible.',
@@ -571,6 +603,7 @@ export const translations = {
       home: 'Home',
       services: 'Services',
       tracking: 'Tracking',
+      orders: 'Place your order',
       about: 'About Us',
       pickup: 'Pickup Points',
       blog: 'Blog',
@@ -795,6 +828,21 @@ export const translations = {
         shipped: 'Shipped',
         delivered: 'Delivered'
       }
+    },
+    ordersPage: {
+      title: 'Register your shipment',
+      subtitle: 'Notify the arrival of a package at our facilities for Locker management.',
+      senderTitle: 'Sender Details',
+      senderDesc: 'Information about the company making the shipment.',
+      companyLabel: 'Company Name',
+      trackingLabel: 'Internal Reference / Tracking',
+      recipientTitle: 'Final Client Details',
+      recipientDesc: 'Information for picking up at the Locker.',
+      clientNameLabel: 'Recipient Name',
+      clientDniLabel: 'ID / Passport',
+      clientEmailLabel: 'Contact Email',
+      helpText: 'The client will receive an automatic email with their access code when the package arrives at the locker.',
+      submitButton: 'Register Order Now'
     },
     contact: {
       title: 'Need help with your package?',

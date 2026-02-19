@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Phone, Mail, MapPin, MessageSquare, Calculator } from 'lucide-react';
+import { Mail, MapPin, Calculator } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -21,7 +21,6 @@ import { useLanguage } from '@/context/LanguageContext';
 export default function ContactPage() {
   const { t } = useLanguage();
   
-  // --- LÓGICA DE LA CALCULADORA ---
   const [weight, setWeight] = useState<string>('');
   const [shippingType, setShippingType] = useState<string>('nacional');
   const [totalPrice, setTotalPrice] = useState<number | null>(null);
@@ -29,7 +28,6 @@ export default function ContactPage() {
   useEffect(() => {
     const w = parseFloat(weight);
     if (!isNaN(w) && w > 0) {
-      // Tarifas: Base 5€ + 2€/kg nacional o 5€/kg internacional
       const base = 5;
       const rate = shippingType === 'internacional' ? 5 : 2;
       setTotalPrice(base + (w * rate));
@@ -56,49 +54,6 @@ export default function ContactPage() {
             <div className="grid md:grid-cols-2 gap-16 items-start">
                 <div className="space-y-8">
                     <h2 className="text-2xl font-black text-foreground tracking-tighter">{t.contact.infoTitle}</h2>
-                    
-                    {/* BLOQUE CALCULADORA (Estilo Corporativo) */}
-                    <div className="p-6 bg-muted rounded-xl border-2 border-primary/20 shadow-inner">
-                        <h4 className="font-black flex items-center gap-2 mb-4 tracking-tighter text-primary">
-                            <Calculator className="h-5 w-5" /> 
-                            {t.contact.reasons?.code || "Calculadora de Envío"}
-                        </h4>
-                        <div className="grid grid-cols-2 gap-4 mb-4">
-                            <div className="space-y-2">
-                                <Label className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">
-                                    Peso (kg)
-                                </Label>
-                                <Input 
-                                    type="number" 
-                                    placeholder="0" 
-                                    value={weight} 
-                                    onChange={(e) => setWeight(e.target.value)}
-                                    className="font-bold bg-background"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <Label className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">
-                                    Tipo
-                                </Label>
-                                <Select onValueChange={setShippingType} defaultValue="nacional">
-                                    <SelectTrigger className="font-bold bg-background text-foreground">
-                                        <SelectValue />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="nacional" className="font-bold">{t.contact.reasons?.code || "Nacional"}</SelectItem>
-                                        <SelectItem value="internacional" className="font-bold">{t.contact.reasons?.intl || "Internacional"}</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        </div>
-                        {totalPrice !== null && (
-                            <div className="text-center p-4 bg-primary rounded-lg shadow-lg">
-                                <p className="text-[10px] text-primary-foreground/70 font-black uppercase tracking-[0.2em]">Presupuesto Estimado</p>
-                                <p className="text-3xl font-black text-primary-foreground">{totalPrice.toFixed(2)}€</p>
-                            </div>
-                        )}
-                    </div>
-
                     <div className="space-y-6">
                         <div className="flex items-start gap-4">
                             <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
@@ -121,18 +76,56 @@ export default function ContactPage() {
                     </div>
                 </div>
 
-                {/* FORMULARIO */}
+                {/* FORMULARIO CON CALCULADORA FIJA */}
                 <div>
                      <Card className="border-4 border-primary/10 shadow-2xl">
-                        <CardHeader>
+                        <CardHeader className="pb-4">
                             <CardTitle className="text-2xl font-black tracking-tighter">{t.contact.formTitle}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <form action="https://formspree.io/f/xrbnkanl" method="POST" className="space-y-5">
-                                {/* Datos invisibles que se envían por correo */}
-                                <input type="hidden" name="calculo_peso" value={weight} />
-                                <input type="hidden" name="calculo_tipo" value={shippingType} />
-                                <input type="hidden" name="precio_estimado" value={totalPrice || 'No calculado'} />
+                                
+                                {/* --- SECCIÓN CALCULADORA (Dentro del form) --- */}
+                                <div className="p-4 bg-muted/50 rounded-xl border-2 border-primary/10 space-y-4 mb-6">
+                                    <div className="flex items-center gap-2 text-primary">
+                                        <Calculator className="h-4 w-4" />
+                                        <span className="text-xs font-black uppercase tracking-widest">Calculadora de Envío</span>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">Peso (kg)</Label>
+                                            <Input 
+                                                type="number" 
+                                                name="calculo_peso" // Importante para Formspree
+                                                placeholder="0" 
+                                                value={weight} 
+                                                onChange={(e) => setWeight(e.target.value)}
+                                                className="font-bold bg-background"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">Tipo</Label>
+                                            <Select onValueChange={setShippingType} defaultValue="nacional" name="calculo_tipo">
+                                                <SelectTrigger className="font-bold bg-background text-foreground">
+                                                    <SelectValue />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="nacional" className="font-bold">Nacional</SelectItem>
+                                                    <SelectItem value="internacional" className="font-bold">Internacional</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                    </div>
+                                    
+                                    {totalPrice !== null && (
+                                        <div className="text-center p-3 bg-primary rounded-lg shadow-sm">
+                                            <p className="text-[10px] text-primary-foreground/70 font-black uppercase tracking-wider">Presupuesto Estimado</p>
+                                            <p className="text-2xl font-black text-primary-foreground">{totalPrice.toFixed(2)}€</p>
+                                            <input type="hidden" name="precio_estimado" value={`${totalPrice.toFixed(2)}€`} />
+                                        </div>
+                                    )}
+                                </div>
+                                {/* --- FIN CALCULADORA --- */}
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
@@ -152,11 +145,10 @@ export default function ContactPage() {
                                             <SelectValue placeholder={t.contact.reasonPlaceholder} />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="presupuesto_calculado" className="font-bold text-primary">Solicitar Envío Calculado</SelectItem>
-                                            <SelectItem value="codigo" className="font-bold">{t.contact.reasons.code}</SelectItem>
-                                            <SelectItem value="internacional" className="font-bold">{t.contact.reasons.intl}</SelectItem>
-                                            <SelectItem value="ecommerce" className="font-bold">{t.contact.reasons.biz}</SelectItem>
-                                            <SelectItem value="otro" className="font-bold">{t.contact.reasons.other}</SelectItem>
+                                            <SelectItem value="presupuesto" className="font-bold">Solicitar este presupuesto</SelectItem>
+                                            <SelectItem value="codigo" className="font-bold">{t.contact.reasons?.code || "Duda con código"}</SelectItem>
+                                            <SelectItem value="internacional" className="font-bold">{t.contact.reasons?.intl || "Envío Internacional"}</SelectItem>
+                                            <SelectItem value="otro" className="font-bold">{t.contact.reasons?.other || "Otro motivo"}</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>

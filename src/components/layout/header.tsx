@@ -13,6 +13,7 @@ export function Header({ className }: { className?: string }) {
     { href: '/', label: t.nav.home },
     { href: '/#services', label: t.nav.services },
     { href: '/tracking', label: t.nav.tracking },
+    { href: '/pedidos', label: t.nav.orders },
     { href: '/quienes-somos', label: t.nav.about },
     { href: '/puntos-de-recogida', label: t.nav.pickup },
     { href: '/blog', label: t.nav.blog },
