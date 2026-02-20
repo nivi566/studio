@@ -6,14 +6,26 @@ import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
 import { HeaderClient } from './header-client';
 
+export type NavLink = {
+  href: string;
+  label: string;
+  subLinks?: NavLink[];
+};
+
 export function Header({ className }: { className?: string }) {
   const { t } = useLanguage();
   
-  const navLinks = [
+  const navLinks: NavLink[] = [
     { href: '/', label: t.nav.home },
     { href: '/#services', label: t.nav.services },
-    { href: '/tracking', label: t.nav.tracking },
-    { href: '/pedidos', label: t.nav.orders },
+    { 
+      href: '#', 
+      label: t.nav.orders,
+      subLinks: [
+        { href: '/tracking', label: t.nav.tracking },
+        { href: '/pedidos', label: t.nav.place_order },
+      ]
+    },
     { href: '/quienes-somos', label: t.nav.about },
     { href: '/puntos-de-recogida', label: t.nav.pickup },
     { href: '/blog', label: t.nav.blog },

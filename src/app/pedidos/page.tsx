@@ -14,6 +14,9 @@ export default function PedidosPage() {
   const { t } = useLanguage();
   const o = t.ordersPage;
 
+  // URL de tu Google Apps Script (ya configurada con tu ID)
+  const scriptURL = "https://script.google.com/macros/s/AKfycby4UHNoAuG1atTL6QPIEGFvk9YKvdtMrH1SAdsEUOrzM6TN_v8LI24tVJCmsqVWz8ln/exec";
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
@@ -34,7 +37,11 @@ export default function PedidosPage() {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <form action="https://formspree.io/f/xrbnkanl" method="POST" className="space-y-8">
+            <form 
+              action={scriptURL} 
+              method="POST" 
+              className="space-y-6"
+            >
               
               {/* BLOQUE EMPRESA (REMITENTE) */}
               <Card className="border-4 border-slate-100 shadow-none hover:border-primary/20 transition-colors">
@@ -147,7 +154,7 @@ export default function PedidosPage() {
                 <Button 
                   type="submit" 
                   size="lg" 
-                  className="w-full h-20 text-xl font-black uppercase tracking-widest bg-primary hover:bg-primary/90 shadow-2xl shadow-primary/20 active:scale-95 transition-all group"
+                  className="w-full h-20 text-xl font-black uppercase tracking-widest bg-primary hover:bg-primary/90 shadow-2xl shadow-primary/20 active:scale-95 transition-all group text-white"
                 >
                   {o.submitButton}
                   <ChevronRight className="ml-2 h-6 w-6 group-hover:translate-x-1 transition-transform" />

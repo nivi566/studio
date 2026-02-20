@@ -1,9 +1,8 @@
-
 'use client';
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Menu, X, LogOut, LayoutDashboard, FileText, ClipboardList, Globe } from 'lucide-react';
+import { Menu, X, LogOut, LayoutDashboard, FileText, Globe, ChevronDown } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -22,11 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
-
-type NavLink = {
-  href: string;
-  label: string;
-};
+import { NavLink } from './header';
 
 export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -57,6 +52,8 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
         }
         setIsMenuOpen(false);
       }
+    } else if (href === '#') {
+      e.preventDefault();
     } else {
       setIsMenuOpen(false);
     }
@@ -91,14 +88,37 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
     <>
       <nav className="hidden md:flex md:items-center md:gap-6 text-sm">
         {navLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            onClick={(e) => handleNavClick(e, link.href)}
-            className="font-black text-foreground/70 transition-colors hover:text-primary tracking-tight"
-          >
-            {link.label}
-          </Link>
+          link.subLinks ? (
+            <DropdownMenu key={link.label}>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-1 font-black text-foreground/70 transition-colors hover:text-primary tracking-tight outline-none">
+                  {link.label}
+                  <ChevronDown className="h-3 w-3" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="min-w-[180px]">
+                {link.subLinks.map((sub) => (
+                  <DropdownMenuItem key={sub.href} asChild>
+                    <Link
+                      href={sub.href}
+                      className="font-bold cursor-pointer w-full"
+                    >
+                      {sub.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
+              className="font-black text-foreground/70 transition-colors hover:text-primary tracking-tight"
+            >
+              {link.label}
+            </Link>
+          )
         ))}
       </nav>
 
@@ -173,14 +193,31 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
 
               <nav className="mt-4 flex flex-1 flex-col gap-2">
                 {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="text-xl font-black text-foreground hover:text-primary transition-colors py-3 border-b border-border/30 tracking-tighter"
-                    onClick={(e) => handleNavClick(e, link.href)}
-                  >
-                    {link.label}
-                  </Link>
+                  <React.Fragment key={link.label}>
+                    {link.subLinks ? (
+                      <div className="flex flex-col">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-4 mb-2">{link.label}</span>
+                        {link.subLinks.map((sub) => (
+                          <Link
+                            key={sub.href}
+                            href={sub.href}
+                            className="text-xl font-black text-foreground hover:text-primary transition-colors py-2 tracking-tighter"
+                            onClick={(e) => handleNavClick(e, sub.href)}
+                          >
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-xl font-black text-foreground hover:text-primary transition-colors py-3 border-b border-border/30 tracking-tighter"
+                        onClick={(e) => handleNavClick(e, link.href)}
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </React.Fragment>
                 ))}
               </nav>
               <div className="mt-auto pb-8">
