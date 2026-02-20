@@ -27,8 +27,8 @@ export function Header({ className }: { className?: string }) {
         { href: '/puntos-de-recogida', label: t.nav.pickup },
       ]
     },
-    { href: '/quienes-somos', label: t.nav.about },
     { href: '/blog', label: t.nav.blog },
+    { href: '/quienes-somos', label: t.nav.about },
     { href: '/contacto', label: t.nav.contact },
     { href: '/assistent', label: t.nav.assistant },
   ];
