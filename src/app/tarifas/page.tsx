@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import Link from 'next/link';
 
 export default function PricingPage() {
     const { t } = useLanguage();
@@ -18,7 +19,8 @@ export default function PricingPage() {
             description: p.tiers.national.desc,
             features: p.tiers.national.features,
             buttonText: p.tiers.national.cta,
-            featured: false
+            featured: false,
+            href: '/pedidos'
         },
         {
             name: p.tiers.express.name,
@@ -28,7 +30,8 @@ export default function PricingPage() {
             features: p.tiers.express.features,
             buttonText: p.tiers.express.cta,
             featured: true,
-            popularText: p.tiers.express.popular
+            popularText: p.tiers.express.popular,
+            href: '/pedidos'
         },
         {
             name: p.tiers.intl.name,
@@ -37,7 +40,8 @@ export default function PricingPage() {
             description: p.tiers.intl.desc,
             features: p.tiers.intl.features,
             buttonText: p.tiers.intl.cta,
-            featured: false
+            featured: false,
+            href: '/contacto'
         }
     ];
 
@@ -80,8 +84,10 @@ export default function PricingPage() {
                                     </ul>
                                 </CardContent>
                                 <CardFooter>
-                                    <Button className="w-full" variant={tier.featured ? 'default' : 'outline'}>
-                                        {tier.buttonText}
+                                    <Button className="w-full font-black tracking-widest uppercase h-12" variant={tier.featured ? 'default' : 'outline'} asChild>
+                                        <Link href={tier.href}>
+                                            {tier.buttonText}
+                                        </Link>
                                     </Button>
                                 </CardFooter>
                             </Card>
