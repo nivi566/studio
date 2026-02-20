@@ -24,10 +24,10 @@ export function Header({ className }: { className?: string }) {
       subLinks: [
         { href: '/tracking', label: t.nav.tracking },
         { href: '/pedidos', label: t.nav.place_order },
+        { href: '/puntos-de-recogida', label: t.nav.pickup },
       ]
     },
     { href: '/quienes-somos', label: t.nav.about },
-    { href: '/puntos-de-recogida', label: t.nav.pickup },
     { href: '/blog', label: t.nav.blog },
     { href: '/contacto', label: t.nav.contact },
     { href: '/assistent', label: t.nav.assistant },
