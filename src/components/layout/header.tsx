@@ -24,6 +24,7 @@ export function Header({ className }: { className?: string }) {
       subLinks: [
         { href: '/tracking', label: t.nav.tracking },
         { href: '/pedidos', label: t.nav.place_order },
+        { href: '/devoluciones', label: t.nav.returns },
         { href: '/puntos-de-recogida', label: t.nav.pickup },
       ]
     },

@@ -13,6 +13,7 @@ export const translations = {
       tracking: 'Seguimiento',
       orders: 'Pedidos',
       place_order: 'Haz tu pedido',
+      returns: 'Devoluciones',
       about: 'Quiénes Somos',
       pickup: 'Puntos de Recogida',
       blog: 'Blog',
@@ -56,7 +57,7 @@ export const translations = {
             intro: 'Compra en tus tiendas favoritas de EE.UU., China o Europa y recíbelo aquí.',
             f1: 'Dirección Global:',
             f1d: 'Compra como si vivieras allí y nosotros lo traemos.',
-            f2: 'Consolidación:',
+            f2: 'Consolidation:',
             f2d: 'Agrupamos varias compras en un solo envío para que ahorres.',
             f3: 'Aduanas:',
             f3d: 'Tramitamos los impuestos y aranceles por ti.',
@@ -192,6 +193,20 @@ export const translations = {
         }
       }
     },
+    returnsPage: {
+      title: 'Gestión de Devoluciones - Intrack Logistics',
+      subtitle: 'Portal de devoluciones. Solicita el retorno de tu pedido de forma fácil y rápida.',
+      companyLabel: 'Empresa donde compraste',
+      refLabel: 'Nº de Pedido / Referencia',
+      nameLabel: 'Tu Nombre Completo',
+      dniLabel: 'DNI / NIE',
+      emailLabel: 'Email de contacto',
+      submit: 'Autorizar Devolución',
+      sending: 'Enviando...',
+      successTitle: '¡Solicitud Recibida!',
+      successMsg: 'Hemos registrado tu solicitud de devolución correctamente. Recibirás un email con los siguientes pasos en breve.',
+      retry: 'Registrar otra devolución'
+    },
     aboutPage: {
       heroTitle: 'Conectando tu mundo, un envío a la vez',
       heroSubtitle: 'Somos un equipo apasionado por la innovación, la eficiencia y las personas.',
@@ -310,6 +325,7 @@ export const translations = {
       tracking: 'Seguiment',
       orders: 'Pedidos',
       place_order: 'Fes la teva comanda',
+      returns: 'Devolucions',
       about: 'Qui Som',
       pickup: 'Punts de Recollida',
       blog: 'Blog',
@@ -489,6 +505,20 @@ export const translations = {
         }
       }
     },
+    returnsPage: {
+      title: 'Gestió de Devolucions - Intrack Logistics',
+      subtitle: 'Portal de devolucions. Sol·licita el retorn de la teva comanda de forma fàcil i ràpida.',
+      companyLabel: 'Empresa on vas comprar',
+      refLabel: 'Núm. de Comanda / Referència',
+      nameLabel: 'El teu Nom Complet',
+      dniLabel: 'DNI / NIE',
+      emailLabel: 'Email de contacte',
+      submit: 'Autoritzar Devolució',
+      sending: 'Enviant...',
+      successTitle: 'Sol·licitud Rebuda!',
+      successMsg: 'Hem registrat la teva sol·licitud de devolució correctament. Rebràs un email amb els passos a seguir ben aviat.',
+      retry: 'Registrar una altra devolució'
+    },
     aboutPage: {
       heroTitle: 'Connectant el teu món, un enviament alhora',
       heroSubtitle: 'Som un equip apassionat per la innovació, l\'effciència i les persones.',
@@ -514,7 +544,7 @@ export const translations = {
       }
     },
     tracking: {
-      title: 'Localitza el teu enviament',
+      title: 'Localiza el teu enviament',
       subtitle: 'Introdueix el teu codi de seguiment per conèixer l\'estat del teu paquet en temps real.',
       placeholder: 'Ex: TRK-001',
       button: 'Cercar',
@@ -607,6 +637,7 @@ export const translations = {
       tracking: 'Tracking',
       orders: 'Orders',
       place_order: 'Place your order',
+      returns: 'Returns',
       about: 'About Us',
       pickup: 'Pickup Points',
       blog: 'Blog',
@@ -785,6 +816,20 @@ export const translations = {
           priceText: 'Inquire'
         }
       }
+    },
+    returnsPage: {
+      title: 'Returns Management - Intrack Logistics',
+      subtitle: 'Returns portal. Request the return of your order easily and quickly.',
+      companyLabel: 'Company where you bought',
+      refLabel: 'Order No. / Reference',
+      nameLabel: 'Your Full Name',
+      dniLabel: 'ID / Passport',
+      emailLabel: 'Contact Email',
+      submit: 'Authorize Return',
+      sending: 'Sending...',
+      successTitle: 'Request Received!',
+      successMsg: 'We have registered your return request correctly. You will receive an email with the next steps shortly.',
+      retry: 'Register another return'
     },
     aboutPage: {
       heroTitle: 'Connecting your world, one shipment at a time',
