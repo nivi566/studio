@@ -194,7 +194,7 @@ export const translations = {
       }
     },
     returnsPage: {
-      title: 'Gestión de Devoluciones - Intrack Logistics',
+      title: 'devoluciones',
       subtitle: 'Portal de devoluciones. Solicita el retorno de tu pedido de forma fácil y rápida.',
       companyLabel: 'Empresa donde compraste',
       refLabel: 'Nº de Pedido / Referencia',
@@ -415,7 +415,7 @@ export const translations = {
             f1: 'Mapa Interactiu:',
             f1d: 'Observa el progrés de l\'enviament visualment.',
             f2: 'Actualizaciones:',
-            f2d: 'Notificacions automàtiques en cada punt clau.',
+            f2d: 'Notificaciones automàtiques en cada punt clau.',
             f3: 'ETA Dinàmic:',
             f3d: 'Estimació de lliurament actualitzada segons el trànsit.',
             footer: 'Inclòs en tots els nostres serveis sense cost addicional.'
@@ -506,7 +506,7 @@ export const translations = {
       }
     },
     returnsPage: {
-      title: 'Gestió de Devolucions - Intrack Logistics',
+      title: 'devolucions',
       subtitle: 'Portal de devolucions. Sol·licita el retorn de la teva comanda de forma fàcil i ràpida.',
       companyLabel: 'Empresa on vas comprar',
       refLabel: 'Núm. de Comanda / Referència',
@@ -818,7 +818,7 @@ export const translations = {
       }
     },
     returnsPage: {
-      title: 'Returns Management - Intrack Logistics',
+      title: 'returns',
       subtitle: 'Returns portal. Request the return of your order easily and quickly.',
       companyLabel: 'Company where you bought',
       refLabel: 'Order No. / Reference',

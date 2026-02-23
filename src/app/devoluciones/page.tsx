@@ -87,7 +87,7 @@ export default function DevolucionesPage() {
                 <div className="flex justify-center mb-6">
                   <Logo className="scale-125" />
                 </div>
-                <h1 className="text-4xl font-black tracking-tighter text-slate-900 uppercase">
+                <h1 className="text-4xl font-black tracking-tighter text-slate-900">
                   {r.title}
                 </h1>
                 <p className="mt-2 text-lg text-muted-foreground font-medium">
