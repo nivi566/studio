@@ -16,8 +16,8 @@ export default function DevolucionesPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // REEMPLAZA ESTA URL CON TU URL DE GOOGLE APPS SCRIPT
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwn7kGe--3mFqaD6BjtK08diNQ-vcj3jtmW-HIO7Vs-RrfK4sFKWgIq5gIEacsd01xB/exec";
+  // URL proporcionada para el envío a Google Apps Script
+  const SCRIPT_URL = "https://script.google.com/u/0/home/projects/1yB8p-V1WjmaYT1irggCuaj8i75YGc3-kjy4nhaIfRWw7vFDvojFyUb0a/edit";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,15 +27,15 @@ export default function DevolucionesPage() {
     const form = e.currentTarget;
     const formData = new FormData(form);
     
-    // Convertimos FormData a x-www-form-urlencoded
+    // Convertimos FormData a URLSearchParams (application/x-www-form-urlencoded)
     const params = new URLSearchParams();
     formData.forEach((value, key) => {
       params.append(key, value.toString());
     });
 
     try {
-      // Usamos no-cors porque GAS suele redirigir y causar errores de CORS en navegadores
-      // aunque la inserción en el Excel se realice correctamente.
+      // Usamos no-cors para evitar bloqueos del navegador al redirigir GAS, 
+      // aunque no podamos leer el cuerpo de la respuesta, la inserción suele ser exitosa.
       await fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -45,13 +45,12 @@ export default function DevolucionesPage() {
         body: params.toString(),
       });
 
-      // Al usar no-cors no podemos leer la respuesta "OK", 
-      // así que asumimos éxito si la promesa no falla.
+      // Asumimos éxito al completar el fetch en modo no-cors
       setIsSuccess(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error("Error enviando devolución:", err);
-      setError("Hubo un problema al conectar con el servidor. Inténtalo de nuevo.");
+      setError("Hubo un problema al conectar con el servidor de devoluciones. Por favor, inténtalo de nuevo.");
     } finally {
       setIsSubmitting(false);
     }
@@ -71,10 +70,10 @@ export default function DevolucionesPage() {
                 </div>
               </div>
               <h2 className="text-4xl font-black tracking-tighter mb-4 uppercase text-slate-900">
-                Solicitud Registrada
+                ¡Solicitud Recibida!
               </h2>
               <p className="text-xl text-muted-foreground mb-8 font-medium">
-                Hemos recibido los datos de la devolución. Nos pondremos en contacto con el cliente final para gestionar la recogida en el locker.
+                Los datos de la devolución se han registrado correctamente en nuestro sistema. El cliente recibirá las instrucciones en breve.
               </p>
               <Button 
                 onClick={() => setIsSuccess(false)} 
@@ -85,7 +84,7 @@ export default function DevolucionesPage() {
             </div>
           ) : (
             <div className="max-w-3xl mx-auto">
-              {/* CABECERA DE PÁGINA */}
+              {/* CABECERA */}
               <div className="text-center mb-10">
                 <div className="flex justify-center mb-6">
                   <Logo className="scale-125" />
@@ -94,15 +93,15 @@ export default function DevolucionesPage() {
                   Gestión de Devoluciones
                 </h1>
                 <p className="mt-2 text-lg text-muted-foreground font-medium">
-                  Portal exclusivo para empresas clientes de InTrack Logistics.
+                  Portal exclusivo para empresas. Autoriza el retorno de mercancía vía Locker.
                 </p>
               </div>
 
-              <Card className="border-none shadow-2xl overflow-hidden">
+              <Card className="border-none shadow-2xl overflow-hidden bg-white">
                 {/* LÍNEA DE ACENTO ROJO */}
                 <div className="h-2 bg-red-600 w-full" />
                 
-                <CardHeader className="bg-white border-b p-8">
+                <CardHeader className="p-8 border-b">
                   <div className="flex items-center gap-4">
                     <div className="bg-red-600 p-3 rounded-2xl text-white shadow-lg shadow-red-200">
                       <Undo2 className="h-6 w-6" />
@@ -112,20 +111,20 @@ export default function DevolucionesPage() {
                         Formulario de Retorno
                       </CardTitle>
                       <CardDescription className="font-medium">
-                        Completa los datos para autorizar la devolución en locker.
+                        Completa los campos para generar la orden de recogida.
                       </CardDescription>
                     </div>
                   </div>
                 </CardHeader>
 
-                <CardContent className="p-8 bg-white">
+                <CardContent className="p-8">
                   <form onSubmit={handleSubmit} className="space-y-8">
                     
                     {/* SECCIÓN EMPRESA */}
                     <div className="space-y-4">
                       <div className="flex items-center gap-2 text-red-600 mb-2">
                         <Building2 className="h-4 w-4" />
-                        <span className="text-xs font-black uppercase tracking-widest">Datos de Origen</span>
+                        <span className="text-xs font-black uppercase tracking-widest">Empresa Destino</span>
                       </div>
                       <div className="grid sm:grid-cols-2 gap-6">
                         <div className="space-y-2">
@@ -148,7 +147,7 @@ export default function DevolucionesPage() {
                             id="referencia_devolucion" 
                             name="referencia_devolucion" 
                             required 
-                            placeholder="Ej: RET-99283"
+                            placeholder="Ej: RET-2024-XXXX"
                             className="h-12 font-bold border-2 focus-visible:ring-red-600"
                           />
                         </div>
@@ -161,7 +160,7 @@ export default function DevolucionesPage() {
                     <div className="space-y-4">
                       <div className="flex items-center gap-2 text-red-600 mb-2">
                         <User className="h-4 w-4" />
-                        <span className="text-xs font-black uppercase tracking-widest">Datos del Cliente (Destinatario)</span>
+                        <span className="text-xs font-black uppercase tracking-widest">Datos del Cliente</span>
                       </div>
                       <div className="grid sm:grid-cols-2 gap-6">
                         <div className="space-y-2">
@@ -178,7 +177,7 @@ export default function DevolucionesPage() {
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="cliente_dni" className="font-black uppercase text-[10px] tracking-widest text-slate-500">
-                            DNI / NIE / Pasaporte
+                            DNI / NIE
                           </Label>
                           <Input 
                             id="cliente_dni" 
@@ -191,7 +190,7 @@ export default function DevolucionesPage() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="cliente_email" className="font-black uppercase text-[10px] tracking-widest text-slate-500">
-                          Email para enviar etiqueta/instrucciones
+                          Email para confirmación
                         </Label>
                         <div className="relative">
                           <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
@@ -222,18 +221,18 @@ export default function DevolucionesPage() {
                       {isSubmitting ? (
                         <>
                           <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                          Procesando...
+                          Enviando...
                         </>
                       ) : (
-                        'Confirmar Devolución'
+                        'Autorizar Devolución'
                       )}
                     </Button>
                   </form>
                 </CardContent>
               </Card>
               
-              <p className="mt-8 text-center text-slate-400 text-xs font-bold uppercase tracking-widest">
-                InTrack Logistics S.L. &copy; {new Date().getFullYear()} - Sistema de Logística Inversa
+              <p className="mt-8 text-center text-slate-400 text-[10px] font-black uppercase tracking-widest">
+                InTrack Logistics S.L. &copy; {new Date().getFullYear()} - Reverse Logistics System
               </p>
             </div>
           )}
