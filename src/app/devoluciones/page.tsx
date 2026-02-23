@@ -19,7 +19,7 @@ export default function DevolucionesPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // URL del Google Apps Script configurada exactamente como solicitaste
+  // URL del Google Apps Script
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzcWB7HGXoFvyWqrE_XQqSjuVArGyqKzrt3Pj3f-CeR_0l_dywEDxkWxsNtadHqEKBM/exec";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,22 +30,12 @@ export default function DevolucionesPage() {
     const form = e.currentTarget;
     const formData = new FormData(form);
     
-    /**
-     * IMPORTANTE: Usamos URLSearchParams para convertir los datos al formato 
-     * application/x-www-form-urlencoded, que es el que Google Apps Script 
-     * procesa a través de e.parameter en la función doPost.
-     */
     const params = new URLSearchParams();
     formData.forEach((value, key) => {
       params.append(key, value.toString());
     });
 
     try {
-      /**
-       * Usamos mode: 'no-cors' ya que GAS redirige la petición al finalizar y 
-       * eso suele causar bloqueos de CORS en el navegador, aunque los datos 
-       * se guarden correctamente en el Excel.
-       */
       await fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -55,7 +45,6 @@ export default function DevolucionesPage() {
         body: params.toString(),
       });
 
-      // Si el fetch no lanza error, asumimos éxito (común con no-cors y GAS)
       setIsSuccess(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
@@ -119,7 +108,7 @@ export default function DevolucionesPage() {
                         Formulario de Retorno
                       </CardTitle>
                       <CardDescription className="font-medium">
-                        Completa los campos exactos para que nuestro sistema procese tu devolución.
+                        Completa los campos para procesar tu devolución. La referencia es opcional.
                       </CardDescription>
                     </div>
                   </div>
@@ -149,13 +138,12 @@ export default function DevolucionesPage() {
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="referencia_devolucion" className="font-black uppercase text-[10px] tracking-widest text-slate-500">
-                            {r.refLabel}
+                            {r.refLabel} (Opcional)
                           </Label>
                           <Input 
                             id="referencia_devolucion" 
                             name="referencia_devolucion" 
-                            required 
-                            placeholder="Ej: RET-2024-XXXX"
+                            placeholder="Ej: RET-2024-XXXX o dejar vacío"
                             className="h-12 font-bold border-2 focus-visible:ring-red-600"
                           />
                         </div>
