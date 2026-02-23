@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Undo2, Building2, User, Mail, CheckCircle2, AlertCircle, Loader2, Package } from 'lucide-react';
+import { Undo2, Building2, User, Mail, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { Logo } from '@/components/icons/logo';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -19,7 +19,7 @@ export default function DevolucionesPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // URL de Google Apps Script proporcionada
+  // URL del Google Apps Script configurada exactamente como solicitaste
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzcWB7HGXoFvyWqrE_XQqSjuVArGyqKzrt3Pj3f-CeR_0l_dywEDxkWxsNtadHqEKBM/exec";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,14 +30,22 @@ export default function DevolucionesPage() {
     const form = e.currentTarget;
     const formData = new FormData(form);
     
-    // Convertimos FormData a URLSearchParams para asegurar application/x-www-form-urlencoded
+    /**
+     * IMPORTANTE: Usamos URLSearchParams para convertir los datos al formato 
+     * application/x-www-form-urlencoded, que es el que Google Apps Script 
+     * procesa a través de e.parameter en la función doPost.
+     */
     const params = new URLSearchParams();
     formData.forEach((value, key) => {
       params.append(key, value.toString());
     });
 
     try {
-      // Usamos no-cors para evitar bloqueos del navegador al redirigir GAS
+      /**
+       * Usamos mode: 'no-cors' ya que GAS redirige la petición al finalizar y 
+       * eso suele causar bloqueos de CORS en el navegador, aunque los datos 
+       * se guarden correctamente en el Excel.
+       */
       await fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -47,6 +55,7 @@ export default function DevolucionesPage() {
         body: params.toString(),
       });
 
+      // Si el fetch no lanza error, asumimos éxito (común con no-cors y GAS)
       setIsSuccess(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
@@ -71,21 +80,20 @@ export default function DevolucionesPage() {
                 </div>
               </div>
               <h2 className="text-4xl font-black tracking-tighter mb-4 uppercase text-slate-900">
-                {r.successTitle}
+                {r.successTitle || '¡Solicitud Recibida!'}
               </h2>
               <p className="text-xl text-muted-foreground mb-8 font-medium">
-                {r.successMsg}
+                {r.successMsg || 'Tu solicitud de devolución se ha registrado correctamente en nuestro sistema.'}
               </p>
               <Button 
                 onClick={() => setIsSuccess(false)} 
                 className="h-14 px-8 font-bold bg-red-600 hover:bg-red-700 text-white transition-colors"
               >
-                {r.retry}
+                {r.retry || 'Registrar otra devolución'}
               </Button>
             </div>
           ) : (
             <div className="max-w-3xl mx-auto">
-              {/* CABECERA */}
               <div className="text-center mb-10">
                 <div className="flex justify-center mb-6">
                   <Logo className="scale-125" />
@@ -99,7 +107,6 @@ export default function DevolucionesPage() {
               </div>
 
               <Card className="border-none shadow-2xl overflow-hidden bg-white">
-                {/* LÍNEA DE ACENTO ROJO */}
                 <div className="h-2 bg-red-600 w-full" />
                 
                 <CardHeader className="p-8 border-b">
@@ -112,7 +119,7 @@ export default function DevolucionesPage() {
                         Formulario de Retorno
                       </CardTitle>
                       <CardDescription className="font-medium">
-                        Completa los campos para generar la orden de recogida.
+                        Completa los campos exactos para que nuestro sistema procese tu devolución.
                       </CardDescription>
                     </div>
                   </div>
@@ -121,11 +128,11 @@ export default function DevolucionesPage() {
                 <CardContent className="p-8">
                   <form onSubmit={handleSubmit} className="space-y-8">
                     
-                    {/* SECCIÓN EMPRESA */}
+                    {/* SECCIÓN DATOS ENVÍO */}
                     <div className="space-y-4">
                       <div className="flex items-center gap-2 text-red-600 mb-2">
                         <Building2 className="h-4 w-4" />
-                        <span className="text-xs font-black uppercase tracking-widest">Información de Compra</span>
+                        <span className="text-xs font-black uppercase tracking-widest">Información de la Compra</span>
                       </div>
                       <div className="grid sm:grid-cols-2 gap-6">
                         <div className="space-y-2">
@@ -157,7 +164,7 @@ export default function DevolucionesPage() {
 
                     <div className="h-px bg-slate-100" />
 
-                    {/* SECCIÓN CLIENTE */}
+                    {/* SECCIÓN DATOS CLIENTE */}
                     <div className="space-y-4">
                       <div className="flex items-center gap-2 text-red-600 mb-2">
                         <User className="h-4 w-4" />
@@ -233,7 +240,7 @@ export default function DevolucionesPage() {
               </Card>
               
               <p className="mt-8 text-center text-slate-400 text-[10px] font-black uppercase tracking-widest">
-                InTrack Logistics S.L. &copy; {new Date().getFullYear()} - Reverse Logistics System
+                InTrack Logistics S.L. &copy; {new Date().getFullYear()} - Sistema de Logística Inversa
               </p>
             </div>
           )}
