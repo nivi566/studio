@@ -194,7 +194,7 @@ export const translations = {
       }
     },
     returnsPage: {
-      title: 'devoluciones',
+      title: 'Devoluciones',
       subtitle: 'Portal de devoluciones. Solicita el retorno de tu pedido de forma fácil y rápida.',
       companyLabel: 'Empresa donde compraste',
       refLabel: 'Nº de Pedido / Referencia',
@@ -453,7 +453,7 @@ export const translations = {
     competitiveAdvantages: {
       sectionTitle: 'Per què triar InTrack?',
       agilityTitle: 'Logística flexible',
-      agilityDesc: 'Ens adaptem a les necessitats específiques de la teva mercaderia i al teu ritme de vendes, sense estructures rígidies.',
+      agilityDesc: 'Ens adaptem a las necessitats específiques de la teva mercaderia i al teu ritme de vendes, sense estructures rígidies.',
       humanTitle: 'Atenció Personalizada',
       humanDesc: 'Suport real per experts logístics. Parlem de persona a persona, sense bots.',
       securityTitle: 'Seguridad Garantizada',
@@ -506,7 +506,7 @@ export const translations = {
       }
     },
     returnsPage: {
-      title: 'devolucions',
+      title: 'Devolucions',
       subtitle: 'Portal de devolucions. Sol·licita el retorn de la teva comanda de forma fàcil i ràpida.',
       companyLabel: 'Empresa on vas comprar',
       refLabel: 'Núm. de Comanda / Referència',
@@ -588,7 +588,7 @@ export const translations = {
       support: 'Atenció al Client',
       phone: 'Telèfon Suport',
       urgentTitle: 'Dubte urgent?',
-      urgentDesc: 'Si has perdut el teu codi de recollida, recorda que el pots trobar al SMS o Email de confirmació.',
+      urgentDesc: 'Si has perdut el teu codi de recollida, recorda que el pots trobar al SMS o Email de confirmación.',
       formTitle: 'Explica\'ns què passa',
       name: 'Nom',
       email: 'Email',
@@ -818,7 +818,7 @@ export const translations = {
       }
     },
     returnsPage: {
-      title: 'returns',
+      title: 'Returns',
       subtitle: 'Returns portal. Request the return of your order easily and quickly.',
       companyLabel: 'Company where you bought',
       refLabel: 'Order No. / Reference',
