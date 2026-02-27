@@ -26,6 +26,7 @@ export function Header({ className }: { className?: string }) {
         { href: '/pedidos', label: t.nav.place_order },
         { href: '/devoluciones', label: t.nav.returns },
         { href: '/puntos-de-recogida', label: t.nav.pickup },
+        { href: '/booking', label: t.nav.booking },
       ]
     },
     { href: '/blog', label: t.nav.blog },

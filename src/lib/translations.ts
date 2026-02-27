@@ -14,6 +14,7 @@ export const translations = {
       orders: 'Pedidos',
       place_order: 'Haz tu pedido',
       returns: 'Devoluciones',
+      booking: 'Solicitar Servicio',
       about: 'Quiénes Somos',
       pickup: 'Puntos de Recogida',
       blog: 'Blog',
@@ -23,6 +24,22 @@ export const translations = {
       profile: 'Mi Perfil',
       invoices: 'Facturas',
       logout: 'Salir'
+    },
+    booking: {
+      title: 'Solicitud de Servicio',
+      subtitle: 'Gestiona tus necesidades de transporte y almacenaje de forma rápida.',
+      formTitle: 'Nueva Solicitud',
+      serviceLabel: 'Tipo de Servicio',
+      originLabel: 'Origen',
+      destLabel: 'Destino',
+      cargoLabel: 'Detalles de la Carga',
+      cargoPlaceholder: 'Pesos, medidas, cantidad de bultos...',
+      submit: 'Enviar Solicitud',
+      historyTitle: 'Mis Solicitudes',
+      noHistory: 'Aún no has realizado ninguna solicitud.',
+      pending: 'Pendiente',
+      approved: 'Aprobado',
+      rejected: 'Rechazado'
     },
     hero: {
       title: 'Tu paquete,',
@@ -326,6 +343,7 @@ export const translations = {
       orders: 'Pedidos',
       place_order: 'Fes la teva comanda',
       returns: 'Devolucions',
+      booking: 'Sol·licitar Servei',
       about: 'Qui Som',
       pickup: 'Punts de Recollida',
       blog: 'Blog',
@@ -335,6 +353,22 @@ export const translations = {
       profile: 'El meu Perfil',
       invoices: 'Factures',
       logout: 'Sortir'
+    },
+    booking: {
+      title: 'Sol·licitud de Servei',
+      subtitle: 'Gestiona les teves necessitats de transport i magatzem de forma ràpida.',
+      formTitle: 'Nova Sol·licitud',
+      serviceLabel: 'Tipus de Servei',
+      originLabel: 'Origen',
+      destLabel: 'Destí',
+      cargoLabel: 'Detalls de la Càrrega',
+      cargoPlaceholder: 'Pesos, mides, quantitat de bultos...',
+      submit: 'Enviar Sol·licitud',
+      historyTitle: 'Les meves sol·licituds',
+      noHistory: 'Encara no has realitzat cap sol·licitud.',
+      pending: 'Pendent',
+      approved: 'Aprovat',
+      rejected: 'Rebutjat'
     },
     hero: {
       title: 'El teu paquet,',
@@ -473,7 +507,7 @@ export const translations = {
       items: [
         { name: 'Ana García', role: 'Client Particular', quote: 'Per fi he deixat de perseguir repartidors. Recullo les compres en sortir del gimnàs, fins i tot a mitjanit.' },
         { name: 'Carlos Rodríguez', role: 'Comprador Internacional', quote: 'Compro molt a EUA i Àsia. Ara sé que el meu paquet m\'espera segur en una taquilla blindada.' },
-        { name: 'Elena Martínez', role: 'E-commerce Manager', quote: 'Integrar el giny d\'InTrack ha reduït els lliuraments fallits a zero. Un salt de qualitat per a la nostra logística.' }
+        { name: 'Elena Martínez', role: 'E-commerce Manager', quote: 'Integrar el giny d\'InTrack ha reduït els lliuraments fallits a zero. Un salto de qualitat per a la nostra logística.' }
       ]
     },
     pricingPage: {
@@ -552,7 +586,7 @@ export const translations = {
       error: 'Codi no trobat. Si us plau, verifica la teva referència (Ex: TRK-001).',
       connError: 'Error en la connexió. Torna-ho a provar més tard.',
       resultsTitle: 'Resultats del teu enviament',
-      refLabel: 'Referència d\'enviament',
+      refLabel: 'Referencia d\'enviament',
       statusLabel: 'Estat del paquet',
       origin: 'Origen',
       destination: 'Destinació Final',
@@ -638,6 +672,7 @@ export const translations = {
       orders: 'Orders',
       place_order: 'Place your order',
       returns: 'Returns',
+      booking: 'Request Service',
       about: 'About Us',
       pickup: 'Pickup Points',
       blog: 'Blog',
@@ -647,6 +682,22 @@ export const translations = {
       profile: 'My Profile',
       invoices: 'Invoices',
       logout: 'Logout'
+    },
+    booking: {
+      title: 'Service Request',
+      subtitle: 'Manage your transport and storage needs quickly.',
+      formTitle: 'New Request',
+      serviceLabel: 'Service Type',
+      originLabel: 'Origin',
+      destLabel: 'Destination',
+      cargoLabel: 'Cargo Details',
+      cargoPlaceholder: 'Weights, dimensions, number of packages...',
+      submit: 'Send Request',
+      historyTitle: 'My Requests',
+      noHistory: 'You haven\'t made any requests yet.',
+      pending: 'Pending',
+      approved: 'Approved',
+      rejected: 'Rejected'
     },
     hero: {
       title: 'Your package,',
