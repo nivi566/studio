@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext'; // IMPORTANTE: Añadido
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -16,12 +17,13 @@ import { Footer } from '@/components/layout/footer';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
-import { FileEdit, KeyRound, FileText, Package, LayoutDashboard, ArrowRight } from 'lucide-react';
+import { LayoutDashboard, Package, ArrowRight, Bookmark } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from '@/components/ui/badge';
 
 export default function DashboardPage() {
   const { user, logout, isLoading } = useAuth();
+  const { language } = useLanguage(); // Detectamos el idioma actual
   const router = useRouter();
   
   const [pedidos, setPedidos] = useState([]);
@@ -29,42 +31,51 @@ export default function DashboardPage() {
 
   const SHEETDB_URL = "https://sheetdb.io/api/v1/nmk5zmlkneovd";
 
+  // Diccionario de textos para el Dashboard (ES, CA, EN)
+  const text = {
+    es: { title: "Panel de Cliente", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD RECIENTE", sub: "Seguimiento de pedidos y reservas de" },
+    ca: { title: "Panel de Client", welcome: "Benvingut", stats: "Registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "NOVA SOL·LICITUD", recent: "ACTIVITAT RECENT", sub: "Seguiment de comandes i reserves de" },
+    en: { title: "Customer Panel", welcome: "Welcome", stats: "Records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "RECENT ACTIVITY", sub: "Tracking of orders and bookings for" }
+  }[language as 'es'|'ca'|'en'] || { title: "Panel", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD", sub: "Seguimiento" };
+
   useEffect(() => {
     if (!isLoading && !user) {
       router.push('/login');
     }
     if (user) {
-      fetchRealOrders();
+      fetchDashboardData();
     }
   }, [user, isLoading, router]);
 
-  const fetchRealOrders = async () => {
+  const fetchDashboardData = async () => {
+    setIsFetching(true);
     try {
-      const response = await fetch(`${SHEETDB_URL}/search?sheet=tracking&client=${encodeURIComponent(user.empresa)}`);
-      const data = await response.json();
-      setPedidos(Array.isArray(data) ? data : []);
+      const resTracking = await fetch(`${SHEETDB_URL}/search?sheet=tracking&client=${encodeURIComponent(user.empresa)}`);
+      const dataTracking = await resTracking.json();
+
+      const resBooking = await fetch(`${SHEETDB_URL}?sheet=solicituds`);
+      const dataBooking = await resBooking.json();
+      
+      const filteredBookings = (Array.isArray(dataBooking) ? dataBooking : [])
+        .filter((b: any) => b.usuari && b.usuari.toLowerCase() === user.usuari.toLowerCase())
+        .map((b: any) => ({
+          tracking_code: b.id,
+          eta: b.data,
+          status: b.estat,
+          isBooking: true
+        }));
+
+      setPedidos([...(Array.isArray(dataTracking) ? dataTracking : []), ...filteredBookings]);
     } catch (error) {
-      console.error("Error cargando pedidos:", error);
+      console.error("Error cargando datos:", error);
     } finally {
       setIsFetching(false);
     }
   };
 
-  const handleVerFactura = async (trackingCode: string) => {
-    try {
-      const response = await fetch(`${SHEETDB_URL}/search?sheet=documents&tracking_code=${trackingCode}`);
-      const data = await response.json();
-
-      if (data.length > 0) {
-        // Buscamos num_factura o albara
-        const docId = data[0].num_factura || data[0].albara;
-        router.push(`/documents?id=${docId}`);
-      } else {
-        alert("No se ha encontrado documento vinculado.");
-      }
-    } catch (error) {
-      console.error("Error al buscar documento:", error);
-    }
+  // Función de navegación corregida para evitar que la página se recargue
+  const handleNavigation = (path: string) => {
+    router.push(path);
   };
 
   const getInitials = (name: string = '') => {
@@ -75,9 +86,7 @@ export default function DashboardPage() {
     return (
       <div className="flex min-h-screen flex-col bg-slate-50">
         <Header />
-        <main className="flex-1 container mx-auto px-4 py-8">
-          <Skeleton className="h-64 w-full rounded-lg" />
-        </main>
+        <main className="flex-1 container mx-auto px-4 py-8"><Skeleton className="h-64 w-full rounded-lg" /></main>
         <Footer />
       </div>
     );
@@ -89,20 +98,18 @@ export default function DashboardPage() {
       <main className="flex-1 py-12 sm:py-16">
         <div className="container mx-auto px-4">
           
-          {/* TÍTULO CORPORATIVO */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-2">
               <LayoutDashboard className="h-5 w-5 text-[#f39200]" />
-              <span className="text-xs font-bold text-[#f39200] uppercase tracking-widest">Panel de Cliente</span>
+              <span className="text-xs font-bold text-[#f39200] uppercase tracking-widest">{text.title}</span>
             </div>
-            <h1 className="text-4xl font-black text-slate-900 tracking-tight">
-              Bienvenido, <span className="text-[#f39200]">{user.nom}</span>
+            <h1 className="text-4xl font-black text-slate-900 tracking-tight italic">
+              {text.welcome}, <span className="text-[#f39200]">{user.nom}</span>
             </h1>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             
-            {/* COLUMNA IZQUIERDA: PERFIL */}
             <div className="lg:col-span-1 space-y-6">
               <Card className="border-none shadow-md overflow-hidden bg-white">
                 <div className="h-2 bg-[#f39200]" />
@@ -125,114 +132,97 @@ export default function DashboardPage() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-slate-500">Rol:</span>
-                    <Badge variant="outline" className="border-orange-200 text-[#f39200] bg-orange-50">
-                      {user.rol}
-                    </Badge>
+                    <Badge variant="outline" className="border-orange-200 text-[#f39200] bg-orange-50 uppercase text-[10px]">{user.rol}</Badge>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* ACCESO DIRECTO A FACTURACIÓN (NUEVA SECCIÓN) */}
+              {/* ACCESO RÁPIDO A BOOKING - CORREGIDO */}
               <Card className="border-none shadow-md bg-slate-900 text-white overflow-hidden group">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-white">
-                    <FileText className="h-5 w-5 text-[#f39200]" /> Facturación
+                  <CardTitle className="flex items-center gap-2 text-white italic uppercase text-lg">
+                    <Bookmark className="h-5 w-5 text-[#f39200]" /> {text.booking}
                   </CardTitle>
-                  <CardDescription className="text-slate-400">Consulta tus facturas y albaranes.</CardDescription>
+                  <CardDescription className="text-slate-400">{text.sub} {user.empresa}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button 
-                    onClick={() => router.push('/documents')}
-                    className="w-full bg-[#f39200] hover:bg-[#d88200] text-white font-bold transition-all"
+                    onClick={() => handleNavigation('/booking')}
+                    className="w-full bg-[#f39200] hover:bg-[#d88200] text-white font-bold transition-all uppercase tracking-widest py-6"
                   >
-                    Ver historial completo <ArrowRight className="ml-2 h-4 w-4" />
+                    {text.new} <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </CardContent>
               </Card>
 
               <Card className="border-none shadow-sm bg-white">
-                <CardHeader><CardTitle className="text-lg">Configuración</CardTitle></CardHeader>
-                <CardContent className="space-y-3">
-                  <Button className="w-full justify-start text-slate-600 hover:text-[#f39200] hover:bg-orange-50 transition-colors" variant="ghost">
-                    <FileEdit className="mr-3 h-4 w-4" /> Editar perfil
-                  </Button>
-                  <Button className="w-full justify-start text-slate-600 hover:text-[#f39200] hover:bg-orange-50 transition-colors" variant="ghost">
-                    <KeyRound className="mr-3 h-4 w-4" /> Seguridad
-                  </Button>
-                  <Button onClick={logout} className="w-full mt-4 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white border-none font-bold" variant="outline">
+                <CardContent className="pt-6">
+                  <Button onClick={logout} className="w-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white border-none font-bold" variant="outline">
                     Cerrar sesión
                   </Button>
                 </CardContent>
               </Card>
             </div>
 
-            {/* COLUMNA DERECHA: PEDIDOS */}
             <div className="lg:col-span-2 space-y-6">
               <Card className="border-none shadow-md bg-white">
                 <CardHeader className="border-b border-slate-50 pb-6">
                   <div className="flex justify-between items-center">
                     <div>
-                      <CardTitle className="flex items-center gap-2 text-2xl font-black italic">
-                        <Package className="h-6 w-6 text-[#f39200]" /> MIS PEDIDOS
+                      <CardTitle className="flex items-center gap-2 text-2xl font-black italic uppercase">
+                        <Package className="h-6 w-6 text-[#f39200]" /> {text.recent}
                       </CardTitle>
-                      <CardDescription>Seguimiento de carga vinculada a {user.empresa}</CardDescription>
                     </div>
                     <Badge className="bg-orange-100 text-[#f39200] border-none font-bold px-3">
-                      {pedidos.length} envíos
+                      {pedidos.length} {text.stats}
                     </Badge>
                   </div>
                 </CardHeader>
                 <CardContent className="pt-6">
                   {isFetching ? (
-                    <div className="space-y-4">
-                      <Skeleton className="h-12 w-full" />
-                      <Skeleton className="h-12 w-full" />
-                    </div>
+                    <div className="space-y-4"><Skeleton className="h-12 w-full" /><Skeleton className="h-12 w-full" /></div>
                   ) : (
                     <div className="rounded-md border border-slate-100 overflow-hidden">
                       <Table>
                         <TableHeader className="bg-slate-50">
                           <TableRow>
-                            <TableHead className="font-bold text-slate-700">Tracking</TableHead>
-                            <TableHead className="font-bold text-slate-700">ETA (Entrega)</TableHead>
-                            <TableHead className="font-bold text-slate-700">Estado</TableHead>
-                            <TableHead className="text-right font-bold text-slate-700">Documento</TableHead>
+                            <TableHead className="font-bold text-slate-700 uppercase text-[10px]">Ref / Tracking</TableHead>
+                            <TableHead className="font-bold text-slate-700 uppercase text-[10px]">Date</TableHead>
+                            <TableHead className="font-bold text-slate-700 uppercase text-[10px]">Status</TableHead>
+                            <TableHead className="text-right font-bold text-slate-700 uppercase text-[10px]">Action</TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
-                          {pedidos.length > 0 ? pedidos.map((order: any) => (
-                            <TableRow key={order.tracking_code} className="hover:bg-slate-50 transition-colors">
-                              <TableCell className="font-mono font-bold text-[#f39200]">
-                                {order.tracking_code}
+                          {pedidos.length > 0 ? pedidos.map((item: any, index) => (
+                            <TableRow key={index} className="hover:bg-slate-50 transition-colors">
+                              <TableCell className="font-mono font-bold text-[#f39200] flex items-center gap-2">
+                                {item.isBooking ? <Bookmark className="h-3 w-3 text-slate-400" /> : <Package className="h-3 w-3 text-slate-400" />}
+                                {item.tracking_code}
                               </TableCell>
-                              <TableCell className="text-slate-600 font-medium">{order.eta}</TableCell>
+                              <TableCell className="text-slate-600 font-medium text-xs">{item.eta || item.data}</TableCell>
                               <TableCell>
                                 <Badge className={cn(
-                                  "font-bold px-2 py-0.5 border-none",
-                                  order.status === 'Entregado' ? 'bg-green-100 text-green-700' : 
-                                  order.status === 'En transito' ? 'bg-blue-100 text-blue-700' : 
-                                  'bg-orange-100 text-orange-700'
+                                  "font-bold px-2 py-0.5 border-none uppercase text-[9px]",
+                                  item.status === 'Entregado' || item.status === 'Aprovat' ? 'bg-green-100 text-green-700' : 
+                                  item.status === 'En transito' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'
                                 )}>
-                                  {order.status}
+                                  {item.status}
                                 </Badge>
                               </TableCell>
                               <TableCell className="text-right">
                                 <Button 
                                   variant="ghost" 
                                   size="sm" 
-                                  className="text-slate-400 hover:text-[#f39200] hover:bg-orange-50 font-bold"
-                                  onClick={() => handleVerFactura(order.tracking_code)}
+                                  className="text-slate-400 hover:text-[#f39200] font-bold text-[10px]"
+                                  onClick={() => handleNavigation(item.isBooking ? '/booking' : `/documents?id=${item.tracking_code}`)}
                                 >
-                                  <FileText className="h-4 w-4 mr-2" />
-                                  Ver Doc
+                                  {item.isBooking ? 'VIEW' : 'DOC'}
                                 </Button>
                               </TableCell>
                             </TableRow>
                           )) : (
                             <TableRow>
-                              <TableCell colSpan={4} className="text-center py-12 text-slate-400 italic">
-                                No hay pedidos activos para esta empresa.
-                              </TableCell>
+                              <TableCell colSpan={4} className="text-center py-12 text-slate-400 italic">{text.empty}</TableCell>
                             </TableRow>
                           )}
                         </TableBody>
@@ -251,7 +241,6 @@ export default function DashboardPage() {
   );
 }
 
-// Función auxiliar para clases condicionales
 function cn(...inputs: any[]) {
   return inputs.filter(Boolean).join(' ');
 }
