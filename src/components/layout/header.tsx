@@ -15,6 +15,7 @@ export type NavLink = {
 export function Header({ className }: { className?: string }) {
   const { t } = useLanguage();
   
+  // Enlaces base visibles para todos o gestionados dinámicamente en el cliente
   const navLinks: NavLink[] = [
     { href: '/', label: t.nav.home },
     { href: '/#services', label: t.nav.services },
@@ -26,7 +27,7 @@ export function Header({ className }: { className?: string }) {
         { href: '/pedidos', label: t.nav.place_order },
         { href: '/devoluciones', label: t.nav.returns },
         { href: '/puntos-de-recogida', label: t.nav.pickup },
-        { href: '/booking', label: t.nav.booking },
+        // El enlace a /booking se ha eliminado de aquí para gestionarse dinámicamente en HeaderClient
       ]
     },
     { href: '/blog', label: t.nav.blog },

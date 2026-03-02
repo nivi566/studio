@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { ChevronLeft, Send, CheckCircle2 } from 'lucide-react';
+import { ChevronLeft, Send, CheckCircle2, Package, Ruler, Weight } from 'lucide-react';
 
 export default function BookingPage() {
   const { user } = useAuth();
@@ -21,11 +21,20 @@ export default function BookingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  // Traducciones del formulario
+  // URL DE TU GOOGLE APPS SCRIPT (Misma que el dashboard)
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz11VTa8UXoSJXlRk1e53aOCFxzjexp5DNUhpotDONP3tUISE6bT6bMiTzSRtFqikhn/exec";
+
+  const services = [
+    "Recepción de paquetería nacional",
+    "Compras internacionales",
+    "Soluciones B2B y E-commerce",
+    "Envíos urgentes 24h"
+  ];
+
   const text = {
-    es: { title: "Nueva Solicitud de Booking", desc: "Complete los detalles para solicitar un nuevo servicio.", service: "Descripción del Servicio", date: "Fecha Requerida", back: "Volver", send: "Enviar Solicitud", success: "¡Solicitud Enviada!", thanks: "Hemos recibido su petición correctamente." },
-    ca: { title: "Nova Sol·licitud de Booking", desc: "Ompli els detalls per sol·licitar un nou servei.", service: "Descripció del Servei", date: "Data Requerida", back: "Tornar", send: "Enviar Sol·licitud", success: "Sol·licitud Enviada!", thanks: "Hem rebut la seva petició correctament." },
-    en: { title: "New Booking Request", desc: "Fill in the details to request a new service.", service: "Service Description", date: "Required Date", back: "Back", send: "Send Request", success: "Request Sent!", thanks: "We have received your request correctly." }
+    es: { title: "Nueva Solicitud de Booking", desc: "Complete los detalles para solicitar un nuevo servicio.", service: "Servicio solicitado", date: "Fecha Requerida", back: "Volver", send: "Enviar Solicitud", success: "¡Solicitud Enviada!", thanks: "Hemos recibido su petición correctamente.", dims: "Medidas (cm)", weight: "Peso (kg)", observations: "Observaciones adicionales" },
+    ca: { title: "Nova Sol·licitud de Booking", desc: "Ompli els detalls per sol·licitar un nou servei.", service: "Servei sol·licitat", date: "Data Requerida", back: "Tornar", send: "Enviar Sol·licitud", success: "Sol·licitud Enviada!", thanks: "Hem rebut la seva petició correctament.", dims: "Mides (cm)", weight: "Pes (kg)", observations: "Observacions addicionals" },
+    en: { title: "New Booking Request", desc: "Fill in the details to request a new service.", service: "Requested Service", date: "Required Date", back: "Back", send: "Send Request", success: "Request Sent!", thanks: "We have received your request correctly.", dims: "Dimensions (cm)", weight: "Weight (kg)", observations: "Additional observations" }
   }[language as 'es' | 'ca' | 'en'];
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,26 +44,36 @@ export default function BookingPage() {
     setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
     
+    // Formateamos los detalles uniendo servicio, medidas y peso
+    const detallesFormateados = `
+      SERVICIO: ${formData.get('service')}
+      MEDIDAS: ${formData.get('length')}x${formData.get('width')}x${formData.get('height')} cm
+      PESO: ${formData.get('weight')} kg
+      OBS: ${formData.get('details')}
+    `.trim();
+
     const newBooking = {
       id: `BK-${Math.floor(1000 + Math.random() * 9000)}`,
       data: formData.get('date'),
       usuari: user.usuari,
       empresa: user.empresa,
-      detalls: formData.get('details'),
+      detalls: detallesFormateados,
       estat: "Pendent"
     };
 
     try {
-      await fetch("https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=solicituds", {
+      // Enviamos mediante POST al Google Apps Script
+      await fetch(SCRIPT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: [newBooking] })
+        mode: 'no-cors', // Importante para Google Scripts
+        body: JSON.stringify(newBooking)
       });
+      
       setSubmitted(true);
       setTimeout(() => router.push('/dashboard'), 3000);
     } catch (error) {
       console.error("Error:", error);
-      alert("Error al enviar");
+      alert("Error al enviar la solicitud");
     } finally {
       setIsSubmitting(false);
     }
@@ -97,27 +116,61 @@ export default function BookingPage() {
             </CardHeader>
             <CardContent className="bg-white p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label className="font-bold text-xs uppercase text-slate-500">{text.date}</Label>
-                  <Input name="date" type="date" required className="border-slate-200 focus:border-[#f39200] focus:ring-[#f39200]" />
-                </div>
                 
+                {/* FECHA Y SERVICIO */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="font-bold text-[10px] uppercase text-slate-400">{text.date}</Label>
+                    <Input name="date" type="date" required className="border-slate-200" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="font-bold text-[10px] uppercase text-slate-400">{text.service}</Label>
+                    <select 
+                      name="service" 
+                      required 
+                      className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#f39200]"
+                    >
+                      {services.map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </div>
+                </div>
+
+                {/* MEDIDAS Y PESO */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 bg-slate-50 rounded-xl">
+                  <div className="space-y-3">
+                    <Label className="font-bold text-[10px] uppercase text-slate-400 flex items-center gap-2">
+                      <Ruler className="h-3 w-3" /> {text.dims}
+                    </Label>
+                    <div className="flex gap-2">
+                      <Input name="length" placeholder="L" type="number" required className="bg-white" />
+                      <Input name="width" placeholder="A" type="number" required className="bg-white" />
+                      <Input name="height" placeholder="H" type="number" required className="bg-white" />
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="font-bold text-[10px] uppercase text-slate-400 flex items-center gap-2">
+                      <Weight className="h-3 w-3" /> {text.weight}
+                    </Label>
+                    <Input name="weight" placeholder="0.00" type="number" step="0.01" required className="bg-white" />
+                  </div>
+                </div>
+
+                {/* OBSERVACIONES */}
                 <div className="space-y-2">
-                  <Label className="font-bold text-xs uppercase text-slate-500">{text.service}</Label>
+                  <Label className="font-bold text-[10px] uppercase text-slate-400">{text.observations}</Label>
                   <Textarea 
                     name="details" 
-                    required 
-                    placeholder="..." 
-                    className="min-h-[120px] border-slate-200 focus:border-[#f39200] focus:ring-[#f39200]" 
+                    placeholder="Escriba aquí cualquier detalle adicional..." 
+                    className="min-h-[100px] border-slate-200 focus:border-[#f39200]" 
                   />
                 </div>
 
                 <Button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="w-full bg-[#f39200] hover:bg-slate-900 text-white font-black uppercase italic py-6 transition-all"
+                  className="w-full bg-[#f39200] hover:bg-slate-900 text-white font-black uppercase italic py-6 transition-all shadow-lg shadow-orange-200"
                 >
-                  {isSubmitting ? "..." : <><Send className="mr-2 h-4 w-4" /> {text.send}</>}
+                  {isSubmitting ? "ENVIANDO..." : <><Send className="mr-2 h-4 w-4" /> {text.send}</>}
                 </Button>
               </form>
             </CardContent>

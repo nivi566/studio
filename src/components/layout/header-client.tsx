@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Menu, X, LogOut, LayoutDashboard, FileText, Globe, ChevronDown } from 'lucide-react';
+import { Menu, X, LogOut, LayoutDashboard, FileText, Globe, ChevronDown, Bookmark } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -63,6 +63,30 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   }
 
+  // Lógica de filtrado dinámico de enlaces
+  const dynamicLinks = React.useMemo(() => {
+    return navLinks.map(link => {
+      // Buscamos el desplegable de pedidos por su etiqueta traducida
+      if (link.label === t.nav.orders) {
+        const subLinks = [...(link.subLinks || [])];
+        
+        // REGLA: Solo si es cliente, está logueado y está en el Dashboard
+        const isClient = user?.rol?.toLowerCase() === 'cliente';
+        const isDashboard = pathname.includes('/dashboard');
+        
+        if (user && isClient && isDashboard) {
+          // Añadimos el enlace de booking si no existe ya
+          if (!subLinks.find(s => s.href === '/booking')) {
+            subLinks.push({ href: '/booking', label: t.nav.booking });
+          }
+        }
+        
+        return { ...link, subLinks };
+      }
+      return link;
+    });
+  }, [navLinks, user, pathname, t]);
+
   const LanguageSelector = () => (
     <div className="flex items-center gap-3 px-2">
       {(['es', 'ca', 'en'] as Language[]).map((lang, index) => (
@@ -87,7 +111,7 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
   return (
     <>
       <nav className="hidden md:flex md:items-center md:gap-6 text-sm">
-        {navLinks.map((link) => (
+        {dynamicLinks.map((link) => (
           link.subLinks ? (
             <DropdownMenu key={link.label}>
               <DropdownMenuTrigger asChild>
@@ -101,9 +125,11 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
                   <DropdownMenuItem key={sub.href} asChild>
                     <Link
                       href={sub.href}
-                      className="font-bold cursor-pointer w-full"
+                      onClick={(e) => handleNavClick(e as any, sub.href)}
+                      className="font-bold cursor-pointer w-full flex items-center justify-between"
                     >
                       {sub.label}
+                      {sub.href === '/booking' && <Bookmark className="h-3 w-3 text-primary ml-2" />}
                     </Link>
                   </DropdownMenuItem>
                 ))}
@@ -192,7 +218,7 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
               </div>
 
               <nav className="mt-4 flex flex-1 flex-col gap-2">
-                {navLinks.map((link) => (
+                {dynamicLinks.map((link) => (
                   <React.Fragment key={link.label}>
                     {link.subLinks ? (
                       <div className="flex flex-col">
@@ -201,10 +227,11 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
                           <Link
                             key={sub.href}
                             href={sub.href}
-                            className="text-xl font-black text-foreground hover:text-primary transition-colors py-2 tracking-tighter"
+                            className="text-xl font-black text-foreground hover:text-primary transition-colors py-2 tracking-tighter flex items-center justify-between"
                             onClick={(e) => handleNavClick(e, sub.href)}
                           >
                             {sub.label}
+                            {sub.href === '/booking' && <Bookmark className="h-5 w-5 text-primary" />}
                           </Link>
                         ))}
                       </div>
