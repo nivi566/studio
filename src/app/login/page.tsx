@@ -16,7 +16,8 @@ import Link from 'next/link';
 
 export default function LoginPage() {
   const { t } = useLanguage();
-  const [email, setEmail] = useState('');
+  // 1. CAMBIADO: Ahora se llama username en lugar de email
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,11 +31,11 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(null);
 
-    const inputUser = email.trim().toLowerCase();
+    // 2. CAMBIADO: Usamos el estado username
+    const inputUser = username.trim().toLowerCase();
     const inputPass = password.trim();
 
     try {
-      // Usamos una URL limpia para evitar problemas de CORS
       const response = await fetch(`${SCRIPT_URL}?sheet=usuari`, {
         method: 'GET',
         mode: 'cors',
@@ -44,7 +45,6 @@ export default function LoginPage() {
       
       const allUsers: any[] = await response.json();
 
-      // Buscamos coincidencia exacta con las columnas de tu Excel
       const foundUser = allUsers.find(
         (u) => 
           String(u.usuari).toLowerCase() === inputUser && 
@@ -93,9 +93,10 @@ export default function LoginPage() {
                 <Label className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">USUARIO</Label>
                 <Input
                   type="text"
-                  placeholder="angeldomenech"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  // 3. CAMBIADO: Ahora el placeholder es "Usuario"
+                  placeholder="Usuario"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                   className="font-bold h-12"
                 />
