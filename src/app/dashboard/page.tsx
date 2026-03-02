@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { useLanguage } from '@/context/LanguageContext'; // IMPORTANTE: Añadido
+import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -17,26 +17,76 @@ import { Footer } from '@/components/layout/footer';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
-import { LayoutDashboard, Package, ArrowRight, Bookmark } from 'lucide-react';
+import { 
+  LayoutDashboard, 
+  Package, 
+  ArrowRight, 
+  Bookmark, 
+  FileText, 
+  ExternalLink,
+  LogOut,
+  Clock
+} from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from '@/components/ui/badge';
 
 export default function DashboardPage() {
   const { user, logout, isLoading } = useAuth();
-  const { language } = useLanguage(); // Detectamos el idioma actual
+  const { language } = useLanguage(); 
   const router = useRouter();
   
-  const [pedidos, setPedidos] = useState([]);
+  const [pedidos, setPedidos] = useState<any[]>([]);
+  const [documentos, setDocumentos] = useState<any[]>([]);
   const [isFetching, setIsFetching] = useState(true);
 
-  const SHEETDB_URL = "https://sheetdb.io/api/v1/nmk5zmlkneovd";
+  // URLs DE DATOS
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz11VTa8UXoSJXlRk1e53aOCFxzjexp5DNUhpotDONP3tUISE6bT6bMiTzSRtFqikhn/exec";
+  const SHEETDB_DOCS_URL = "https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=documents";
 
-  // Diccionario de textos para el Dashboard (ES, CA, EN)
   const text = {
-    es: { title: "Panel de Cliente", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD RECIENTE", sub: "Seguimiento de pedidos y reservas de" },
-    ca: { title: "Panel de Client", welcome: "Benvingut", stats: "Registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "NOVA SOL·LICITUD", recent: "ACTIVITAT RECENT", sub: "Seguiment de comandes i reserves de" },
-    en: { title: "Customer Panel", welcome: "Welcome", stats: "Records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "RECENT ACTIVITY", sub: "Tracking of orders and bookings for" }
-  }[language as 'es'|'ca'|'en'] || { title: "Panel", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD", sub: "Seguimiento" };
+    es: { 
+      title: "Panel de Cliente", 
+      welcome: "Bienvenido", 
+      stats: "Registros", 
+      empty: "Sin actividad reciente", 
+      booking: "Gestionar Booking", 
+      new: "NUEVA SOLICITUD", 
+      recent: "ACTIVIDAD RECIENTE", 
+      sub: "Seguimiento de pedidos y reservas de",
+      docs: "MIS DOCUMENTOS",
+      noDocs: "No hay facturas disponibles",
+      logout: "Cerrar sesión",
+      view: "VER"
+    },
+    ca: { 
+      title: "Panel de Client", 
+      welcome: "Benvingut", 
+      stats: "Registres", 
+      empty: "Sense activitat recent", 
+      booking: "Gestionar Booking", 
+      new: "NOVA SOL·LICITUD", 
+      recent: "ACTIVITAT RECENT", 
+      sub: "Seguiment de comandes i reserves de",
+      docs: "ELS MEUS DOCUMENTS",
+      noDocs: "No hi ha factures disponibles",
+      logout: "Tancar sessió",
+      view: "VEURE"
+    },
+    en: { 
+      title: "Customer Panel", 
+      welcome: "Welcome", 
+      stats: "Records", 
+      empty: "No recent activity", 
+      booking: "Manage Booking", 
+      new: "NEW REQUEST", 
+      recent: "RECENT ACTIVITY", 
+      sub: "Tracking of orders and bookings for",
+      docs: "MY DOCUMENTS",
+      noDocs: "No invoices available",
+      logout: "Logout",
+      view: "VIEW"
+    }
+  }[language as 'es'|'ca'|'en'] || { title: "Panel", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD", sub: "Seguimiento", docs: "DOCUMENTOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" };
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -48,32 +98,62 @@ export default function DashboardPage() {
   }, [user, isLoading, router]);
 
   const fetchDashboardData = async () => {
+    if (!user) return;
     setIsFetching(true);
     try {
-      const resTracking = await fetch(`${SHEETDB_URL}/search?sheet=tracking&client=${encodeURIComponent(user.empresa)}`);
+      // 1. CARGA DE TRACKING (Por Empresa)
+      const resTracking = await fetch(`${SCRIPT_URL}?sheet=tracking`);
       const dataTracking = await resTracking.json();
+      const filteredTracking = (Array.isArray(dataTracking) ? dataTracking : [])
+        .filter((t: any) => String(t.empresa || "").trim().toLowerCase() === String(user.empresa).toLowerCase())
+        .map(t => ({
+          tracking_code: t.id || t.tracking_code,
+          eta: t.data_entrega || t.eta || t.data,
+          status: t.estat || t.status,
+          isBooking: false
+        }));
 
-      const resBooking = await fetch(`${SHEETDB_URL}?sheet=solicituds`);
+      // 2. CARGA DE SOLICITUDES / BOOKING (Por Usuario)
+      const resBooking = await fetch(`${SCRIPT_URL}?sheet=solicituds`);
       const dataBooking = await resBooking.json();
-      
       const filteredBookings = (Array.isArray(dataBooking) ? dataBooking : [])
-        .filter((b: any) => b.usuari && b.usuari.toLowerCase() === user.usuari.toLowerCase())
+        .filter((b: any) => String(b.usuari || "").trim().toLowerCase() === String(user.usuari).toLowerCase())
         .map((b: any) => ({
           tracking_code: b.id,
           eta: b.data,
-          status: b.estat,
+          status: b.estat || "Pendent",
           isBooking: true
         }));
 
-      setPedidos([...(Array.isArray(dataTracking) ? dataTracking : []), ...filteredBookings]);
+      // 3. CARGA DE DOCUMENTOS / FACTURAS (Desde SheetDB para consistencia con el visor)
+      const resDocs = await fetch(SHEETDB_DOCS_URL);
+      const dataDocs: any[] = await resDocs.json();
+      
+      const uniqueDocsMap = new Map();
+      (Array.isArray(dataDocs) ? dataDocs : [])
+        .filter((d: any) => String(d.usuari || "").trim().toLowerCase() === String(user.usuari).toLowerCase())
+        .forEach((d: any) => {
+          const id = d.num_factura || d.albara;
+          if (id && !uniqueDocsMap.has(id)) {
+            uniqueDocsMap.set(id, {
+              id: id,
+              nom: d.num_factura ? `Factura ${id}` : `Albarán ${id}`,
+              tipus: d.num_factura ? 'Factura' : 'Albarán',
+              data: d.data
+            });
+          }
+        });
+
+      setPedidos([...filteredTracking, ...filteredBookings]);
+      setDocumentos(Array.from(uniqueDocsMap.values()));
+
     } catch (error) {
-      console.error("Error cargando datos:", error);
+      console.error("Error cargando Dashboard:", error);
     } finally {
       setIsFetching(false);
     }
   };
 
-  // Función de navegación corregida para evitar que la página se recargue
   const handleNavigation = (path: string) => {
     router.push(path);
   };
@@ -93,24 +173,28 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="flex min-h-screen flex-col bg-slate-50 font-sans">
       <Header />
       <main className="flex-1 py-12 sm:py-16">
         <div className="container mx-auto px-4">
           
+          {/* CABECERA PANEL */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-2">
               <LayoutDashboard className="h-5 w-5 text-[#f39200]" />
               <span className="text-xs font-bold text-[#f39200] uppercase tracking-widest">{text.title}</span>
             </div>
             <h1 className="text-4xl font-black text-slate-900 tracking-tight italic">
-              {text.welcome}, <span className="text-[#f39200]">{user.nom}</span>
+              {text.welcome}, <span className="text-[#f39200] uppercase">{user.nom}</span>
             </h1>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             
+            {/* COLUMNA IZQUIERDA (INFO & DOCS) */}
             <div className="lg:col-span-1 space-y-6">
+              
+              {/* Card Usuario */}
               <Card className="border-none shadow-md overflow-hidden bg-white">
                 <div className="h-2 bg-[#f39200]" />
                 <CardHeader className="flex flex-row items-center gap-4">
@@ -121,108 +205,164 @@ export default function DashboardPage() {
                   </Avatar>
                   <div>
                     <CardTitle className="text-xl font-bold">{user.nom}</CardTitle>
-                    <CardDescription className="font-medium text-[#f39200]">{user.empresa}</CardDescription>
+                    <CardDescription className="font-medium text-[#f39200] uppercase">{user.empresa}</CardDescription>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4 text-sm">
                   <Separator className="bg-slate-100" />
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500">ID Usuario:</span>
+                    <span className="text-slate-500 font-medium">ID:</span>
                     <span className="font-bold text-slate-700">{user.usuari}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500">Rol:</span>
-                    <Badge variant="outline" className="border-orange-200 text-[#f39200] bg-orange-50 uppercase text-[10px]">{user.rol}</Badge>
+                    <span className="text-slate-500 font-medium">Rol:</span>
+                    <Badge variant="outline" className="border-orange-200 text-[#f39200] bg-orange-50 uppercase text-[10px] font-black">{user.rol}</Badge>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* ACCESO RÁPIDO A BOOKING - CORREGIDO */}
-              <Card className="border-none shadow-md bg-slate-900 text-white overflow-hidden group">
+              {/* Card Booking */}
+              <Card className="border-none shadow-md bg-slate-900 text-white overflow-hidden">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-white italic uppercase text-lg">
+                  <CardTitle className="flex items-center gap-2 text-white italic uppercase text-lg font-black">
                     <Bookmark className="h-5 w-5 text-[#f39200]" /> {text.booking}
                   </CardTitle>
-                  <CardDescription className="text-slate-400">{text.sub} {user.empresa}</CardDescription>
+                  <CardDescription className="text-slate-400 text-xs">{text.sub} <span className="text-white font-bold italic uppercase">{user.empresa}</span></CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button 
                     onClick={() => handleNavigation('/booking')}
-                    className="w-full bg-[#f39200] hover:bg-[#d88200] text-white font-bold transition-all uppercase tracking-widest py-6"
+                    className="w-full bg-[#f39200] hover:bg-white hover:text-black text-white font-black transition-all uppercase tracking-widest py-6"
                   >
                     {text.new} <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </CardContent>
               </Card>
 
-              <Card className="border-none shadow-sm bg-white">
-                <CardContent className="pt-6">
-                  <Button onClick={logout} className="w-full bg-red-50 text-red-600 hover:bg-red-600 hover:text-white border-none font-bold" variant="outline">
-                    Cerrar sesión
-                  </Button>
+              {/* Sección Mis Documentos / Facturas */}
+              <Card className="border-none shadow-md bg-white">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-black italic uppercase flex items-center justify-between text-slate-900">
+                    <div className="flex items-center gap-2">
+                      <FileText className="h-4 w-4 text-[#f39200]" /> {text.docs}
+                    </div>
+                    <Badge variant="secondary" className="text-[9px] bg-slate-100 text-slate-500 border-none font-black">{documentos.length}</Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  {isFetching ? (
+                    <div className="space-y-2">
+                      <Skeleton className="h-14 w-full" />
+                      <Skeleton className="h-14 w-full" />
+                    </div>
+                  ) : documentos.length > 0 ? (
+                    documentos.map((doc: any, i: number) => (
+                      <button 
+                        key={i} 
+                        onClick={() => handleNavigation(`/documents?id=${doc.id}`)}
+                        className="w-full flex items-center justify-between p-3 rounded-lg border border-slate-50 bg-slate-50/50 hover:bg-orange-50 hover:border-orange-100 transition-all group text-left"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="bg-white p-2 rounded shadow-sm text-slate-400 group-hover:text-[#f39200]">
+                            <FileText className="h-4 w-4" />
+                          </div>
+                          <div>
+                            <p className="text-[11px] font-black text-slate-800 leading-none uppercase">{doc.nom}</p>
+                            <p className="text-[9px] text-slate-400 uppercase mt-1.5 font-bold">{doc.data}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1 text-[#f39200] opacity-0 group-hover:opacity-100 transition-opacity">
+                          <span className="text-[9px] font-black">{text.view}</span>
+                          <ExternalLink className="h-3 w-3" />
+                        </div>
+                      </button>
+                    ))
+                  ) : (
+                    <div className="text-center py-8">
+                       <FileText className="h-8 w-8 text-slate-100 mx-auto mb-2" />
+                       <p className="text-[10px] text-slate-400 italic uppercase font-bold tracking-tighter">{text.noDocs}</p>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
+
+              <Button 
+                onClick={logout} 
+                variant="ghost" 
+                className="w-full text-slate-400 hover:text-red-600 hover:bg-red-50 font-bold text-xs uppercase tracking-widest"
+              >
+                <LogOut className="mr-2 h-4 w-4" /> {text.logout}
+              </Button>
             </div>
 
+            {/* COLUMNA DERECHA (ACTIVIDAD RECIENTE) */}
             <div className="lg:col-span-2 space-y-6">
-              <Card className="border-none shadow-md bg-white">
+              <Card className="border-none shadow-md bg-white overflow-hidden">
                 <CardHeader className="border-b border-slate-50 pb-6">
                   <div className="flex justify-between items-center">
                     <div>
-                      <CardTitle className="flex items-center gap-2 text-2xl font-black italic uppercase">
-                        <Package className="h-6 w-6 text-[#f39200]" /> {text.recent}
+                      <CardTitle className="flex items-center gap-2 text-2xl font-black italic uppercase text-slate-900">
+                        <Clock className="h-6 w-6 text-[#f39200]" /> {text.recent}
                       </CardTitle>
                     </div>
-                    <Badge className="bg-orange-100 text-[#f39200] border-none font-bold px-3">
+                    <Badge className="bg-orange-100 text-[#f39200] border-none font-black px-3 py-1 text-[10px]">
                       {pedidos.length} {text.stats}
                     </Badge>
                   </div>
                 </CardHeader>
                 <CardContent className="pt-6">
                   {isFetching ? (
-                    <div className="space-y-4"><Skeleton className="h-12 w-full" /><Skeleton className="h-12 w-full" /></div>
+                    <div className="space-y-4">
+                      <Skeleton className="h-12 w-full" />
+                      <Skeleton className="h-12 w-full" />
+                      <Skeleton className="h-12 w-full" />
+                    </div>
                   ) : (
-                    <div className="rounded-md border border-slate-100 overflow-hidden">
+                    <div className="rounded-xl border border-slate-100 overflow-hidden shadow-sm">
                       <Table>
-                        <TableHeader className="bg-slate-50">
-                          <TableRow>
-                            <TableHead className="font-bold text-slate-700 uppercase text-[10px]">Ref / Tracking</TableHead>
-                            <TableHead className="font-bold text-slate-700 uppercase text-[10px]">Date</TableHead>
-                            <TableHead className="font-bold text-slate-700 uppercase text-[10px]">Status</TableHead>
-                            <TableHead className="text-right font-bold text-slate-700 uppercase text-[10px]">Action</TableHead>
+                        <TableHeader className="bg-slate-50/80">
+                          <TableRow className="hover:bg-transparent border-slate-100">
+                            <TableHead className="font-black text-slate-500 uppercase text-[9px] tracking-widest px-4">Ref / ID</TableHead>
+                            <TableHead className="font-black text-slate-500 uppercase text-[9px] tracking-widest">Fecha</TableHead>
+                            <TableHead className="font-black text-slate-500 uppercase text-[9px] tracking-widest">Estado</TableHead>
+                            <TableHead className="text-right font-black text-slate-500 uppercase text-[9px] tracking-widest px-4">Info</TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
                           {pedidos.length > 0 ? pedidos.map((item: any, index) => (
-                            <TableRow key={index} className="hover:bg-slate-50 transition-colors">
-                              <TableCell className="font-mono font-bold text-[#f39200] flex items-center gap-2">
-                                {item.isBooking ? <Bookmark className="h-3 w-3 text-slate-400" /> : <Package className="h-3 w-3 text-slate-400" />}
+                            <TableRow key={index} className="hover:bg-slate-50/50 transition-colors border-slate-50">
+                              <TableCell className="font-mono font-bold text-[#f39200] px-4 py-4 flex items-center gap-2">
+                                {item.isBooking ? (
+                                  <div className="bg-orange-50 p-1.5 rounded"><Bookmark className="h-3 w-3" /></div>
+                                ) : (
+                                  <div className="bg-slate-50 p-1.5 rounded text-slate-400"><Package className="h-3 w-3" /></div>
+                                )}
                                 {item.tracking_code}
                               </TableCell>
-                              <TableCell className="text-slate-600 font-medium text-xs">{item.eta || item.data}</TableCell>
+                              <TableCell className="text-slate-600 font-bold text-[11px] uppercase">{item.eta}</TableCell>
                               <TableCell>
                                 <Badge className={cn(
-                                  "font-bold px-2 py-0.5 border-none uppercase text-[9px]",
+                                  "font-black px-2 py-0.5 border-none uppercase text-[8px] tracking-tighter",
                                   item.status === 'Entregado' || item.status === 'Aprovat' ? 'bg-green-100 text-green-700' : 
-                                  item.status === 'En transito' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'
+                                  item.status === 'Pendent' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'
                                 )}>
                                   {item.status}
                                 </Badge>
                               </TableCell>
-                              <TableCell className="text-right">
+                              <TableCell className="text-right px-4">
                                 <Button 
                                   variant="ghost" 
                                   size="sm" 
-                                  className="text-slate-400 hover:text-[#f39200] font-bold text-[10px]"
+                                  className="text-slate-400 hover:text-[#f39200] font-black text-[9px] uppercase tracking-tighter"
                                   onClick={() => handleNavigation(item.isBooking ? '/booking' : `/documents?id=${item.tracking_code}`)}
                                 >
-                                  {item.isBooking ? 'VIEW' : 'DOC'}
+                                  {item.isBooking ? 'REVIEW' : 'DOCS'}
                                 </Button>
                               </TableCell>
                             </TableRow>
                           )) : (
                             <TableRow>
-                              <TableCell colSpan={4} className="text-center py-12 text-slate-400 italic">{text.empty}</TableCell>
+                              <TableCell colSpan={4} className="text-center py-16 text-slate-300 font-bold uppercase text-xs italic tracking-tighter">{text.empty}</TableCell>
                             </TableRow>
                           )}
                         </TableBody>
@@ -241,6 +381,7 @@ export default function DashboardPage() {
   );
 }
 
+// Función auxiliar para clases CSS
 function cn(...inputs: any[]) {
   return inputs.filter(Boolean).join(' ');
 }
