@@ -9,9 +9,11 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Package, Building2, User, Mail, ShieldCheck, ChevronRight, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext'; 
 
 export default function PedidosPage() {
   const { t } = useLanguage();
+  const { user } = useAuth(); 
   const o = t.ordersPage;
 
   // ESTADOS
@@ -34,15 +36,25 @@ export default function PedidosPage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Tu URL de Google Apps Script
     const scriptURL = "https://script.google.com/macros/s/AKfycbwn7kGe--3mFqaD6BjtK08diNQ-vcj3jtmW-HIO7Vs-RrfK4sFKWgIq5gIEacsd01xB/exec";
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    // PREPARAMOS EL OBJETO PARA EL EXCEL
+    const pedidoData = {
+      id: trackingCode,
+      data: new Date().toLocaleDateString(),
+      // Si el usuario está logueado usamos su usuari, si no, "invitado"
+      usuari: user ? user.usuari : "invitado",
+      empresa: user ? user.empresa : formData.get('empresa_nombre'),
+      detalls: `Destinatario: ${formData.get('cliente_nombre')} | DNI: ${formData.get('cliente_dni')} | Email: ${formData.get('cliente_email')}`,
+      estat: "Pendiente" // <--- CAMBIADO A PENDIENTE POR DEFECTO
+    };
+
     try {
       await fetch(scriptURL, { 
         method: 'POST', 
-        body: formData,
+        body: JSON.stringify(pedidoData),
         mode: 'no-cors' 
       });
       
@@ -73,7 +85,7 @@ export default function PedidosPage() {
                 ¡Gracias por hacer tu envío con nosotros!
               </h2>
               <p className="text-xl text-muted-foreground mb-8 font-medium">
-                Tu pedido con referencia <span className="font-bold text-primary">{trackingCode}</span> ya está en proceso. Hemos enviado una confirmación a tu email.
+                Tu pedido con referencia <span className="font-bold text-primary">{trackingCode}</span> ya está en proceso.
               </p>
               <Button 
                 onClick={() => window.location.reload()} 
@@ -123,6 +135,7 @@ export default function PedidosPage() {
                           id="empresa_nombre" 
                           name="empresa_nombre" 
                           required 
+                          defaultValue={user?.empresa || ""}
                           placeholder="Ej: Amazon, Inditex..."
                           className="h-12 font-bold text-lg border-2 focus-visible:ring-primary"
                         />

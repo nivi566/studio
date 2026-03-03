@@ -24,7 +24,7 @@ export default function BookingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [bookingData, setBookingData] = useState<any>(null);
 
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz11VTa8UXoSJXlRk1e53aOCFxzjexp5DNUhpotDONP3tUISE6bT6bMiTzSRtFqikhn/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyeDv43xLAkFAal7iquXLsWId0Ijn_yTNUMOZhP5yB5xGxMhSNVJ9hx--cdzV-GVP6e/exec";
 
   const services = [
     "Recepción de paquetería nacional",
