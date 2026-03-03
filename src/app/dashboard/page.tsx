@@ -1,6 +1,7 @@
+
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -31,7 +32,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from '@/components/ui/badge';
 
 export default function DashboardPage() {
-  const { user, logout, isLoading } = useAuth();
+  const { user, logout, isLoading: authLoading } = useAuth();
   const { language } = useLanguage(); 
   const router = useRouter();
   
@@ -39,73 +40,32 @@ export default function DashboardPage() {
   const [documentos, setDocumentos] = useState<any[]>([]);
   const [isFetching, setIsFetching] = useState(true);
 
-  // URLs DE DATOS
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz11VTa8UXoSJXlRk1e53aOCFxzjexp5DNUhpotDONP3tUISE6bT6bMiTzSRtFqikhn/exec";
   const SHEETDB_DOCS_URL = "https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=documents";
 
-  const text = {
-    es: { 
-      title: "Panel de Cliente", 
-      welcome: "Bienvenido", 
-      stats: "Registros", 
-      empty: "Sin actividad reciente", 
-      booking: "Gestionar Booking", 
-      new: "NUEVA SOLICITUD", 
-      recent: "ACTIVIDAD RECIENTE", 
-      sub: "Seguimiento de pedidos y reservas de",
-      docs: "MIS DOCUMENTOS",
-      noDocs: "No hay facturas disponibles",
-      logout: "Cerrar sesión",
-      view: "VER"
-    },
-    ca: { 
-      title: "Panel de Client", 
-      welcome: "Benvingut", 
-      stats: "Registres", 
-      empty: "Sense activitat recent", 
-      booking: "Gestionar Booking", 
-      new: "NOVA SOL·LICITUD", 
-      recent: "ACTIVITAT RECENT", 
-      sub: "Seguiment de comandes i reserves de",
-      docs: "ELS MEUS DOCUMENTS",
-      noDocs: "No hi ha factures disponibles",
-      logout: "Tancar sessió",
-      view: "VEURE"
-    },
-    en: { 
-      title: "Customer Panel", 
-      welcome: "Welcome", 
-      stats: "Records", 
-      empty: "No recent activity", 
-      booking: "Manage Booking", 
-      new: "NEW REQUEST", 
-      recent: "RECENT ACTIVITY", 
-      sub: "Tracking of orders and bookings for",
-      docs: "MY DOCUMENTS",
-      noDocs: "No invoices available",
-      logout: "Logout",
-      view: "VIEW"
-    }
-  }[language as 'es'|'ca'|'en'] || { title: "Panel", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD", sub: "Seguimiento", docs: "DOCUMENTOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" };
+  const text = useMemo(() => ({
+    es: { title: "Panel de Cliente", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD RECIENTE", sub: "Seguimiento de pedidos y reservas de", docs: "MIS DOCUMENTOS", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "VER" },
+    ca: { title: "Panel de Client", welcome: "Benvingut", stats: "Registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "NOVA SOL·LICITUD", recent: "ACTIVITAT RECENT", sub: "Seguiment de comandes i reserves de", docs: "ELS MEUS DOCUMENTS", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "VEURE" },
+    en: { title: "Customer Panel", welcome: "Welcome", stats: "Records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "RECENT ACTIVITY", sub: "Tracking of orders and bookings for", docs: "MY DOCUMENTS", noDocs: "No invoices available", logout: "Logout", view: "VIEW" }
+  }[language as 'es'|'ca'|'en'] || { title: "Panel", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD", sub: "Seguimiento", docs: "DOCUMENTOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" }), [language]);
 
-  useEffect(() => {
-    if (!isLoading && !user) {
-      router.push('/login');
-    }
-    if (user) {
-      fetchDashboardData();
-    }
-  }, [user, isLoading, router]);
-
-  const fetchDashboardData = async () => {
+  const fetchDashboardData = useCallback(async () => {
     if (!user) return;
     setIsFetching(true);
     try {
-      // 1. CARGA DE TRACKING (Por Empresa)
-      const resTracking = await fetch(`${SCRIPT_URL}?sheet=tracking`);
-      const dataTracking = await resTracking.json();
-      const filteredTracking = (Array.isArray(dataTracking) ? dataTracking : [])
-        .filter((t: any) => String(t.empresa || "").trim().toLowerCase() === String(user.empresa).toLowerCase())
+      // Optimizamos ejecutando las 3 llamadas en paralelo
+      const [resTracking, resBooking, resDocs] = await Promise.all([
+        fetch(`${SCRIPT_URL}?sheet=tracking`).then(r => r.json()),
+        fetch(`${SCRIPT_URL}?sheet=solicituds`).then(r => r.json()),
+        fetch(SHEETDB_DOCS_URL).then(r => r.json())
+      ]);
+
+      const userEmailLower = String(user.usuari).toLowerCase();
+      const userEmpresaLower = String(user.empresa).toLowerCase();
+
+      // Procesamiento de Tracking
+      const filteredTracking = (Array.isArray(resTracking) ? resTracking : [])
+        .filter((t: any) => String(t.empresa || "").trim().toLowerCase() === userEmpresaLower)
         .map(t => ({
           tracking_code: t.id || t.tracking_code,
           eta: t.data_entrega || t.eta || t.data,
@@ -113,11 +73,9 @@ export default function DashboardPage() {
           isBooking: false
         }));
 
-      // 2. CARGA DE SOLICITUDES / BOOKING (Por Usuario)
-      const resBooking = await fetch(`${SCRIPT_URL}?sheet=solicituds`);
-      const dataBooking = await resBooking.json();
-      const filteredBookings = (Array.isArray(dataBooking) ? dataBooking : [])
-        .filter((b: any) => String(b.usuari || "").trim().toLowerCase() === String(user.usuari).toLowerCase())
+      // Procesamiento de Booking
+      const filteredBookings = (Array.isArray(resBooking) ? resBooking : [])
+        .filter((b: any) => String(b.usuari || "").trim().toLowerCase() === userEmailLower)
         .map((b: any) => ({
           tracking_code: b.id,
           eta: b.data,
@@ -125,13 +83,10 @@ export default function DashboardPage() {
           isBooking: true
         }));
 
-      // 3. CARGA DE DOCUMENTOS / FACTURAS (Desde SheetDB para consistencia con el visor)
-      const resDocs = await fetch(SHEETDB_DOCS_URL);
-      const dataDocs: any[] = await resDocs.json();
-      
+      // Procesamiento de Documentos (Eliminando duplicados de ID de forma eficiente)
       const uniqueDocsMap = new Map();
-      (Array.isArray(dataDocs) ? dataDocs : [])
-        .filter((d: any) => String(d.usuari || "").trim().toLowerCase() === String(user.usuari).toLowerCase())
+      (Array.isArray(resDocs) ? resDocs : [])
+        .filter((d: any) => String(d.usuari || "").trim().toLowerCase() === userEmailLower)
         .forEach((d: any) => {
           const id = d.num_factura || d.albara;
           if (id && !uniqueDocsMap.has(id)) {
@@ -152,17 +107,22 @@ export default function DashboardPage() {
     } finally {
       setIsFetching(false);
     }
-  };
+  }, [user]);
 
-  const handleNavigation = (path: string) => {
-    router.push(path);
-  };
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/login');
+    }
+    if (user) {
+      fetchDashboardData();
+    }
+  }, [user, authLoading, router, fetchDashboardData]);
 
   const getInitials = (name: string = '') => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   }
 
-  if (isLoading || !user) {
+  if (authLoading || (!user && isFetching)) {
     return (
       <div className="flex min-h-screen flex-col bg-slate-50">
         <Header />
@@ -172,13 +132,14 @@ export default function DashboardPage() {
     );
   }
 
+  if (!user) return null;
+
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 font-sans">
       <Header />
       <main className="flex-1 py-12 sm:py-16">
         <div className="container mx-auto px-4">
           
-          {/* CABECERA PANEL */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-2">
               <LayoutDashboard className="h-5 w-5 text-[#f39200]" />
@@ -190,11 +151,7 @@ export default function DashboardPage() {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            
-            {/* COLUMNA IZQUIERDA (INFO & DOCS) */}
             <div className="lg:col-span-1 space-y-6">
-              
-              {/* Card Usuario */}
               <Card className="border-none shadow-md overflow-hidden bg-white">
                 <div className="h-2 bg-[#f39200]" />
                 <CardHeader className="flex flex-row items-center gap-4">
@@ -221,7 +178,6 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
-              {/* Card Booking */}
               <Card className="border-none shadow-md bg-slate-900 text-white overflow-hidden">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-white italic uppercase text-lg font-black">
@@ -231,7 +187,7 @@ export default function DashboardPage() {
                 </CardHeader>
                 <CardContent>
                   <Button 
-                    onClick={() => handleNavigation('/booking')}
+                    onClick={() => router.push('/booking')}
                     className="w-full bg-[#f39200] hover:bg-white hover:text-black text-white font-black transition-all uppercase tracking-widest py-6"
                   >
                     {text.new} <ArrowRight className="ml-2 h-4 w-4" />
@@ -239,7 +195,6 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
-              {/* Sección Mis Documentos / Facturas */}
               <Card className="border-none shadow-md bg-white">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-black italic uppercase flex items-center justify-between text-slate-900">
@@ -259,7 +214,7 @@ export default function DashboardPage() {
                     documentos.map((doc: any, i: number) => (
                       <button 
                         key={i} 
-                        onClick={() => handleNavigation(`/documents?id=${doc.id}`)}
+                        onClick={() => router.push(`/documents?id=${doc.id}`)}
                         className="w-full flex items-center justify-between p-3 rounded-lg border border-slate-50 bg-slate-50/50 hover:bg-orange-50 hover:border-orange-100 transition-all group text-left"
                       >
                         <div className="flex items-center gap-3">
@@ -295,7 +250,6 @@ export default function DashboardPage() {
               </Button>
             </div>
 
-            {/* COLUMNA DERECHA (ACTIVIDAD RECIENTE) */}
             <div className="lg:col-span-2 space-y-6">
               <Card className="border-none shadow-md bg-white overflow-hidden">
                 <CardHeader className="border-b border-slate-50 pb-6">
@@ -354,7 +308,7 @@ export default function DashboardPage() {
                                   variant="ghost" 
                                   size="sm" 
                                   className="text-slate-400 hover:text-[#f39200] font-black text-[9px] uppercase tracking-tighter"
-                                  onClick={() => handleNavigation(item.isBooking ? '/booking' : `/documents?id=${item.tracking_code}`)}
+                                  onClick={() => router.push(item.isBooking ? '/booking' : `/documents?id=${item.tracking_code}`)}
                                 >
                                   {item.isBooking ? 'REVIEW' : 'DOCS'}
                                 </Button>
@@ -372,7 +326,6 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
             </div>
-
           </div>
         </div>
       </main>
@@ -381,7 +334,6 @@ export default function DashboardPage() {
   );
 }
 
-// Función auxiliar para clases CSS
 function cn(...inputs: any[]) {
   return inputs.filter(Boolean).join(' ');
 }

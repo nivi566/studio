@@ -1,8 +1,9 @@
+
 'use client';
 
 export const dynamic = 'force-dynamic';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, useMemo, useCallback } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Header } from '@/components/layout/header';
@@ -48,7 +49,8 @@ type GroupedInvoice = {
 
 const safeParseFloat = (v: any) => {
   const s = String(v || '0').replace(/,/g, '.').replace(/[€%]/g, '').trim();
-  return isNaN(parseFloat(s)) ? 0 : parseFloat(s);
+  const parsed = parseFloat(s);
+  return isNaN(parsed) ? 0 : parsed;
 };
 
 export default function DocumentsPage() {
@@ -60,91 +62,136 @@ export default function DocumentsPage() {
 }
 
 function DocumentsContent() {
-  const { user } = useAuth();
+  const { user, isLoading: authLoading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   
   const lang = searchParams.get('lang') || 'es';
-  const t = {
+  const t = useMemo(() => ({
     es: { title: "Mis Documentos", sub: "Facturas y albaranes vinculados", factura: "Factura", albaran: "Albarán", volver: "Volver", perfil: "Mi Perfil", inicio: "Inicio", imprimir: "Imprimir", concepto: "Concepto", cant: "Cant.", precio: "P. Unitario", totalNeto: "Total Neto", total: "TOTAL", base: "Base Imponible", formaPago: "Forma de pago", registro: "Inscrita en el Registro Mercantil de Madrid, Tomo 1234, Folio 56, Hoja M-78901.", rgpd: "De acuerdo con la normativa vigente en protección de datos (RGPD), le informamos que sus datos forman parte de un fichero propiedad de InTrack Logistics, S.L." },
     ca: { title: "Els meus Documents", sub: "Factures i albarans vinculats", factura: "Factura", albaran: "Albarà", volver: "Tornar", perfil: "El meu Perfil", inicio: "Inici", imprimir: "Imprimir", concepto: "Concepte", cant: "Quant.", precio: "P. Unitari", totalNeto: "Total Net", total: "TOTAL", base: "Base Imponible", formaPago: "Forma de pagament", registro: "Inscrita en el Registre Mercantil de Madrid, Tom 1234, Foli 56, Full M-78901.", rgpd: "D'acord amb la normativa vigent en protecció de dades (RGPD), l'informem que les seves dades formen part d'un fitxer propietat d'InTrack Logistics, S.L." },
     en: { title: "My Documents", sub: "Linked invoices and delivery notes", factura: "Invoice", albaran: "Delivery Note", volver: "Back", perfil: "My Profile", inicio: "Home", imprimir: "Print", concepto: "Concept", cant: "Qty.", precio: "Unit Price", totalNeto: "Net Total", total: "TOTAL", base: "Tax Base", formaPago: "Payment method", registro: "Registered in the Mercantile Registry of Madrid, Volume 1234, Folio 56, Page M-78901.", rgpd: "In accordance with current regulations on data protection (GDPR), we inform you that your data is part of a file owned by InTrack Logistics, S.L." }
-  }[lang as 'es'|'ca'|'en'] || t.es;
+  }[lang as 'es'|'ca'|'en'] || { title: "Mis Documentos", sub: "Facturas y albaranes vinculados", factura: "Factura", albaran: "Albarán", volver: "Volver", perfil: "Mi Perfil", inicio: "Inicio", imprimir: "Imprimir", concepto: "Concepto", cant: "Cant.", precio: "P. Unitario", totalNeto: "Total Neto", total: "TOTAL", base: "Base Imponible", formaPago: "Forma de pago", registro: "Inscrita en el Registro Mercantil de Madrid, Tomo 1234, Folio 56, Hoja M-78901.", rgpd: "De acuerdo con la normativa vigente en protección de datos (RGPD), le informamos que sus datos forman parte de un fichero propiedad de InTrack Logistics, S.L." }), [lang]);
 
   const [documents, setDocuments] = useState<GroupedInvoice[]>([]);
   const [selectedDoc, setSelectedDoc] = useState<GroupedInvoice | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isPageLoading, setIsPageLoading] = useState(true);
 
-  useEffect(() => {
-    if (user?.usuari) {
-      const fetchData = async () => {
-        setIsLoading(true);
-        try {
-          const [docsRes, usersRes] = await Promise.all([
-            fetch('https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=documents'),
-            fetch('https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=usuari')
-          ]);
-          const allDocs: DocumentLine[] = await docsRes.json();
-          const allUsers: UserData[] = await usersRes.json();
-          
-          const currentUserData = allUsers.find(u => u.usuari?.toLowerCase() === user.usuari.toLowerCase());
-          const isAdmin = ['admin', 'administrador', 'treballador'].includes(currentUserData?.rol?.toLowerCase() || 'client');
-          const userDocs = isAdmin ? allDocs : allDocs.filter(doc => doc.usuari?.toLowerCase() === user.usuari.toLowerCase());
-          const usersMap = new Map(allUsers.map(u => [u.usuari.toLowerCase(), u]));
+  const fetchData = useCallback(async () => {
+    if (!user?.usuari) return;
+    setIsPageLoading(true);
+    try {
+      // Paralelizar peticiones para máxima velocidad
+      const [docsRes, usersRes] = await Promise.all([
+        fetch('https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=documents').then(r => r.json()),
+        fetch('https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=usuari').then(r => r.json())
+      ]);
+      
+      const allDocs: DocumentLine[] = docsRes;
+      const allUsers: UserData[] = usersRes;
+      
+      const userLower = user.usuari.toLowerCase();
+      const currentUserData = allUsers.find(u => u.usuari?.toLowerCase() === userLower);
+      const role = currentUserData?.rol?.toLowerCase() || 'client';
+      const isAdmin = ['admin', 'administrador', 'treballador'].includes(role);
+      
+      const userDocs = isAdmin ? allDocs : allDocs.filter(doc => doc.usuari?.toLowerCase() === userLower);
+      const usersMap = new Map(allUsers.map(u => [u.usuari.toLowerCase(), u]));
 
-          const grouped = userDocs.reduce((acc, doc) => {
-            const docId = doc.num_factura || doc.albara;
-            if (!docId) return acc;
+      // Agrupamiento eficiente
+      const grouped = userDocs.reduce((acc, doc) => {
+        const docId = doc.num_factura || doc.albara;
+        if (!docId) return acc;
 
-            if (!acc[docId]) {
-              acc[docId] = {
-                id: docId,
-                albaranId: doc.albara || '',
-                date: doc.data,
-                paymentMethod: doc.fpagament,
-                status: doc.estat === 'Pagada' ? 'Pagada' : 'Pendent',
-                lines: [],
-                clientData: usersMap.get(doc.usuari.toLowerCase()),
-                tipoDocumento: doc.num_factura ? 'Factura' : 'Albarán'
-              };
-            }
-            const up = safeParseFloat(doc.preu_unitari);
-            const q = safeParseFloat(doc.unitats);
-            const d = safeParseFloat(doc.dte);
-            const net = (up * q) * (1 - d / 100);
-            acc[docId].lines.push({ concept: doc.concepte, quantity: q, unitPrice: up, discount: d, netTotal: net, vatRate: safeParseFloat(doc.iva) });
-            return acc;
-          }, {} as any);
-          
-          const processed: GroupedInvoice[] = Object.values(grouped).map((inv: any) => {
-            const sub = inv.lines.reduce((s: number, l: any) => s + l.netTotal, 0);
-            const vats = inv.lines.reduce((a: any, l: any) => {
-              const r = String(l.vatRate);
-              if (!a[r]) a[r] = { base: 0, amount: 0 };
-              a[r].base += l.netTotal; a[r].amount += l.netTotal * (l.vatRate / 100);
-              return a;
-            }, {});
-            const tot = sub + Object.values(vats).reduce((s: number, d: any) => s + d.amount, 0);
-            return { ...inv, subtotal: sub, vatDetails: vats, total: tot };
-          });
+        if (!acc[docId]) {
+          acc[docId] = {
+            id: docId,
+            albaranId: doc.albara || '',
+            date: doc.data,
+            paymentMethod: doc.fpagament,
+            status: doc.estat === 'Pagada' ? 'Pagada' : 'Pendent',
+            lines: [],
+            clientData: usersMap.get(doc.usuari.toLowerCase()),
+            tipoDocumento: doc.num_factura ? 'Factura' : 'Albarán'
+          };
+        }
+        const up = safeParseFloat(doc.preu_unitari);
+        const q = safeParseFloat(doc.unitats);
+        const d = safeParseFloat(doc.dte);
+        const net = (up * q) * (1 - d / 100);
+        acc[docId].lines.push({ 
+          concept: doc.concepte, 
+          quantity: q, 
+          unitPrice: up, 
+          discount: d, 
+          netTotal: net, 
+          vatRate: safeParseFloat(doc.iva) 
+        });
+        return acc;
+      }, {} as Record<string, any>);
+      
+      const processed: GroupedInvoice[] = Object.values(grouped).map((inv: any) => {
+        const sub = inv.lines.reduce((s: number, l: any) => s + l.netTotal, 0);
+        const vats = inv.lines.reduce((a: any, l: any) => {
+          const r = String(l.vatRate);
+          if (!a[r]) a[r] = { base: 0, amount: 0 };
+          a[r].base += l.netTotal; a[r].amount += l.netTotal * (l.vatRate / 100);
+          return a;
+        }, {});
+        const tot = sub + Object.values(vats).reduce((s: number, d: any) => s + d.amount, 0);
+        return { ...inv, subtotal: sub, vatDetails: vats, total: tot };
+      });
 
-          setDocuments(processed.sort((a, b) => b.id.localeCompare(a.id)));
+      const sorted = processed.sort((a, b) => b.id.localeCompare(a.id));
+      setDocuments(sorted);
 
-          const urlId = searchParams.get('id');
-          if (urlId) {
-            const found = processed.find(i => i.id === urlId);
-            if (found) setSelectedDoc(found);
-          }
-        } catch (e) { console.error(e); } finally { setIsLoading(false); }
-      };
-      fetchData();
+      const urlId = searchParams.get('id');
+      if (urlId) {
+        const found = sorted.find(i => i.id === urlId);
+        if (found) setSelectedDoc(found);
+      }
+    } catch (e) { 
+      console.error("Error fetching documents:", e); 
+    } finally { 
+      setIsPageLoading(false); 
     }
   }, [user, searchParams]);
 
+  useEffect(() => {
+    if (!authLoading) {
+      if (!user) {
+        router.push('/login');
+      } else {
+        fetchData();
+      }
+    }
+  }, [user, authLoading, router, fetchData]);
+
   const formatDate = (ds: string) => {
     const p = ds.split('/');
-    return p.length === 3 ? new Date(`${p[2]}-${p[1]}-${p[0]}`).toLocaleDateString(lang === 'ca' ? 'ca-ES' : 'es-ES', { day: '2-digit', month: 'long', year: 'numeric' }) : ds;
+    if (p.length !== 3) return ds;
+    try {
+      return new Date(`${p[2]}-${p[1]}-${p[0]}`).toLocaleDateString(lang === 'ca' ? 'ca-ES' : 'es-ES', { 
+        day: '2-digit', 
+        month: 'long', 
+        year: 'numeric' 
+      });
+    } catch {
+      return ds;
+    }
   };
+
+  if (authLoading || (isPageLoading && documents.length === 0)) {
+    return (
+      <div className="flex min-h-screen flex-col bg-slate-50">
+        <Header />
+        <main className="flex-1 flex items-center justify-center">
+          <Loader2 className="animate-spin h-10 w-10 text-[#f39200]" />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (selectedDoc) {
     return (
@@ -267,7 +314,7 @@ function DocumentsContent() {
           </div>
         </div>
 
-        {isLoading ? (
+        {isPageLoading && documents.length === 0 ? (
           <div className="flex justify-center py-20"><Loader2 className="animate-spin h-10 w-10 text-[#f39200]" /></div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
