@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
@@ -26,7 +25,8 @@ import {
   FileText, 
   ExternalLink,
   LogOut,
-  Clock
+  Clock,
+  FolderOpen
 } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from '@/components/ui/badge';
@@ -44,16 +44,15 @@ export default function DashboardPage() {
   const SHEETDB_DOCS_URL = "https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=documents";
 
   const text = useMemo(() => ({
-    es: { title: "Panel de Cliente", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD RECIENTE", sub: "Seguimiento de pedidos y reservas de", docs: "MIS DOCUMENTOS", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "VER" },
-    ca: { title: "Panel de Client", welcome: "Benvingut", stats: "Registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "NOVA SOL·LICITUD", recent: "ACTIVITAT RECENT", sub: "Seguiment de comandes i reserves de", docs: "ELS MEUS DOCUMENTS", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "VEURE" },
-    en: { title: "Customer Panel", welcome: "Welcome", stats: "Records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "RECENT ACTIVITY", sub: "Tracking of orders and bookings for", docs: "MY DOCUMENTS", noDocs: "No invoices available", logout: "Logout", view: "VIEW" }
-  }[language as 'es'|'ca'|'en'] || { title: "Panel", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD", sub: "Seguimiento", docs: "DOCUMENTOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" }), [language]);
+    es: { title: "Panel de Cliente", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD RECENTE", sub: "Seguimiento de pedidos y reservas de", docs: "MIS DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "VER" },
+    ca: { title: "Panel de Client", welcome: "Benvingut", stats: "Registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "NOVA SOL·LICITUD", recent: "ACTIVITAT RECENT", sub: "Seguiment de comandes i reserves de", docs: "ELS MEUS DOCUMENTS", myOrders: "LES MEVES COMANDES", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "VEURE" },
+    en: { title: "Customer Panel", welcome: "Welcome", stats: "Records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "RECENT ACTIVITY", sub: "Tracking of orders and bookings for", docs: "MY DOCUMENTS", myOrders: "MY ORDERS", noDocs: "No invoices available", logout: "Logout", view: "VIEW" }
+  }[language as 'es'|'ca'|'en'] || { title: "Panel", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD", sub: "Seguimiento", docs: "DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" }), [language]);
 
   const fetchDashboardData = useCallback(async () => {
     if (!user) return;
     setIsFetching(true);
     try {
-      // Optimizamos ejecutando las 3 llamadas en paralelo
       const [resTracking, resBooking, resDocs] = await Promise.all([
         fetch(`${SCRIPT_URL}?sheet=tracking`).then(r => r.json()),
         fetch(`${SCRIPT_URL}?sheet=solicituds`).then(r => r.json()),
@@ -63,7 +62,6 @@ export default function DashboardPage() {
       const userEmailLower = String(user.usuari).toLowerCase();
       const userEmpresaLower = String(user.empresa).toLowerCase();
 
-      // Procesamiento de Tracking
       const filteredTracking = (Array.isArray(resTracking) ? resTracking : [])
         .filter((t: any) => String(t.empresa || "").trim().toLowerCase() === userEmpresaLower)
         .map(t => ({
@@ -73,7 +71,6 @@ export default function DashboardPage() {
           isBooking: false
         }));
 
-      // Procesamiento de Booking
       const filteredBookings = (Array.isArray(resBooking) ? resBooking : [])
         .filter((b: any) => String(b.usuari || "").trim().toLowerCase() === userEmailLower)
         .map((b: any) => ({
@@ -83,7 +80,6 @@ export default function DashboardPage() {
           isBooking: true
         }));
 
-      // Procesamiento de Documentos (Eliminando duplicados de ID de forma eficiente)
       const uniqueDocsMap = new Map();
       (Array.isArray(resDocs) ? resDocs : [])
         .filter((d: any) => String(d.usuari || "").trim().toLowerCase() === userEmailLower)
@@ -195,6 +191,28 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
+              {/* NUEVO BOTÓN "MIS PEDIDOS" */}
+              <Card className="border-none shadow-md bg-white overflow-hidden border-l-4 border-l-[#f39200]">
+                <CardContent className="p-4">
+                  <Button 
+                    onClick={() => router.push('/dashboard/mis-pedidos')}
+                    variant="ghost"
+                    className="w-full h-auto flex items-center justify-between p-4 bg-slate-50 hover:bg-orange-50 group transition-all"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="bg-white p-3 rounded-2xl shadow-sm group-hover:bg-[#f39200] transition-colors">
+                        <FolderOpen className="h-6 w-6 text-[#f39200] group-hover:text-white" />
+                      </div>
+                      <div className="text-left">
+                        <span className="block text-sm font-black text-slate-900 uppercase italic tracking-tighter">{text.myOrders}</span>
+                        <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">Carpeta Personal</span>
+                      </div>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-slate-300 group-hover:text-[#f39200] group-hover:translate-x-1 transition-all" />
+                  </Button>
+                </CardContent>
+              </Card>
+
               <Card className="border-none shadow-md bg-white">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-black italic uppercase flex items-center justify-between text-slate-900">
@@ -234,8 +252,8 @@ export default function DashboardPage() {
                     ))
                   ) : (
                     <div className="text-center py-8">
-                       <FileText className="h-8 w-8 text-slate-100 mx-auto mb-2" />
-                       <p className="text-[10px] text-slate-400 italic uppercase font-bold tracking-tighter">{text.noDocs}</p>
+                        <FileText className="h-8 w-8 text-slate-100 mx-auto mb-2" />
+                        <p className="text-[10px] text-slate-400 italic uppercase font-bold tracking-tighter">{text.noDocs}</p>
                     </div>
                   )}
                 </CardContent>
@@ -267,7 +285,6 @@ export default function DashboardPage() {
                 <CardContent className="pt-6">
                   {isFetching ? (
                     <div className="space-y-4">
-                      <Skeleton className="h-12 w-full" />
                       <Skeleton className="h-12 w-full" />
                       <Skeleton className="h-12 w-full" />
                     </div>
@@ -332,6 +349,26 @@ export default function DashboardPage() {
       <Footer />
     </div>
   );
+}
+
+// Icono adicional necesario
+function ChevronRight(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m9 18 6-6-6-6" />
+    </svg>
+  )
 }
 
 function cn(...inputs: any[]) {
