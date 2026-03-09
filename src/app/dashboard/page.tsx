@@ -40,11 +40,12 @@ export default function DashboardPage() {
   const [documentos, setDocumentos] = useState<any[]>([]);
   const [isFetching, setIsFetching] = useState(true);
 
+  // URL del script que actualizamos anteriormente
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz11VTa8UXoSJXlRk1e53aOCFxzjexp5DNUhpotDONP3tUISE6bT6bMiTzSRtFqikhn/exec";
   const SHEETDB_DOCS_URL = "https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=documents";
 
   const text = useMemo(() => ({
-    es: { title: "Panel de Cliente", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD RECENTE", sub: "Seguimiento de pedidos y reservas de", docs: "MIS DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "VER" },
+    es: { title: "Panel de Cliente", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD RECIENTE", sub: "Seguimiento de pedidos y reservas de", docs: "MIS DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "VER" },
     ca: { title: "Panel de Client", welcome: "Benvingut", stats: "Registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "NOVA SOL·LICITUD", recent: "ACTIVITAT RECENT", sub: "Seguiment de comandes i reserves de", docs: "ELS MEUS DOCUMENTS", myOrders: "LES MEVES COMANDES", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "VEURE" },
     en: { title: "Customer Panel", welcome: "Welcome", stats: "Records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "RECENT ACTIVITY", sub: "Tracking of orders and bookings for", docs: "MY DOCUMENTS", myOrders: "MY ORDERS", noDocs: "No invoices available", logout: "Logout", view: "VIEW" }
   }[language as 'es'|'ca'|'en'] || { title: "Panel", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD", sub: "Seguimiento", docs: "DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" }), [language]);
@@ -55,13 +56,14 @@ export default function DashboardPage() {
     try {
       const [resTracking, resBooking, resDocs] = await Promise.all([
         fetch(`${SCRIPT_URL}?sheet=tracking`).then(r => r.json()),
-        fetch(`${SCRIPT_URL}?sheet=solicituds`).then(r => r.json()),
+        fetch(`${SCRIPT_URL}?sheet=bookings`).then(r => r.json()), // CAMBIADO de solicituds a bookings
         fetch(SHEETDB_DOCS_URL).then(r => r.json())
       ]);
 
-      const userEmailLower = String(user.usuari).toLowerCase();
-      const userEmpresaLower = String(user.empresa).toLowerCase();
+      const userEmailLower = String(user.usuari).toLowerCase().trim();
+      const userEmpresaLower = String(user.empresa).toLowerCase().trim();
 
+      // Procesar Tracking (General)
       const filteredTracking = (Array.isArray(resTracking) ? resTracking : [])
         .filter((t: any) => String(t.empresa || "").trim().toLowerCase() === userEmpresaLower)
         .map(t => ({
@@ -71,15 +73,17 @@ export default function DashboardPage() {
           isBooking: false
         }));
 
+      // Procesar Bookings (Específicos del usuario)
       const filteredBookings = (Array.isArray(resBooking) ? resBooking : [])
         .filter((b: any) => String(b.usuari || "").trim().toLowerCase() === userEmailLower)
         .map((b: any) => ({
           tracking_code: b.id,
           eta: b.data,
-          status: b.estat || "Pendent",
+          status: b.estat || "Pendiente", // Valor por defecto
           isBooking: true
         }));
 
+      // Procesar Documentos
       const uniqueDocsMap = new Map();
       (Array.isArray(resDocs) ? resDocs : [])
         .filter((d: any) => String(d.usuari || "").trim().toLowerCase() === userEmailLower)
@@ -95,7 +99,8 @@ export default function DashboardPage() {
           }
         });
 
-      setPedidos([...filteredTracking, ...filteredBookings]);
+      // Combinar y ordenar (más recientes primero)
+      setPedidos([...filteredTracking, ...filteredBookings].reverse());
       setDocumentos(Array.from(uniqueDocsMap.values()));
 
     } catch (error) {
@@ -136,8 +141,8 @@ export default function DashboardPage() {
       <main className="flex-1 py-12 sm:py-16">
         <div className="container mx-auto px-4">
           
-          <div className="mb-10">
-            <div className="flex items-center gap-2 mb-2">
+          <div className="mb-10 text-center sm:text-left">
+            <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
               <LayoutDashboard className="h-5 w-5 text-[#f39200]" />
               <span className="text-xs font-bold text-[#f39200] uppercase tracking-widest">{text.title}</span>
             </div>
@@ -147,6 +152,7 @@ export default function DashboardPage() {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            {/* COLUMNA IZQUIERDA: PERFIL Y ACCESOS */}
             <div className="lg:col-span-1 space-y-6">
               <Card className="border-none shadow-md overflow-hidden bg-white">
                 <div className="h-2 bg-[#f39200]" />
@@ -174,6 +180,7 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
+              {/* BOTÓN NUEVO BOOKING */}
               <Card className="border-none shadow-md bg-slate-900 text-white overflow-hidden">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-white italic uppercase text-lg font-black">
@@ -191,7 +198,7 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
-              {/* NUEVO BOTÓN "MIS PEDIDOS" */}
+              {/* BOTÓN MIS PEDIDOS (CARPETA) */}
               <Card className="border-none shadow-md bg-white overflow-hidden border-l-4 border-l-[#f39200]">
                 <CardContent className="p-4">
                   <Button 
@@ -205,7 +212,7 @@ export default function DashboardPage() {
                       </div>
                       <div className="text-left">
                         <span className="block text-sm font-black text-slate-900 uppercase italic tracking-tighter">{text.myOrders}</span>
-                        <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">Carpeta Personal</span>
+                        <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">Historial Completo</span>
                       </div>
                     </div>
                     <ChevronRight className="h-5 w-5 text-slate-300 group-hover:text-[#f39200] group-hover:translate-x-1 transition-all" />
@@ -213,6 +220,7 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
+              {/* DOCUMENTOS RECIENTES */}
               <Card className="border-none shadow-md bg-white">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-black italic uppercase flex items-center justify-between text-slate-900">
@@ -225,36 +233,27 @@ export default function DashboardPage() {
                 <CardContent className="space-y-2">
                   {isFetching ? (
                     <div className="space-y-2">
-                      <Skeleton className="h-14 w-full" />
-                      <Skeleton className="h-14 w-full" />
+                      <Skeleton className="h-14 w-full" /><Skeleton className="h-14 w-full" />
                     </div>
                   ) : documentos.length > 0 ? (
-                    documentos.map((doc: any, i: number) => (
+                    documentos.slice(0, 3).map((doc: any, i: number) => (
                       <button 
                         key={i} 
                         onClick={() => router.push(`/documents?id=${doc.id}`)}
-                        className="w-full flex items-center justify-between p-3 rounded-lg border border-slate-50 bg-slate-50/50 hover:bg-orange-50 hover:border-orange-100 transition-all group text-left"
+                        className="w-full flex items-center justify-between p-3 rounded-lg border border-slate-50 bg-slate-50/50 hover:bg-orange-50 transition-all group text-left"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="bg-white p-2 rounded shadow-sm text-slate-400 group-hover:text-[#f39200]">
-                            <FileText className="h-4 w-4" />
-                          </div>
+                          <FileText className="h-4 w-4 text-slate-400 group-hover:text-[#f39200]" />
                           <div>
-                            <p className="text-[11px] font-black text-slate-800 leading-none uppercase">{doc.nom}</p>
-                            <p className="text-[9px] text-slate-400 uppercase mt-1.5 font-bold">{doc.data}</p>
+                            <p className="text-[11px] font-black text-slate-800 uppercase">{doc.nom}</p>
+                            <p className="text-[9px] text-slate-400 uppercase font-bold">{doc.data}</p>
                           </div>
                         </div>
-                        <div className="flex items-center gap-1 text-[#f39200] opacity-0 group-hover:opacity-100 transition-opacity">
-                          <span className="text-[9px] font-black">{text.view}</span>
-                          <ExternalLink className="h-3 w-3" />
-                        </div>
+                        <ExternalLink className="h-3 w-3 text-[#f39200] opacity-0 group-hover:opacity-100" />
                       </button>
                     ))
                   ) : (
-                    <div className="text-center py-8">
-                        <FileText className="h-8 w-8 text-slate-100 mx-auto mb-2" />
-                        <p className="text-[10px] text-slate-400 italic uppercase font-bold tracking-tighter">{text.noDocs}</p>
-                    </div>
+                    <p className="text-center py-4 text-[10px] text-slate-400 italic font-bold uppercase">{text.noDocs}</p>
                   )}
                 </CardContent>
               </Card>
@@ -268,15 +267,14 @@ export default function DashboardPage() {
               </Button>
             </div>
 
-            <div className="lg:col-span-2 space-y-6">
+            {/* COLUMNA DERECHA: TABLA DE ACTIVIDAD */}
+            <div className="lg:col-span-2">
               <Card className="border-none shadow-md bg-white overflow-hidden">
                 <CardHeader className="border-b border-slate-50 pb-6">
                   <div className="flex justify-between items-center">
-                    <div>
-                      <CardTitle className="flex items-center gap-2 text-2xl font-black italic uppercase text-slate-900">
-                        <Clock className="h-6 w-6 text-[#f39200]" /> {text.recent}
-                      </CardTitle>
-                    </div>
+                    <CardTitle className="flex items-center gap-2 text-2xl font-black italic uppercase text-slate-900">
+                      <Clock className="h-6 w-6 text-[#f39200]" /> {text.recent}
+                    </CardTitle>
                     <Badge className="bg-orange-100 text-[#f39200] border-none font-black px-3 py-1 text-[10px]">
                       {pedidos.length} {text.stats}
                     </Badge>
@@ -284,10 +282,7 @@ export default function DashboardPage() {
                 </CardHeader>
                 <CardContent className="pt-6">
                   {isFetching ? (
-                    <div className="space-y-4">
-                      <Skeleton className="h-12 w-full" />
-                      <Skeleton className="h-12 w-full" />
-                    </div>
+                    <div className="space-y-4"><Skeleton className="h-12 w-full" /><Skeleton className="h-12 w-full" /></div>
                   ) : (
                     <div className="rounded-xl border border-slate-100 overflow-hidden shadow-sm">
                       <Table>
@@ -296,7 +291,7 @@ export default function DashboardPage() {
                             <TableHead className="font-black text-slate-500 uppercase text-[9px] tracking-widest px-4">Ref / ID</TableHead>
                             <TableHead className="font-black text-slate-500 uppercase text-[9px] tracking-widest">Fecha</TableHead>
                             <TableHead className="font-black text-slate-500 uppercase text-[9px] tracking-widest">Estado</TableHead>
-                            <TableHead className="text-right font-black text-slate-500 uppercase text-[9px] tracking-widest px-4">Info</TableHead>
+                            <TableHead className="text-right font-black text-slate-500 uppercase text-[9px] tracking-widest px-4">Acción</TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -304,7 +299,7 @@ export default function DashboardPage() {
                             <TableRow key={index} className="hover:bg-slate-50/50 transition-colors border-slate-50">
                               <TableCell className="font-mono font-bold text-[#f39200] px-4 py-4 flex items-center gap-2">
                                 {item.isBooking ? (
-                                  <div className="bg-orange-50 p-1.5 rounded"><Bookmark className="h-3 w-3" /></div>
+                                  <div className="bg-orange-50 p-1.5 rounded text-orange-600"><Bookmark className="h-3 w-3" /></div>
                                 ) : (
                                   <div className="bg-slate-50 p-1.5 rounded text-slate-400"><Package className="h-3 w-3" /></div>
                                 )}
@@ -314,8 +309,8 @@ export default function DashboardPage() {
                               <TableCell>
                                 <Badge className={cn(
                                   "font-black px-2 py-0.5 border-none uppercase text-[8px] tracking-tighter",
-                                  item.status === 'Entregado' || item.status === 'Aprovat' ? 'bg-green-100 text-green-700' : 
-                                  item.status === 'Pendent' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'
+                                  item.status === 'Aceptada' || item.status === 'Aprovat' || item.status === 'Entregado' ? 'bg-green-100 text-green-700' : 
+                                  item.status === 'Pendiente' || item.status === 'Pendent' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'
                                 )}>
                                   {item.status}
                                 </Badge>
@@ -325,9 +320,9 @@ export default function DashboardPage() {
                                   variant="ghost" 
                                   size="sm" 
                                   className="text-slate-400 hover:text-[#f39200] font-black text-[9px] uppercase tracking-tighter"
-                                  onClick={() => router.push(item.isBooking ? '/booking' : `/documents?id=${item.tracking_code}`)}
+                                  onClick={() => router.push(item.isBooking ? '/dashboard/mis-pedidos' : `/documents?id=${item.tracking_code}`)}
                                 >
-                                  {item.isBooking ? 'REVIEW' : 'DOCS'}
+                                  {item.isBooking ? 'VER TICKET' : 'DETALLES'}
                                 </Button>
                               </TableCell>
                             </TableRow>
@@ -351,23 +346,9 @@ export default function DashboardPage() {
   );
 }
 
-// Icono adicional necesario
 function ChevronRight(props: any) {
   return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m9 18 6-6-6-6" />
-    </svg>
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
   )
 }
 

@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { ChevronLeft, Send, CheckCircle2, Ruler, Weight, Printer, Home, MapPin } from 'lucide-react';
+import { ChevronLeft, Send, Clock, Ruler, Weight, Printer, Home, MapPin } from 'lucide-react';
 import { Logo } from '@/components/icons/logo';
 import { Badge } from '@/components/ui/badge';
 
@@ -64,7 +64,7 @@ export default function BookingPage() {
       usuari: user.usuari,
       empresa: user.empresa,
       detalls: detallesFormateados,
-      estat: "Aceptada"
+      estat: "Pendiente" // <-- CAMBIADO A PENDIENTE
     };
 
     try {
@@ -96,7 +96,7 @@ export default function BookingPage() {
               </Button>
             </div>
             <Button 
-              className="bg-[#f39200] hover:bg-[#d88200] text-white font-bold" 
+              className="bg-slate-900 hover:bg-slate-800 text-white font-bold" 
               onClick={() => window.print()}
             >
               <Printer className="mr-2 h-4 w-4"/> {text.print}
@@ -107,15 +107,15 @@ export default function BookingPage() {
             <div className="flex justify-between items-start border-b pb-8">
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <CheckCircle2 className="h-6 w-6 text-green-500 print:hidden" />
-                  <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase">BOOKING</h1>
+                  <Clock className="h-6 w-6 text-[#f39200] print:hidden" />
+                  <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase">SOLICITUD DE BOOKING</h1>
                 </div>
                 <p className="text-slate-500 font-medium text-lg">Nº: {bookingData.id}</p>
                 <p className="text-slate-500 font-medium">Fecha: {bookingData.data}</p>
                 
-                {/* BADGE EN VERDE - "ACEPTADA" */}
-                <Badge className="mt-3 bg-green-100 text-green-700 border-green-200 uppercase font-bold px-3 py-1">
-                  ACEPTADA
+                {/* BADGE EN NARANJA - "PENDIENTE" */}
+                <Badge className="mt-3 bg-orange-100 text-[#f39200] border-orange-200 uppercase font-black px-4 py-1 text-xs italic">
+                  PENDIENTE DE VALIDACIÓN
                 </Badge>
               </div>
               <Logo />
@@ -123,14 +123,14 @@ export default function BookingPage() {
 
             <div className="grid grid-cols-2 gap-12 my-10 text-sm">
               <div>
-                <h2 className="font-bold text-slate-900 uppercase mb-3 tracking-wider text-xs">Solicitante:</h2>
+                <h2 className="font-bold text-slate-900 uppercase mb-3 tracking-wider text-xs text-slate-400">Solicitante:</h2>
                 <div className="text-slate-600 space-y-1">
-                  <p className="font-bold text-slate-800 text-base">{user?.empresa || 'Cliente'}</p>
+                  <p className="font-bold text-slate-800 text-base italic">{user?.empresa || 'Cliente'}</p>
                   <p>Usuario: {user?.usuari}</p>
                 </div>
               </div>
               <div>
-                <h2 className="font-bold text-slate-900 uppercase mb-3 tracking-wider text-xs">Proveedor de Logística:</h2>
+                <h2 className="font-bold text-slate-900 uppercase mb-3 tracking-wider text-xs text-slate-400">Proveedor de Logística:</h2>
                 <div className="text-slate-600 space-y-1">
                   <p className="font-bold text-slate-800 text-base">InTrack Logistics, S.L.</p>
                   <p>Calle Resina, 41, 28021, Madrid</p>
@@ -149,7 +149,7 @@ export default function BookingPage() {
                 <tbody>
                   <tr className="border-b">
                     <td className="py-4 px-4 font-bold text-slate-700">{bookingData.service}</td>
-                    <td className="py-4 px-4 text-right italic text-slate-500">Servicio Estándar</td>
+                    <td className="py-4 px-4 text-right italic text-slate-500">Pendiente de Revisión</td>
                   </tr>
                   <tr className="border-b">
                     <td className="py-4 px-4 text-slate-600">Dimensiones Totales</td>
@@ -157,7 +157,7 @@ export default function BookingPage() {
                   </tr>
                   <tr className="border-b">
                     <td className="py-4 px-4 text-slate-600">Peso Declarado</td>
-                    <td className="py-4 px-4 text-right font-bold text-green-600">{bookingData.weight} KG</td>
+                    <td className="py-4 px-4 text-right font-bold text-[#f39200]">{bookingData.weight} KG</td>
                   </tr>
                   {bookingData.details && (
                     <tr>
@@ -173,7 +173,7 @@ export default function BookingPage() {
 
             <div className="mt-16 pt-8 border-t text-[10px] text-slate-400 leading-relaxed italic">
               <p>Este documento es un comprobante de solicitud de reserva. Nuestro equipo validará los datos y se pondrá en contacto con usted a la mayor brevedad posible para confirmar la recogida/recepción.</p>
-              <p className="mt-2">InTrack Logistics S.L. - Gestión Integral de Mercancías.</p>
+              <p className="mt-2 text-slate-500 font-bold">InTrack Logistics S.L. - Gestión Integral de Mercancías.</p>
             </div>
           </div>
         </main>
