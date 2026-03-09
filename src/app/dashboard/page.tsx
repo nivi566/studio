@@ -49,11 +49,11 @@ export default function DashboardPage() {
   const SHEETDB_DOCS_URL = "https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=documents";
 
   const text = useMemo(() => ({
-    es: { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "Actividad reciente", sub: "Seguimiento de pedidos y reservas de", docs: "MIS DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "VER" },
-    ca: { title: "Panel de client", welcome: "Benvingut", stats: "registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "NOVA SOL·LICITUD", recent: "Activitat recent", sub: "Seguiment de comandes i reserves de", docs: "ELS MEUS DOCUMENTS", myOrders: "LES MEVES COMANDES", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "VEURE" },
-    en: { title: "Customer panel", welcome: "Welcome", stats: "records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "Recent activity", sub: "Tracking of orders and bookings for", docs: "MY DOCUMENTS", myOrders: "MY ORDERS", noDocs: "No invoices available", logout: "Logout", view: "VIEW" },
-    fr: { title: "Espace client", welcome: "Bienvenue", stats: "enregistrements", empty: "Aucune activité récente", booking: "Gérer le Booking", new: "NOUVELLE DEMANDE", recent: "Activité récente", sub: "Suivi des commandes et réservations de", docs: "MES DOCUMENTS", myOrders: "MES COMMANDES", noDocs: "Aucune facture disponible", logout: "Déconnexion", view: "VOIR" }
-  }[language as 'es'|'ca'|'en'|'fr'] || { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "Actividad reciente", sub: "Seguimiento", docs: "DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" }), [language]);
+    es: { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "Nueva solicitud", recent: "Actividad reciente", sub: "Seguimiento de pedidos y reservas de", docs: "Mis documentos", myOrders: "Mis pedidos", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "Ver" },
+    ca: { title: "Panel de client", welcome: "Benvingut", stats: "registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "Nova sol·licitud", recent: "Activitat recent", sub: "Seguiment de comandes i reserves de", docs: "Els meus documents", myOrders: "Les meves comandes", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "Veure" },
+    en: { title: "Customer panel", welcome: "Welcome", stats: "records", empty: "No recent activity", booking: "Manage Booking", new: "New request", recent: "Recent activity", sub: "Tracking of orders and bookings for", docs: "My documents", myOrders: "My orders", noDocs: "No invoices available", logout: "Logout", view: "View" },
+    fr: { title: "Espace client", welcome: "Bienvenue", stats: "enregistrements", empty: "Aucune activité récente", booking: "Gérer le Booking", new: "Nouvelle demande", recent: "Activité récente", sub: "Suivi des commandes et réservations de", docs: "Mes documents", myOrders: "Mes commandes", noDocs: "Aucune facture disponible", logout: "Déconnexion", view: "Voir" }
+  }[language as 'es'|'ca'|'en'|'fr'] || { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad", booking: "Gestionar Booking", new: "Nueva solicitud", recent: "Actividad reciente", sub: "Seguimiento", docs: "Documentos", myOrders: "Mis pedidos", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "Ver" }), [language]);
 
   const fetchDashboardData = useCallback(async () => {
     if (!user) return;
@@ -219,7 +219,7 @@ export default function DashboardPage() {
 
               <Card className="border-none shadow-md bg-slate-900 text-white overflow-hidden">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-white italic uppercase text-lg font-black">
+                  <CardTitle className="flex items-center gap-2 text-white text-lg font-black">
                     <Bookmark className="h-5 w-5 text-[#f39200]" /> {text.booking}
                   </CardTitle>
                   <CardDescription className="text-slate-400 text-xs">{text.sub} <span className="text-white font-bold italic uppercase">{user.empresa}</span></CardDescription>
