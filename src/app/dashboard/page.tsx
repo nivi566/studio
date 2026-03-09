@@ -143,8 +143,8 @@ export default function DashboardPage() {
               <LayoutDashboard className="h-5 w-5 text-[#f39200]" />
               <span className="text-xs font-bold text-[#f39200] uppercase tracking-widest">{text.title}</span>
             </div>
-            <h1 className="text-4xl font-black text-slate-900 tracking-tight italic">
-              {text.welcome}, <span className="text-[#f39200] uppercase">{user.nom}</span>
+            <h1 className="text-4xl font-black text-slate-900 tracking-tight">
+              {text.welcome}, <span className="text-[#f39200] capitalize">{user.nom.toLowerCase()}</span>
             </h1>
           </div>
           
@@ -159,7 +159,7 @@ export default function DashboardPage() {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <CardTitle className="text-xl font-bold">{user.nom}</CardTitle>
+                    <CardTitle className="text-xl font-bold capitalize">{user.nom.toLowerCase()}</CardTitle>
                     <CardDescription className="font-medium text-[#f39200] uppercase">{user.empresa}</CardDescription>
                   </div>
                 </CardHeader>
