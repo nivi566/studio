@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
@@ -30,7 +31,8 @@ import {
   ChevronRight,
   MapPin,
   Phone,
-  CreditCard
+  CreditCard,
+  User as UserIcon
 } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from '@/components/ui/badge';
@@ -49,10 +51,10 @@ export default function DashboardPage() {
   const SHEETDB_DOCS_URL = "https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=documents";
 
   const text = useMemo(() => ({
-    es: { title: "Panel de Cliente", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "Actividad reciente", sub: "Seguimiento de pedidos y reservas de", docs: "MIS DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "VER" },
-    ca: { title: "Panel de Client", welcome: "Benvingut", stats: "Registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "NOVA SOL·LICITUD", recent: "Activitat recent", sub: "Seguiment de comandes i reserves de", docs: "ELS MEUS DOCUMENTS", myOrders: "LES MEVES COMANDES", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "VEURE" },
-    en: { title: "Customer Panel", welcome: "Welcome", stats: "Records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "Recent activity", sub: "Tracking of orders and bookings for", docs: "MY DOCUMENTS", myOrders: "MY ORDERS", noDocs: "No invoices available", logout: "Logout", view: "VIEW" }
-  }[language as 'es'|'ca'|'en'] || { title: "Panel", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "Actividad reciente", sub: "Seguimiento", docs: "DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" }), [language]);
+    es: { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "Actividad reciente", sub: "Seguimiento de pedidos y reservas de", docs: "MIS DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "VER" },
+    ca: { title: "Panel de client", welcome: "Benvingut", stats: "registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "NOVA SOL·LICITUD", recent: "Activitat recent", sub: "Seguiment de comandes i reserves de", docs: "ELS MEUS DOCUMENTS", myOrders: "LES MEVES COMANDES", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "VEURE" },
+    en: { title: "Customer panel", welcome: "Welcome", stats: "records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "Recent activity", sub: "Tracking of orders and bookings for", docs: "MY DOCUMENTS", myOrders: "MY ORDERS", noDocs: "No invoices available", logout: "Logout", view: "VIEW" }
+  }[language as 'es'|'ca'|'en'] || { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "Actividad reciente", sub: "Seguimiento", docs: "DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" }), [language]);
 
   const fetchDashboardData = useCallback(async () => {
     if (!user) return;
@@ -146,13 +148,14 @@ export default function DashboardPage() {
               <LayoutDashboard className="h-5 w-5 text-[#f39200]" />
               <span className="text-xs font-bold text-[#f39200] uppercase tracking-widest">{text.title}</span>
             </div>
-            <h1 className="text-4xl font-black text-slate-900 tracking-tight">
+            <h1 className="text-4xl font-black text-slate-900 tracking-tight not-italic">
               {text.welcome}, <span className="text-[#f39200] capitalize">{user.nom.toLowerCase()}</span>
             </h1>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             <div className="lg:col-span-1 space-y-6">
+              {/* FICHA COMPLETA DEL CLIENTE */}
               <Card className="border-none shadow-md overflow-hidden bg-white">
                 <div className="h-2 bg-[#f39200]" />
                 <CardHeader className="flex flex-row items-center gap-4 pb-4">
@@ -162,16 +165,16 @@ export default function DashboardPage() {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <CardTitle className="text-xl font-bold capitalize">{user.nom.toLowerCase()}</CardTitle>
+                    <CardTitle className="text-xl font-bold capitalize not-italic">{user.nom.toLowerCase()}</CardTitle>
                     <CardDescription className="font-medium text-[#f39200] uppercase">{user.empresa}</CardDescription>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4 text-sm">
                   <Separator className="bg-slate-100" />
                   
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-500 font-medium">ID de Usuario:</span>
+                      <span className="text-slate-500 font-medium">ID de usuario:</span>
                       <span className="font-bold text-slate-700">{user.usuari}</span>
                     </div>
                     
@@ -182,25 +185,30 @@ export default function DashboardPage() {
 
                     <Separator className="bg-slate-50" />
 
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-center gap-2 text-slate-500 font-medium shrink-0">
-                        <MapPin className="h-3 w-3" /> <span>Dirección:</span>
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-3">
+                        <MapPin className="h-4 w-4 text-[#f39200] shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Dirección</p>
+                          <p className="font-bold text-slate-700 leading-tight">{user.adreca || 'No especificada'}</p>
+                        </div>
                       </div>
-                      <span className="font-bold text-slate-700 text-right leading-tight">{user.adreca || 'No especificada'}</span>
-                    </div>
 
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-center gap-2 text-slate-500 font-medium shrink-0">
-                        <Phone className="h-3 w-3" /> <span>Teléfono:</span>
+                      <div className="flex items-start gap-3">
+                        <Phone className="h-4 w-4 text-[#f39200] shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Teléfono</p>
+                          <p className="font-bold text-slate-700">{user.telefon || 'No especificado'}</p>
+                        </div>
                       </div>
-                      <span className="font-bold text-slate-700">{user.telefon || 'No especificado'}</span>
-                    </div>
 
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-center gap-2 text-slate-500 font-medium shrink-0">
-                        <CreditCard className="h-3 w-3" /> <span>NIF / CIF:</span>
+                      <div className="flex items-start gap-3">
+                        <CreditCard className="h-4 w-4 text-[#f39200] shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-[10px] font-black uppercase text-slate-400 tracking-wider">NIF / CIF</p>
+                          <p className="font-bold text-slate-700">{user.fiscalid || '---'}</p>
+                        </div>
                       </div>
-                      <span className="font-bold text-slate-700">{user.fiscalid || '---'}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -294,7 +302,7 @@ export default function DashboardPage() {
               <Card className="border-none shadow-md bg-white overflow-hidden">
                 <CardHeader className="border-b border-slate-50 pb-6">
                   <div className="flex justify-between items-center">
-                    <CardTitle className="flex items-center gap-2 text-2xl font-black text-slate-900">
+                    <CardTitle className="flex items-center gap-2 text-2xl font-black text-slate-900 not-italic">
                       <Clock className="h-6 w-6 text-[#f39200]" /> {text.recent}
                     </CardTitle>
                     <Badge className="bg-orange-100 text-[#f39200] border-none font-black px-3 py-1 text-[10px]">
