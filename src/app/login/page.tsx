@@ -16,7 +16,6 @@ import Link from 'next/link';
 
 export default function LoginPage() {
   const { t } = useLanguage();
-  // 1. CAMBIADO: Ahora se llama username en lugar de email
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +30,6 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(null);
 
-    // 2. CAMBIADO: Usamos el estado username
     const inputUser = username.trim().toLowerCase();
     const inputPass = password.trim();
 
@@ -57,6 +55,9 @@ export default function LoginPage() {
           nom: foundUser.nom,
           empresa: foundUser.empresa,
           rol: foundUser.rol,
+          adreca: foundUser.adreca,
+          telefon: foundUser.telefon,
+          fiscalid: foundUser.fiscalid,
         });
         router.push('/dashboard');
       } else {
@@ -93,7 +94,6 @@ export default function LoginPage() {
                 <Label className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">USUARIO</Label>
                 <Input
                   type="text"
-                  // 3. CAMBIADO: Ahora el placeholder es "Usuario"
                   placeholder="Usuario"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}

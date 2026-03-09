@@ -8,6 +8,9 @@ interface User {
   nom: string;
   empresa: string;
   rol: string;
+  adreca?: string;
+  telefon?: string;
+  fiscalid?: string;
 }
 
 interface AuthContextType {

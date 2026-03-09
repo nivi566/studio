@@ -27,7 +27,10 @@ import {
   LogOut,
   Clock,
   FolderOpen,
-  ChevronRight
+  ChevronRight,
+  MapPin,
+  Phone,
+  CreditCard
 } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from '@/components/ui/badge';
@@ -152,7 +155,7 @@ export default function DashboardPage() {
             <div className="lg:col-span-1 space-y-6">
               <Card className="border-none shadow-md overflow-hidden bg-white">
                 <div className="h-2 bg-[#f39200]" />
-                <CardHeader className="flex flex-row items-center gap-4">
+                <CardHeader className="flex flex-row items-center gap-4 pb-4">
                   <Avatar className="h-14 w-14 border-2 border-orange-100">
                     <AvatarFallback className="bg-orange-50 text-[#f39200] font-bold">
                       {getInitials(user.nom)}
@@ -165,13 +168,40 @@ export default function DashboardPage() {
                 </CardHeader>
                 <CardContent className="space-y-4 text-sm">
                   <Separator className="bg-slate-100" />
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-medium">ID:</span>
-                    <span className="font-bold text-slate-700">{user.usuari}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-medium">Rol:</span>
-                    <Badge variant="outline" className="border-orange-200 text-[#f39200] bg-orange-50 uppercase text-[10px] font-black">{user.rol}</Badge>
+                  
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-500 font-medium">ID de Usuario:</span>
+                      <span className="font-bold text-slate-700">{user.usuari}</span>
+                    </div>
+                    
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-500 font-medium">Rol:</span>
+                      <Badge variant="outline" className="border-orange-200 text-[#f39200] bg-orange-50 uppercase text-[10px] font-black">{user.rol}</Badge>
+                    </div>
+
+                    <Separator className="bg-slate-50" />
+
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-center gap-2 text-slate-500 font-medium shrink-0">
+                        <MapPin className="h-3 w-3" /> <span>Dirección:</span>
+                      </div>
+                      <span className="font-bold text-slate-700 text-right leading-tight">{user.adreca || 'No especificada'}</span>
+                    </div>
+
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-center gap-2 text-slate-500 font-medium shrink-0">
+                        <Phone className="h-3 w-3" /> <span>Teléfono:</span>
+                      </div>
+                      <span className="font-bold text-slate-700">{user.telefon || 'No especificado'}</span>
+                    </div>
+
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-center gap-2 text-slate-500 font-medium shrink-0">
+                        <CreditCard className="h-3 w-3" /> <span>NIF / CIF:</span>
+                      </div>
+                      <span className="font-bold text-slate-700">{user.fiscalid || '---'}</span>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
