@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
@@ -18,12 +17,11 @@ import {
   Info, 
   ChevronRight, 
   Bookmark,
-  Eye,
-  FileText,
-  X
+  FileText
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { Logo } from '@/components/icons/logo'; // Asegúrate de que la ruta sea correcta
 import {
   Dialog,
   DialogContent,
@@ -54,7 +52,8 @@ export default function MisPedidosPage() {
     if (!user) return;
     setIsLoading(true);
     try {
-      const response = await fetch(`${SCRIPT_URL}?sheet=bookings`, { cache: 'no-store' });
+      // Añadimos timestamp para evitar caché del navegador y ver cambios del Excel al instante
+      const response = await fetch(`${SCRIPT_URL}?sheet=bookings&t=${Date.now()}`, { cache: 'no-store' });
       const data = await response.json();
       
       const userEmail = String(user.usuari).toLowerCase().trim();
@@ -113,7 +112,7 @@ export default function MisPedidosPage() {
           <Button 
             variant="ghost" 
             onClick={() => router.push('/dashboard')}
-            className="mb-8 font-black text-xs uppercase tracking-widest text-slate-400 hover:text-[#f39200] p-0 h-auto"
+            className="mb-8 font-black text-xs uppercase tracking-widest text-slate-400 hover:text-[#f39200] p-0 h-auto transition-colors"
           >
             <ArrowLeft className="mr-2 h-4 w-4" /> Volver al panel
           </Button>
@@ -127,22 +126,22 @@ export default function MisPedidosPage() {
 
           {isLoading ? (
             <div className="space-y-4">
-              <Skeleton className="h-32 w-full" />
-              <Skeleton className="h-32 w-full" />
+              <Skeleton className="h-32 w-full rounded-xl" />
+              <Skeleton className="h-32 w-full rounded-xl" />
             </div>
           ) : pedidos.length > 0 ? (
             <div className="grid gap-6">
               {pedidos.map((pedido) => {
                 const aceptado = isAceptado(pedido.estat);
                 return (
-                  <Card key={pedido.id} className="border-none shadow-md overflow-hidden bg-white hover:shadow-xl transition-all">
-                    <div className={cn("h-2 w-full", aceptado ? "bg-green-500" : "bg-[#f39200]")} />
+                  <Card key={pedido.id} className="border-none shadow-md overflow-hidden bg-white hover:shadow-xl transition-all duration-300 group">
+                    <div className={cn("h-2 w-full transition-colors", aceptado ? "bg-green-500" : "bg-[#f39200]")} />
                     
                     <CardContent className="p-6">
                       <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                         
                         <div className="flex items-center gap-5 w-full md:w-auto">
-                          <div className={cn("p-4 rounded-2xl shrink-0", aceptado ? "bg-green-50" : "bg-orange-50")}>
+                          <div className={cn("p-4 rounded-2xl shrink-0 transition-transform group-hover:scale-110", aceptado ? "bg-green-50" : "bg-orange-50")}>
                             {pedido.id.startsWith('BK') ? (
                               <Bookmark className={cn("h-8 w-8", aceptado ? "text-green-600" : "text-[#f39200]")} />
                             ) : (
@@ -151,14 +150,16 @@ export default function MisPedidosPage() {
                           </div>
                           <div>
                             <p className="text-[10px] font-black uppercase text-slate-400">Referencia</p>
-                            <h3 className="text-2xl font-black text-slate-900">{pedido.id}</h3>
+                            <h3 className="text-2xl font-black text-slate-900 tracking-tight">{pedido.id}</h3>
                             <p className="text-sm font-bold text-slate-500 uppercase italic">{pedido.data}</p>
                           </div>
                         </div>
 
                         <div className="flex-1 w-full md:px-10">
-                          <p className="text-[10px] font-black uppercase text-slate-400 mb-1">Detalles del Servicio</p>
-                          <p className="text-sm font-bold text-slate-700 italic line-clamp-2">{pedido.detalls || 'Servicio estándar'}</p>
+                          <p className="text-[10px] font-black uppercase text-slate-400 mb-1">Resumen del Servicio</p>
+                          <p className="text-sm font-bold text-slate-700 italic line-clamp-2">
+                            {pedido.detalls?.split('|')[0] || 'Servicio estándar'}
+                          </p>
                         </div>
 
                         <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
@@ -174,9 +175,9 @@ export default function MisPedidosPage() {
                             <Button 
                               size="sm" 
                               onClick={() => openDocument(pedido)} 
-                              className="bg-slate-900 hover:bg-[#f39200] text-white font-black uppercase text-[10px] shadow-lg group"
+                              className="bg-slate-900 hover:bg-[#f39200] text-white font-black uppercase text-[10px] shadow-lg group/btn"
                             >
-                              <FileText className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" /> 
+                              <FileText className="h-4 w-4 mr-2 group-hover/btn:scale-110 transition-transform" /> 
                               Abrir Comprobante
                             </Button>
                           )}
@@ -200,73 +201,121 @@ export default function MisPedidosPage() {
       </main>
       <Footer />
 
-      {/* DIALOG DE PREVISUALIZACIÓN / ABRIR DOCUMENTO */}
+      {/* DIALOG DE PREVISUALIZACIÓN ESTILO FACTURA PROFESIONAL */}
       <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 border-none bg-slate-100">
-          <DialogHeader className="p-6 bg-white border-b sticky top-0 z-10 flex flex-row items-center justify-between">
+          <DialogHeader className="p-6 bg-white border-b sticky top-0 z-50 flex flex-row items-center justify-between">
             <div>
               <DialogTitle className="text-2xl font-black uppercase italic tracking-tighter flex items-center gap-2">
                 <FileText className="text-[#f39200]" /> Comprobante de Servicio
               </DialogTitle>
             </div>
             <div className="flex gap-2">
-              <Button onClick={handlePrint} className="bg-[#f39200] hover:bg-slate-900 text-white font-black uppercase text-xs">
+              <Button onClick={handlePrint} className="bg-[#f39200] hover:bg-slate-900 text-white font-black uppercase text-xs shadow-md">
                 <Printer className="h-4 w-4 mr-2" /> Imprimir Documento
               </Button>
             </div>
           </DialogHeader>
 
           {selectedPedido && (
-            <div className="p-8 md:p-12">
-              <div id="print-receipt" className="bg-white mx-auto border-[12px] border-slate-900 p-8 md:p-12 shadow-2xl relative">
+            <div className="p-4 md:p-12 bg-slate-100 min-h-full">
+              {/* EL TICKET - CONTENEDOR DE IMPRESIÓN */}
+              <div id="print-receipt" className="bg-white mx-auto border-[1px] border-slate-200 p-8 md:p-16 shadow-2xl relative font-sans text-slate-900">
                 
-                {/* MARCA DE AGUA CONFIRMADO */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.03] select-none">
-                   <CheckCircle className="w-[400px] h-[400px] text-green-600" />
+                {/* CABECERA INDUSTRIAL */}
+                <div className="flex justify-between items-start mb-16 pb-8 border-b-4 border-slate-900">
+                  <div>
+                    <div className="mb-6 scale-150 origin-left">
+                      <Logo /> 
+                    </div>
+                    <div className="text-[11px] uppercase tracking-tighter text-slate-500 font-bold space-y-0.5 leading-tight">
+                      <p className="text-slate-900 font-black mb-1">InTrack Logistics S.L.</p>
+                      <p>CIF: B-67890123</p>
+                      <p>Carrer de la Resina, 41</p>
+                      <p>28021, Madrid, España</p>
+                      <p className="text-[#f39200]">www.intrack-logistics.cat</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <h2 className="text-6xl font-black italic uppercase tracking-tighter text-slate-900 leading-none mb-2">BOOKING</h2>
+                    <div className="bg-slate-900 text-white px-6 py-1.5 inline-block uppercase text-[10px] font-black tracking-[0.2em] italic">
+                      VALIDADO / CONFIRMADO
+                    </div>
+                  </div>
                 </div>
 
-                <div className="relative z-10">
-                  <div className="flex flex-col md:flex-row justify-between items-start mb-12 gap-6">
+                {/* BLOQUE DE DATOS CLIENTE Y REFERENCIA */}
+                <div className="grid grid-cols-2 gap-20 mb-16">
+                  <div className="space-y-4">
+                    <p className="text-[10px] font-black uppercase text-slate-400 border-b pb-1 tracking-widest">Cliente Final</p>
                     <div>
-                      <h1 className="text-6xl font-black italic uppercase leading-none text-slate-900 mb-2">INTRACK</h1>
-                      <p className="text-2xl font-bold text-[#f39200] tracking-widest uppercase">LOGISTICS SERVICE</p>
+                      <p className="text-3xl font-black uppercase italic leading-none text-slate-900 mb-2">{selectedPedido.empresa}</p>
+                      <p className="text-sm font-bold text-slate-500">ID SISTEMA: <span className="font-mono">{selectedPedido.usuari}</span></p>
                     </div>
-                    <div className="text-left md:text-right md:border-l-4 border-slate-900 md:pl-6">
-                      <p className="text-sm font-black uppercase text-slate-400 mb-1">Referencia de Servicio</p>
-                      <p className="text-4xl font-black text-slate-900">{selectedPedido.id}</p>
+                  </div>
+                  <div className="text-right space-y-4">
+                    <p className="text-[10px] font-black uppercase text-slate-400 border-b pb-1 tracking-widest">Información del Registro</p>
+                    <div className="space-y-1">
+                      <p className="text-sm font-bold uppercase text-slate-500 tracking-tight">Referencia: <span className="text-slate-900 font-black">{selectedPedido.id}</span></p>
+                      <p className="text-sm font-bold uppercase text-slate-500 tracking-tight">Fecha Emisión: <span className="text-slate-900 font-black">{selectedPedido.data}</span></p>
                     </div>
+                  </div>
+                </div>
+
+                {/* TABLA DE DETALLES TIPO FACTURA */}
+                <div className="mb-20">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="border-y-2 border-slate-900">
+                        <th className="py-4 px-2 text-[10px] font-black uppercase tracking-widest text-slate-900">Descripción del Servicio Solicitado</th>
+                        <th className="py-4 px-2 text-right text-[10px] font-black uppercase tracking-widest text-slate-900">Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody className="font-mono text-sm">
+                      <tr className="border-b border-slate-100 group">
+                        <td className="py-10 px-2 align-top">
+                          <p className="font-bold text-xl mb-3 text-slate-900 uppercase italic">
+                            {selectedPedido.detalls?.split('|')[0]?.replace('SERVICIO:', '').trim() || 'Servicio de Logística'}
+                          </p>
+                          <div className="text-slate-500 leading-relaxed uppercase text-[11px] space-y-1 bg-slate-50 p-4 border-l-4 border-[#f39200]">
+                            {selectedPedido.detalls?.split('|').slice(1).map((info, i) => (
+                              <p key={i} className="flex items-center gap-2">
+                                <span className="text-[#f39200] font-black">»</span> {info.trim()}
+                              </p>
+                            ))}
+                          </div>
+                        </td>
+                        <td className="py-10 px-2 text-right align-top">
+                          <span className="font-black text-green-600 uppercase italic text-lg border-2 border-green-600 px-3 py-1">
+                            OK ✓
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* PIE DE PÁGINA / SELLOS */}
+                <div className="mt-32 border-t-2 border-slate-100 pt-10 flex justify-between items-end">
+                  <div className="max-w-md space-y-4">
+                    <div className="text-[9px] text-slate-400 leading-tight uppercase font-bold italic">
+                      <p className="text-slate-900 font-black mb-1">Nota Legal:</p>
+                      <p>Este documento es un comprobante de reserva generado por el portal de clientes InTrack. La validez de este comprobante queda supeditada a la verificación física de la mercancía. InTrack Logistics S.L. se reserva el derecho de ajustar tarifas si las medidas declaradas no coinciden con la realidad.</p>
+                    </div>
+                    <p className="text-[10px] font-black text-slate-900 italic uppercase">Sede Central: Madrid, España</p>
                   </div>
                   
-                  <div className="space-y-10">
-                    <div className="border-t-2 border-slate-100 pt-8">
-                      <p className="text-xs font-black uppercase text-slate-400 mb-3 tracking-widest">Cliente / Empresa Solicitante</p>
-                      <p className="text-3xl font-bold uppercase italic text-slate-800">{selectedPedido.empresa}</p>
-                      <p className="text-lg text-slate-500 font-medium">ID Usuario: {selectedPedido.usuari}</p>
+                  <div className="text-right">
+                    <p className="text-[10px] font-black text-slate-400 uppercase mb-4 tracking-tighter">Sello de Validación Digital</p>
+                    <div className="relative inline-block px-8 py-4 border-[6px] border-green-600 text-green-600 font-black uppercase text-3xl rotate-[-4deg] opacity-80 select-none">
+                      VALIDADO
+                      <div className="text-[8px] absolute bottom-1 right-2 rotate-0">INTRACK-LOGISTICS</div>
                     </div>
-                    
-                    <div className="border-t-2 border-slate-100 pt-8">
-                      <p className="text-xs font-black uppercase text-slate-400 mb-3 tracking-widest">Especificaciones del Envío</p>
-                      <p className="text-2xl font-medium italic leading-relaxed text-slate-700">{selectedPedido.detalls}</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t-2 border-slate-100 pt-8">
-                      <div>
-                        <p className="text-xs font-black uppercase text-slate-400 mb-2">Fecha de Registro</p>
-                        <p className="text-xl font-black">{selectedPedido.data}</p>
-                      </div>
-                      <div className="md:text-right">
-                         <p className="text-xs font-black uppercase text-slate-400 mb-2">Validación</p>
-                         <p className="text-xl font-black text-green-600 uppercase border-2 border-green-600 inline-block px-4 py-1 rotate-[-2deg]">CONFIRMADO</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-20 pt-8 border-t-4 border-slate-900 text-[11px] text-slate-500 leading-tight">
-                    <p className="font-bold mb-2">AVISO LEGAL:</p>
-                    <p className="italic">Este documento es un comprobante oficial de reserva emitido por InTrack Logistics S.L. La confirmación del servicio implica la aceptación de los términos y condiciones de transporte vigentes. Para cualquier incidencia, contacte con info@intrack-logistics.cat indicando su referencia {selectedPedido.id}.</p>
-                    <p className="mt-4 text-slate-900 font-black text-xs uppercase">Sede Central: Calle Resina, 41, 28021, Madrid, España.</p>
                   </div>
                 </div>
+
+                {/* LÍNEA DE CORTE DE SEGURIDAD (SOLO VISUAL) */}
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
               </div>
             </div>
           )}
@@ -275,23 +324,41 @@ export default function MisPedidosPage() {
 
       <style jsx global>{`
         @media print {
-          /* Ocultar todo el contenido de la web */
-          body * { visibility: hidden; }
-          /* Mostrar solo el ticket que está dentro del modal */
-          #print-receipt, #print-receipt * { visibility: visible; }
-          #print-receipt { 
-            position: absolute; 
-            left: 0; 
-            top: 0; 
-            width: 100%; 
-            display: block !important;
-            background: white !important;
-            border: none !important;
-            padding: 2cm !important;
-            box-shadow: none !important;
+          /* Ocultar todo */
+          body * { 
+            visibility: hidden !important; 
           }
-          /* Quitar márgenes de página del navegador */
-          @page { margin: 0; size: auto; }
+          
+          /* Solo el ticket y sus hijos son visibles */
+          #print-receipt, #print-receipt * { 
+            visibility: visible !important; 
+          }
+          
+          #print-receipt { 
+            position: fixed !important;
+            left: 0 !important;
+            top: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            padding: 1.5cm !important;
+            margin: 0 !important;
+            border: none !important;
+            box-shadow: none !important;
+            background: white !important;
+            display: block !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+
+          /* Ajustes de tipografía para impresión */
+          .font-mono {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+          }
+
+          @page { 
+            margin: 0; 
+            size: A4;
+          }
         }
       `}</style>
     </div>

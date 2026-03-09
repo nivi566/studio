@@ -26,10 +26,12 @@ import {
   ExternalLink,
   LogOut,
   Clock,
-  FolderOpen
+  FolderOpen,
+  ChevronRight
 } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 export default function DashboardPage() {
   const { user, logout, isLoading: authLoading } = useAuth();
@@ -40,15 +42,14 @@ export default function DashboardPage() {
   const [documentos, setDocumentos] = useState<any[]>([]);
   const [isFetching, setIsFetching] = useState(true);
 
-  // URL del script que actualizamos anteriormente
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz11VTa8UXoSJXlRk1e53aOCFxzjexp5DNUhpotDONP3tUISE6bT6bMiTzSRtFqikhn/exec";
   const SHEETDB_DOCS_URL = "https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=documents";
 
   const text = useMemo(() => ({
-    es: { title: "Panel de Cliente", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD RECIENTE", sub: "Seguimiento de pedidos y reservas de", docs: "MIS DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "VER" },
-    ca: { title: "Panel de Client", welcome: "Benvingut", stats: "Registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "NOVA SOL·LICITUD", recent: "ACTIVITAT RECENT", sub: "Seguiment de comandes i reserves de", docs: "ELS MEUS DOCUMENTS", myOrders: "LES MEVES COMANDES", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "VEURE" },
-    en: { title: "Customer Panel", welcome: "Welcome", stats: "Records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "RECENT ACTIVITY", sub: "Tracking of orders and bookings for", docs: "MY DOCUMENTS", myOrders: "MY ORDERS", noDocs: "No invoices available", logout: "Logout", view: "VIEW" }
-  }[language as 'es'|'ca'|'en'] || { title: "Panel", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "ACTIVIDAD", sub: "Seguimiento", docs: "DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" }), [language]);
+    es: { title: "Panel de Cliente", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "Actividad reciente", sub: "Seguimiento de pedidos y reservas de", docs: "MIS DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "VER" },
+    ca: { title: "Panel de Client", welcome: "Benvingut", stats: "Registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "NOVA SOL·LICITUD", recent: "Activitat recent", sub: "Seguiment de comandes i reserves de", docs: "ELS MEUS DOCUMENTS", myOrders: "LES MEVES COMANDES", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "VEURE" },
+    en: { title: "Customer Panel", welcome: "Welcome", stats: "Records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "Recent activity", sub: "Tracking of orders and bookings for", docs: "MY DOCUMENTS", myOrders: "MY ORDERS", noDocs: "No invoices available", logout: "Logout", view: "VIEW" }
+  }[language as 'es'|'ca'|'en'] || { title: "Panel", welcome: "Bienvenido", stats: "Registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "Actividad", sub: "Seguimiento", docs: "DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" }), [language]);
 
   const fetchDashboardData = useCallback(async () => {
     if (!user) return;
@@ -56,14 +57,13 @@ export default function DashboardPage() {
     try {
       const [resTracking, resBooking, resDocs] = await Promise.all([
         fetch(`${SCRIPT_URL}?sheet=tracking`).then(r => r.json()),
-        fetch(`${SCRIPT_URL}?sheet=bookings`).then(r => r.json()), // CAMBIADO de solicituds a bookings
+        fetch(`${SCRIPT_URL}?sheet=bookings`).then(r => r.json()),
         fetch(SHEETDB_DOCS_URL).then(r => r.json())
       ]);
 
       const userEmailLower = String(user.usuari).toLowerCase().trim();
       const userEmpresaLower = String(user.empresa).toLowerCase().trim();
 
-      // Procesar Tracking (General)
       const filteredTracking = (Array.isArray(resTracking) ? resTracking : [])
         .filter((t: any) => String(t.empresa || "").trim().toLowerCase() === userEmpresaLower)
         .map(t => ({
@@ -73,17 +73,15 @@ export default function DashboardPage() {
           isBooking: false
         }));
 
-      // Procesar Bookings (Específicos del usuario)
       const filteredBookings = (Array.isArray(resBooking) ? resBooking : [])
         .filter((b: any) => String(b.usuari || "").trim().toLowerCase() === userEmailLower)
         .map((b: any) => ({
           tracking_code: b.id,
           eta: b.data,
-          status: b.estat || "Pendiente", // Valor por defecto
+          status: b.estat || "Pendiente",
           isBooking: true
         }));
 
-      // Procesar Documentos
       const uniqueDocsMap = new Map();
       (Array.isArray(resDocs) ? resDocs : [])
         .filter((d: any) => String(d.usuari || "").trim().toLowerCase() === userEmailLower)
@@ -99,7 +97,6 @@ export default function DashboardPage() {
           }
         });
 
-      // Combinar y ordenar (más recientes primero)
       setPedidos([...filteredTracking, ...filteredBookings].reverse());
       setDocumentos(Array.from(uniqueDocsMap.values()));
 
@@ -152,7 +149,6 @@ export default function DashboardPage() {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            {/* COLUMNA IZQUIERDA: PERFIL Y ACCESOS */}
             <div className="lg:col-span-1 space-y-6">
               <Card className="border-none shadow-md overflow-hidden bg-white">
                 <div className="h-2 bg-[#f39200]" />
@@ -180,7 +176,6 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
-              {/* BOTÓN NUEVO BOOKING */}
               <Card className="border-none shadow-md bg-slate-900 text-white overflow-hidden">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-white italic uppercase text-lg font-black">
@@ -198,7 +193,6 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
-              {/* BOTÓN MIS PEDIDOS (CARPETA) */}
               <Card className="border-none shadow-md bg-white overflow-hidden border-l-4 border-l-[#f39200]">
                 <CardContent className="p-4">
                   <Button 
@@ -220,7 +214,6 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
-              {/* DOCUMENTOS RECIENTES */}
               <Card className="border-none shadow-md bg-white">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-black italic uppercase flex items-center justify-between text-slate-900">
@@ -267,12 +260,11 @@ export default function DashboardPage() {
               </Button>
             </div>
 
-            {/* COLUMNA DERECHA: TABLA DE ACTIVIDAD */}
             <div className="lg:col-span-2">
               <Card className="border-none shadow-md bg-white overflow-hidden">
                 <CardHeader className="border-b border-slate-50 pb-6">
                   <div className="flex justify-between items-center">
-                    <CardTitle className="flex items-center gap-2 text-2xl font-black italic uppercase text-slate-900">
+                    <CardTitle className="flex items-center gap-2 text-2xl font-black italic text-slate-900">
                       <Clock className="h-6 w-6 text-[#f39200]" /> {text.recent}
                     </CardTitle>
                     <Badge className="bg-orange-100 text-[#f39200] border-none font-black px-3 py-1 text-[10px]">
@@ -344,14 +336,4 @@ export default function DashboardPage() {
       <Footer />
     </div>
   );
-}
-
-function ChevronRight(props: any) {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-  )
-}
-
-function cn(...inputs: any[]) {
-  return inputs.filter(Boolean).join(' ');
 }
