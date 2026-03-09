@@ -28,25 +28,20 @@ export default function MisPedidosPage() {
   const [selectedPedido, setSelectedPedido] = useState<Pedido | null>(null);
   const router = useRouter();
 
-  // Usamos el script central que gestiona tanto bookings como tracking
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz11VTa8UXoSJXlRk1e53aOCFxzjexp5DNUhpotDONP3tUISE6bT6bMiTzSRtFqikhn/exec";
 
   const fetchPedidos = useCallback(async () => {
     if (!user) return;
     setIsLoading(true);
     try {
-      // Solicitamos la hoja de bookings
       const response = await fetch(`${SCRIPT_URL}?sheet=bookings`, { cache: 'no-store' });
       const data = await response.json();
       
       const userEmail = String(user.usuari).toLowerCase().trim();
-      
-      // Filtramos por el usuario actual
       const filtered = (Array.isArray(data) ? data : []).filter(
         (p: any) => String(p.usuari || "").toLowerCase().trim() === userEmail
       );
       
-      // Ordenamos por fecha descendente (suponiendo formato DD/MM/YYYY o similar)
       setPedidos(filtered.reverse()); 
     } catch (error) {
       console.error("Error al cargar pedidos:", error);
@@ -63,14 +58,26 @@ export default function MisPedidosPage() {
     }
   }, [user, authLoading, router, fetchPedidos]);
 
-  const handlePrint = (pedido: Pedido) => {
-    setSelectedPedido(pedido);
-    setTimeout(() => { window.print(); }, 100);
-  };
+  // Gestión de impresión fiable
+  useEffect(() => {
+    if (selectedPedido) {
+      const timer = setTimeout(() => {
+        window.print();
+      }, 300); // Pequeño delay para asegurar el renderizado
+
+      const handleAfterPrint = () => setSelectedPedido(null);
+      window.addEventListener('afterprint', handleAfterPrint);
+      
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('afterprint', handleAfterPrint);
+      };
+    }
+  }, [selectedPedido]);
 
   const isAceptado = (estat: string) => {
     const s = String(estat || "").toLowerCase().trim();
-    return s === 'aceptada' || s === 'aprovat' || s === 'aceptado' || s === 'aprobado';
+    return s === 'aceptada' || s === 'aprovat' || s === 'aceptado' || s === 'aprobado' || s === 'entregado';
   };
 
   if (authLoading || (!user && isLoading)) {
@@ -152,7 +159,7 @@ export default function MisPedidosPage() {
                           </div>
                           
                           {aceptado && (
-                            <Button size="sm" onClick={() => handlePrint(pedido)} className="bg-slate-900 hover:bg-[#f39200] text-white font-black uppercase text-[10px] shadow-lg">
+                            <Button size="sm" onClick={() => setSelectedPedido(pedido)} className="bg-slate-900 hover:bg-[#f39200] text-white font-black uppercase text-[10px] shadow-lg">
                               <Printer className="h-4 w-4 mr-2" /> Imprimir Comprobante
                             </Button>
                           )}
@@ -176,48 +183,51 @@ export default function MisPedidosPage() {
       </main>
       <Footer />
 
-      {/* DISEÑO DEL TICKET DE IMPRESIÓN */}
+      {/* DISEÑO DEL TICKET DE IMPRESIÓN - Visible solo al imprimir */}
       {selectedPedido && (
-        <div className="hidden print:block fixed inset-0 bg-white p-16 text-slate-900">
-          <div className="max-w-2xl mx-auto border-8 border-slate-900 p-10">
-            <div className="flex justify-between items-start mb-10">
-              <div>
-                <h1 className="text-5xl font-black italic uppercase leading-none text-slate-900">INTRACK</h1>
-                <p className="text-xl font-bold text-[#f39200]">LOGISTICS SERVICE</p>
-              </div>
-              <div className="text-right">
-                <p className="text-sm font-black uppercase text-slate-400">Comprobante de Reserva</p>
-                <p className="text-2xl font-black">{selectedPedido.id}</p>
-              </div>
-            </div>
-            
-            <div className="space-y-8">
-              <div className="border-t-2 border-slate-100 pt-6">
-                <p className="text-xs font-black uppercase text-slate-400 mb-2">Empresa Solicitante</p>
-                <p className="text-2xl font-bold uppercase italic">{selectedPedido.empresa}</p>
-                <p className="text-sm text-slate-500">Usuario: {selectedPedido.usuari}</p>
+        <div id="print-receipt" className="hidden print:block fixed inset-0 bg-white p-8 z-[9999]">
+          <div className="max-w-3xl mx-auto border-[12px] border-slate-900 p-12 min-h-[600px] flex flex-col justify-between">
+            <div>
+              <div className="flex justify-between items-start mb-12">
+                <div>
+                  <h1 className="text-6xl font-black italic uppercase leading-none text-slate-900 mb-2">INTRACK</h1>
+                  <p className="text-2xl font-bold text-[#f39200] tracking-widest">LOGISTICS SERVICE</p>
+                </div>
+                <div className="text-right border-l-4 border-slate-900 pl-6">
+                  <p className="text-sm font-black uppercase text-slate-400 mb-1">Referencia de Servicio</p>
+                  <p className="text-4xl font-black text-slate-900">{selectedPedido.id}</p>
+                </div>
               </div>
               
-              <div className="border-t-2 border-slate-100 pt-6">
-                <p className="text-xs font-black uppercase text-slate-400 mb-2">Descripción del Servicio</p>
-                <p className="text-xl font-medium italic leading-relaxed">{selectedPedido.detalls}</p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-10 border-t-2 border-slate-100 pt-6">
-                <div>
-                  <p className="text-xs font-black uppercase text-slate-400 mb-1">Fecha de Solicitud</p>
-                  <p className="font-bold">{selectedPedido.data}</p>
+              <div className="space-y-10">
+                <div className="border-t-2 border-slate-100 pt-8">
+                  <p className="text-xs font-black uppercase text-slate-400 mb-3 tracking-widest">Cliente / Empresa Solicitante</p>
+                  <p className="text-3xl font-bold uppercase italic text-slate-800">{selectedPedido.empresa}</p>
+                  <p className="text-lg text-slate-500 font-medium">ID Usuario: {selectedPedido.usuari}</p>
                 </div>
-                <div className="text-right">
-                   <p className="text-xs font-black uppercase text-slate-400 mb-1">Estado del Servicio</p>
-                   <p className="font-bold text-green-600 uppercase">AUTORIZADO Y CONFIRMADO</p>
+                
+                <div className="border-t-2 border-slate-100 pt-8">
+                  <p className="text-xs font-black uppercase text-slate-400 mb-3 tracking-widest">Especificaciones del Envío</p>
+                  <p className="text-2xl font-medium italic leading-relaxed text-slate-700">{selectedPedido.detalls}</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-12 border-t-2 border-slate-100 pt-8">
+                  <div>
+                    <p className="text-xs font-black uppercase text-slate-400 mb-2">Fecha de Registro</p>
+                    <p className="text-xl font-black">{selectedPedido.data}</p>
+                  </div>
+                  <div className="text-right">
+                     <p className="text-xs font-black uppercase text-slate-400 mb-2">Validación</p>
+                     <p className="text-xl font-black text-green-600 uppercase border-2 border-green-600 inline-block px-4 py-1 rotate-[-2deg]">CONFIRMADO</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-20 pt-8 border-t text-[10px] text-slate-400 leading-relaxed italic">
-              <p>Este documento certifica que la reserva ha sido validada por el equipo de InTrack Logistics. Presente este comprobante si le es requerido durante la operativa.</p>
-              <p className="mt-2 text-slate-500 font-bold">InTrack Logistics S.L. - Calle Resina, 41, 28021, Madrid.</p>
+            <div className="mt-20 pt-8 border-t-4 border-slate-900 text-[11px] text-slate-500 leading-tight">
+              <p className="font-bold mb-2">AVISO LEGAL:</p>
+              <p className="italic">Este documento es un comprobante oficial de reserva emitido por InTrack Logistics S.L. La confirmación del servicio implica la aceptación de los términos y condiciones de transporte vigentes. Para cualquier incidencia, contacte con info@intrack-logistics.cat indicando su referencia {selectedPedido.id}.</p>
+              <p className="mt-4 text-slate-900 font-black text-xs uppercase">Sede Central: Calle Resina, 41, 28021, Madrid, España.</p>
             </div>
           </div>
         </div>
@@ -225,9 +235,20 @@ export default function MisPedidosPage() {
 
       <style jsx global>{`
         @media print {
+          /* Ocultar todo el contenido de la web */
           body * { visibility: hidden; }
-          .print\:block, .print\:block * { visibility: visible; }
-          .print\:block { position: absolute; left: 0; top: 0; width: 100%; z-index: 9999; }
+          /* Mostrar solo el contenedor del ticket */
+          #print-receipt, #print-receipt * { visibility: visible; }
+          #print-receipt { 
+            position: absolute; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            display: block !important;
+            background: white !important;
+          }
+          /* Quitar márgenes de página del navegador */
+          @page { margin: 0; size: auto; }
         }
       `}</style>
     </div>
