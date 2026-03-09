@@ -1,9 +1,9 @@
 /**
  * @fileOverview Diccionario centralizado de traducciones para InTrack.
- * Soporta Castellano (es), Catalán (ca) e Inglés (en).
+ * Soporta Castellano (es), Catalán (ca), Inglés (en) y Francés (fr).
  */
 
-export type Language = 'es' | 'ca' | 'en';
+export type Language = 'es' | 'ca' | 'en' | 'fr';
 
 export const translations = {
   es: {
@@ -233,7 +233,7 @@ export const translations = {
       storyP3: 'Somos un referente en el sector con soluciones nacionales e internacionales.',
       missionTitle: 'Nuestra Misión',
       missionDesc: 'Proveer soluciones logísticas que impulsen el éxito de nuestros clientes con tecnología y fiabilidad.',
-      visionTitle: 'Nuestra Visió',
+      visionTitle: 'Nuestra Visión',
       visionDesc: 'Ser el líder global en logística inteligente, sostenibles y eficientes.',
       valuesTitle: 'Nuestros Valores',
       valuesSubtitle: 'Los principios que guían nuestras decisiones.',
@@ -340,7 +340,7 @@ export const translations = {
       home: 'Inici',
       services: 'Serveis',
       tracking: 'Seguiment',
-      orders: 'Pedidos',
+      orders: 'Comandes',
       place_order: 'Fes la teva comanda',
       returns: 'Devolucions',
       booking: 'Sol·licitar Servei',
@@ -670,7 +670,7 @@ export const translations = {
       services: 'Services',
       tracking: 'Tracking',
       orders: 'Orders',
-      place_order: 'Place your order',
+      place_order: 'Place order',
       returns: 'Returns',
       booking: 'Request Service',
       about: 'About Us',
@@ -990,6 +990,335 @@ export const translations = {
         services: 'Services',
         company: 'Company',
         legal: 'Legal'
+      }
+    }
+  },
+  fr: {
+    nav: {
+      home: 'Accueil',
+      services: 'Services',
+      tracking: 'Suivi',
+      orders: 'Commandes',
+      place_order: 'Passer commande',
+      returns: 'Retours',
+      booking: 'Demander un Service',
+      about: 'À Propos',
+      pickup: 'Points Relais',
+      blog: 'Blog',
+      contact: 'Contact',
+      assistant: 'Assistant',
+      login: 'Connexion',
+      profile: 'Mon Profil',
+      invoices: 'Factures',
+      logout: 'Déconnexion'
+    },
+    booking: {
+      title: 'Demande de Service',
+      subtitle: 'Gérez vos besoins de transport et de stockage rapidement.',
+      formTitle: 'Nouvelle Demande',
+      serviceLabel: 'Type de Service',
+      originLabel: 'Origine',
+      destLabel: 'Destination',
+      cargoLabel: 'Détails de la Cargaison',
+      cargoPlaceholder: 'Poids, dimensions, nombre de colis...',
+      submit: 'Envoyer la Demande',
+      historyTitle: 'Mes Demandes',
+      noHistory: 'Vous n\'avez pas encore fait de demandes.',
+      pending: 'En attente',
+      approved: 'Approuvé',
+      rejected: 'Rejeté'
+    },
+    hero: {
+      title: 'Votre colis,',
+      titleItalic: 'à votre rythme.',
+      subtitle: 'Envois nationaux et internationaux avec le réseau de consignes le plus sûr et le plus rapide du marché.',
+      badge: 'Service 24/7 actif'
+    },
+    services: {
+      title: 'Une solution pour chaque besoin',
+      subtitle: 'Le réseau de consignes intelligentes qui s\'adapte à votre mode de vie',
+      items: {
+        reception: {
+          title: 'Réception de colis nationaux',
+          desc: 'Votre colis est protégé dans nos consignes haute sécurité jusqu\'à ce que vous le retiriez.',
+          detail: {
+            title: 'Réception de colis nationaux',
+            intro: 'Votre tranquillité est notre priorité. Votre colis est protégé dès son arrivée chez nous jusqu\'à son retrait.',
+            f1: 'Garde Blindée:',
+            f1d: 'Votre colis est stocké dans des consignes haute sécurité sous surveillance.',
+            f2: 'Notification Instantanée:',
+            f2d: 'Notification immédiate via App/SMS dès que votre commande est déposée.',
+            f3: 'Garantie 24/7:',
+            f3d: 'Accès total quand vous le décidez.',
+            footer: 'Achetez en toute confiance, vos commandes sont entre de bonnes mains.'
+          }
+        },
+        intl: {
+          title: 'Achats Internationaux',
+          desc: 'Achetez dans n\'importe quel magasin au monde et recevez vos colis en toute sécurité.',
+          detail: {
+            title: 'Achats Internationaux',
+            intro: 'Achetez dans vos magasins préférés aux USA, en Chine ou en Europe et recevez-les ici.',
+            f1: 'Adresse Globale:',
+            f1d: 'Achetez comme si vous y habitiez et nous vous le livrons.',
+            f2: 'Consolidation:',
+            f2d: 'Nous groupons plusieurs achats en un seul envoi pour économiser.',
+            f3: 'Douanes:',
+            f3d: 'Nous traitons les taxes et droits pour vous.',
+            footer: 'Élargissez vos possibilités d\'achat sans frontières.'
+          }
+        },
+        b2b: {
+          title: 'Solutions B2B & E-commerce',
+          desc: 'Optimisez la logistique de votre entreprise avec des intégrations personnalisées.',
+          detail: {
+            title: 'Solutions B2B & E-commerce',
+            intro: 'Boostez votre logistique d\'entreprise avec des outils conçus pour la croissance.',
+            f1: 'Intégration API:',
+            f1d: 'Connectez votre boutique en ligne directement à notre réseau.',
+            f2: 'Tarifs Entreprise:',
+            f2d: 'Prix préférentiels basés sur votre volume mensuel.',
+            f3: 'Logistique Inverse:',
+            f3d: 'Gérez les retours facilement via notre réseau.',
+            footer: 'Boostez votre croissance avec un partenaire qui comprend vos besoins.'
+          }
+        },
+        urgent: {
+          title: 'Envois Urgents 24h',
+          desc: 'La solution la plus rapide pour vos envois les plus importants.',
+          detail: {
+            title: 'Envois Urgents 24h',
+            intro: 'Nous garantissons la livraison de votre colis n\'importe où en 24 heures.',
+            f1: 'Priorité Maximale:',
+            f1d: 'Traitement préférentiel dans tous nos processus.',
+            f2: 'Livraison Lendemain:',
+            f2d: 'Collecte et livraison le jour ouvré suivant.',
+            f3: 'Suivi Total:',
+            f3d: 'Ne perdez pas votre envoi de vue une seconde.',
+            footer: 'Parfait pour les documents importants ou les cadeaux de dernière minute.'
+          }
+        },
+        tracking: {
+          title: 'Suivi en Temps Réel',
+          desc: 'Contrôlez l\'emplacement de votre colis à tout moment.',
+          detail: {
+            title: 'Suivi en Temps Réel',
+            intro: 'Contrôle total sur votre envoi avec notre technologie de suivi avancée.',
+            f1: 'Carte Interactive:',
+            f1d: 'Visualisez la progression de votre envoi.',
+            f2: 'Mises à jour:',
+            f2d: 'Notifications automatiques à chaque étape clé.',
+            f3: 'ETA Dynamique:',
+            f3d: 'Estimation de livraison mise à jour selon le trafic.',
+            footer: 'Inclus dans tous nos services sans frais supplémentaires.'
+          }
+        },
+        pricing: {
+          title: 'Tarifs',
+          desc: 'Consultez nos prix compétitifs pour tous types d\'envois.',
+          detail: {
+            title: 'Nos Tarifs',
+            intro: 'Nous offrons une structure de prix transparente pour que vous sachiez toujours le coût.',
+            f1: 'Prix Clairs:',
+            f1d: 'Tarifs ajustés pour chaque besoin.',
+            f2: 'Calculateur en Ligne:',
+            f2d: 'Obtenez un devis instantané.',
+            f3: 'Sans Surprises:',
+            f3d: 'Le prix inclut le suivi et l\'assurance de base.',
+            footer: 'Consultez notre page de tarifs pour plus de détails.',
+            cta: 'Voir Tarifs'
+          }
+        }
+      }
+    },
+    howItWorks: {
+      title: 'Récupérer vos achats n\'a jamais été aussi facile',
+      subtitle: 'En seulement quatre étapes simples, votre envoi sera en route.',
+      steps: [
+        { title: 'Inscrivez-vous', desc: 'Contactez-nous et sélectionnez votre point InTrack.' },
+        { title: 'Achetez en ligne', desc: 'Sélectionnez l\'option d\'envoi qui vous convient.' },
+        { title: 'Recevez votre code', desc: 'Nous vous préviendrons par mobile quand le colis sera en consigne.' },
+        { title: 'Retirez quand vous voulez', desc: 'Scannez votre code 24/7 et emportez votre colis.' }
+      ],
+      stepLabel: 'Étape'
+    },
+    competitiveAdvantages: {
+      sectionTitle: 'Pourquoi choisir InTrack ?',
+      agilityTitle: 'Logistique Flexible',
+      agilityDesc: 'Nous nous adaptons aux besoins spécifiques de vos marchandises et à votre rythme de vente.',
+      humanTitle: 'Support Personnalisé',
+      humanDesc: 'Un vrai support par des experts logistiques. Nous parlons de personne à personne.',
+      securityTitle: 'Sécurité Garantie',
+      securityDesc: 'Vos envois sont protégés par des assurances premium et une garde blindée.',
+      visibilityTitle: 'Visibilité Totale',
+      visibilityDesc: 'Suivi précis en temps réel et transparence totale sur vos coûts opérationnels.'
+    },
+    blogSection: {
+      title: 'Notre Blog',
+      subtitle: 'Restez informé des dernières nouvelles et conseils du secteur.',
+      cta: 'Voir tous les articles',
+      readMore: 'Lire la suite'
+    },
+    testimonials: {
+      title: 'Ce que disent nos clients',
+      subtitle: 'La confiance et la satisfaction de nos utilisateurs basées sur des solutions innovantes.',
+      items: [
+        { name: 'Ana García', role: 'Client Particulier', quote: 'J\'ai enfin arrêté de courir après les livreurs. Je retire mes achats après le sport, même à minuit.' },
+        { name: 'Carlos Rodríguez', role: 'Acheteur International', quote: 'J\'achète beaucoup aux USA et en Asie. Maintenant, je sais que mon colis m\'attend en sécurité.' },
+        { name: 'Elena Martínez', role: 'E-commerce Manager', quote: 'L\'intégration du widget InTrack a réduit les échecs de livraison à zéro. Un vrai saut de qualité.' }
+      ]
+    },
+    pricingPage: {
+      title: 'Nos Tarifs',
+      subtitle: 'Choisissez le plan qui vous convient le mieux. Prix clairs et sans surprises.',
+      tiers: {
+        national: {
+          name: 'National',
+          details: 'par envoi standard',
+          desc: 'Idéal pour les envois non urgents sur le territoire.',
+          features: ['Livraison 48/72h', 'Suivi inclus', 'Couverture totale', 'Assurance de base'],
+          cta: 'Démarrer'
+        },
+        express: {
+          name: 'Express 24h',
+          details: 'par envoi urgent',
+          desc: 'Quand le temps est un facteur clé.',
+          features: ['Livraison garantie 24h', 'Suivi prioritaire', 'Collecte préférentielle', 'Alertes SMS'],
+          cta: 'Choisir Express',
+          popular: 'Plus Populaire'
+        },
+        intl: {
+          name: 'International',
+          details: 'selon destination et poids',
+          desc: 'Connectez-vous au monde avec des tarifs compétitifs.',
+          features: ['Europe en 3-5 jours', 'Gestion des douanes', 'Réseau mondial', 'Suivi complet'],
+          cta: 'Calculer envoi',
+          priceText: 'Consulter'
+        }
+      }
+    },
+    returnsPage: {
+      title: 'Retours',
+      subtitle: 'Portail de retours. Demandez le retour de votre commande facilement et rapidement.',
+      companyLabel: 'Entreprise d\'achat',
+      refLabel: 'N° de Commande / Référence',
+      nameLabel: 'Votre Nom Complet',
+      dniLabel: 'ID / Passeport',
+      emailLabel: 'Email de contact',
+      submit: 'Autoriser le Retour',
+      sending: 'Envoi en cours...',
+      successTitle: 'Demande Reçue !',
+      successMsg: 'Nous avons bien enregistré votre demande de retour. Vous recevrez un email sous peu.',
+      retry: 'Enregistrer un autre retour'
+    },
+    aboutPage: {
+      heroTitle: 'Connecter votre monde, un envoi à la fois',
+      heroSubtitle: 'Nous sommes une équipe passionnée par l\'innovation, l\'efficacité et les gens.',
+      storyTitle: 'Notre Histoire',
+      storyP1: 'InTrack est né d\'une idée simple : rendre la logistique plus intelligente et accessible.',
+      storyP2: 'Aujourd\'hui nous offrons des solutions innovantes avec des consignes et codes QR.',
+      storyP3: 'Nous sommes une référence du secteur avec des solutions nationales et internationales.',
+      missionTitle: 'Notre Mission',
+      missionDesc: 'Fournir des solutions logistiques exceptionnelles qui boostent le succès de nos clients.',
+      visionTitle: 'Notre Vision',
+      visionDesc: 'Être le leader mondial de la logistique intelligente, durable et efficace.',
+      valuesTitle: 'Nos Valeurs',
+      valuesSubtitle: 'Les principes qui guident nos décisions.',
+      values: {
+        v1: 'Vitesse',
+        v1d: 'Nous sommes obsédés par la vitesse et l\'optimisation des routes.',
+        v2: 'Fiabilité',
+        v2d: 'Votre confiance est notre plus grand atout.',
+        v3: 'Proximité',
+        v3d: 'Nous offrons un traitement humain et personnalisé.',
+        v4: 'Portée Mondiale',
+        v4d: 'Nous connectons votre monde sans frontières.'
+      }
+    },
+    tracking: {
+      title: 'Localisez votre envoi',
+      subtitle: 'Entrez votre code de suivi pour connaître le statut de votre colis en temps réel.',
+      placeholder: 'Ex: TRK-001',
+      button: 'Chercher',
+      searching: 'Recherche...',
+      error: 'Code introuvable. Veuillez vérifier votre référence (Ex: TRK-001).',
+      connError: 'Erreur de connexion. Veuillez réessayer plus tard.',
+      resultsTitle: 'Résultats de votre envoi',
+      refLabel: 'Référence d\'envoi',
+      statusLabel: 'Statut du colis',
+      origin: 'Origine',
+      destination: 'Destination Finale',
+      location: 'Localisation Actuelle',
+      eta: 'Date de Livraison (ETA)',
+      states: {
+        processing: 'Traitement',
+        prepared: 'Préparé',
+        shipped: 'Envoyé',
+        delivered: 'Livré'
+      }
+    },
+    ordersPage: {
+      title: 'Enregistrez votre envoi',
+      subtitle: 'Signalez l\'arrivée d\'un colis dans nos installations pour sa gestion en consigne.',
+      senderTitle: 'Détails de l\'Expéditeur',
+      senderDesc: 'Informations de l\'entreprise qui effectue l\'envoi.',
+      companyLabel: 'Nom de l\'Entreprise',
+      trackingLabel: 'Référence / Suivi Interne',
+      recipientTitle: 'Détails du Client Final',
+      recipientDesc: 'Informations pour le retrait en consigne.',
+      clientNameLabel: 'Nom du Destinataire',
+      clientDniLabel: 'ID / Passeport',
+      clientEmailLabel: 'Email de Contact',
+      helpText: 'Le client recevra un email automatique avec son code d\'accès quand le colis arrivera en consigne.',
+      submitButton: 'Enregistrer la Commande'
+    },
+    contact: {
+      title: 'Besoin d\'aide avec votre colis ?',
+      subtitle: 'Notre équipe humaine est derrière la technologie. Écrivez-nous y nous répondrons dès que possible.',
+      infoTitle: 'Informations de Contact',
+      hq: 'Siège Opérationnel',
+      support: 'Service Client',
+      phone: 'Téléphone Support',
+      urgentTitle: 'Question urgente ?',
+      urgentDesc: 'Si vous avez perdu votre code de retrait, vous pouvez le retrouver dans l\'e-mail de confirmation.',
+      formTitle: 'Dites-nous ce qui se passe',
+      name: 'Nom',
+      email: 'Email',
+      reason: 'Motif de la demande',
+      reasonPlaceholder: 'Sélectionnez une option',
+      reasons: {
+        code: 'Problème avec mon code / Consigne',
+        intl: 'Envoi International',
+        biz: 'Je suis un E-commerce / Entreprise',
+        other: 'Autres sujets'
+      },
+      orderId: 'ID de Commande ou Consigne (Optionnel)',
+      message: 'Message',
+      messagePlaceholder: 'Comment pouvons-nous vous aider aujourd\'hui ?',
+      submit: 'Contacter maintenant'
+    },
+    login: {
+      title: 'Connexion',
+      subtitle: 'Accédez à votre espace privé.',
+      email: 'Adresse e-mail',
+      password: 'Mot de passe',
+      button: 'Entrer',
+      entering: 'Connexion...',
+      back: 'Retour à l\'accueil',
+      errorRequired: 'L\'e-mail et le mot de passe sont obligatoires.',
+      errorInvalid: 'Données incorrectes. Vérifiez votre e-mail et mot de passe.',
+      errorServer: 'Une erreur inattendue ou de connexion s\'est produite.'
+    },
+    footer: {
+      desc: 'Votre solution de confiance pour les envois nationaux et internationaux. Rapidité, sécurité et prix compétitifs.',
+      newsletter: 'Inscrivez-vous à notre newsletter',
+      newsletterDesc: 'Recevez les dernières nouvelles et offres directement dans votre boîte de réception.',
+      subscribe: 'S\'abonner',
+      rights: 'Tous droits réservés.',
+      sections: {
+        services: 'Services',
+        company: 'Entreprise',
+        legal: 'Légal'
       }
     }
   }

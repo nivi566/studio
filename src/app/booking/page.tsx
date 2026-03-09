@@ -36,8 +36,9 @@ export default function BookingPage() {
   const text = {
     es: { title: "Nueva Solicitud de Booking", desc: "Complete los detalles para solicitar un nuevo servicio.", service: "Servicio solicitado", date: "Fecha Requerida", back: "Volver", send: "Enviar Solicitud", success: "¡Solicitud Enviada!", thanks: "Hemos recibido su petición correctamente.", dims: "Medidas (cm)", weight: "Peso (kg)", observations: "Observaciones adicionales", print: "Imprimir Comprobante", inicio: "Ir al Inicio" },
     ca: { title: "Nova Sol·licitud de Booking", desc: "Ompli els detalls per sol·licitar un nou servei.", service: "Servei sol·licitat", date: "Data Requerida", back: "Tornar", send: "Enviar Sol·licitud", success: "Sol·licitud Enviada!", thanks: "Hem rebut la seva petició correctament.", dims: "Mides (cm)", weight: "Pes (kg)", observations: "Observacions addicionals", print: "Imprimir Comprovant", inicio: "Anar a l'Inici" },
-    en: { title: "New Booking Request", desc: "Fill in the details to request a new service.", service: "Requested Service", date: "Required Date", back: "Back", send: "Send Request", success: "Request Sent!", thanks: "We have received your request correctly.", dims: "Dimensions (cm)", weight: "Weight (kg)", observations: "Additional observations", print: "Print Receipt", inicio: "Go Home" }
-  }[language as 'es' | 'ca' | 'en'];
+    en: { title: "New Booking Request", desc: "Fill in the details to request a new service.", service: "Requested Service", date: "Required Date", back: "Back", send: "Send Request", success: "Request Sent!", thanks: "We have received your request correctly.", dims: "Dimensions (cm)", weight: "Weight (kg)", observations: "Additional observations", print: "Print Receipt", inicio: "Go Home" },
+    fr: { title: "Nouvelle Demande de Booking", desc: "Complétez les détails pour demander un nouveau service.", service: "Service demandé", date: "Date Requise", back: "Retour", send: "Envoyer la Demande", success: "Demande Envoyée !", thanks: "Nous avons bien reçu votre demande.", dims: "Dimensions (cm)", weight: "Poids (kg)", observations: "Observations additionnelles", print: "Imprimer le Reçu", inicio: "Accueil" }
+  }[language as 'es' | 'ca' | 'en' | 'fr'] || { title: "Nueva Solicitud de Booking", desc: "Complete los detalles.", service: "Servicio", date: "Fecha", back: "Volver", send: "Enviar", success: "Enviado", thanks: "Gracias", dims: "Medidas", weight: "Peso", observations: "Observaciones", print: "Imprimir", inicio: "Inicio" };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -64,7 +65,7 @@ export default function BookingPage() {
       usuari: user.usuari,
       empresa: user.empresa,
       detalls: detallesFormateados,
-      estat: "Pendiente" // <-- CAMBIADO A PENDIENTE
+      estat: "Pendiente"
     };
 
     try {
@@ -113,7 +114,6 @@ export default function BookingPage() {
                 <p className="text-slate-500 font-medium text-lg">Nº: {bookingData.id}</p>
                 <p className="text-slate-500 font-medium">Fecha: {bookingData.data}</p>
                 
-                {/* BADGE EN NARANJA - "PENDIENTE" */}
                 <Badge className="mt-3 bg-orange-100 text-[#f39200] border-orange-200 uppercase font-black px-4 py-1 text-xs italic">
                   PENDIENTE DE VALIDACIÓN
                 </Badge>

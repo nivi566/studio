@@ -17,7 +17,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const storedLang = localStorage.getItem('language') as Language;
-    if (storedLang && (storedLang === 'es' || storedLang === 'ca' || storedLang === 'en')) {
+    if (storedLang && ['es', 'ca', 'en', 'fr'].includes(storedLang)) {
       setLanguageState(storedLang);
     }
     setIsHydrated(true);
@@ -36,11 +36,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <LanguageContext.Provider value={value}>
-      {/* 
-          Renderizamos siempre el Provider para que useLanguage() no falle en el servidor.
-          Usamos una clase de opacidad para evitar el "flicker" de traducción antes de 
-          que el cliente lea el localStorage, pero permitimos que el contenido sea accesible.
-      */}
       <div className={!isHydrated ? 'opacity-0' : 'opacity-100 transition-opacity duration-300'}>
         {children}
       </div>

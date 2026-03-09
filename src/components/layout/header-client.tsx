@@ -63,19 +63,14 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   }
 
-  // Lógica de filtrado dinámico de enlaces
   const dynamicLinks = React.useMemo(() => {
     return navLinks.map(link => {
-      // Buscamos el desplegable de pedidos por su etiqueta traducida
       if (link.label === t.nav.orders) {
         const subLinks = [...(link.subLinks || [])];
-        
-        // REGLA: Solo si es cliente, está logueado y está en el Dashboard
         const isClient = user?.rol?.toLowerCase() === 'cliente';
         const isDashboard = pathname.includes('/dashboard');
         
         if (user && isClient && isDashboard) {
-          // Añadimos el enlace de booking si no existe ya
           if (!subLinks.find(s => s.href === '/booking')) {
             subLinks.push({ href: '/booking', label: t.nav.booking });
           }
@@ -89,7 +84,7 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
 
   const LanguageSelector = () => (
     <div className="flex items-center gap-3 px-2">
-      {(['es', 'ca', 'en'] as Language[]).map((lang, index) => (
+      {(['es', 'ca', 'en', 'fr'] as Language[]).map((lang, index) => (
         <React.Fragment key={lang}>
           <button
             onClick={() => setLanguage(lang)}
@@ -102,7 +97,7 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
           >
             {lang}
           </button>
-          {index < 2 && <span className="text-foreground/10 text-[10px] font-light">|</span>}
+          {index < 3 && <span className="text-foreground/10 text-[10px] font-light">|</span>}
         </React.Fragment>
       ))}
     </div>
@@ -149,7 +144,6 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
       </nav>
 
       <div className="flex flex-1 items-center justify-end gap-4">
-        {/* Selector de Idioma */}
         <div className="hidden sm:block border-r pr-4 border-border/50">
           <LanguageSelector />
         </div>

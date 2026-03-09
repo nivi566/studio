@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
@@ -32,7 +31,6 @@ import {
   MapPin,
   Phone,
   CreditCard,
-  User as UserIcon
 } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from '@/components/ui/badge';
@@ -53,8 +51,9 @@ export default function DashboardPage() {
   const text = useMemo(() => ({
     es: { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "NUEVA SOLICITUD", recent: "Actividad reciente", sub: "Seguimiento de pedidos y reservas de", docs: "MIS DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "VER" },
     ca: { title: "Panel de client", welcome: "Benvingut", stats: "registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "NOVA SOL·LICITUD", recent: "Activitat recent", sub: "Seguiment de comandes i reserves de", docs: "ELS MEUS DOCUMENTS", myOrders: "LES MEVES COMANDES", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "VEURE" },
-    en: { title: "Customer panel", welcome: "Welcome", stats: "records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "Recent activity", sub: "Tracking of orders and bookings for", docs: "MY DOCUMENTS", myOrders: "MY ORDERS", noDocs: "No invoices available", logout: "Logout", view: "VIEW" }
-  }[language as 'es'|'ca'|'en'] || { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "Actividad reciente", sub: "Seguimiento", docs: "DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" }), [language]);
+    en: { title: "Customer panel", welcome: "Welcome", stats: "records", empty: "No recent activity", booking: "Manage Booking", new: "NEW REQUEST", recent: "Recent activity", sub: "Tracking of orders and bookings for", docs: "MY DOCUMENTS", myOrders: "MY ORDERS", noDocs: "No invoices available", logout: "Logout", view: "VIEW" },
+    fr: { title: "Espace client", welcome: "Bienvenue", stats: "enregistrements", empty: "Aucune activité récente", booking: "Gérer le Booking", new: "NOUVELLE DEMANDE", recent: "Activité récente", sub: "Suivi des commandes et réservations de", docs: "MES DOCUMENTS", myOrders: "MES COMMANDES", noDocs: "Aucune facture disponible", logout: "Déconnexion", view: "VOIR" }
+  }[language as 'es'|'ca'|'en'|'fr'] || { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad", booking: "Booking", new: "NUEVA SOLICITUD", recent: "Actividad reciente", sub: "Seguimiento", docs: "DOCUMENTOS", myOrders: "MIS PEDIDOS", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "VER" }), [language]);
 
   const fetchDashboardData = useCallback(async () => {
     if (!user) return;
@@ -125,6 +124,11 @@ export default function DashboardPage() {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   }
 
+  const formatName = (name: string = '') => {
+    if (!name) return '';
+    return name.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+  }
+
   if (authLoading || (!user && isFetching)) {
     return (
       <div className="flex min-h-screen flex-col bg-slate-50">
@@ -149,13 +153,12 @@ export default function DashboardPage() {
               <span className="text-xs font-bold text-[#f39200] uppercase tracking-widest">{text.title}</span>
             </div>
             <h1 className="text-4xl font-black text-slate-900 tracking-tight not-italic">
-              {text.welcome}, <span className="text-[#f39200] capitalize">{user.nom.toLowerCase()}</span>
+              {text.welcome}, <span className="text-[#f39200]">{formatName(user.nom)}</span>
             </h1>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             <div className="lg:col-span-1 space-y-6">
-              {/* FICHA COMPLETA DEL CLIENTE */}
               <Card className="border-none shadow-md overflow-hidden bg-white">
                 <div className="h-2 bg-[#f39200]" />
                 <CardHeader className="flex flex-row items-center gap-4 pb-4">
@@ -165,7 +168,7 @@ export default function DashboardPage() {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <CardTitle className="text-xl font-bold capitalize not-italic">{user.nom.toLowerCase()}</CardTitle>
+                    <CardTitle className="text-xl font-bold not-italic">{formatName(user.nom)}</CardTitle>
                     <CardDescription className="font-medium text-[#f39200] uppercase">{user.empresa}</CardDescription>
                   </div>
                 </CardHeader>
