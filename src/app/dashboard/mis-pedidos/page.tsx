@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
@@ -8,9 +9,27 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
-import { Package, Clock, Printer, CheckCircle, ArrowLeft, Info, ChevronRight, Bookmark } from 'lucide-react';
+import { 
+  Package, 
+  Clock, 
+  Printer, 
+  CheckCircle, 
+  ArrowLeft, 
+  Info, 
+  ChevronRight, 
+  Bookmark,
+  Eye,
+  FileText,
+  X
+} from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 type Pedido = {
   id: string;
@@ -26,6 +45,7 @@ export default function MisPedidosPage() {
   const [pedidos, setPedidos] = useState<Pedido[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPedido, setSelectedPedido] = useState<Pedido | null>(null);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const router = useRouter();
 
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz11VTa8UXoSJXlRk1e53aOCFxzjexp5DNUhpotDONP3tUISE6bT6bMiTzSRtFqikhn/exec";
@@ -58,26 +78,18 @@ export default function MisPedidosPage() {
     }
   }, [user, authLoading, router, fetchPedidos]);
 
-  // Gestión de impresión fiable
-  useEffect(() => {
-    if (selectedPedido) {
-      const timer = setTimeout(() => {
-        window.print();
-      }, 300); // Pequeño delay para asegurar el renderizado
-
-      const handleAfterPrint = () => setSelectedPedido(null);
-      window.addEventListener('afterprint', handleAfterPrint);
-      
-      return () => {
-        clearTimeout(timer);
-        window.removeEventListener('afterprint', handleAfterPrint);
-      };
-    }
-  }, [selectedPedido]);
+  const handlePrint = () => {
+    window.print();
+  };
 
   const isAceptado = (estat: string) => {
     const s = String(estat || "").toLowerCase().trim();
     return s === 'aceptada' || s === 'aprovat' || s === 'aceptado' || s === 'aprobado' || s === 'entregado';
+  };
+
+  const openDocument = (pedido: Pedido) => {
+    setSelectedPedido(pedido);
+    setIsPreviewOpen(true);
   };
 
   if (authLoading || (!user && isLoading)) {
@@ -159,8 +171,13 @@ export default function MisPedidosPage() {
                           </div>
                           
                           {aceptado && (
-                            <Button size="sm" onClick={() => setSelectedPedido(pedido)} className="bg-slate-900 hover:bg-[#f39200] text-white font-black uppercase text-[10px] shadow-lg">
-                              <Printer className="h-4 w-4 mr-2" /> Imprimir Comprobante
+                            <Button 
+                              size="sm" 
+                              onClick={() => openDocument(pedido)} 
+                              className="bg-slate-900 hover:bg-[#f39200] text-white font-black uppercase text-[10px] shadow-lg group"
+                            >
+                              <FileText className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" /> 
+                              Abrir Comprobante
                             </Button>
                           )}
                         </div>
@@ -183,61 +200,84 @@ export default function MisPedidosPage() {
       </main>
       <Footer />
 
-      {/* DISEÑO DEL TICKET DE IMPRESIÓN - Visible solo al imprimir */}
-      {selectedPedido && (
-        <div id="print-receipt" className="hidden print:block fixed inset-0 bg-white p-8 z-[9999]">
-          <div className="max-w-3xl mx-auto border-[12px] border-slate-900 p-12 min-h-[600px] flex flex-col justify-between">
+      {/* DIALOG DE PREVISUALIZACIÓN / ABRIR DOCUMENTO */}
+      <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 border-none bg-slate-100">
+          <DialogHeader className="p-6 bg-white border-b sticky top-0 z-10 flex flex-row items-center justify-between">
             <div>
-              <div className="flex justify-between items-start mb-12">
-                <div>
-                  <h1 className="text-6xl font-black italic uppercase leading-none text-slate-900 mb-2">INTRACK</h1>
-                  <p className="text-2xl font-bold text-[#f39200] tracking-widest">LOGISTICS SERVICE</p>
-                </div>
-                <div className="text-right border-l-4 border-slate-900 pl-6">
-                  <p className="text-sm font-black uppercase text-slate-400 mb-1">Referencia de Servicio</p>
-                  <p className="text-4xl font-black text-slate-900">{selectedPedido.id}</p>
-                </div>
-              </div>
-              
-              <div className="space-y-10">
-                <div className="border-t-2 border-slate-100 pt-8">
-                  <p className="text-xs font-black uppercase text-slate-400 mb-3 tracking-widest">Cliente / Empresa Solicitante</p>
-                  <p className="text-3xl font-bold uppercase italic text-slate-800">{selectedPedido.empresa}</p>
-                  <p className="text-lg text-slate-500 font-medium">ID Usuario: {selectedPedido.usuari}</p>
-                </div>
+              <DialogTitle className="text-2xl font-black uppercase italic tracking-tighter flex items-center gap-2">
+                <FileText className="text-[#f39200]" /> Comprobante de Servicio
+              </DialogTitle>
+            </div>
+            <div className="flex gap-2">
+              <Button onClick={handlePrint} className="bg-[#f39200] hover:bg-slate-900 text-white font-black uppercase text-xs">
+                <Printer className="h-4 w-4 mr-2" /> Imprimir Documento
+              </Button>
+            </div>
+          </DialogHeader>
+
+          {selectedPedido && (
+            <div className="p-8 md:p-12">
+              <div id="print-receipt" className="bg-white mx-auto border-[12px] border-slate-900 p-8 md:p-12 shadow-2xl relative">
                 
-                <div className="border-t-2 border-slate-100 pt-8">
-                  <p className="text-xs font-black uppercase text-slate-400 mb-3 tracking-widest">Especificaciones del Envío</p>
-                  <p className="text-2xl font-medium italic leading-relaxed text-slate-700">{selectedPedido.detalls}</p>
+                {/* MARCA DE AGUA CONFIRMADO */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.03] select-none">
+                   <CheckCircle className="w-[400px] h-[400px] text-green-600" />
                 </div>
 
-                <div className="grid grid-cols-2 gap-12 border-t-2 border-slate-100 pt-8">
-                  <div>
-                    <p className="text-xs font-black uppercase text-slate-400 mb-2">Fecha de Registro</p>
-                    <p className="text-xl font-black">{selectedPedido.data}</p>
+                <div className="relative z-10">
+                  <div className="flex flex-col md:flex-row justify-between items-start mb-12 gap-6">
+                    <div>
+                      <h1 className="text-6xl font-black italic uppercase leading-none text-slate-900 mb-2">INTRACK</h1>
+                      <p className="text-2xl font-bold text-[#f39200] tracking-widest uppercase">LOGISTICS SERVICE</p>
+                    </div>
+                    <div className="text-left md:text-right md:border-l-4 border-slate-900 md:pl-6">
+                      <p className="text-sm font-black uppercase text-slate-400 mb-1">Referencia de Servicio</p>
+                      <p className="text-4xl font-black text-slate-900">{selectedPedido.id}</p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                     <p className="text-xs font-black uppercase text-slate-400 mb-2">Validación</p>
-                     <p className="text-xl font-black text-green-600 uppercase border-2 border-green-600 inline-block px-4 py-1 rotate-[-2deg]">CONFIRMADO</p>
+                  
+                  <div className="space-y-10">
+                    <div className="border-t-2 border-slate-100 pt-8">
+                      <p className="text-xs font-black uppercase text-slate-400 mb-3 tracking-widest">Cliente / Empresa Solicitante</p>
+                      <p className="text-3xl font-bold uppercase italic text-slate-800">{selectedPedido.empresa}</p>
+                      <p className="text-lg text-slate-500 font-medium">ID Usuario: {selectedPedido.usuari}</p>
+                    </div>
+                    
+                    <div className="border-t-2 border-slate-100 pt-8">
+                      <p className="text-xs font-black uppercase text-slate-400 mb-3 tracking-widest">Especificaciones del Envío</p>
+                      <p className="text-2xl font-medium italic leading-relaxed text-slate-700">{selectedPedido.detalls}</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t-2 border-slate-100 pt-8">
+                      <div>
+                        <p className="text-xs font-black uppercase text-slate-400 mb-2">Fecha de Registro</p>
+                        <p className="text-xl font-black">{selectedPedido.data}</p>
+                      </div>
+                      <div className="md:text-right">
+                         <p className="text-xs font-black uppercase text-slate-400 mb-2">Validación</p>
+                         <p className="text-xl font-black text-green-600 uppercase border-2 border-green-600 inline-block px-4 py-1 rotate-[-2deg]">CONFIRMADO</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-20 pt-8 border-t-4 border-slate-900 text-[11px] text-slate-500 leading-tight">
+                    <p className="font-bold mb-2">AVISO LEGAL:</p>
+                    <p className="italic">Este documento es un comprobante oficial de reserva emitido por InTrack Logistics S.L. La confirmación del servicio implica la aceptación de los términos y condiciones de transporte vigentes. Para cualquier incidencia, contacte con info@intrack-logistics.cat indicando su referencia {selectedPedido.id}.</p>
+                    <p className="mt-4 text-slate-900 font-black text-xs uppercase">Sede Central: Calle Resina, 41, 28021, Madrid, España.</p>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div className="mt-20 pt-8 border-t-4 border-slate-900 text-[11px] text-slate-500 leading-tight">
-              <p className="font-bold mb-2">AVISO LEGAL:</p>
-              <p className="italic">Este documento es un comprobante oficial de reserva emitido por InTrack Logistics S.L. La confirmación del servicio implica la aceptación de los términos y condiciones de transporte vigentes. Para cualquier incidencia, contacte con info@intrack-logistics.cat indicando su referencia {selectedPedido.id}.</p>
-              <p className="mt-4 text-slate-900 font-black text-xs uppercase">Sede Central: Calle Resina, 41, 28021, Madrid, España.</p>
-            </div>
-          </div>
-        </div>
-      )}
+          )}
+        </DialogContent>
+      </Dialog>
 
       <style jsx global>{`
         @media print {
           /* Ocultar todo el contenido de la web */
           body * { visibility: hidden; }
-          /* Mostrar solo el contenedor del ticket */
+          /* Mostrar solo el ticket que está dentro del modal */
           #print-receipt, #print-receipt * { visibility: visible; }
           #print-receipt { 
             position: absolute; 
@@ -246,6 +286,9 @@ export default function MisPedidosPage() {
             width: 100%; 
             display: block !important;
             background: white !important;
+            border: none !important;
+            padding: 2cm !important;
+            box-shadow: none !important;
           }
           /* Quitar márgenes de página del navegador */
           @page { margin: 0; size: auto; }
