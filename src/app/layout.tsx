@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Roboto_Slab } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from '@/context/AuthContext';
@@ -27,20 +26,13 @@ export const metadata: Metadata = {
   },
 };
 
-const robotoSlab = Roboto_Slab({ 
-  subsets: ['latin'], 
-  variable: '--font-aptos-slab', 
-  display: 'swap',
-  weight: ['300', '400', '500', '600', '700', '800', '900'] 
-});
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${robotoSlab.variable} scroll-smooth`}>
+    <html lang="es" className="scroll-smooth">
        <body className="font-body antialiased selection:bg-primary/30 selection:text-primary-foreground font-light">
         <LanguageProvider>
           <AuthProvider>

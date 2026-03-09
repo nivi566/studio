@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['var(--font-aptos-slab)', 'serif'],
-        headline: ['var(--font-aptos-slab)', 'serif'],
+        body: ['"Century Gothic"', 'CenturyGothic', 'AppleGothic', 'sans-serif'],
+        headline: ['"Century Gothic"', 'CenturyGothic', 'AppleGothic', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
