@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Lexend } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from '@/context/AuthContext';
@@ -27,11 +27,11 @@ export const metadata: Metadata = {
   },
 };
 
-const inter = Inter({ 
+const lexend = Lexend({ 
   subsets: ['latin'], 
-  variable: '--font-inter', 
+  variable: '--font-lexend', 
   display: 'swap',
-  weight: ['400', '500', '600', '700', '800', '900'] 
+  weight: ['300', '400', '500', '600', '700', '800', '900'] 
 });
 
 export default function RootLayout({
@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${inter.variable} scroll-smooth`}>
+    <html lang="es" className={`${lexend.variable} scroll-smooth`}>
        <body className="font-body antialiased selection:bg-primary/30 selection:text-primary-foreground">
         <LanguageProvider>
           <AuthProvider>
