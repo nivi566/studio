@@ -91,6 +91,7 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
 
   return (
     <>
+      {/* Menú de navegación central */}
       <nav className="hidden md:flex md:items-center md:gap-6 text-sm">
         {dynamicLinks.map((link) => (
           link.subLinks ? (
@@ -129,11 +130,12 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
         ))}
       </nav>
 
-      <div className="flex flex-1 items-center justify-end gap-3">
+      {/* Contenedor de acciones a la derecha (Esquina vacía) */}
+      <div className="flex flex-1 items-center justify-end gap-2 md:gap-4">
         {/* Selector de idioma con Icono de Mundo */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
+            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full hover:bg-white/10 transition-colors">
               <Globe className="h-5 w-5 text-foreground/70" />
               <span className="sr-only">Seleccionar idioma</span>
             </Button>
@@ -159,9 +161,9 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
           user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-9 w-9 rounded-full ring-offset-background transition-all hover:ring-2 hover:ring-primary/20">
+                <Button variant="ghost" className="relative h-9 w-9 rounded-full ring-offset-background transition-all hover:ring-2 hover:ring-primary/20 p-0 overflow-hidden">
                   <Avatar className="h-9 w-9">
-                      <AvatarFallback className="bg-primary text-primary-foreground font-bold">{getInitials(user.nom)}</AvatarFallback>
+                      <AvatarFallback className="bg-primary text-primary-foreground font-bold text-xs">{getInitials(user.nom)}</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
@@ -191,15 +193,16 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-black tracking-tight shadow-md hover:shadow-lg transition-all active:scale-95 text-xs h-9 px-4">
+              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-black tracking-tight shadow-md hover:shadow-lg transition-all active:scale-95 text-xs h-9 px-4 rounded-full">
               <Link href="/login">{t.nav.login}</Link>
             </Button>
           )
         )}
         
+        {/* Botón menú móvil */}
         <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden" aria-label="Abrir menú">
+            <Button variant="ghost" size="icon" className="md:hidden h-9 w-9" aria-label="Abrir menú">
               <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>
@@ -264,7 +267,7 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
               </nav>
               <div className="mt-auto pb-8">
                  {!isLoading && !user && (
-                    <Button asChild className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-black tracking-widest" size="lg">
+                    <Button asChild className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-black tracking-widest rounded-full" size="lg">
                       <Link href="/login">{t.nav.login}</Link>
                     </Button>
                  )}

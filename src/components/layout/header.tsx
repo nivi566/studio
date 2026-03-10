@@ -15,7 +15,6 @@ export type NavLink = {
 export function Header({ className }: { className?: string }) {
   const { t } = useLanguage();
   
-  // Enlaces de navegación utilizando las traducciones del contexto
   const navLinks: NavLink[] = [
     { href: '/', label: t.nav.home },
     { href: '/#services', label: t.nav.services },
@@ -38,23 +37,16 @@ export function Header({ className }: { className?: string }) {
   return (
     <header 
       className={cn(
-        // CAMBIOS: 
-        // 1. bg-background/60 para que sea más transparente que el original (95)
-        // 2. backdrop-blur-md para un desenfoque más elegante del fondo
-        // 3. border-white/10 para que el borde no sea tan duro sobre el fondo
         "sticky top-0 z-50 w-full border-b border-white/10 bg-background/60 backdrop-blur-md transition-all duration-300", 
         className
       )}
     >
-      <div className="container flex h-16 max-w-screen-2xl items-center justify-between">
-        <div className="flex items-center">
-          <div className="mr-6 flex items-center space-x-2">
-            <Logo />
-          </div>
-          
-          {/* Este componente maneja la navegación y el selector de idiomas */}
-          <HeaderClient navLinks={navLinks} />
-        </div>
+      <div className="container flex h-16 max-w-screen-2xl items-center">
+        {/* El Logo a la izquierda */}
+        <Logo className="mr-8 shrink-0" />
+        
+        {/* HeaderClient maneja el menú central y las acciones de la derecha */}
+        <HeaderClient navLinks={navLinks} />
       </div>
     </header>
   );
