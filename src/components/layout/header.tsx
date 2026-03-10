@@ -15,7 +15,7 @@ export type NavLink = {
 export function Header({ className }: { className?: string }) {
   const { t } = useLanguage();
   
-  // Enlaces base visibles para todos o gestionados dinámicamente en el cliente
+  // Enlaces de navegación utilizando las traducciones del contexto
   const navLinks: NavLink[] = [
     { href: '/', label: t.nav.home },
     { href: '/#services', label: t.nav.services },
@@ -27,7 +27,6 @@ export function Header({ className }: { className?: string }) {
         { href: '/pedidos', label: t.nav.place_order },
         { href: '/devoluciones', label: t.nav.returns },
         { href: '/puntos-de-recogida', label: t.nav.pickup },
-        // El enlace a /booking se ha eliminado de aquí para gestionarse dinámicamente en HeaderClient
       ]
     },
     { href: '/blog', label: t.nav.blog },
@@ -37,14 +36,25 @@ export function Header({ className }: { className?: string }) {
   ];
 
   return (
-    <header className={cn("sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm", className)}>
-      <div className="container flex h-16 max-w-screen-2xl items-center">
-        <div className="mr-4 flex">
-          <Logo />
+    <header 
+      className={cn(
+        // CAMBIOS: 
+        // 1. bg-background/60 para que sea más transparente que el original (95)
+        // 2. backdrop-blur-md para un desenfoque más elegante del fondo
+        // 3. border-white/10 para que el borde no sea tan duro sobre el fondo
+        "sticky top-0 z-50 w-full border-b border-white/10 bg-background/60 backdrop-blur-md transition-all duration-300", 
+        className
+      )}
+    >
+      <div className="container flex h-16 max-w-screen-2xl items-center justify-between">
+        <div className="flex items-center">
+          <div className="mr-6 flex items-center space-x-2">
+            <Logo />
+          </div>
+          
+          {/* Este componente maneja la navegación y el selector de idiomas */}
+          <HeaderClient navLinks={navLinks} />
         </div>
-        
-        <HeaderClient navLinks={navLinks} />
-        
       </div>
     </header>
   );
