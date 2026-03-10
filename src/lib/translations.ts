@@ -23,6 +23,9 @@ export const translations = {
       login: 'Iniciar Sesión',
       profile: 'Mi Perfil',
       invoices: 'Facturas',
+      my_orders: 'Mis pedidos',
+      my_albaranes: 'Albaranes',
+      reserve: 'Reservar',
       logout: 'Salir'
     },
     booking: {
@@ -164,7 +167,7 @@ export const translations = {
       securityTitle: 'Seguridad Garantizada',
       securityDesc: 'Tus envíos están protegidos con seguros premium y custodia blindada en lockers.',
       visibilityTitle: 'Visibilidad Total',
-      visibilityDesc: 'Tracking preciso en tiempo real y transparencia absoluta en tus costes operativos.'
+      visibilityDesc: 'Tracking preciso en tiempo real y transparencia absoluta en tus costes operativos.',
     },
     blogSection: {
       title: 'Nuestro Blog',
@@ -352,6 +355,9 @@ export const translations = {
       login: 'Iniciar Sessió',
       profile: 'El meu Perfil',
       invoices: 'Factures',
+      my_orders: 'Les meves comandes',
+      my_albaranes: 'Albarans',
+      reserve: 'Reservar',
       logout: 'Sortir'
     },
     booking: {
@@ -493,7 +499,7 @@ export const translations = {
       securityTitle: 'Seguridad Garantizada',
       securityDesc: 'Els teus enviaments estan protegits amb assegurances premium i custòdia blindada.',
       visibilityTitle: 'Visibilidad Total',
-      visibilityDesc: 'Tracking precís en temps real i transparència absoluta en els teus costos operatius.'
+      visibilityDesc: 'Tracking precís en temps real i transparència absoluta en els teus costos operatius.',
     },
     blogSection: {
       title: 'El nostre Blog',
@@ -681,6 +687,9 @@ export const translations = {
       login: 'Login',
       profile: 'My Profile',
       invoices: 'Invoices',
+      my_orders: 'My orders',
+      my_albaranes: 'Delivery notes',
+      reserve: 'Reserve',
       logout: 'Logout'
     },
     booking: {
@@ -822,7 +831,7 @@ export const translations = {
       securityTitle: 'Guaranteed Security',
       securityDesc: 'Your shipments are protected with premium insurance and armored custody.',
       visibilityTitle: 'Total Visibility',
-      visibilityDesc: 'Precise real-time tracking and absolute transparency in your operating costs.'
+      visibilityDesc: 'Precise real-time tracking and absolute transparency in your operating costs.',
     },
     blogSection: {
       title: 'Our Blog',
@@ -1010,6 +1019,9 @@ export const translations = {
       login: 'Connexion',
       profile: 'Mon Profil',
       invoices: 'Factures',
+      my_orders: 'Mes commandes',
+      my_albaranes: 'Bons de livraison',
+      reserve: 'Réserver',
       logout: 'Déconnexion'
     },
     booking: {
@@ -1048,7 +1060,7 @@ export const translations = {
             f1d: 'Votre colis est stocké dans des consignes haute sécurité sous surveillance.',
             f2: 'Notification Instantanée:',
             f2d: 'Notification immédiate via App/SMS dès que votre commande est déposée.',
-            f3: 'Garantie 24/7:',
+            f3: 'Garantia 24/7:',
             f3d: 'Accès total quand vous le décidez.',
             footer: 'Achetez en toute confiance, vos commandes sont entre de bonnes mains.'
           }
@@ -1151,7 +1163,7 @@ export const translations = {
       securityTitle: 'Sécurité Garantie',
       securityDesc: 'Vos envois sont protégés par des assurances premium et une garde blindée.',
       visibilityTitle: 'Visibilité Totale',
-      visibilityDesc: 'Suivi précis en temps réel et transparence totale sur vos coûts opérationnels.'
+      visibilityDesc: 'Suivi précis en temps réel et transparence totale sur vos coûts opérationnels.',
     },
     blogSection: {
       title: 'Notre Blog',
@@ -1182,7 +1194,7 @@ export const translations = {
         express: {
           name: 'Express 24h',
           details: 'par envoi urgent',
-          desc: 'Quand le temps est un facteur clé.',
+          desc: 'Quand le temps est un factor clé.',
           features: ['Livraison garantie 24h', 'Suivi prioritaire', 'Collecte préférentielle', 'Alertes SMS'],
           cta: 'Choisir Express',
           popular: 'Plus Populaire'
@@ -1215,7 +1227,7 @@ export const translations = {
       heroTitle: 'Connecter votre monde, un envoi à la fois',
       heroSubtitle: 'Nous sommes une équipe passionnée par l\'innovation, l\'efficacité et les gens.',
       storyTitle: 'Notre Histoire',
-      storyP1: 'InTrack est né d\'une idée simple : rendre la logistique plus intelligente et accessible.',
+      storyP1: 'InTrack est né d\'une idea simple : rendre la logistique plus intelligente et accessible.',
       storyP2: 'Aujourd\'hui nous offrons des solutions innovantes avec des consignes et codes QR.',
       storyP3: 'Nous sommes une référence du secteur avec des solutions nationales et internationales.',
       missionTitle: 'Notre Mission',

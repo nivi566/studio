@@ -2,7 +2,18 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Menu, X, LogOut, LayoutDashboard, FileText, Globe, ChevronDown, Bookmark } from 'lucide-react';
+import { 
+  Menu, 
+  X, 
+  LogOut, 
+  LayoutDashboard, 
+  FileText, 
+  Globe, 
+  ChevronDown, 
+  Bookmark,
+  Package,
+  ClipboardList
+} from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -130,7 +141,7 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
         ))}
       </nav>
 
-      {/* Contenedor de acciones a la derecha (Esquina vacía) */}
+      {/* Contenedor de acciones a la derecha */}
       <div className="flex flex-1 items-center justify-end gap-2 md:gap-4">
         {/* Selector de idioma con Icono de Mundo */}
         <DropdownMenu>
@@ -181,7 +192,19 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
                   <LayoutDashboard className="mr-2 h-4 w-4" />
                   <span>{t.nav.profile}</span>
                 </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => router.push('/documents')} className="cursor-pointer font-bold">
+                <DropdownMenuItem onClick={() => router.push('/albaranes')} className="cursor-pointer font-bold">
+                  <ClipboardList className="mr-2 h-4 w-4" />
+                  <span>{t.nav.my_albaranes}</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push('/dashboard/mis-pedidos')} className="cursor-pointer font-bold">
+                  <Package className="mr-2 h-4 w-4" />
+                  <span>{t.nav.my_orders}</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push('/booking')} className="cursor-pointer font-bold">
+                  <Bookmark className="mr-2 h-4 w-4" />
+                  <span>{t.nav.reserve}</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push('/documents')} className="cursor-pointer font-bold">
                   <FileText className="mr-2 h-4 w-4" />
                   <span>{t.nav.invoices}</span>
                 </DropdownMenuItem>
