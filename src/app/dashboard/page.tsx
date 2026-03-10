@@ -31,6 +31,7 @@ import {
   MapPin,
   Phone,
   CreditCard,
+  ClipboardList,
 } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from '@/components/ui/badge';
@@ -49,11 +50,11 @@ export default function DashboardPage() {
   const SHEETDB_DOCS_URL = "https://sheetdb.io/api/v1/nmk5zmlkneovd?sheet=documents";
 
   const text = useMemo(() => ({
-    es: { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "Nueva solicitud", recent: "Actividad reciente", sub: "Seguimiento de pedidos y reservas de", docs: "Mis Documentos", myOrders: "Mis Pedidos", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "Ver" },
-    ca: { title: "Panel de client", welcome: "Benvingut", stats: "registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "Nova sol·licitud", recent: "Activitat recent", sub: "Seguiment de comandes i reserves de", docs: "Els Meus Documents", myOrders: "Les Meves Comandes", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "Veure" },
-    en: { title: "Customer panel", welcome: "Welcome", stats: "records", empty: "No recent activity", booking: "Manage Booking", new: "New request", recent: "Recent activity", sub: "Tracking of orders and bookings for", docs: "My Documents", myOrders: "My Orders", noDocs: "No invoices available", logout: "Logout", view: "View" },
-    fr: { title: "Espace client", welcome: "Bienvenue", stats: "enregistrements", empty: "Aucune activité récente", booking: "Gérer le Booking", new: "Nouvelle demande", recent: "Activité récente", sub: "Suivi des commandes et réservations de", docs: "Mes Documents", myOrders: "Mes Commandes", noDocs: "Aucune facture disponible", logout: "Déconnexion", view: "Voir" }
-  }[language as 'es'|'ca'|'en'|'fr'] || { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad", booking: "Gestionar Booking", new: "Nueva solicitud", recent: "Actividad reciente", sub: "Seguimiento", docs: "Mis Documentos", myOrders: "Mis Pedidos", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "Ver" }), [language]);
+    es: { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad reciente", booking: "Gestionar Booking", new: "Nueva solicitud", recent: "Actividad reciente", sub: "Seguimiento de pedidos y reservas de", docs: "Mis Documentos", myOrders: "Mis Pedidos", myAlbaranes: "Mis Albaranes", noDocs: "No hay facturas disponibles", logout: "Cerrar sesión", view: "Ver", albaranesDesc: "Consultar entregas" },
+    ca: { title: "Panel de client", welcome: "Benvingut", stats: "registres", empty: "Sense activitat recent", booking: "Gestionar Booking", new: "Nova sol·licitud", recent: "Activitat recent", sub: "Seguiment de comandes i reserves de", docs: "Els Meus Documents", myOrders: "Les Meves Comandes", myAlbaranes: "Els meus Albarans", noDocs: "No hi ha factures disponibles", logout: "Tancar sessió", view: "Veure", albaranesDesc: "Consultar entregues" },
+    en: { title: "Customer panel", welcome: "Welcome", stats: "records", empty: "No recent activity", booking: "Manage Booking", new: "New request", recent: "Recent activity", sub: "Tracking of orders and bookings for", docs: "My Documents", myOrders: "My Orders", myAlbaranes: "My Delivery Notes", noDocs: "No invoices available", logout: "Logout", view: "View", albaranesDesc: "Check deliveries" },
+    fr: { title: "Espace client", welcome: "Bienvenue", stats: "enregistrements", empty: "Aucune activité récente", booking: "Gérer le Booking", new: "Nouvelle demande", recent: "Activité récente", sub: "Suivi des commandes et réservations de", docs: "Mes Documents", myOrders: "Mes Commandes", myAlbaranes: "Mes Bons de Livraison", noDocs: "Aucune facture disponible", logout: "Déconnexion", view: "Voir", albaranesDesc: "Consulter les livraisons" }
+  }[language as 'es'|'ca'|'en'|'fr'] || { title: "Panel de cliente", welcome: "Bienvenido", stats: "registros", empty: "Sin actividad", booking: "Gestionar Booking", new: "Nueva solicitud", recent: "Actividad reciente", sub: "Seguimiento", docs: "Mis Documentos", myOrders: "Mis Pedidos", myAlbaranes: "Mis Albaranes", noDocs: "Sin facturas", logout: "Cerrar sesión", view: "Ver", albaranesDesc: "Consultar entregas" }), [language]);
 
   const fetchDashboardData = useCallback(async () => {
     if (!user) return;
@@ -234,6 +235,7 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
+              {/* Mis Pedidos */}
               <Card className="border-none shadow-md bg-white overflow-hidden border-l-4 border-l-[#f39200]">
                 <CardContent className="p-4">
                   <Button 
@@ -248,6 +250,28 @@ export default function DashboardPage() {
                       <div className="text-left">
                         <span className="block text-sm font-black text-slate-900 tracking-tighter">{text.myOrders}</span>
                         <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">Historial Completo</span>
+                      </div>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-slate-300 group-hover:text-[#f39200] group-hover:translate-x-1 transition-all" />
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Mis Albaranes */}
+              <Card className="border-none shadow-md bg-white overflow-hidden border-l-4 border-l-[#f39200]">
+                <CardContent className="p-4">
+                  <Button 
+                    onClick={() => router.push('/albaranes')}
+                    variant="ghost"
+                    className="w-full h-auto flex items-center justify-between p-4 bg-slate-50 hover:bg-orange-50 group transition-all"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="bg-white p-3 rounded-2xl shadow-sm group-hover:bg-[#f39200] transition-colors">
+                        <ClipboardList className="h-6 w-6 text-[#f39200] group-hover:text-white" />
+                      </div>
+                      <div className="text-left">
+                        <span className="block text-sm font-black text-slate-900 tracking-tighter">{text.myAlbaranes}</span>
+                        <span className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest">{text.albaranesDesc}</span>
                       </div>
                     </div>
                     <ChevronRight className="h-5 w-5 text-slate-300 group-hover:text-[#f39200] group-hover:translate-x-1 transition-all" />
