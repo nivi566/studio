@@ -28,9 +28,9 @@ export function Hero() {
       <div className="relative container mx-auto px-4 z-10 grid lg:grid-cols-2 gap-12 lg:gap-24 items-center py-20">
         <div className="space-y-8 text-center lg:text-left text-white animate-in fade-in slide-in-from-left-8 duration-700">
           <div className="space-y-4">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter drop-shadow-2xl leading-[0.9] uppercase">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter drop-shadow-2xl leading-[0.9]">
               {t.hero.title} <br/>
-              <span className="text-primary italic font-black">{t.hero.titleItalic}</span>
+              <span className="text-primary font-black">{t.hero.titleItalic}</span>
             </h1>
             <p className="text-xl md:text-2xl text-neutral-200 max-w-xl mx-auto lg:mx-0 font-medium leading-relaxed drop-shadow-lg">
               {t.hero.subtitle}
