@@ -82,26 +82,12 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
     });
   }, [navLinks, user, pathname, t]);
 
-  const LanguageSelector = () => (
-    <div className="flex items-center gap-3 px-2">
-      {(['es', 'ca', 'en', 'fr'] as Language[]).map((lang, index) => (
-        <React.Fragment key={lang}>
-          <button
-            onClick={() => setLanguage(lang)}
-            className={cn(
-              "text-[11px] font-black transition-all uppercase tracking-widest",
-              language === lang 
-                ? "text-primary scale-110" 
-                : "text-foreground/60 hover:text-primary"
-            )}
-          >
-            {lang}
-          </button>
-          {index < 3 && <span className="text-foreground/10 text-[10px] font-light">|</span>}
-        </React.Fragment>
-      ))}
-    </div>
-  );
+  const languages: { code: Language; label: string }[] = [
+    { code: 'es', label: 'Español' },
+    { code: 'ca', label: 'Català' },
+    { code: 'en', label: 'English' },
+    { code: 'fr', label: 'Français' },
+  ];
 
   return (
     <>
@@ -143,10 +129,31 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
         ))}
       </nav>
 
-      <div className="flex flex-1 items-center justify-end gap-4">
-        <div className="hidden sm:block border-r pr-4 border-border/50">
-          <LanguageSelector />
-        </div>
+      <div className="flex flex-1 items-center justify-end gap-3">
+        {/* Selector de idioma con Icono de Mundo */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
+              <Globe className="h-5 w-5 text-foreground/70" />
+              <span className="sr-only">Seleccionar idioma</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="min-w-[120px]">
+            {languages.map((lang) => (
+              <DropdownMenuItem
+                key={lang.code}
+                onClick={() => setLanguage(lang.code)}
+                className={cn(
+                  "font-bold cursor-pointer",
+                  language === lang.code ? "text-primary bg-primary/5" : ""
+                )}
+              >
+                <span className="flex-1">{lang.label}</span>
+                <span className="text-[10px] font-black uppercase ml-2 opacity-40">{lang.code}</span>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         {!isLoading && (
           user ? (
@@ -207,8 +214,22 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
                 </Button>
               </div>
               
-              <div className="py-6 flex justify-center border-b bg-muted/30">
-                <LanguageSelector />
+              <div className="py-6 flex justify-around border-b bg-muted/30">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      setLanguage(lang.code);
+                      setIsMenuOpen(false);
+                    }}
+                    className={cn(
+                      "text-[11px] font-black uppercase tracking-widest px-2 py-1 rounded",
+                      language === lang.code ? "bg-primary text-primary-foreground" : "text-foreground/60"
+                    )}
+                  >
+                    {lang.code}
+                  </button>
+                ))}
               </div>
 
               <nav className="mt-4 flex flex-1 flex-col gap-2">
