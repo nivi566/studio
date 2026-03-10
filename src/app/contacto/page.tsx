@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, MapPin, Calculator } from 'lucide-react';
+import { Mail, MapPin, Calculator, Map as MapIcon } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -73,6 +73,39 @@ export default function ContactPage() {
                                 <p className="text-muted-foreground font-medium">info@intrack-logistics.cat</p>
                             </div>
                         </div>
+                    </div>
+
+                    {/* SECCIÓN GOOGLE MAPS */}
+                    <div className="space-y-4 pt-4">
+                        <div className="flex items-center gap-2 text-primary">
+                            <MapIcon className="h-5 w-5" />
+                            <span className="text-sm font-black uppercase tracking-widest">Nuestra Ubicación</span>
+                        </div>
+                        <div className="rounded-2xl overflow-hidden border-2 border-slate-100 shadow-lg h-[300px] bg-muted">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3042.144414123456!2d-3.7089123!3d40.3289123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4226cf6f6f6f6f%3A0x6f6f6f6f6f6f6f6f!2sC.%20de%20la%20Resina%2C%2041%2C%2028021%20Madrid!5e0!3m2!1ses!2ses!4v1710000000000!5m2!1ses!2ses" 
+                                width="100%" 
+                                height="100%" 
+                                style={{ border: 0 }} 
+                                allowFullScreen={true} 
+                                loading="lazy" 
+                                referrerPolicy="no-referrer-when-downgrade"
+                                className="grayscale hover:grayscale-0 transition-all duration-500"
+                            ></iframe>
+                        </div>
+                        <Button 
+                            variant="outline" 
+                            className="w-full font-black uppercase text-[10px] tracking-widest h-10"
+                            asChild
+                        >
+                            <a 
+                                href="https://www.google.com/maps/dir//Calle+Resina,+41,+28021,+Madrid" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                            >
+                                Cómo llegar en Google Maps
+                            </a>
+                        </Button>
                     </div>
                 </div>
 
