@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Send, User, Loader2, Bot, Sparkles } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -57,11 +58,23 @@ export default function AssistantPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="flex min-h-screen flex-col bg-slate-900">
       <Header />
-      <main className="flex-1 flex items-center justify-center py-10 px-4">
+      <main className="flex-1 relative flex items-center justify-center py-10 px-4 overflow-hidden">
         
-        <Card className="w-full max-w-4xl h-[80vh] flex flex-col shadow-2xl rounded-[24px] overflow-hidden border-none bg-white">
+        {/* Imagen de fondo modo espejo */}
+        <Image
+          src="/camion.png"
+          alt="InTrack Background Mirror"
+          fill
+          className="object-cover opacity-40 -scale-x-100"
+          priority
+        />
+        
+        {/* Capa de degradado superior/inferior para integrar */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
+
+        <Card className="relative z-10 w-full max-w-4xl h-[80vh] flex flex-col shadow-2xl rounded-[24px] overflow-hidden border-none bg-white/95 backdrop-blur-sm">
           
           {/* HEADER: AZUL MARINO CORPORATIVO (#0b212f) */}
           <CardHeader style={{ backgroundColor: '#0b212f' }} className="text-white py-5 px-8">
@@ -79,7 +92,7 @@ export default function AssistantPage() {
             </div>
           </CardHeader>
 
-          <CardContent className="flex-1 flex flex-col p-0 overflow-hidden bg-slate-50/50">
+          <CardContent className="flex-1 flex flex-col p-0 overflow-hidden bg-slate-50/30">
             <div ref={scrollAreaRef} className="flex-1 overflow-y-auto p-8 space-y-6">
               {messages.map((msg, index) => (
                 <div key={index} className={cn('flex items-start gap-4', msg.role === 'user' ? 'justify-end' : 'justify-start')}>

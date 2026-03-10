@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Send, User, Loader2 } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -67,12 +68,23 @@ export default function AssistantPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-slate-900">
       <Header />
-      <main className="flex-1 flex items-center justify-center py-12">
-        <Card className="w-full max-w-2xl h-[70vh] flex flex-col">
+      <main className="flex-1 relative flex items-center justify-center py-12 overflow-hidden">
+        
+        {/* Imagen de fondo modo espejo */}
+        <Image
+          src="/camion.png"
+          alt="InTrack Background Mirror"
+          fill
+          className="object-cover opacity-40 -scale-x-100"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
+
+        <Card className="relative z-10 w-full max-w-2xl h-[70vh] flex flex-col bg-white/95 backdrop-blur-sm shadow-2xl border-none">
           <CardHeader>
-            <CardTitle className="text-2xl flex items-center gap-2">
+            <CardTitle className="text-2xl flex items-center gap-2 font-black italic tracking-tighter">
               <Avatar className="h-8 w-8">
                 <AvatarImage src="/logoi.png" alt="InTrack Logo" />
                 <AvatarFallback>AI</AvatarFallback>
@@ -98,17 +110,17 @@ export default function AssistantPage() {
                   )}
                   <div
                     className={cn(
-                      'rounded-lg px-4 py-2 max-w-[80%]',
+                      'rounded-lg px-4 py-2 max-w-[80%] font-medium',
                       msg.role === 'user'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted'
+                        ? 'bg-[#f39c12] text-white'
+                        : 'bg-muted text-slate-900'
                     )}
                   >
-                    <p className="text-sm">{msg.content}</p>
+                    <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                   </div>
                    {msg.role === 'user' && (
                     <Avatar className="h-8 w-8">
-                      <AvatarFallback><User size={20} /></AvatarFallback>
+                      <AvatarFallback className="bg-slate-900 text-white text-xs font-bold">YO</AvatarFallback>
                     </Avatar>
                   )}
                 </div>
@@ -120,7 +132,7 @@ export default function AssistantPage() {
                      <AvatarFallback>AI</AvatarFallback>
                   </Avatar>
                   <div className="rounded-lg px-4 py-2 bg-muted flex items-center">
-                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <Loader2 className="h-5 w-5 animate-spin text-[#f39c12]" />
                   </div>
                 </div>
               )}
@@ -131,8 +143,9 @@ export default function AssistantPage() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Escribe tu consulta..."
                 disabled={isLoading}
+                className="bg-slate-50 border-slate-200"
               />
-              <Button type="submit" disabled={isLoading || !input.trim()}>
+              <Button type="submit" disabled={isLoading || !input.trim()} className="bg-[#f39c12] hover:bg-slate-900 text-white">
                 <Send className="h-5 w-5" />
               </Button>
             </form>
