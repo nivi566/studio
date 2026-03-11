@@ -41,16 +41,16 @@ export function Footer({ className }: { className?: string }) {
 
   return (
     <footer className={cn("relative bg-slate-50 text-foreground border-t overflow-hidden", className)}>
-      {/* Imagen de fondo del camión difuminada */}
-      <div className="absolute inset-0 z-0">
+      {/* Fondo con imagen de camión difuminada */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
         <Image 
           src="/camion.png" 
           alt="InTrack Footer Background" 
           fill 
-          className="object-cover opacity-10 blur-xl scale-110"
+          className="object-cover opacity-20 blur-md scale-105"
           priority={false}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/80 to-transparent" />
+        <div className="absolute inset-0 bg-white/70" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-12 lg:py-16">
