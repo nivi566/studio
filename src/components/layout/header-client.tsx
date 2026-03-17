@@ -17,7 +17,7 @@ import {
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription, SheetClose } from '@/components/ui/sheet';
 import { Logo } from '@/components/icons/logo';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -229,69 +229,79 @@ export function HeaderClient({ navLinks }: { navLinks: NavLink[] }) {
               <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-full max-w-xs bg-background">
+          <SheetContent side="right" className="w-full max-w-xs bg-background p-0 border-none">
             <SheetTitle className="sr-only">Navegación Móvil</SheetTitle>
             <SheetDescription className="sr-only">Enlaces principales del sitio para móviles</SheetDescription>
             <div className="flex h-full flex-col">
-              <div className="flex items-center justify-between border-b pb-4">
+              <div className="flex items-center justify-between border-b p-6">
                 <Logo />
-                <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(false)}>
-                  <X className="h-6 w-6" />
-                </Button>
+                <SheetClose asChild>
+                  <Button variant="ghost" size="icon">
+                    <X className="h-6 w-6" />
+                  </Button>
+                </SheetClose>
               </div>
               
-              <div className="py-6 flex justify-around border-b bg-muted/30">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => {
-                      setLanguage(lang.code);
-                      setIsMenuOpen(false);
-                    }}
-                    className={cn(
-                      "text-[11px] font-black uppercase tracking-widest px-2 py-1 rounded",
-                      language === lang.code ? "bg-primary text-primary-foreground" : "text-foreground/60"
-                    )}
-                  >
-                    {lang.code}
-                  </button>
-                ))}
+              <div className="flex-1 overflow-y-auto px-6 pb-10">
+                <div className="py-6 flex justify-around border-b bg-muted/30 -mx-6 mb-4">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setLanguage(lang.code);
+                        setIsMenuOpen(false);
+                      }}
+                      className={cn(
+                        "text-[11px] font-black uppercase tracking-widest px-3 py-1 rounded-full transition-colors",
+                        language === lang.code ? "bg-primary text-primary-foreground shadow-md" : "text-foreground/60 hover:bg-white/50"
+                      )}
+                    >
+                      {lang.code}
+                    </button>
+                  ))}
+                </div>
+
+                <nav className="flex flex-col gap-2">
+                  {dynamicLinks.map((link) => (
+                    <React.Fragment key={link.label}>
+                      {link.subLinks ? (
+                        <div className="flex flex-col">
+                          <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-6 mb-2">{link.label}</span>
+                          {link.subLinks.map((sub) => (
+                            <Link
+                              key={sub.href}
+                              href={sub.href}
+                              className="text-xl font-black text-foreground hover:text-primary transition-colors py-2.5 tracking-tighter flex items-center justify-between"
+                              onClick={(e) => handleNavClick(e, sub.href)}
+                            >
+                              {sub.label}
+                              {sub.href === '/booking' && <Bookmark className="h-5 w-5 text-primary" />}
+                            </Link>
+                          ))}
+                        </div>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="text-2xl font-black text-foreground hover:text-primary transition-colors py-4 border-b border-border/30 tracking-tighter"
+                          onClick={(e) => handleNavClick(e, link.href)}
+                        >
+                          {link.label}
+                        </Link>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </nav>
               </div>
 
-              <nav className="mt-4 flex flex-1 flex-col gap-2">
-                {dynamicLinks.map((link) => (
-                  <React.Fragment key={link.label}>
-                    {link.subLinks ? (
-                      <div className="flex flex-col">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-4 mb-2">{link.label}</span>
-                        {link.subLinks.map((sub) => (
-                          <Link
-                            key={sub.href}
-                            href={sub.href}
-                            className="text-xl font-black text-foreground hover:text-primary transition-colors py-2 tracking-tighter flex items-center justify-between"
-                            onClick={(e) => handleNavClick(e, sub.href)}
-                          >
-                            {sub.label}
-                            {sub.href === '/booking' && <Bookmark className="h-5 w-5 text-primary" />}
-                          </Link>
-                        ))}
-                      </div>
-                    ) : (
-                      <Link
-                        href={link.href}
-                        className="text-xl font-black text-foreground hover:text-primary transition-colors py-3 border-b border-border/30 tracking-tighter"
-                        onClick={(e) => handleNavClick(e, link.href)}
-                      >
-                        {link.label}
-                      </Link>
-                    )}
-                  </React.Fragment>
-                ))}
-              </nav>
-              <div className="mt-auto pb-8">
+              <div className="p-6 border-t mt-auto">
                  {!isLoading && !user && (
-                    <Button asChild className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-black tracking-widest rounded-full" size="lg">
+                    <Button asChild className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-black tracking-widest rounded-full h-14 text-lg shadow-lg active:scale-95 transition-all" size="lg">
                       <Link href="/login">{t.nav.login}</Link>
+                    </Button>
+                 )}
+                 {user && (
+                    <Button onClick={logout} variant="destructive" className="w-full font-black uppercase tracking-widest rounded-full h-12">
+                      <LogOut className="mr-2 h-4 w-4" /> {t.nav.logout}
                     </Button>
                  )}
               </div>
