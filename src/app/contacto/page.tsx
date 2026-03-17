@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, MapPin, Calculator, Map as MapIcon } from 'lucide-react';
+import { Mail, MapPin, Calculator, Map as MapIcon, CheckCircle2, Loader2 } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -24,6 +24,10 @@ export default function ContactPage() {
   const [weight, setWeight] = useState<string>('');
   const [shippingType, setShippingType] = useState<string>('nacional');
   const [totalPrice, setTotalPrice] = useState<number | null>(null);
+  
+  // Estados para el envío del formulario
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     const w = parseFloat(weight);
@@ -35,6 +39,35 @@ export default function ContactPage() {
       setTotalPrice(null);
     }
   }, [weight, shippingType]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xrbnkanl", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);
+        form.reset();
+        setWeight('');
+        setTotalPrice(null);
+      }
+    } catch (error) {
+      console.error("Error enviando el formulario:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -109,92 +142,122 @@ export default function ContactPage() {
                     </div>
                 </div>
 
-                {/* FORMULARIO CON CALCULADORA FIJA */}
+                {/* FORMULARIO CON ESTADO DE ÉXITO */}
                 <div>
-                     <Card className="border-4 border-primary/10 shadow-2xl">
+                     <Card className="border-4 border-primary/10 shadow-2xl overflow-hidden">
+                        <div className="h-2 bg-primary w-full" />
                         <CardHeader className="pb-4">
-                            <CardTitle className="text-2xl font-black tracking-tighter">{t.contact.formTitle}</CardTitle>
+                            <CardTitle className="text-2xl font-black tracking-tighter">
+                              {isSuccess ? '¡Enviado!' : t.contact.formTitle}
+                            </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                            <form action="https://formspree.io/f/xrbnkanl" method="POST" className="space-y-5">
-                                
-                                {/* --- SECCIÓN CALCULADORA (Dentro del form) --- */}
-                                <div className="p-4 bg-muted/50 rounded-xl border-2 border-primary/10 space-y-4 mb-6">
-                                    <div className="flex items-center gap-2 text-primary">
-                                        <Calculator className="h-4 w-4" />
-                                        <span className="text-xs font-black uppercase tracking-widest">Calculadora de Envío</span>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <Label className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">Peso (kg)</Label>
-                                            <Input 
-                                                type="number" 
-                                                name="calculo_peso" // Importante para Formspree
-                                                placeholder="0" 
-                                                value={weight} 
-                                                onChange={(e) => setWeight(e.target.value)}
-                                                className="font-bold bg-background"
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">Tipo</Label>
-                                            <Select onValueChange={setShippingType} defaultValue="nacional" name="calculo_tipo">
-                                                <SelectTrigger className="font-bold bg-background text-foreground">
-                                                    <SelectValue />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="nacional" className="font-bold">Nacional</SelectItem>
-                                                    <SelectItem value="internacional" className="font-bold">Internacional</SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                        </div>
-                                    </div>
-                                    
-                                    {totalPrice !== null && (
-                                        <div className="text-center p-3 bg-primary rounded-lg shadow-sm">
-                                            <p className="text-[10px] text-primary-foreground/70 font-black uppercase tracking-wider">Presupuesto Estimado</p>
-                                            <p className="text-2xl font-black text-primary-foreground">{totalPrice.toFixed(2)}€</p>
-                                            <input type="hidden" name="precio_estimado" value={`${totalPrice.toFixed(2)}€`} />
-                                        </div>
-                                    )}
+                        <CardContent className="min-h-[400px] flex flex-col justify-center">
+                            {isSuccess ? (
+                              <div className="text-center space-y-6 animate-in fade-in zoom-in duration-500">
+                                <div className="flex justify-center">
+                                  <div className="bg-green-100 p-6 rounded-full">
+                                    <CheckCircle2 className="h-16 w-16 text-green-600" />
+                                  </div>
                                 </div>
-                                {/* --- FIN CALCULADORA --- */}
-
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label htmlFor="name" className="font-black uppercase text-[10px] tracking-widest">{t.contact.name}</Label>
-                                        <Input id="name" name="name" placeholder={t.contact.name} required className="font-bold" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="email" className="font-black uppercase text-[10px] tracking-widest">{t.contact.email}</Label>
-                                        <Input id="email" name="email" type="email" placeholder="tu@email.com" required className="font-bold" />
-                                    </div>
-                                </div>
-
                                 <div className="space-y-2">
-                                    <Label htmlFor="reason" className="font-black uppercase text-[10px] tracking-widest">{t.contact.reason}</Label>
-                                    <Select name="reason" required>
-                                        <SelectTrigger className="font-bold text-foreground">
-                                            <SelectValue placeholder={t.contact.reasonPlaceholder} />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="presupuesto" className="font-bold">Solicitar este presupuesto</SelectItem>
-                                            <SelectItem value="codigo" className="font-bold">{t.contact.reasons?.code || "Duda con código"}</SelectItem>
-                                            <SelectItem value="internacional" className="font-bold">{t.contact.reasons?.intl || "Envío Internacional"}</SelectItem>
-                                            <SelectItem value="otro" className="font-bold">{t.contact.reasons?.other || "Otro motivo"}</SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                  <h3 className="text-2xl font-black tracking-tighter text-slate-900">¡Gracias!</h3>
+                                  <p className="text-lg font-medium text-slate-600">
+                                    Gracias, su solicitud ha sido enviada correctamente.
+                                  </p>
                                 </div>
-
-                                <div className="space-y-2">
-                                    <Label htmlFor="message" className="font-black uppercase text-[10px] tracking-widest">{t.contact.message}</Label>
-                                    <Textarea id="message" name="message" placeholder={t.contact.messagePlaceholder} className="min-h-[100px] font-bold" required />
-                                </div>
-
-                                <Button type="submit" className="w-full text-lg h-14 font-black tracking-widest bg-primary hover:bg-primary/90 shadow-lg active:scale-[0.98] transition-all">
-                                    {t.contact.submit}
+                                <Button 
+                                  variant="outline" 
+                                  onClick={() => setIsSuccess(false)}
+                                  className="font-bold border-2"
+                                >
+                                  Enviar otro mensaje
                                 </Button>
-                            </form>
+                              </div>
+                            ) : (
+                              <form onSubmit={handleSubmit} className="space-y-5">
+                                  
+                                  {/* --- SECCIÓN CALCULADORA --- */}
+                                  <div className="p-4 bg-muted/50 rounded-xl border-2 border-primary/10 space-y-4 mb-6">
+                                      <div className="flex items-center gap-2 text-primary">
+                                          <Calculator className="h-4 w-4" />
+                                          <span className="text-xs font-black uppercase tracking-widest">Calculadora de Envío</span>
+                                      </div>
+                                      <div className="grid grid-cols-2 gap-4">
+                                          <div className="space-y-2">
+                                              <Label className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">Peso (kg)</Label>
+                                              <Input 
+                                                  type="number" 
+                                                  name="calculo_peso"
+                                                  placeholder="0" 
+                                                  value={weight} 
+                                                  onChange={(e) => setWeight(e.target.value)}
+                                                  className="font-bold bg-background"
+                                              />
+                                          </div>
+                                          <div className="space-y-2">
+                                              <Label className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">Tipo</Label>
+                                              <Select onValueChange={setShippingType} defaultValue="nacional" name="calculo_tipo">
+                                                  <SelectTrigger className="font-bold bg-background text-foreground">
+                                                      <SelectValue />
+                                                  </SelectTrigger>
+                                                  <SelectContent>
+                                                      <SelectItem value="nacional" className="font-bold">Nacional</SelectItem>
+                                                      <SelectItem value="internacional" className="font-bold">Internacional</SelectItem>
+                                                  </SelectContent>
+                                              </Select>
+                                          </div>
+                                      </div>
+                                      
+                                      {totalPrice !== null && (
+                                          <div className="text-center p-3 bg-primary rounded-lg shadow-sm">
+                                              <p className="text-[10px] text-primary-foreground/70 font-black uppercase tracking-wider">Presupuesto Estimado</p>
+                                              <p className="text-2xl font-black text-primary-foreground">{totalPrice.toFixed(2)}€</p>
+                                              <input type="hidden" name="precio_estimado" value={`${totalPrice.toFixed(2)}€`} />
+                                          </div>
+                                      )}
+                                  </div>
+
+                                  <div className="grid grid-cols-2 gap-4">
+                                      <div className="space-y-2">
+                                          <Label htmlFor="name" className="font-black uppercase text-[10px] tracking-widest">{t.contact.name}</Label>
+                                          <Input id="name" name="name" placeholder={t.contact.name} required className="font-bold" />
+                                      </div>
+                                      <div className="space-y-2">
+                                          <Label htmlFor="email" className="font-black uppercase text-[10px] tracking-widest">{t.contact.email}</Label>
+                                          <Input id="email" name="email" type="email" placeholder="tu@email.com" required className="font-bold" />
+                                      </div>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                      <Label htmlFor="reason" className="font-black uppercase text-[10px] tracking-widest">{t.contact.reason}</Label>
+                                      <Select name="reason" required>
+                                          <SelectTrigger className="font-bold text-foreground">
+                                              <SelectValue placeholder={t.contact.reasonPlaceholder} />
+                                          </SelectTrigger>
+                                          <SelectContent>
+                                              <SelectItem value="presupuesto" className="font-bold">Solicitar este presupuesto</SelectItem>
+                                              <SelectItem value="codigo" className="font-bold">{t.contact.reasons?.code || "Duda con código"}</SelectItem>
+                                              <SelectItem value="internacional" className="font-bold">{t.contact.reasons?.intl || "Envío Internacional"}</SelectItem>
+                                              <SelectItem value="otro" className="font-bold">{t.contact.reasons?.other || "Otro motivo"}</SelectItem>
+                                          </SelectContent>
+                                      </Select>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                      <Label htmlFor="message" className="font-black uppercase text-[10px] tracking-widest">{t.contact.message}</Label>
+                                      <Textarea id="message" name="message" placeholder={t.contact.messagePlaceholder} className="min-h-[100px] font-bold" required />
+                                  </div>
+
+                                  <Button type="submit" disabled={isSubmitting} className="w-full text-lg h-14 font-black tracking-widest bg-primary hover:bg-primary/90 shadow-lg active:scale-[0.98] transition-all">
+                                      {isSubmitting ? (
+                                        <>
+                                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                                          Enviando...
+                                        </>
+                                      ) : t.contact.submit}
+                                  </Button>
+                              </form>
+                            )}
                         </CardContent>
                     </Card>
                 </div>
